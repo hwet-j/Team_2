@@ -23,7 +23,7 @@
 		<!-- param-value를 작성해줄때는 공백을 모두 포함해서 인식하기 때문에 = 연산산자 뒤에 공백이없도록 작성해야함 -->
 		<param-value>
 			jdbcdriver=com.mysql.cj.jdbc.Driver
-			jdbcUrl=jdbc:mysql://localhost:3333/CAB?characterEncoding=utf8&amp;serverTimezone=UTC
+			jdbcUrl=jdbc:mysql://localhost:3306/CAB?characterEncoding=utf8&amp;serverTimezone=UTC
 			dbUser=scott
 			dbPass=tiger
 			validationQuery=select 1
