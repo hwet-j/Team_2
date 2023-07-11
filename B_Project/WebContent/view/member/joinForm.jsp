@@ -96,7 +96,7 @@ $(document).ready(function() {
     /**************************************
 	각 속성별 규칙을 잘 적용했는가 확인
 	**************************************/
-    
+     
     // blur은 포커스를 잃을 때 발생하는 이벤트 
 	$('#user_id').blur(function(){
 		
@@ -284,7 +284,7 @@ String.prototype.trim = function() {
 <br/>
 
 
-<form name="write" method="post" action="#" enctype="multipart/form-data">
+<form name="write" method="post" action="join.do" >
 
 	<input type="hidden" name="id" value="" />
 
@@ -304,8 +304,8 @@ String.prototype.trim = function() {
                     </span>
                 </div>
             <span class="j_t_i" id="id_message_span"> </span>
-            </li>
-
+            </li> 
+  
             <li>
             	<span class="j_t">비밀번호</span> 
             		<input  name="password" id="password" type="password" maxlength=16 class="inp_ty01" />
@@ -362,12 +362,12 @@ String.prototype.trim = function() {
             
             <li>
 	            <span class="j_t">생년월일</span> 
-	            <input name="birth" type="date" class="inp_ty01" id="birth_date" required />
+	            <input name="birth" type="date" class="inp_ty01" id="birth_date" />
             </li>
             
             <li>
 	            <span class="j_t">전화번호</span> 
-	            <input type="tel" id="phonenum" name="phonenum" placeholder="000-1234-5678" pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}" required/>
+	            <input type="tel" id="phonenum" name="phonenum" placeholder="000-1234-5678" pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}" />
 	            <div class="arrow_box" id="tel_info_span">
 	                <span>* 전화번호 생성 규칙 
 	                <br> 1. 000-1234-5678 의 형식을 유지
@@ -376,6 +376,7 @@ String.prototype.trim = function() {
 	            </div>
             </li>
             
+            <!-- 이메일 사용 X 
             <li>
 	            <span class="j_t">이메일</span>
 	            <input name="email" id="email" type="hidden" maxlength=255 value=""  class="inp_ty01" />
@@ -396,7 +397,7 @@ String.prototype.trim = function() {
 	
 	            <span class="j_t_i" id="mail_message_span"></span>
             </li>
-            
+             -->
 
         </ul>
 
@@ -404,6 +405,7 @@ String.prototype.trim = function() {
             <a class="n_u_02" onclick="check_submit()"  style="cursor:pointer;">가입하기</a>
         </div>
     </div>
-
+	<input type="text" value="실험" name ="test" >
+	<input type="submit" value="전송">
 </form>
 
