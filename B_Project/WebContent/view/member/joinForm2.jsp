@@ -52,6 +52,7 @@ function checkDuplicate() {
 }
 
 
+var check_ing = -1;
 
 
 function check_submit()
@@ -64,7 +65,10 @@ function check_submit()
          $('#password1').focus();
      }else if(!nicknameChkResult){
          $('#user_nickname').focus();
+     }else if(check_ing == 1){
+    	 alert('가입 진행중입니다');
      } else{
+    	 check_ing = 1;
          document.forms['write'].submit();
      }
   }
@@ -177,14 +181,7 @@ $(document).ready(function() {
 		// 비밀번호 확인 유효성 확인
 		var pwd1Chk = chkPassword_repeat(password, password1, passwordChkResult);
 		password1ChkResult = pwd1Chk['flagR'];
-		// 비밀번호 정확하게 입력하면 초록색 그렇지않으면 빨간색
-		if (pwd1Chk['msg'] == '정확하게 입력하셨습니다.'){
-			$("#password1_message_span").css("color","#72C55D");
-		} else {
-			$("#password1_message_span").css("color","red");
-		}
 		$("#password1_message_span").text(pwd1Chk['msg']);
-		
 	});
 
 	/**************************************
@@ -287,7 +284,7 @@ String.prototype.trim = function() {
 <br/>
 
 
-<form name="write" method="post" action="join.do" >
+<form name="write" method="post" action="join.do" enctype="multipart/form-data">
 
 	<input type="hidden" name="id" value="" />
 
@@ -307,8 +304,8 @@ String.prototype.trim = function() {
                     </span>
                 </div>
             <span class="j_t_i" id="id_message_span"> </span>
-            </li> 
-  
+            </li>
+
             <li>
             	<span class="j_t">비밀번호</span> 
             		<input  name="password" id="password" type="password" maxlength=16 class="inp_ty01" />
@@ -365,12 +362,12 @@ String.prototype.trim = function() {
             
             <li>
 	            <span class="j_t">생년월일</span> 
-	            <input name="birth" type="date" class="inp_ty01" id="birth_date" />
+	            <input name="birth" type="date" class="inp_ty01" id="birth_date" required />
             </li>
             
             <li>
 	            <span class="j_t">전화번호</span> 
-	            <input type="tel" id="phonenum" name="phonenum" placeholder="000-1234-5678" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" />
+	            <input type="tel" id="phonenum" name="phonenum" placeholder="000-1234-5678" pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}" required/>
 	            <div class="arrow_box" id="tel_info_span">
 	                <span>* 전화번호 생성 규칙 
 	                <br> 1. 000-1234-5678 의 형식을 유지
@@ -407,7 +404,8 @@ String.prototype.trim = function() {
         <div class="btn_join_03">
             <a class="n_u_02" onclick="check_submit()"  style="cursor:pointer;">가입하기</a>
         </div>
+        <input type="submit" value="전송">
     </div>
-	<input type="submit" value="테스트">
+
 </form>
 
