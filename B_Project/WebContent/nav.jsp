@@ -75,10 +75,10 @@
 		<ul class="nav justify-content-end">
 		<c:if test="${sessionScope.username == null}">
 			<li class="nav-item">
-			    <a class="nav-link" href="<%=request.getContextPath() %>/view/login.jsp">로그인</a>
+			    <a class="nav-link" href="<%=request.getContextPath() %>/loginForm.do">로그인</a>
 			</li>
 			<li class="nav-item">
-			    <a class="nav-link" href="<%=request.getContextPath() %>/view/member/joinform.jsp">회원가입</a>
+			    <a class="nav-link" href="<%=request.getContextPath() %>/joinForm.do">회원가입</a>
 			</li>
 		</c:if>
 		<c:if test="${sessionScope.username != null}">
