@@ -12,7 +12,7 @@ import member.model.MemberDTO;
 
 public class MemberDAO {
 	
-	public void joinInsert(Connection conn, MemberDTO mem) throws SQLException {
+	public int joinInsert(Connection conn, MemberDTO mem) throws SQLException {
 		// 객체준비
 		String sql = "INSERT INTO user_info "
 				+ "(user_id, user_pw, user_name, user_birth, user_nickname, user_gender, user_tlno, user_joindate) " + 
@@ -27,10 +27,10 @@ public class MemberDAO {
 		pstmt.setString(6,mem.getUserGender());
 		pstmt.setString(7,mem.getUserTlno());
 		
-		System.out.println(new Timestamp(mem.getUserBirth().getTime()));
 		// 쿼리실행
-		// int rowCnt = pstmt.executeUpdate();
-		// System.out.println("MemberDAO-insert()실행결과="+rowCnt);//콘솔 확인용
+		int result = pstmt.executeUpdate();
+		
+		return result;
 	}
 
 }
