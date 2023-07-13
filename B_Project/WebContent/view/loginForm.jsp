@@ -20,7 +20,7 @@
 		$("#password").keypress(function (e) {;
     	    if (e.which == 13){
     	    	zb_login_check_submit();
-    	    }
+    	    } 
     	});
 		$('#user_id').focus();
 	});
