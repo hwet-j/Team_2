@@ -11,7 +11,7 @@ public class JoinFormHandler implements CommandHandler{
 	//요청메서드
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		hjghjgjh
 		return "/view/member/joinForm.jsp";
 	}
 } 
