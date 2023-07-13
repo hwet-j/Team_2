@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	sfa
+	게시판
 </body>
 </html>
