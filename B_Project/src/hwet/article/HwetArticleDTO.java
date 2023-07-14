@@ -1,8 +1,8 @@
-package hwet.board;
+package hwet.article;
 
 import java.util.Date;
 
-public class HwetBoardDTO {
+public class HwetArticleDTO {
     private int boardId;
     private String writer;
     private String title;
@@ -13,9 +13,12 @@ public class HwetBoardDTO {
     private int hit;
     private Date updateDate;
     
-    public HwetBoardDTO(int boardId, String writer, String title, String category, String link, String content,
+    public HwetArticleDTO() {
+    	
+    }
+    
+    public HwetArticleDTO(int boardId, String writer, String title, String category, String link, String content,
 			Date regDate, int hit, Date updateDate) {
-		super();
 		this.boardId = boardId;
 		this.writer = writer;
 		this.title = title;
