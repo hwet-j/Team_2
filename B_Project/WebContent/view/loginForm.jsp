@@ -62,7 +62,7 @@
 	            
 	            <li class="auto_log"><label><input type="checkbox" id="aLogin" name="auto_login" value=1 /><span class="autol">자동 로그인</span></label></li>
 	            <li class="log_btn_02">
-	            	<a href="<%=request.getContextPath() %>/join.jsp">회원가입</a> |
+	            	<a href="<%=request.getContextPath() %>/join.do">회원가입</a> |
                     <a href="#">아이디 찾기</a> |
                     <a href="#">비밀번호 찾기</a> |
                     <a href="#">소셜회원탈퇴</a>
