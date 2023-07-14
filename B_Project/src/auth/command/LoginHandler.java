@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import auth.service.LoginFailException;
 import mvc.command.CommandHandler;
 
+
+
 // login.do
 public class LoginHandler implements CommandHandler{
 	
@@ -76,7 +78,8 @@ public class LoginHandler implements CommandHandler{
 	
 
 	private String processForm(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		// Get방식으로 요청받으면 로그인 창을 띄우는 핸들러 실행
 		return "/loginForm.do";
 	}
+	
 }

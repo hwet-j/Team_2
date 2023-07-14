@@ -1,4 +1,4 @@
-package board.hwet;
+package hwet.board;
 
 import java.util.Date;
 
