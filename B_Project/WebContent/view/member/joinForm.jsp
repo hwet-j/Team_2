@@ -20,10 +20,13 @@
 <script>
 
 var idChkResult = false;
-var nicknameChkResult = false;
-var telnumberChkResult = false;
 var passwordChkResult = false;
 var password1ChkResult = false;
+var nameChkResult = false;
+var nicknameChkResult = false;
+var genderChkResult = false;
+var birthChkResult = false;
+var telnumberChkResult = false;
 
 //아이디 중복 확인 요청
 function checkDuplicate() {
@@ -80,6 +83,9 @@ function check_submit()
 	 $('#user_id').blur();
 	 $('#user_nickname').blur();
 	 $('#phonenum').blur();
+	 $('#user_name').blur();
+	 $('#birth_date').blur();
+	 $('#gender').blur();
 	 
 	 // 형식에 전부 올바르게 작성했다면 checkDuplicate진행
      if(!idChkResult){
@@ -90,6 +96,12 @@ function check_submit()
          $('#password1').focus();
      }else if(!nicknameChkResult){
          $('#user_nickname').focus();
+     }else if(!nameChkResult){
+         $('#user_name').focus();
+     }else if(!genderChkResult){
+         $('#gender').focus();
+     }else if(!birthChkResult){
+         $('#birth_date').focus();
      }else if(!telnumberChkResult){
          $('#phonenum').focus();
      } else{
@@ -143,20 +155,60 @@ $(document).ready(function() {
 		
 	});
     
-
+	// 닉네임
 	$('#user_nickname').blur(function(){
 
 		$("#nickname_info_span").hide();
 
 		var nickname = $('#user_nickname').val();
 
-		var result_obj = chkUserNinkName(nickname);
+		var result_obj = chkUserNickName(nickname);
 		nicknameChkResult = result_obj.flag;
 
 		$("#nickname_message_span").text(result_obj.msg);
 
 	});
 	
+	// 이름
+	$('#user_name').blur(function(){
+
+		var name = $('#user_name').val();
+
+		var result_obj = chkUserName(name);
+		
+		nameChkResult = result_obj.flag;
+
+		$("#name_message_span").text(result_obj.msg);
+
+	});
+	
+	// 성별
+	$('#gender').blur(function(){
+
+		var gender = $('#gender').val();
+
+		var result_obj = chkUserGender(gender);
+		
+		genderChkResult = result_obj.flag;
+
+		$("#gender_message_span").text(result_obj.msg);
+
+	});
+	
+	// 성별
+	$('#birth_date').blur(function(){
+
+		var birth_date = $('#birth_date').val();
+
+		var result_obj = chkUserBirth(birth_date);
+		
+		birthChkResult = result_obj.flag;
+
+		$("#birth_message_span").text(result_obj.msg);
+
+	});
+	
+	// 전화번호
 	$('#phonenum').blur(function(){
 
 		$("#tel_info_span").hide();
@@ -169,7 +221,8 @@ $(document).ready(function() {
 		$("#tel_message_span").text(result_obj.msg);
 
 	});
-
+	
+	// 비밀번호
 	$('#password').blur(function(){
 		var password = $('#password').val();
 		var user_id = $("#user_id").val();
@@ -197,7 +250,8 @@ $(document).ready(function() {
 		}
 		
 	});
-
+	
+	// 비밀번호 확인
 	$('#password1').blur(function(){
 		var password = $('#password').val();
 		var password1 = $('#password1').val();
@@ -262,7 +316,7 @@ $(document).ready(function() {
 	$("#nickname_info_span").hide();
 	$("#tel_info_span").hide();
 
-	//이메일 도메인 선택
+	/* //이메일 도메인 선택
     $("#selectEmailDomain").change(function() {
         var selectEmailDomain = $("#selectEmailDomain").val();
         if(selectEmailDomain == "otherDomains") {
@@ -278,7 +332,7 @@ $(document).ready(function() {
     //이메일 도메인 변경
     $("#emailDomain").change(function() {
         $("#email").blur();
-    });
+    }); */
 });
 
 
@@ -362,7 +416,7 @@ String.prototype.trim = function() {
 			
 			<li>
 	            <span class="j_t">이름</span> 
-	            <input name="name" type="text" maxlength=20 class="inp_ty01" id="user_name" >
+	            <input name="name" type="text" maxlength=20 class="inp_ty01" id="user_name">
 	            <span class="j_t_i" id="name_message_span"></span>
             </li>
 			
@@ -375,25 +429,26 @@ String.prototype.trim = function() {
 	                <br> 2. 4byte 이상 20byte 이하
 	                <br> 3. 특수문자 _-@!~+= 사용가능
 	                <br> 4. 공백 사용제한</span>
-	            </div>
+	            </div> 
 	            <span class="j_t_i" id="nickname_message_span"></span>
             </li>
             
             <li>
 	            <span class="j_t">성별</span> 
-	            <select name="gender">
-	            
+	            <select id="gender" name="gender" required>
 				  <option value="">성별을 선택하세요</option>
 				  <optgroup label="-------------------------">
 				  <option value="male">남자</option>
 				  <option value="female">여자</option>
 				  </optgroup>
 				</select>
+				<span class="j_t_i" id="gender_message_span"></span>
             </li>
             
             <li>
 	            <span class="j_t">생년월일</span> 
 	            <input name="birth" type="date" class="inp_ty01" id="birth_date" required/>
+	            <span class="j_t_i" id="birth_message_span"></span>
             </li>
             
             <li>
