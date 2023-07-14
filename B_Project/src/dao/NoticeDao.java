@@ -34,7 +34,7 @@ public class NoticeDao {
 		}	
 	}	
 	//
-    public  List<Notice> select(Connection conn)  throws SQLException{
+    public  List<Notice> select(Connection conn,int startRow,int size )  throws SQLException{
     	String sql= "select notice_no, user_id, notice_title, notice_content, notice_views " + 
     				"from noticeboard " +
     				"order by notice_no desc  limit ?,?";
@@ -42,7 +42,9 @@ public class NoticeDao {
     	ResultSet rs = null;
     	try {
 			 stmt =conn.prepareStatement(sql);
-		
+			 	stmt.setInt(1,startRow);
+			 	stmt.setInt(2,size);
+				
 				rs = stmt.executeQuery();
 			
 				List<Notice> result = new ArrayList<Notice>();
