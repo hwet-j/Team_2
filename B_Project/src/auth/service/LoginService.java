@@ -1,4 +1,4 @@
-package member.service;
+package auth.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;

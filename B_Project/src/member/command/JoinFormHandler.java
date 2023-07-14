@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import mvc.command.CommandHandler;
 
+/* 회원가입 창과 연결해주는 Handler */
+
 // joinForm.do
 public class JoinFormHandler implements CommandHandler{
 	          

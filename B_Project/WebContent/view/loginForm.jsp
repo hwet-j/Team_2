@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 
+<%-- sweetAlert2 : 알림창 관련 디자인 --%>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <head>
     <title>로그인 화면</title>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/popup_login.css">
@@ -30,12 +33,20 @@
         var $password = document.getElementById('password');
 
         if ($('#user_id').val() === "") {
-            alert("아이디를 입력해주십시요");
+        	Swal.fire({
+        		  icon: 'error',
+        		  title: 'ID Not Entered...',
+        		  text: '아이디를 입력해주세요!',
+       		})
             $('#user_id').focus();
             return false;
         }
         if ($('#password').val() === "") {
-            alert("비밀번호를 입력해주십시요");
+        	Swal.fire({
+      		  icon: 'error',
+      		  title: 'Password Not Entered...',
+      		  text: '비밀번호를 입력해주세요!',
+     		})
             $('#password').focus();
             return false;
         }
@@ -62,7 +73,7 @@
 	            
 	            <li class="auto_log"><label><input type="checkbox" id="aLogin" name="auto_login" value=1 /><span class="autol">자동 로그인</span></label></li>
 	            <li class="log_btn_02">
-	            	<a href="<%=request.getContextPath() %>/join.jsp">회원가입</a> |
+	            	<a href="<%=request.getContextPath() %>/join.do">회원가입</a> |
                     <a href="#">아이디 찾기</a> |
                     <a href="#">비밀번호 찾기</a> |
                     <a href="#">소셜회원탈퇴</a>

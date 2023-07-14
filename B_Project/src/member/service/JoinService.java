@@ -18,9 +18,10 @@ public class JoinService {
 		int result = 0;
 		try {
 			conn = ConnectionProvider.getConnection();
-			//autoCommit false 설정 
+			// autoCommit false 설정 
 			conn.setAutoCommit(false); 
 			
+			// 리턴값 0 : 회원가입 실패, 리턴값 1 : 회원가입 성공
 			result = memberDAO.joinInsert(conn, member);
 						
 			conn.commit(); 
