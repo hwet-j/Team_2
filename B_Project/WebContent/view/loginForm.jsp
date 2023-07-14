@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 
+<%-- sweetAlert2 : 알림창 관련 디자인 --%>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <head>
     <title>로그인 화면</title>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/popup_login.css">
@@ -30,12 +33,20 @@
         var $password = document.getElementById('password');
 
         if ($('#user_id').val() === "") {
-            alert("아이디를 입력해주십시요");
+        	Swal.fire({
+        		  icon: 'error',
+        		  title: 'ID Not Entered...',
+        		  text: '아이디를 입력해주세요!',
+       		})
             $('#user_id').focus();
             return false;
         }
         if ($('#password').val() === "") {
-            alert("비밀번호를 입력해주십시요");
+        	Swal.fire({
+      		  icon: 'error',
+      		  title: 'Password Not Entered...',
+      		  text: '비밀번호를 입력해주세요!',
+     		})
             $('#password').focus();
             return false;
         }
