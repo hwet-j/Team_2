@@ -24,6 +24,10 @@ public class MemberDTO {
 		this.userJoinDate = userJoinDate;
 	}
 	
+	public MemberDTO(String userId) {
+		this.userId = userId;
+	}
+	
 	public MemberDTO(String userId, String userPw, String userName, Date userBirth, String userNickname,
 			String userGender, String userTlno) {
 		this.userId = userId;

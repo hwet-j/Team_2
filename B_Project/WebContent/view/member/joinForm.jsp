@@ -2,19 +2,18 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" >
+<html>
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"> -->
 
 <title>B조홈페이지::회원가입</title>
 
 <link href="<%=request.getContextPath() %>/assets/css/join.css" rel="stylesheet" type="text/css" />
-
-<script src="<%=request.getContextPath() %>/assets/js/jquery-3.7.0.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/assets/js/chk_member_info.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/assets/js/chk_password.js" type="text/javascript"></script>
 
@@ -28,21 +27,41 @@ var password1ChkResult = false;
 
 //아이디 중복 확인 요청
 function checkDuplicate() {
-    let userid = $("#user_id");
+    let userid = $("input[name='user_id']");
+    let username = $("input[name='nickname']");
+    let tlno = $("input[name='phonenum']");
+    var contextPath = '<%= request.getContextPath() %>';
     // AJAX 요청
     $.ajax({
-        url: "checkDuplicate.jsp",
+        url: contextPath + "/view/member/checkDuplicate.jsp",
         type: "POST",
-        data: { userid: userid },
+        data: { userid: userid.val() ,
+	        	username: username.val(),
+	            tlno: tlno.val() },
         success: function(response) {
         	var message = response.replace(/\s/g, ""); // 공백 제거(줄바꾸믕로 해결되지 않아 공백제거로 변경...)
-            if (message === "duplicate") {
-                // 아이디 중복
-                document.getElementById("user_id").focus();
-                alert("이미 사용 중인 아이디입니다.");
+            if (message === "id_duplicate") {	 // 아이디 중복
+                userid.focus();
+                $("#id_message_span").text("이미 사용 중인 아이디입니다.");
+                idChkResult = false;
+                return;
             } else {
-                // 아이디 중복 아님
-                alert("사용 가능한 아이디입니다.");
+            	if (message === "nickname_duplicate") {	 // 닉네임 중복
+            		username.focus();
+                    $("#nickname_message_span").text("이미 사용 중인 닉네임입니다.");
+                    nicknameChkResult = false;
+                    return;
+            	} else {
+            		if (message === "tlno_duplicate") {	 // 전화번호 중복
+            			tlno.focus();
+                        $("#tel_message_span").text("이미 사용 중인 전화번호입니다.");
+                        telnumberChkResult = false;
+                        return;
+                	} else {
+                		// 중복 정보가 없으면 submit 진행
+                		document.forms['write'].submit();
+                	}
+            	}
             }
         },
         error: function(xhr, status, error) {
@@ -56,6 +75,13 @@ function checkDuplicate() {
 
 function check_submit()
  {
+	// 함수를 시작하면서 blur작업을 진행해야지 정상적으로 진행됨 만약 형식에 어긋나는 정보가 존재하지만 focus() 상태에서 submit이 진행되면 그대로 전송됨
+	// 단, password 관련 정보는 blur() 작업시, 초기화 작업이 진행되기도 하므로 제외하고 진행한다. 
+	 $('#user_id').blur();
+	 $('#user_nickname').blur();
+	 $('#phonenum').blur();
+	 
+	 // 형식에 전부 올바르게 작성했다면 checkDuplicate진행
      if(!idChkResult){
          $('#user_id').focus();
      }else if(!passwordChkResult){
@@ -64,8 +90,10 @@ function check_submit()
          $('#password1').focus();
      }else if(!nicknameChkResult){
          $('#user_nickname').focus();
+     }else if(!telnumberChkResult){
+         $('#phonenum').focus();
      } else{
-         document.forms['write'].submit();
+    	 checkDuplicate();
      }
   }
 
@@ -365,18 +393,19 @@ String.prototype.trim = function() {
             
             <li>
 	            <span class="j_t">생년월일</span> 
-	            <input name="birth" type="date" class="inp_ty01" id="birth_date" />
+	            <input name="birth" type="date" class="inp_ty01" id="birth_date" required/>
             </li>
             
             <li>
 	            <span class="j_t">전화번호</span> 
-	            <input type="tel" id="phonenum" name="phonenum" placeholder="000-1234-5678" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" />
+	            <input type="tel" id="phonenum" name="phonenum" placeholder="000-1234-5678" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" required/>
 	            <div class="arrow_box" id="tel_info_span">
 	                <span>* 전화번호 생성 규칙 
 	                <br> 1. 000-1234-5678 의 형식을 유지
 	                <br> 2. 하이픈(-)도 직접 입력
 	                <br> 3. 공백 사용제한</span>
 	            </div>
+	            <span class="j_t_i" id="tel_message_span"> </span>
             </li>
             
             <!-- 이메일 사용 X 
@@ -408,6 +437,5 @@ String.prototype.trim = function() {
             <a class="n_u_02" onclick="check_submit()"  style="cursor:pointer;">가입하기</a>
         </div>
     </div>
-	<input type="submit" value="테스트">
 </form>
 

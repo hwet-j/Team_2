@@ -72,14 +72,16 @@ function chkUserTelNum(number){
 		obj.msg = '전화번호를 입력해주세요';
 	}else if(number.indexOf(' ') > -1){
 		obj.msg = '공백은 입력할 수 없습니다.';
-	}else{
+	}else if(!/^(\d{3})-(\d{4})-(\d{4})$/.test(number)) {
+        obj.msg = '전화번호 형식이 올바르지 않습니다. (예: 010-1234-5678)';
+    }else{
 		obj.flag = true;
 	}
 
 	return obj;
 }
 
-/* E-mail CHECK */
+/* E-mail CHECK -> 현재 회원가입시 이메일 정보 필요없음 ( 이후 필요할 가능성이 있음 ) */
 function chkEmail(email){
 	var obj = {
 			flag : false,
@@ -103,5 +105,4 @@ function chkEmail(email){
 	}
 
 	return obj;
-
 }
