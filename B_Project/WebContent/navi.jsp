@@ -122,7 +122,7 @@ body {margin:0;font-family:Arial}
 
 <div class="nav" id="myNav">
   <div class = "splitNav">
-  	<a href = "#">로그인</a>
+  	<a href = "<%= request.getContextPath() %>/loginForm.do">로그인</a>
   	<a href = "#">로그아웃</a>
   </div>
   <a href="#home" class="active">Home</a>

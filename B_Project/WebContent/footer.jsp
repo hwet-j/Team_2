@@ -14,7 +14,7 @@
    color: black;
    text-align: center;
    font-size: 100%
-}
+}asdfasdfsadfasdfsadf
 
 .footer_header {
 	display : inline;
