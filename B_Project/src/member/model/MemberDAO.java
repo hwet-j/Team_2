@@ -5,11 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Date;
 
-import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
-import member.model.MemberDTO;
 
 public class MemberDAO {
 	
@@ -36,7 +33,7 @@ public class MemberDAO {
 		return result;
 	}
 	
-	/* userid 중복 확인을 위한 메서드  boolean형태로 작성하여 중복이면 true 그렇지 않으면 false 반환  - 유효성 검사에 사용  */ 
+	/* AJAX - userid 중복 확인을 위한 메서드  boolean형태로 작성하여 중복이면 true 그렇지 않으면 false 반환  - 유효성 검사에 사용  */ 
 	public boolean idDuplicateCheck(String userId) throws SQLException {
 		Connection conn = ConnectionProvider.getConnection();
 		boolean result = false;
@@ -65,7 +62,7 @@ public class MemberDAO {
 		return result;
 	}
 	
-	/* nickname이 존재하는지 확인 (userid와 동일) - 유효성 검사에 사용 */
+	/* AJAX- nickname이 존재하는지 확인 (userid와 동일) - 유효성 검사에 사용 */
 	public boolean nicknameDuplicateCheck(String user_nickname) throws SQLException {
 		Connection conn = ConnectionProvider.getConnection();
 		boolean result = false;
@@ -90,7 +87,7 @@ public class MemberDAO {
 		return result;
 	}
 	
-	/* 전화번호가 존재하는지 확인 (userid와 동일) - 유효성 검사에 사용 */
+	/* AJAX- 전화번호가 존재하는지 확인 (userid와 동일) - 유효성 검사에 사용 */
 	public boolean tlnoDuplicateCheck(String user_tlno) throws SQLException {
 		Connection conn = ConnectionProvider.getConnection();
 		boolean result = false;
@@ -113,6 +110,62 @@ public class MemberDAO {
 		}
 		
 		return result;
+	}
+
+	/* login WHERE절에 아이디, 비밀번호를 입력했을때, 데이터가 존재한다면 로그인 성공 및 데이터를 Session에 저장할 것이므로 return type -> DTO */ 
+	public MemberDTO login(Connection conn, String userId, String password){
+		MemberDTO user_data = null;
+		String sql = "SELECT user_id, user_pw, user_name, user_birth, user_nickname, user_gender, user_tlno, user_joindate FROM user_info WHERE user_id = ? AND user_pw = ?";
+		
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,userId);
+			pstmt.setString(2,password);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) { 
+				user_data = new MemberDTO(rs.getString("user_id"), rs.getString("user_pw"), 
+						rs.getString("user_name"), rs.getDate("user_birth"), rs.getString("user_nickname"), 
+						rs.getString("user_gender"), rs.getString("user_tlno"),  rs.getDate("user_joindate"));
+			}
+			
+			return user_data;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return user_data;
+		}
+		
+	}
+	
+	/* AJAX - login WHERE절에 아이디, 비밀번호,아이디가 존재하는지 확인 (로그인 가능한지) */ 
+	public boolean loginCheck(String userId, String password) throws SQLException{
+		Connection conn = ConnectionProvider.getConnection();
+		boolean result = false;
+		String sql = "SELECT COUNT(*) FROM user_info WHERE user_id = ? AND user_pw = ?";
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,userId);
+			pstmt.setString(2,password);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) { 
+				if(rs.getInt(1) != 0) {
+					result = true;
+				}
+			}
+			
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return result;
+		}
+		
 	}
 
 }

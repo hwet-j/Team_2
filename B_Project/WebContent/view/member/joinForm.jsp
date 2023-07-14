@@ -19,6 +19,7 @@
 
 <script>
 
+// Input 데이터 Check -> 전부 True 설정되어야 submit가능
 var idChkResult = false;
 var passwordChkResult = false;
 var password1ChkResult = false;
@@ -42,8 +43,8 @@ function checkDuplicate() {
 	        	username: username.val(),
 	            tlno: tlno.val() },
         success: function(response) {
-        	var message = response.replace(/\s/g, ""); // 공백 제거(줄바꾸믕로 해결되지 않아 공백제거로 변경...)
-            if (message === "id_duplicate") {	 // 아이디 중복
+        	var message = response.replace(/\s/g, ""); // 공백 제거(줄바꿈으로 해결되지 않아 공백제거로 변경...)
+            if (message === "id_duplicate") {	 	// 아이디 중복
                 userid.focus();
                 $("#id_message_span").text("이미 사용 중인 아이디입니다.");
                 idChkResult = false;
@@ -75,7 +76,7 @@ function checkDuplicate() {
 
 
 
-
+// 최종 submit 함수 -> 모든값이 True면 submit진행됨
 function check_submit()
  {
 	// 함수를 시작하면서 blur작업을 진행해야지 정상적으로 진행됨 만약 형식에 어긋나는 정보가 존재하지만 focus() 상태에서 submit이 진행되면 그대로 전송됨
@@ -87,7 +88,7 @@ function check_submit()
 	 $('#birth_date').blur();
 	 $('#gender').blur();
 	 
-	 // 형식에 전부 올바르게 작성했다면 checkDuplicate진행
+	 // 형식에 전부 올바르게 작성했다면 checkDuplicate진행 입력 form의 위에서 부터 체크 
      if(!idChkResult){
          $('#user_id').focus();
      }else if(!passwordChkResult){
@@ -111,7 +112,6 @@ function check_submit()
 
 
 $(document).ready(function() {
-	
 	/**************************************
 	생일 최소,최대 날짜 설정
 	**************************************/
