@@ -21,7 +21,7 @@ $(function(){
 	<p><hr/></p>
 	
 	<div class="">
-	<h1 class="">공지사항list</h1>
+	<h1 class="">공지사항</h1>
 	<div>총 게시글수: ${noticePage.total}건 /현재페이지: ${nowPage}</div>
 	<table class="" border="1">
 	 <thead class="">
@@ -43,9 +43,9 @@ $(function(){
 	  <c:forEach var="notice"   items="${noticePage.content}">
 	  <tr>
 		  <td>${notice.number}</td>
-		  <td><a href="read.do?no=${notice.number}&pageNo=${nowPage}">${notice.title}</a></td>
-		  <td>${notice.user.name}</td>
-		  <td>${notice.views}</td>
+		  <td><a href="read.do?no=${notice.number}&pageNo=${nowPage}">${notice.notice_title}</a></td>
+		  <td>${notice.user_id}</td>
+		  <td>${notice.notice_views}</td>
 	  </tr>
 	  </c:forEach> 
 	  <tr>

@@ -15,7 +15,7 @@ public class NoticeDao {
 		
 	public int getDetail(Connection conn) throws SQLException {
 		String sql = "select notice_no, user_id, notice_title, notice_content, notice_views " +
-				"from noticeboard " +
+				"from notice " +
 				"where notice_no=?";
 		
 		PreparedStatement stmt = null;
@@ -36,7 +36,7 @@ public class NoticeDao {
 	//
     public  List<Notice> select(Connection conn,int startRow,int size )  throws SQLException{
     	String sql= "select notice_no, user_id, notice_title, notice_content, notice_views " + 
-    				"from noticeboard " +
+    				"from notice " +
     				"order by notice_no desc  limit ?,?";
     	PreparedStatement stmt = null;
     	ResultSet rs = null;

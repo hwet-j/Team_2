@@ -1,4 +1,4 @@
-package service;
+package notice.service;
 
 import java.util.List;
 
