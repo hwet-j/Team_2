@@ -12,7 +12,7 @@ public class JoinFormHandler implements CommandHandler{
 	          
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		hjghjgjh
+		
 		return "/view/member/joinForm.jsp";
 	}
 } 
