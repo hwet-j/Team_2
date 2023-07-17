@@ -1,14 +1,18 @@
 package auth.command;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import auth.service.LoginFailException;
+import auth.service.LoginService;
+import member.model.MemberDTO;
 import mvc.command.CommandHandler;
+
+
 
 // login.do
 public class LoginHandler implements CommandHandler{
@@ -33,50 +37,73 @@ public class LoginHandler implements CommandHandler{
 		String id = request.getParameter("user_id"); 
 		String password = request.getParameter("password");  
 		
+		
 		System.out.println(id);
 		System.out.println(password);
+		LoginService service = new LoginService();
 		
-		Map<String, Boolean> errors = new HashMap<String, Boolean>();
-		request.setAttribute("errors", errors);
+		MemberDTO user_data = service.login(id, password);
 		
-		if(id==null || id.isEmpty()) {
-			//에러가 있다면
-			//Map참조변수 errors에  필드명을 key로, True를 값으로 저장 
-			errors.put("memberid", Boolean.TRUE );
-		}
+		HttpSession session = request.getSession();
+		session.setAttribute("AUTH_USER", user_data);
 		
-		if(password==null || password.isEmpty()) {
-			errors.put("password", Boolean.TRUE );
-		}
+		return "/view/HWET/logintest1.jsp";
 		
-		if(!errors.isEmpty()) {
-			return "/index.jsp";
-		}
-		
-		try {
+		/* AJAX사용으로 사전에 검사하여 필요없을듯
+		if(user_data == null) {
+			try {
+				// redirect 방식
+				//response.sendRedirect(request.getContextPath()+"/view/loginError.jsp");
+				
+				// forward 방식이 주소 변경없이 경고문구를 작성해주고 페이지 이동을 하기 때문에 좀더 좋아 보이지만, 비밀번호가 유출된거같다는 경고문구가 나옴
+				// RequestDispatcher dispatcher = request.getRequestDispatcher("/view/loginError.jsp");
+				// dispatcher.forward(request, response);
+				
+				// 페이지 이동없이 진행 (forward와 동일한 작업을 java코드로 진행)
+				response.setContentType("text/html; charset=UTF-8");
+				response.setCharacterEncoding("UTF-8");
+				String message = "아이디 또는 비밀번호가 일치하지 않습니다.";
+				PrintWriter out = response.getWriter();
+				out.println("<!DOCTYPE html>");
+				out.println("<html>");
+				out.println("<head>");
+				out.println("<meta charset=\"UTF-8\">");
+				out.println("<title>Login Failed!!</title>");
+				out.println("<script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@9\"></script>");
+				out.println("</head>");
+				out.println("<body>");
+				out.println("<script>");
+				out.println("Swal.fire({");
+				out.println("    icon: 'error',");
+				out.println("    title: '로그인 실패',");
+				out.println("    text: '" + message + "',");
+				out.println("}).then(function() {");
+				out.println("    window.location.href = '" + request.getContextPath() + "/login.do';");
+				out.println("});");
+				out.println("</script>");
+				out.println("</body>");
+				out.println("</html>");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		} else {
+			HttpSession session = request.getSession();
+			session.setAttribute("AUTH_USER", user_data);
 			
-			response.sendRedirect("/index.jsp");
-			return "/loginForm.do";	// 계속 테스트하기위해 Form으로
-		} catch (LoginFailException e) {
+			System.out.println(user_data.getUserName());
 			
-		} catch (IOException e) {
-			
+			System.out.println("에러 핸들러2");
+			return "/view/HWET/logintest1.jsp";
 		}
-		
-		
-		return "/loginForm.do";	// 계속 테스트하기위해 Form으로
-	}
-	
-	// 좌우 공백 제거 -> String클래스에 trim() 메서드를 사용해서 공백을 좌우의 공백을 제거할 수 있다. 
-	// 아래 코드는 String클래스의 trim()메서드를 사용하지 않고 정규표현식을 사용해서 공백을 제거해주었다.
-	private String trim(String str) {
-		str = str.replaceAll("^\\s+|\\s+$", "");
-		return str;
+		*/
 	}
 	
 
 	private String processForm(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		// Get방식으로 요청받으면 로그인 창을 띄우는 핸들러 실행
 		return "/loginForm.do";
 	}
+	
 }
