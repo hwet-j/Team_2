@@ -95,7 +95,39 @@ public class NoticeDao {
 		
 	}
     
+	public Notice insert(Connection conn, Notice notice) throws SQLException {
+		System.out.println("NoticeDao-insert()진입");
 		
+	String sql="insert into notice(user_id,notice_title,notice_content,notice_views) "+
+	 "values(?,?,?,0)";
+	PreparedStatement stmt = null;
+	PreparedStatement stmt2 = null;
+	ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setObject(1,notice.getUser());
+			stmt.setString(2,notice.getNotice_title());
+			stmt.setString(3,notice.getNotice_content());
+			int insertedCount = stmt.executeUpdate();
+			
+			if(insertedCount>0) {
+				stmt2 = conn.prepareStatement("select last_insert_user_id()from notice");
+				rs =stmt2.executeQuery();
+				if(rs.next()) {
+					Integer newNum = rs.getInt(1);
+					return new Notice(newNum,notice.getUser(),notice.getNotice_title(),notice.getNotice_content(),0);
+				}
+			}
+			return null;
+		}finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
+			JDBCUtil.close(stmt2);
+		}
 	}
+	
+	
+}
 	
 

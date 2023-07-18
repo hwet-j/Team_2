@@ -23,7 +23,7 @@ public class Notice {
 	public Integer getNumber() {
 		return number;
 	}
-	public User getUser_id() {
+	public User getUser() {
 		return user_id;
 	}
 	public String getNotice_title() {
