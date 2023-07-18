@@ -1,5 +1,7 @@
 package notice;
 
+import notice.model.User;
+
 public class Notice {
 
 	private Integer	number;

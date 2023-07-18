@@ -1,4 +1,4 @@
-package notice;
+package notice.model;
 
 public class User {
 

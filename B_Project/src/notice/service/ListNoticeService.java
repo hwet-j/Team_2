@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import dao.NoticeDao;
 import jdbc.connection.ConnectionProvider;
 import notice.Notice;
+import notice.dao.NoticeDao;
 
 public class ListNoticeService {
 	NoticeDao noticeDao = new NoticeDao();
