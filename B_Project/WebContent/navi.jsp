@@ -121,6 +121,7 @@ body {margin:0;font-family:Arial}
 <body>
 
 <div class="nav" id="myNav">
+
   <div class = "splitNav">
   	<a href = "<%= request.getContextPath() %>/loginForm.do">로그인</a>
   	<a href = "#">로그아웃</a>
@@ -164,7 +165,7 @@ body {margin:0;font-family:Arial}
     </button>
     <div class="dropdown-content">
       <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
+      <a href="http://localhost/view/trsSell/trsList_sell.jsp">Link 2</a>
       <a href="#">Link 3</a>
     </div>
   </div> 
