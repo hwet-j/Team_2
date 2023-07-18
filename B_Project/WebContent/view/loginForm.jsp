@@ -129,7 +129,7 @@
                 <li class="lg_banner"></li>
 	           <p class="backs">
                  	<a href="<%=request.getContextPath() %>/index.jsp">
-                 	  <span class="back">되돌아가기</span>
+                 	  <span class="back">메인페이지</span>
                  	</a>
                  </p>
 	        </ul>
