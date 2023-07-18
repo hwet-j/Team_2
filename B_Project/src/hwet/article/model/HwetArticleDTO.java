@@ -1,4 +1,4 @@
-package hwet.article;
+package hwet.article.model;
 
 import java.util.Date;
 
