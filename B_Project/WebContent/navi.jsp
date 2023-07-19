@@ -174,7 +174,7 @@ body {margin:0;font-family:Arial}
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="#">Link 1</a>
+      <a href="<%=request.getContextPath() %>/hwet/article/list.do">Link 1</a>
       <a href="#">Link 2</a>
       <a href="#">Link 3</a>
     </div>
@@ -213,6 +213,8 @@ function myFunction() {
   }
 }
 </script>
+
+
 
 </body>
 </html>
