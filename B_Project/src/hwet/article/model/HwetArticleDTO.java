@@ -1,17 +1,17 @@
-package hwet.article;
+package hwet.article.model;
 
 import java.util.Date;
 
 public class HwetArticleDTO {
-    private int boardId;
-    private String writer;
-    private String title;
-    private String category;
-    private String link;
-    private String content;
-    private Date regDate;
-    private int hit;
-    private Date updateDate;
+    private int boardId;		// 글번호
+    private String writer;		// 작성자
+    private String title;		// 제목
+    private String category;	// 카테고리
+    private String link;		// 링크
+    private String content;		// 내용
+    private Date regDate;		// 첫 작성일자
+    private int hit;			// 조회수
+    private Date updateDate;	// 수정일자
     
     public HwetArticleDTO() {
     	

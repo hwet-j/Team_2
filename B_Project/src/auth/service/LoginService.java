@@ -8,7 +8,6 @@ import jdbc.connection.ConnectionProvider;
 import member.model.MemberDAO;
 import member.model.MemberDTO;
  
-// 컨트롤러 -> Service -> DAO -> DB
 public class LoginService {
 	
 	// 컨트롤러로 부터 전달 받은 회원정보를 DAO에 넘겨줘 회원가입처리 메서드를 호출 
@@ -24,6 +23,8 @@ public class LoginService {
 			e.printStackTrace();
 			// 에러가 발생하면 Rollback 메서드 실행
 			JDBCUtil.rollback(conn);
+		} finally { // 자원반납
+			JDBCUtil.close(conn);
 		}
 		
 		return user_data;
