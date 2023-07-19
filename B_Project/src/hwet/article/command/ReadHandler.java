@@ -14,10 +14,14 @@ public class ReadHandler implements CommandHandler {
 	
 	@Override
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String strNo = request.getParameter("no"); // 상세하게 보고 싶은 글번호
-		int no = Integer.parseInt(strNo); // String을 int로 변환
-		System.out.println(no);
+		// 상세하게 보고 싶은 글번호
+		String strNo = request.getParameter("no");
+		int no = Integer.parseInt(strNo);
 		
+		// 조회수 증가 (현재 조건 없음, 조회하면 무조건 증가함 이후에 필요하면 조건설정)
+		readService.increaseHit(no);
+		
+		// 조회수 증가 후 데이터 가져오기
 		HwetArticleDTO data = readService.getDetail(no);
 		
 		request.setAttribute("data", data);

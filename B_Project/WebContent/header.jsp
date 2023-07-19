@@ -14,6 +14,6 @@
 <body>
 <header>
 <div>
-<a href = "#"><img src = "assets/images/logo.png"></a>
+<a href = "#"><img src = "<%=request.getContextPath() %>/assets/images/logo.png"></a>
 </div>
 </header>
