@@ -30,24 +30,8 @@ VALUES
 ('user3', 'password3', '이철수', '1988-11-20', 'lee', '남성', '010-2468-1357', '2023-07-11'),
 ('user4', 'password4', '박지영', '1992-03-08', 'park', '여성', '010-5555-1234', '2023-07-11');
 
-
--- 7. 테이블 
-CREATE TABLE IF NOT EXISTS hwet_board (
-board_id 	INT PRIMARY KEY AUTO_INCREMENT,
-writer 		VARCHAR(20) NOT NULL,
-title 		VARCHAR(50) NOT NULL,
-category 	VARCHAR(50) NOT NULL,
-link 		VARCHAR(400) NOT NULL,
-content 	VARCHAR(1000) NOT NULL,
-regdate 	DATE NOT NULL DEFAULT (CURRENT_DATE),
-hit 		INT DEFAULT 0 NOT NULL,
-updatedate 	DATE,
-FOREIGN KEY (writer) REFERENCES user_info(user_id)
-);
-
-
 SELECT * FROM user_info;
 
-SELECT * FROM hwet_board;
+
 
 

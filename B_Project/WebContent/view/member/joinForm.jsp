@@ -399,7 +399,6 @@ String.prototype.trim = function() {
 	                    <span>* 비밀번호 생성 규칙 
 		                    <br> 1. 영대소문자,숫자,특문 중 3개 이상 조합 
 		                    <br> 2. 8자 이상 16자 이하 
-		                    <br> 3. 생년월일 사용불가
 	                    </span>
 	                </div>
 
