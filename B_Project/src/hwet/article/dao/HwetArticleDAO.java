@@ -8,50 +8,61 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hwet.article.model.HwetArticleDTO;
+import jdbc.JDBCUtil;
 
 public class HwetArticleDAO {
 	
 	// 전체 목록
+	// List로 전체 목록을 반환함
 	public List<HwetArticleDTO> getBoardList(Connection conn) {
 	    List<HwetArticleDTO> boardList = new ArrayList<>();
 	    String sql = "SELECT * FROM hwet_board";
-	    
-	    try (
-	         PreparedStatement stmt = conn.prepareStatement(sql);
-	         ResultSet rs = stmt.executeQuery()) {
-	        
-	        while (rs.next()) {
-	        	HwetArticleDTO board = new HwetArticleDTO();
-	            board.setBoardId(rs.getInt("board_id"));
-	            board.setWriter(rs.getString("writer"));
-	            board.setTitle(rs.getString("title"));
-	            board.setCategory(rs.getString("category"));
-	            board.setLink(rs.getString("link"));
-	            board.setContent(rs.getString("content"));
-	            board.setRegDate(rs.getDate("regdate"));
-	            board.setHit(rs.getInt("hit"));
-	            board.setUpdateDate(rs.getDate("updatedate"));
-	            
-	            boardList.add(board);
-	        }
+	    PreparedStatement pstmt = null; 
+	    ResultSet rs = null;
+	    try {
+	    	pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			 	        
+			while (rs.next()) {
+				HwetArticleDTO board = new HwetArticleDTO();
+			    board.setBoardId(rs.getInt("board_id"));
+				board.setWriter(rs.getString("writer"));
+				board.setTitle(rs.getString("title"));
+				board.setCategory(rs.getString("category"));
+				board.setLink(rs.getString("link"));
+				board.setContent(rs.getString("content"));
+				board.setRegDate(rs.getDate("regdate"));
+				board.setHit(rs.getInt("hit"));
+				board.setUpdateDate(rs.getDate("updatedate"));
+			    
+			    boardList.add(board);
+			}
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	    }
+	    } finally {
+	    	JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
 	    
 	    return boardList;
 	}
 	
 	// 페이징 처리를 위한 메서드
+	// List로 목록을 반환함
     public List<HwetArticleDTO> getBoardListWithPaging(Connection conn, int page, int pageSize) {
         List<HwetArticleDTO> boardList = new ArrayList<>();
         // 페이지 번호에 따라 가져올 데이터의 시작 인덱스 계산
         int startIndex = (page - 1) * pageSize;
         String sql = "SELECT * FROM hwet_board LIMIT ?, ?";
+        
+        PreparedStatement pstmt = null; 
+	    ResultSet rs = null;
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, startIndex);
-            stmt.setInt(2, pageSize);
-            ResultSet rs = stmt.executeQuery();
+        try {
+        	pstmt = conn.prepareStatement(sql);
+        	pstmt.setInt(1, startIndex);
+        	pstmt.setInt(2, pageSize);
+            rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 HwetArticleDTO board = new HwetArticleDTO();
@@ -69,19 +80,25 @@ public class HwetArticleDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        } finally {
+        	JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
 
         return boardList;
     }
     
     // 전체 데이터 개수를 반환하는 메서드 (페이징 처리에 사용)
+    // 데이터의 개수를 int타입으로 반환
     public int getTotalDataCount(Connection conn) {
         int totalCount = 0;
         // total 이라는 컬럼으로 Alias 설정
         String sql = "SELECT COUNT(*) AS total FROM hwet_board";
-
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        PreparedStatement pstmt = null; 
+	    ResultSet rs = null;
+        try {
+        	pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
 
             if (rs.next()) {
             	// sql문에서 설정한 컬럼명을 가져다 사용
@@ -89,19 +106,25 @@ public class HwetArticleDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        } finally {
+        	JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
 
         return totalCount;
     }
     
 	// 목록 하나
+    // 목록 하나를 DTO 객체에 저장하여 리턴함
 	public HwetArticleDTO getBoardOne(Connection conn, int board_id ) {
 	    String sql = "SELECT * FROM hwet_board WHERE board_id = ?";
 	    HwetArticleDTO board = new HwetArticleDTO();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
 	    try {
-    		PreparedStatement stmt = conn.prepareStatement(sql);
-	    	stmt.setInt(1, board_id);
-    		ResultSet rs = stmt.executeQuery();
+	    	pstmt = conn.prepareStatement(sql);
+	    	pstmt.setInt(1, board_id);
+    		rs = pstmt.executeQuery();
 	        
     		while (rs.next()) {
 			    board.setBoardId(rs.getInt("board_id"));
@@ -116,35 +139,44 @@ public class HwetArticleDAO {
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	    }
+	    } finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
 	    
 	    return board;
 	}
 	
 	// 조회수 증가
+	// return받아 사용할 곳이 없어보여 void
 	public void increaseHit(Connection conn, int board_id ) {
 		String sql = "UPDATE hwet_board SET hit=hit+1 WHERE board_id = ?";
+		PreparedStatement pstmt = null;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 				
 			pstmt.setInt(1, board_id);
-			ResultSet rs = pstmt.executeQuery();
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
 		}
 	}
 
+	// 게시글 작성
+	// 성공하면 가장 최근에 사용된 자동증가 숫자 반환, 실패하면 -1 반환 
 	public int writeArticle(Connection conn, String writer, String category, String title, String link,
 			String content) {
-		// 글번호, 글 작성일, 조회수 -> 값을 설정해주지 않아도 자동설정 (updatedate만 null값으로 설정됨)
+		// 글번호, 글 작성일, 조회수 -> 값을 설정해주지 않아도 자동설정 (updatedate만  null값으로 설정됨)
 		String sql = "INSERT INTO hwet_board (writer, title, category, link, content) VALUES " + 
 				"(?, ?, ?, ?, ?)";
-		PreparedStatement stmt2 = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
 		int rowCnt = 0;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 				
 			pstmt.setString(1, writer);
 			pstmt.setString(2, title);
@@ -154,15 +186,12 @@ public class HwetArticleDAO {
 			
 			rowCnt = pstmt.executeUpdate();
 			
-			System.out.println("1번");
-			if(rowCnt>0) { //p635 31라인
-				//방금 직전에 입력된 글번호를 DB에서 가져온다
-				//->article_content 테이블에 insert시 글번호로 사용
-				stmt2 =	conn.prepareStatement("select last_insert_id()");
+			if(rowCnt>0) { 
+				// 방금 직전에 입력된 글번호를 DB에서 가져온다
+				// -> last_insert_id()는 가장 최근에 사용된 자동증가 데이터의 값을 가져온다.
+				pstmt2 =	conn.prepareStatement("select last_insert_id()");
 				
-				System.out.println("2번");
-				rs = stmt2.executeQuery();
-				System.out.println("3번");
+				rs = pstmt2.executeQuery();
 				if(rs.next()) {
 					return rs.getInt(1);
 				}
@@ -170,9 +199,60 @@ public class HwetArticleDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt2);
+			JDBCUtil.close(pstmt);
 		}
 		
 		return -1;
+	}
+
+	// 게시글 수정
+	// 실패하면 0 반환 
+	public int modifyArticle(Connection conn, HwetArticleDTO data) {
+		// 수정날짜는 시간을 제외한 날짜만 입력되도록 설정 (CURRENT_DATE입력함 시간도 입력되도록 하려면 NOW() 입력)
+		String sql = "UPDATE hwet_board SET title = ?, category = ?, link = ?, content = ?, updatedate = CURRENT_DATE WHERE board_id = ?";
+		int rowCnt = 0;
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, data.getTitle());
+			pstmt.setString(2, data.getCategory());
+			pstmt.setString(3, data.getLink());
+			pstmt.setString(4, data.getContent());
+			pstmt.setInt(5, data.getBoardId());
+			
+			rowCnt = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+		}
+		return rowCnt;
+	}
+	
+	// 게시글 삭제
+	// 실패하면 0 반환
+	public int deleteArticle(Connection conn, int b_no) {
+		String sql = "DELETE FROM hwet_board WHERE board_id = ?";
+		int rowCnt = 0;
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setInt(1, b_no);
+			
+			rowCnt = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+		}
+		return rowCnt;
 	}
 	
 }

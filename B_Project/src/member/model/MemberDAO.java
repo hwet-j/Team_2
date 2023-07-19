@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 
 public class MemberDAO {
@@ -118,12 +119,13 @@ public class MemberDAO {
 		String sql = "SELECT user_id, user_pw, user_name, user_birth, user_nickname, user_gender, user_tlno, user_joindate FROM user_info WHERE user_id = ? AND user_pw = ?";
 		
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,userId);
 			pstmt.setString(2,password);
 			
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
 			while(rs.next()) { 
 				user_data = new MemberDTO(rs.getString("user_id"), rs.getString("user_pw"), 
@@ -135,6 +137,9 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return user_data;
+		} finally { // 자원반납
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 		
 	}
@@ -146,13 +151,14 @@ public class MemberDAO {
 		String sql = "SELECT COUNT(*) FROM user_info WHERE user_id = ? AND user_pw = ?";
 		
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,userId);
 			pstmt.setString(2,password);
 			
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
 			while(rs.next()) { 
 				if(rs.getInt(1) != 0) {
@@ -164,6 +170,9 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return result;
+		} finally {
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 		
 	}

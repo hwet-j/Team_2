@@ -19,8 +19,7 @@ public class ListHandler implements CommandHandler {
         String strPageNo = request.getParameter("pageNo"); // user가 선택한 페이지번호
 
         int pageNo = 1; // user가 선택 안했을 때 기본적으로 보여지는 페이지번호
-        // 페이지 번호를 받아왔으면 pageNo를 해당 값으로 초기화
-        if (strPageNo != null) {
+        if (strPageNo != null) {	// 페이지 번호를 받아왔으면 pageNo를 해당 값으로 초기화
             pageNo = Integer.parseInt(strPageNo);
         }
 

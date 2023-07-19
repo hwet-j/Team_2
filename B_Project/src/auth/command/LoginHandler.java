@@ -1,9 +1,5 @@
 package auth.command;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,7 +8,7 @@ import auth.service.LoginService;
 import member.model.MemberDTO;
 import mvc.command.CommandHandler;
 
-
+/* 로그인폼(GET)과 로그인 기능(POST)을 구현 */
 
 // login.do
 public class LoginHandler implements CommandHandler{
@@ -31,26 +27,22 @@ public class LoginHandler implements CommandHandler{
 		}
 	
 	}
-
+	
+	// 로그인 기능
 	private String processSubmit(HttpServletRequest request, HttpServletResponse response) {
-		
 		String id = request.getParameter("user_id"); 
 		String password = request.getParameter("password");  
 		
-		
-		System.out.println(id);
-		System.out.println(password);
 		LoginService service = new LoginService();
 		
+		// 로그인에 성공하면 로그인에 성공한 유저의 정보를 가져와 저장
 		MemberDTO user_data = service.login(id, password);
 		
+		// 로그인한 유저의 정보를 session값으로 저장
 		HttpSession session = request.getSession();
 		session.setAttribute("AUTH_USER", user_data);
 		
-		return "/view/HWET/logintest1.jsp";
-		
-		
-		
+		return "/index.jsp";
 	}
 	
 
