@@ -10,10 +10,26 @@ import java.util.List;
 import jdbc.JDBCUtil;
 import notice.Notice;
 import notice.model.User;
+import notice.service.NoticeData;
 
 public class NoticeDao {
-		
-	public int getDetail(Connection conn) throws SQLException {
+	
+	public int update(Connection conn, int no, String title)throws SQLException {
+		String sql="update notice" +
+				"set notice_title=?" +
+				"where notice_no=?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1,title);
+			stmt.setInt(2,no);
+			return stmt.executeUpdate();
+		}finally {
+			JDBCUtil.close(stmt);
+		}
+	}
+	
+	public NoticeData getDetail(Connection conn, int no) throws SQLException {
 		String sql = "select notice_no, user_id, notice_title, notice_content, notice_views " +
 				"from notice " +
 				"where notice_no=?";
@@ -22,18 +38,41 @@ public class NoticeDao {
 		ResultSet rs = null;
 		try {
 			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, no);
 			rs = stmt.executeQuery();
-			int notice_no = 0;
+			NoticeData noc = null;
 			if(rs.next()) {
-				notice_no=rs.getInt("notice_no");
+				noc = new NoticeData();
+				noc.setNumber(rs.getInt("notice_no"));
+				noc.setUser_id(rs.getString("user_id"));
+				noc.setNotice_title(rs.getString("notice_title"));
+				noc.setNotice_content(rs.getString("notice_content"));
+				noc.setNotice_views(rs.getInt("notice_views"));
+				
+				System.out.println("NoticeDao에서 getDetail() NoticeData noc ="+noc);
 			}
-			return notice_no;			
+			return noc;			
 		}finally {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(stmt);
 		}	
 	}	
-	//
+	
+	public void increaseNotice_Views(Connection conn, int no)throws SQLException {
+		String sql = "update notice " +
+					 "set notice_views=notice_views+1 " +
+					 "where notice_no=?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,no);
+			stmt.executeUpdate();
+		}finally {
+			JDBCUtil.close(stmt);
+		}
+	}
+	
+	
     public  List<Notice> select(Connection conn,int startRow,int size )  throws SQLException{
     	String sql= "select notice_no, user_id, notice_title, notice_content, notice_views " + 
     				"from notice " +
@@ -65,7 +104,7 @@ public class NoticeDao {
     private Notice convertNotice(ResultSet rs) throws SQLException {
 		return
 		new Notice(rs.getInt("notice_no"),
-    				new User(rs.getString("user_id")),			
+    				rs.getString("user_id"),			
     				rs.getString("notice_title"),
     				rs.getString("notice_content"),
     				rs.getInt("notice_views")
@@ -106,7 +145,7 @@ public class NoticeDao {
 		try {
 			stmt = conn.prepareStatement(sql);
 			
-			stmt.setObject(1,notice.getUser());
+			stmt.setObject(1,notice.getUser_id());
 			stmt.setString(2,notice.getNotice_title());
 			stmt.setString(3,notice.getNotice_content());
 			int insertedCount = stmt.executeUpdate();
@@ -116,7 +155,7 @@ public class NoticeDao {
 				rs =stmt2.executeQuery();
 				if(rs.next()) {
 					Integer newNum = rs.getInt(1);
-					return new Notice(newNum,notice.getUser(),notice.getNotice_title(),notice.getNotice_content(),0);
+					return new Notice(newNum,notice.getUser_id(),notice.getNotice_title(),notice.getNotice_content(),0);
 				}
 			}
 			return null;

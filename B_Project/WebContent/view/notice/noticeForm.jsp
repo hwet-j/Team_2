@@ -21,7 +21,6 @@ $(function(){
 <div class="container">
 
 		<h2  class="mt-5 mb-4 text-center">등록</h2>
-		<form action="write.do" method="post">
 			<div class="mb-4">
 			<label for="memberNick" class="form-label">회원id</label>
 			<input type="text" name="memberNick" id="memberNick" class="form-control" value= "${AUTH_USER_id}" /><br/>
@@ -42,8 +41,8 @@ $(function(){
 			<button  type="submit" class="btn btn-success">글쓰기</button> 
 		 	<button  type="reset"  class="btn btn-secondary">취소</button>
 		</div>
-		</form>
 	</div>
+		</form>
 	
 	<!-- Bootstrap 4 JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

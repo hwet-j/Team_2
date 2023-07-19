@@ -5,18 +5,18 @@ import java.util.Map;
 import notice.model.User;
 
 public class WriteRequest {
-	private User user_id;
+	private String user_id;
 	private String title;
 	private String content;
 	
-	public WriteRequest(User user_id, String title, String content) {
+	public WriteRequest(String user_id, String title, String content) {
 
 		this.user_id = user_id;
 		this.title = title;
 		this.content = content;
 	}
 
-	public User getUser() {
+	public String getUser_id() {
 		return user_id;
 	}
 

@@ -44,7 +44,7 @@ public class WriteNoticeService {
 	
 	private Notice toNotice(WriteRequest req) {
 
-		return new Notice(null, req.getUser(), req.getTitle(), req.getContent(), 0);
+		return new Notice(null, req.getUser_id(), req.getTitle(), req.getContent(), 0);
 	}
 	
 	

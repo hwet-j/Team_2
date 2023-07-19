@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import auth.service.Member;
 import mvc.command.CommandHandler;
-import notice.model.User;
 import notice.service.WriteNoticeService;
 import notice.service.WriteRequest;
 
@@ -23,7 +22,7 @@ public class WriteNoticeHandler implements CommandHandler {
 		
 		if( request.getMethod().equalsIgnoreCase("GET") ) {
 			return processForm(request,response);
-		}else if(request.getMethod().equalsIgnoreCase("POST")) {//post방식 어떤식으로 처리?
+		}else if(request.getMethod().equalsIgnoreCase("POST")) {
 			return processSubmit(request,response); 
 		}else {
 			response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
@@ -55,15 +54,15 @@ public class WriteNoticeHandler implements CommandHandler {
 		return request.getContextPath()+"/view/notice/newNoticeSuccess.jsp";
 		
 	}
-	
 	private WriteRequest createWriteRequest(Member member, HttpServletRequest request) {
-		String notice_title = request.getParameter("notice_title");
-		String notice_content =request.getParameter("notice_content");
+		String title = request.getParameter("title");
+		String content =request.getParameter("content");
 		
 		return new WriteRequest(
-				new User(member.getId()),
-				notice_title,
-				notice_content
+				 new String(member.getId()),
+				title,
+				content
 				);
 	}
+	
 }
