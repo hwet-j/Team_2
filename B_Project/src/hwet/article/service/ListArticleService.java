@@ -6,13 +6,14 @@ import java.util.List;
 
 import hwet.article.dao.HwetArticleDAO;
 import hwet.article.model.HwetArticleDTO;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 
 public class ListArticleService {
 	
 	HwetArticleDAO articleDAO = new HwetArticleDAO();
 
-	// 페이징 처리를 위한 메서드
+	// 페이징 처리를 위한 메서드 
     public List<HwetArticleDTO> getBoardListWithPaging(int page, int pageSize) {
         Connection conn = null;
         try {
@@ -22,14 +23,8 @@ public class ListArticleService {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+			JDBCUtil.close(conn);
+		}
         return null;
     }
     
@@ -42,14 +37,8 @@ public class ListArticleService {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+			JDBCUtil.close(conn);
+		}
         return 0;
     }
 	

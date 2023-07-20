@@ -9,25 +9,25 @@ import hwet.article.model.HwetArticleDTO;
 import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 
-public class WriteArticleService {
+public class ModifyArticleService {
 	
 	HwetArticleDAO articleDAO = new HwetArticleDAO();
-
-	// 글작성
-    public int writeArticle(String writer, String category,
-    		String title, String link, String content) {
-        Connection conn = null;
+	
+	// 게시글을 수정하는 메서드
+	public int modifyArticle(HwetArticleDTO data) {
+		Connection conn = null;
         try {
             conn = ConnectionProvider.getConnection();
             
-            return articleDAO.writeArticle(conn, writer, category, title, link, content);
+            return articleDAO.modifyArticle(conn, data);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
 			JDBCUtil.close(conn);
 		}
-        return -1;
-    }
+        return 0;
+		
+	}
     
 	
 	

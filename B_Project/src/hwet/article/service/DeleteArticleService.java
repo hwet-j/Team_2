@@ -2,32 +2,34 @@ package hwet.article.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 import hwet.article.dao.HwetArticleDAO;
-import hwet.article.model.HwetArticleDTO;
 import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 
-public class WriteArticleService {
+public class DeleteArticleService {
 	
 	HwetArticleDAO articleDAO = new HwetArticleDAO();
-
-	// 글작성
-    public int writeArticle(String writer, String category,
-    		String title, String link, String content) {
-        Connection conn = null;
+	
+	// 삭제 요청 진행 메서드(게시글 번호를 매개변수로 받아 삭제한다)
+	public int deleteArticle(int b_no) {
+		Connection conn = null;
+		int result = 0;
         try {
             conn = ConnectionProvider.getConnection();
-            
-            return articleDAO.writeArticle(conn, writer, category, title, link, content);
+            conn.setAutoCommit(false);
+            // 삭제 요청 진행
+            result = articleDAO.deleteArticle(conn, b_no);
+            conn.commit();
         } catch (SQLException e) {
+        	JDBCUtil.rollback(conn);
             e.printStackTrace();
         } finally {
 			JDBCUtil.close(conn);
 		}
-        return -1;
-    }
+        return result;
+		
+	}
     
 	
 	

@@ -1,5 +1,6 @@
 package member.command;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,9 +20,6 @@ Post : 요청 받은 데이터를 기반으로 회원가입을 진행
 
 // join.do
 public class JoinHandler implements CommandHandler  {
-
-	//필드
-	private static final String FORM_VIEW ="/joinForm.do";
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -48,7 +46,7 @@ public class JoinHandler implements CommandHandler  {
 		String name = request.getParameter("name");  
 		String nickname = request.getParameter("nickname");  
 		String gender = request.getParameter("gender");  
-		// 데이터 베이스의 gender컬럼에 저장가능한 값이 "남성, 여성" 두가지 뿐이라 값을 변경 (HTML의 value 자체를 수정해도 상관없음)
+		// 데이터 베이스의 gender컬럼에 저장가능한 값이 "남성, 여성" 두가지 뿐이라 값을 변경 (HTML의 value값 자체를 수정해도 상관없음)
 		if (gender.equals("male")) {
 			gender = "남성";
  		} else if (gender.equals("female")) {
@@ -62,23 +60,56 @@ public class JoinHandler implements CommandHandler  {
 		}  
 		String phonenum = request.getParameter("phonenum");   
 		
+		
 		// 얻어진 Parameter들을 MemberDTO 객체에 저장 
 		MemberDTO member = new MemberDTO(id, password, name, birth, nickname, gender, phonenum);
 		
 		// Service 객체 생성 
 		JoinService service = new JoinService();
 		
-		// 회원가입 
+		// 회원가입 진행
 		service.join(member);
 		
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			String redirectURL = request.getContextPath() + "/login.do";
+			String script = "<!DOCTYPE html>"
+	                + "<html>"
+	                + "<head>"
+	                + "    <meta charset=\"UTF-8\">"
+	                + "    <title>Success</title>"
+	                + "    <script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@10\"></script>"
+	                + "</head>"
+	                + "<body>"
+	                + "    <script>"
+	                + "        Swal.fire({"
+	                + "            position: 'center',"
+	                + "            icon: 'success',"
+	                + "            title: '회원가입이 성공적으로 이루어졌습니다!',"
+	                + "            text: '로그인 페이지로 이동합니다.',"
+	                + "            showConfirmButton: true"
+	                + "        }).then(function() {"
+	                + "            window.location.href = '" + redirectURL + "';"
+	                + "        });"
+	                + "    </script>"
+	                + "</body>"
+	                + "</html>";
+			
+			response.getWriter().write(script);
+			
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		 
-		return FORM_VIEW;
+		return null;
 	}
 
 
 	//회원가입폼을 보여주기 
 	private String processForm(HttpServletRequest request, HttpServletResponse response) {
-		return FORM_VIEW;
+		return "/joinForm.do";
 	}
 	
 	

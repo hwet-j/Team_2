@@ -7,6 +7,40 @@
     <!-- Bootstrap CSS 라이브러리 링크 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+
+
+<script>
+    function confirmDelete() {
+        Swal.fire({
+            title: '정말 삭제하시겠습니까?',
+            text: "삭제하면 게시글 정보가 전부 사라집니다",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '네, 삭제하겠습니다!',
+            cancelButtonText: '아니오'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 폼 전송 실행
+            	document.getElementById('deleteForm').submit();
+            } else {
+            	Swal.fire({
+            		  icon: 'error',
+            		  title: '취소되었습니다.',
+            		  text: '게시글 삭제를 취소하셨습니다.',
+            		  confirmButtonText: '확인'
+            		})
+                return false;
+            }
+        });
+        return false; // 폼 전송 취소 - 기본적인 이동 동작을 막음
+    }
+</script>
+
 <body>
     <div class="container">
         <h2 class="my-4">게시물 정보 조회</h2>
@@ -50,14 +84,30 @@
         </table>
     </div>
     
-    <div class="container mt-4">
-    	<c:set var="pageNo" value="${empty param.pageNo?1:param.pageNo}" />
+    <div class="container mt-4 d-flex justify-content-end">
+        <c:set var="pageNo" value="${empty param.pageNo?1:param.pageNo}" />
+        
         <a href="list.do?pageNo=${pageNo}" class="btn btn-secondary">목록보기</a>
+        
         <c:if test="${AUTH_USER.userId == data.writer}">
-            <a href="modify.do?no=${data.boardId}" class="btn btn-primary">게시글수정</a>
+            <!-- 수정 버튼을 클릭했을 때 폼 전송 -->
+            <form action="${pageContext.request.contextPath}/hwet/article/modifyForm.do" method="post" class="ml-2">
+                <!-- hidden 타입의 input 요소를 추가하여 기존 데이터를 전송 -->
+                <input type="hidden" name="boardId" value="${data.boardId}">
+                <input type="hidden" name="pageNo" value="${pageNo}">
+                <input type="hidden" name="no" value="${no}">
+                
+                <button type="submit" class="btn btn-info">게시글 수정</button>
+            </form>
         </c:if>
+        
+        <!-- 삭제 버튼 -->
         <c:if test="${AUTH_USER.userId eq data.writer}">
-            <a href="delete.do?no=${data.boardId}" class="btn btn-danger">게시글삭제</a>
+           	<!-- 삭제 버튼 -->
+	        <form id="deleteForm" action="${pageContext.request.contextPath}/hwet/article/delete.do" method="post">
+	            <input type="hidden" name="no" value="${data.boardId}">
+	            <button type="submit" class="btn btn-danger ml-2" onclick="return confirmDelete()">게시글 삭제</button>
+	        </form>
         </c:if>
     </div>
 
@@ -65,5 +115,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     
+    
 </body>
 </html>
