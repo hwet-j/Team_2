@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import notice.Notice;
-import notice.dao.NoticeDao;
+import notice.dao.NoticeDao3;
 
 public class WriteNoticeService {
-	private NoticeDao noticeDao = new NoticeDao();
+	private NoticeDao3 noticeDao = new NoticeDao3();
 	
 	public Integer write(WriteRequest req) {
 		Connection conn =null;

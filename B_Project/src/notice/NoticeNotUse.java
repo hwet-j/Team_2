@@ -1,6 +1,7 @@
+
 package notice;
 
-import notice.model.User;
+import notice.model.User_notUse;
 
 public class Notice {
 

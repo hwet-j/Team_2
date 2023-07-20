@@ -1,11 +1,11 @@
 package notice.model;
 
-public class User {
+public class User_notUse {
 
 	private String id;
 
 
-	public User(String id) {
+	public User_notUse(String id) {
 		this.id = id;
 
 	}

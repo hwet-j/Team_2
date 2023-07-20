@@ -6,10 +6,10 @@ import java.util.List;
 
 import jdbc.connection.ConnectionProvider;
 import notice.Notice;
-import notice.dao.NoticeDao;
+import notice.dao.NoticeDao3;
 
 public class ListNoticeService {
-	NoticeDao noticeDao = new NoticeDao();
+	NoticeDao3 noticeDao = new NoticeDao3();
 	int size =3;
 	
 	public NoticePage getNoticePage(int pageNum) {

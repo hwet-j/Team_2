@@ -2,7 +2,7 @@ package notice.service;
 
 import java.util.Map;
 
-import notice.model.User;
+import notice.model.User_notUse;
 
 public class WriteRequest {
 	private String user_id;

@@ -9,10 +9,10 @@ import java.util.List;
 
 import jdbc.JDBCUtil;
 import notice.Notice;
-import notice.model.User;
+import notice.model.User_notUse;
 import notice.service.NoticeData;
 
-public class NoticeDao {
+public class NoticeDao3 {
 	
 	public int update(Connection conn, int no, String title)throws SQLException {
 		String sql="update notice" +

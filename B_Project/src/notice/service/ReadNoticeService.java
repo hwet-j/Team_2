@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import jdbc.connection.ConnectionProvider;
-import notice.dao.NoticeDao;
+import notice.dao.NoticeDao3;
 
 public class ReadNoticeService {
 
-	private NoticeDao noticeDao= new NoticeDao();
+	private NoticeDao3 noticeDao= new NoticeDao3();
 	
 	public NoticeData getDetail(int no) {
 		Connection conn;

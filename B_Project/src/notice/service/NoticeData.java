@@ -1,6 +1,6 @@
 package notice.service;
 
-import notice.model.User;
+import notice.model.User_notUse;
 
 public class NoticeData {
 	private Integer	number;
