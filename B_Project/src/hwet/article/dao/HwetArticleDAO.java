@@ -31,9 +31,9 @@ public class HwetArticleDAO {
 				board.setCategory(rs.getString("category"));
 				board.setLink(rs.getString("link"));
 				board.setContent(rs.getString("content"));
-				board.setRegDate(rs.getDate("regdate"));
+				board.setRegDate(rs.getDate("created_at"));
 				board.setHit(rs.getInt("hit"));
-				board.setUpdateDate(rs.getDate("updatedate"));
+				board.setUpdateDate(rs.getDate("updated_at"));
 			    
 			    boardList.add(board);
 			}
@@ -72,9 +72,9 @@ public class HwetArticleDAO {
                 board.setCategory(rs.getString("category"));
                 board.setLink(rs.getString("link"));
                 board.setContent(rs.getString("content"));
-                board.setRegDate(rs.getDate("regdate"));
+                board.setRegDate(rs.getDate("created_at"));
                 board.setHit(rs.getInt("hit"));
-                board.setUpdateDate(rs.getDate("updatedate"));
+                board.setUpdateDate(rs.getDate("updated_at"));
 
                 boardList.add(board);
             }
@@ -133,9 +133,9 @@ public class HwetArticleDAO {
 			    board.setCategory(rs.getString("category"));
 			    board.setLink(rs.getString("link"));
 			    board.setContent(rs.getString("content"));
-			    board.setRegDate(rs.getDate("regdate"));
+			    board.setRegDate(rs.getDate("created_at"));
 			    board.setHit(rs.getInt("hit"));
-			    board.setUpdateDate(rs.getDate("updatedate"));
+			    board.setUpdateDate(rs.getDate("updated_at"));
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -212,7 +212,7 @@ public class HwetArticleDAO {
 	// 실패하면 0 반환 
 	public int modifyArticle(Connection conn, HwetArticleDTO data) {
 		// 수정날짜는 시간을 제외한 날짜만 입력되도록 설정 (CURRENT_DATE입력함 시간도 입력되도록 하려면 NOW() 입력)
-		String sql = "UPDATE hwet_board SET title = ?, category = ?, link = ?, content = ?, updatedate = CURRENT_DATE WHERE board_id = ?";
+		String sql = "UPDATE hwet_board SET title = ?, category = ?, link = ?, content = ?, updated_at = NOW() WHERE board_id = ?";
 		int rowCnt = 0;
 		PreparedStatement pstmt = null;
 		try {
