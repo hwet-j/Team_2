@@ -5,22 +5,26 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- 현재 페이지 번호를 가져옵니다. --%>
-<c:set var="currentPage" value="${empty param.pageNo ? 1 : param.pageNo}" />
-
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Bootstrap CSS 라이브러리 링크 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>리스트 목록</title>
+
+<!-- 부트스트랩 CSS 파일 링크 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 </head>
 <body>
-
-<%@ include file="/header.jsp" %>
 <%@ include file="/navi.jsp" %>
 
+<%-- 현재 페이지 번호를 가져옵니다. --%>
+<c:set var="currentPage" value="${empty param.pageNo ? 1 : param.pageNo}" />
 
-<div class="container my-6">
+<div class="container">
   <h2>게시물 목록 </h2>
   <table class="table table-striped table-bordered">
     <thead>
@@ -50,47 +54,44 @@
   </table>
   
   <!-- 페이징 처리 부분 -->
-  <ul class="pagination justify-content-center">
-    
-
+<ul class="pagination justify-content-center">
     <%-- 이전 페이지로 이동하는 링크 --%>
     <c:if test="${currentPage > 1}">
-      <li class="page-item">
-        <a class="page-link" href="${pageContext.request.contextPath}/hwet/article/list.do?pageNo=${currentPage - 1}">이전</a>
-      </li>
+        <li class="page-item">
+            <a class="page-link" href="${pageContext.request.contextPath}/hwet/article/list.do?pageNo=${currentPage - 1}">이전</a>
+        </li>
     </c:if>
-
-    <%-- 페이지 번호를 출력하는 부분 --%>
-    <c:forEach begin="1" end="${totalPages}" var="page">
-      <li class="page-item <c:if test='${page == currentPage}'>active</c:if>">
-        <a class="page-link" href="${pageContext.request.contextPath}/hwet/article/list.do?pageNo=${page}">${page}</a>
-      </li>
+				<%-- value="${age >= 18 ? true : false}" --%>
+    <c:forEach begin="${currentPage < 5 ? 1 : currentPage-4}" end="${totalPages < currentPage + 4 ? totalPages : currentPage + 4}" var="page">
+        <li class="page-item <c:if test='${page == currentPage}'>active</c:if>">
+            <a class="page-link" href="${pageContext.request.contextPath}/hwet/article/list.do?pageNo=${page}">${page}</a>
+        </li>
     </c:forEach>
 
     <%-- 다음 페이지로 이동하는 링크 --%>
     <c:if test="${currentPage < totalPages}">
-      <li class="page-item">
-        <a class="page-link" href="${pageContext.request.contextPath}/hwet/article/list.do?pageNo=${currentPage + 1}">다음</a>
-      </li>
+        <li class="page-item">
+            <a class="page-link" href="${pageContext.request.contextPath}/hwet/article/list.do?pageNo=${currentPage + 1}">다음</a>
+        </li>
     </c:if>
-  </ul>
+</ul>
+  
   <!-- 글쓰기 버튼 -->
   <div class="text-right">
     <!-- 글목록 버튼 -->
     <a href="${pageContext.request.contextPath}/hwet/article/write.do" class="btn btn-primary">글쓰기</a>
   </div>
+  
 </div>
 
 
 
 
-<%@ include file="/footer.jsp" %>
-
-<!-- Bootstrap JS 라이브러리 링크 (jQuery와 Popper.js를 포함) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
+
+<!-- 부트스트랩 JS 파일들 링크 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </html>
 

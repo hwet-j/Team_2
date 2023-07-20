@@ -30,7 +30,7 @@ public class ListHandler implements CommandHandler {
         List<HwetArticleDTO> boardList = listService.getBoardListWithPaging(pageNo, pageSize);
         request.setAttribute("boardList", boardList);
         request.setAttribute("listSize", pageSize);
-        // System.out.println(boardList);
+        // System.out.println(boardList.size());
 
         // 페이징 처리를 위해 전체 데이터 개수를 구합니다.
         int totalDataCount = listService.getTotalDataCount();

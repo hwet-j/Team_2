@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container my-6">
   <h2>글 작성</h2>
   <form action="${pageContext.request.contextPath}/hwet/article/write.do" id="writeForm" method="POST">
      <div class="form-group">
@@ -47,7 +47,7 @@
     </div>
     <div class="form-group">
       <label for="title">제목</label>
-      <input type="text" class="form-control" id="title" name="title" minlength="5" placeholder="제목" required>
+      <input type="text" class="form-control" id="title" name="title"  minlength="5" placeholder="제목" required>
     </div>
     <div class="form-group">
       <label for="link">링크</label>
@@ -61,9 +61,9 @@
     <div class="row">
     <div class="col-6">
       <a href="${pageContext.request.contextPath}/hwet/article/list.do" class="btn btn-secondary">글목록</a>
+      <button type="button" class="btn btn-info" onclick="resetForm()">다시 작성하기</button>
     </div>
     <div class="col-6 text-right">
-      <button type="button" class="btn btn-info" onclick="resetForm()">다시 작성하기</button>
       <button type="submit" class="btn btn-primary">글 작성</button>
     </div>
   </div>
