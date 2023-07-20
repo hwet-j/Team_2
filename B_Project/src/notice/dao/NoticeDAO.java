@@ -55,7 +55,42 @@ public class NoticeDAO {
 
    public NoticeContent showNoticeContent(Connection conn,int noticeNum) {
 			String sql = "SELECT N.notice_no, N.writer_id, N.title, N.regdate, N.read_cnt, N.content " +
-						"FROM notice N, notice_content N" ;
+						"FROM notice N, notice_content N " +
+						"WHERE N.notice_no = NC.notice_no and N.notice_no=?";
+						String sql2 = "UPDATE Notice "
+								+ "SET READ_CNT=READ_CNT+1 "
+								+ "WHERE notice_NO=?";
+						try {
+							stmt1 = conn.prepareStatement(sql);
+							stmt1.setInt(1, articleNum);
+							rs = stmt1.executeQuery();
+							if(rs.next()) {
+								int article_no=rs.getInt(1);
+								String writer_id=rs.getString(2);
+								String title = rs.getString(3);
+								String regdate = rs.getString(4);
+								int read_cnt = rs.getInt(5)+1;
+								String content = rs.getString(6);
+								ArticleContent articleContent = new ArticleContent(article_no, writer_id, title, regdate, read_cnt, content);
+								System.out.println("dao에서 처리성공"+articleContent.toString());
+								
+								stmt2 = conn.prepareStatement(sql2);
+								stmt2.setInt(1, article_no);
+								int updateCnt = stmt2.executeUpdate();
+								System.out.println("조횟수 증가?"+updateCnt);
+								if(updateCnt==1) {return articleContent;}
+								else {return null;}
+							}else {
+								return null;
+							}
+						} catch (SQLException e) {
+							e.printStackTrace();
+						} finally {
+							JDBCUtil.close(stmt1);
+							JDBCUtil.close(stmt2);
+							JDBCUtil.close(rs);	
+						}
+						return null;
 		}
     
     
