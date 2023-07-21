@@ -49,21 +49,56 @@ public class HwetArticleDAO {
 	
 	// 페이징 처리를 위한 메서드
 	// List로 목록을 반환함
-    public List<HwetArticleDTO> getBoardListWithPaging(Connection conn, int page, int pageSize) {
+    public List<HwetArticleDTO> getBoardListWithPaging(Connection conn, int page, int list_size, 
+    		String cate_info, String search_type, String keyword) {
         List<HwetArticleDTO> boardList = new ArrayList<>();
         // 페이지 번호에 따라 가져올 데이터의 시작 인덱스 계산
-        int startIndex = (page - 1) * pageSize;
-        String sql = "SELECT * FROM hwet_board LIMIT ?, ?";
+        int startIndex = (page - 1) * list_size;
         
+        String sql = null;
         PreparedStatement pstmt = null; 
 	    ResultSet rs = null;
-
+	    
+	    // 전체 검색을 위한 % 설정
+    	if (cate_info.equals("전체")) {
+    		cate_info = "%";
+    	}
+    	
         try {
-        	pstmt = conn.prepareStatement(sql);
-        	pstmt.setInt(1, startIndex);
-        	pstmt.setInt(2, pageSize);
-            rs = pstmt.executeQuery();
-
+        	if(!search_type.equals("")) {
+        		keyword = "%" + keyword + "%";	// sql문에 검색을 위한 코드 변경
+            	if (search_type.equals("title")) {	// 제목 검색
+            		sql = "SELECT * FROM hwet_board WHERE category LIKE ? AND title LIKE ? LIMIT ?, ?";
+            		pstmt = conn.prepareStatement(sql);
+            		pstmt.setString(1, cate_info);
+            		pstmt.setString(2, keyword);
+                	pstmt.setInt(3, startIndex);
+                	pstmt.setInt(4, list_size);
+            	} else if (search_type.equals("content")) {	// 제목 + 내용 검색
+            		sql = "SELECT * FROM hwet_board WHERE category LIKE ? AND (content LIKE ? OR title LIKE ?) LIMIT ?, ?";
+            		pstmt = conn.prepareStatement(sql);
+            		pstmt.setString(1, cate_info);
+            		pstmt.setString(2, keyword);
+            		pstmt.setString(3, keyword);
+                	pstmt.setInt(4, startIndex);
+                	pstmt.setInt(5, list_size);
+            	} else if (search_type.equals("writer")) {	// 작성자 검색
+            		sql = "SELECT * FROM hwet_board WHERE category LIKE ? AND writer LIKE ? LIMIT ?, ?";
+            		pstmt = conn.prepareStatement(sql);
+            		pstmt.setString(1, cate_info);
+            		pstmt.setString(2, keyword);
+                	pstmt.setInt(3, startIndex);
+                	pstmt.setInt(4, list_size);
+            	}
+            } else {	// 전체(카테고리 분류만) 검색
+            	sql = "SELECT * FROM hwet_board WHERE category LIKE ? LIMIT ?, ?";
+            	pstmt = conn.prepareStatement(sql);
+            	pstmt.setString(1, cate_info);
+            	pstmt.setInt(2, startIndex);
+            	pstmt.setInt(3, list_size);
+            }
+        	rs = pstmt.executeQuery();
+        	
             while (rs.next()) {
                 HwetArticleDTO board = new HwetArticleDTO();
                 board.setBoardId(rs.getInt("board_id"));
@@ -88,8 +123,7 @@ public class HwetArticleDAO {
         return boardList;
     }
     
-    // 전체 데이터 개수를 반환하는 메서드 (페이징 처리에 사용)
-    // 데이터의 개수를 int타입으로 반환
+    // 전체 데이터 개수를 반환하는 메서드 -> 관리자 페이지? 에서 사용하지 않을까 싶음 
     public int getTotalDataCount(Connection conn) {
         int totalCount = 0;
         // total 이라는 컬럼으로 Alias 설정
@@ -113,6 +147,59 @@ public class HwetArticleDAO {
 
         return totalCount;
     }
+    
+	// 카테고리 별 데이터 개수를 반환하는 메서드 (페이징 처리에 사용)
+	public int getCategoryDataCount(Connection conn, String category, String search_type, String keyword) {
+	    int total_count = 0;
+	    // total 이라는 컬럼으로 Alias 설정
+	    String sql = null;
+	    PreparedStatement pstmt = null; 
+	    ResultSet rs = null;
+	    
+	    if (category.equals("전체")) {
+	    	category = "%";
+    	}
+    	
+        try {
+        	if(!search_type.equals("")) {
+        		keyword = "%" + keyword + "%";	// sql문에 검색을 위한 코드 변경
+            	if (search_type.equals("title")) {	// 제목 검색
+            		sql = "SELECT COUNT(*) AS total FROM hwet_board WHERE category LIKE ? AND title LIKE ?";
+            		pstmt = conn.prepareStatement(sql);
+            		pstmt.setString(1, category);
+            		pstmt.setString(2, keyword);
+            	} else if (search_type.equals("content")) {	// 제목 + 내용 검색
+            		sql = "SELECT COUNT(*) AS total FROM hwet_board WHERE category LIKE ? AND (content LIKE ? OR title LIKE ?)";
+            		pstmt = conn.prepareStatement(sql);
+            		pstmt.setString(1, category);
+            		pstmt.setString(2, keyword);
+            		pstmt.setString(3, keyword);
+            	} else if (search_type.equals("writer")) {	// 작성자 검색
+            		sql = "SELECT COUNT(*) AS total FROM hwet_board WHERE category LIKE ? AND writer LIKE ?";
+            		pstmt = conn.prepareStatement(sql);
+            		pstmt.setString(1, category);
+            		pstmt.setString(2, keyword);
+            	}
+            } else {	// 전체(카테고리 분류만) 검색
+            	sql = "SELECT COUNT(*) AS total FROM hwet_board WHERE category LIKE ?";
+            	pstmt = conn.prepareStatement(sql);
+            	pstmt.setString(1, category);
+            }
+        	rs = pstmt.executeQuery();
+	
+	        if (rs.next()) {
+	        	// sql문에서 설정한 컬럼명을 가져다 사용
+	        	total_count = rs.getInt("total");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	    	JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+	
+	    return total_count;
+	}
     
 	// 목록 하나
     // 목록 하나를 DTO 객체에 저장하여 리턴함
