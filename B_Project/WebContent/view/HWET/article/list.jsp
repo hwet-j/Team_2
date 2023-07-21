@@ -131,7 +131,7 @@ $(document).ready(function() {
   $("#searchButton").click(function() {
     var keywordInput = $("#keyword");
     var keyword = keywordInput.val();
-  
+    <%-- 검색어를 입력해야지만 url이동이 되도록 하려했지만, 아무것도 입력안했을 때 검색어가 없는 상태로 다시 돌아오도록 하기 위해 제거 --%>
     var search_type = $('[name="search_type"]').val();
     var url = "${pageContext.request.contextPath}/hwet/article/list.do?category_info=${category_info}&page_no=${current_page}" + "&search_type=" + search_type + "&keyword=" + keyword;
     window.location.href = url;
