@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdbc.JDBCUtil;
 import min.model.PolArticle;
 import min.model.Writer;
+import min.service.PolArticleData;
+import jdbc.JDBCUtil;
 
 public class PolArticleDAO {
 	//필드
@@ -23,8 +24,59 @@ public class PolArticleDAO {
 	//(article테이블,article_content테이블)상세조회
 	//파라미터 int no : 상세조회할 글 번호
 	//리턴     OurArticleData : 글번호,작성자id,작성자명,제목,작성일,수정일,조회수,내용
+	public PolArticleData getDetail(Connection conn, int no) throws SQLException {
+		String sql="select p.polArticle_no, p.writer_id, p.writer_name, p.title, " + 
+				"       p.regdate,    p.moddate,   p.read_cnt, " + 
+				"       pc.content " + 
+				"from polArticle p,  polArticle_content pc " + 
+				"where p.polArticle_no=pc.polArticle_no " + 
+				"	  and " + 
+				"     p.polArticle_no=? ";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs= null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, no);
+			rs = stmt.executeQuery();
+			PolArticleData pad = null;
+			if(rs.next()) {
+				pad = new PolArticleData();
+				pad.setNumber(rs.getInt("polArticle_no"));
+				pad.setWriter_id(rs.getString("writer_id"));
+				pad.setWriter_name(rs.getString("writer_name"));
+				pad.setTitle(rs.getString("title"));
+				pad.setRegDate(rs.getDate("regdate"));
+				pad.setModifiedDate(rs.getDate("moddate"));
+				pad.setReadCount(rs.getInt("read_cnt"));
+				pad.setContent(rs.getString("content"));
+				
+				//콘솔출력
+				System.out.println("PolArticleDAO에서  getDetail() PolArticleData pad ="+pad);
+			}
+			
+			return pad;
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
+		}
+
+	}
 	
-	
+	//조회수증가-P656 20라인
+	public void increaseReadCount(Connection conn, int no) throws SQLException {
+			String sql= "update polArticle " + 
+						"set read_cnt=read_cnt+1 " + 
+						"where polArticle_no=?";
+			PreparedStatement stmt = null;
+			try {
+			 stmt=conn.prepareStatement(sql);
+			 stmt.setInt(1, no);
+			 stmt.executeUpdate();
+		} finally {
+			JDBCUtil.close(stmt);
+		}
+	}
 	
 	//polArticle테이블 목록조회 p647 15라인
 	/*0,13; --1page페이지의 경우 갯수마다 조회
@@ -55,8 +107,8 @@ public class PolArticleDAO {
 	return result;
 		
 	} finally {
-	JDBCUtil.close(rs);
-	 JDBCUtil.close(stmt); //회창님꺼 이름
+		JDBCUtil.close(rs);
+		JDBCUtil.close(stmt);
 	}
 }
 	

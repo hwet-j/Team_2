@@ -41,7 +41,7 @@ polArticlePage : ${polArticlePage}
  	  <tr>
  	  	<td>${polArticle.number}</td>
  	  	<%-- read.do?no=상세하게보고싶은글번호&pageNo=현재페이지"  --%>
- 	  	<td><a href="read.do?no=${polArticle.number}&pageNo=${nowPage}">${polArticle.title}</a></td>
+ 	  	<td><a href="polread.do?no=${polArticle.number}&pageNo=${nowPage}">${polArticle.title}</a></td> <%--제목번호에 행당링크를 압축해놓음 --%>>
  	  	<td>${polArticle.writer.name}/${polArticle.writer.id}</td>
  	  	<td>${polArticle.readCount}</td>
  	  </tr>
