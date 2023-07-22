@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -38,7 +38,7 @@ $(document).ready(function(){
 	<a href= "login.do">로그인</a>
 	<br/><br/><br/>
 	</c:if>
-	<%--회원 로그인 --%>
+	회원 로그인
 	<c:if test="${!empty AUTH_USER  and  AUTH_USER.id!='adminid'}"> 
     <span id="i1">${AUTH_USER.name} 님</span> 
  	<button type="button" id="LogoutBtn">로그아웃</button>
@@ -49,7 +49,7 @@ $(document).ready(function(){
  	<a href="/notice/write.do">글쓰기</a>
  	<br/><br/><br/>
 </c:if>
-	<%--관리자 로그인 --%>
+	관리자 로그인
 	 <c:if test="${!empty AUTH_USER  and  AUTH_USER.id=='adminid'}"> 
     <span id="i1">${AUTH_USER.name} 님</span> 
  	<button type="button" id="LogoutBtn">로그아웃</button>
@@ -60,4 +60,4 @@ $(document).ready(function(){
 </c:if>
 	
 </body>
-</html>
+</html> --%>

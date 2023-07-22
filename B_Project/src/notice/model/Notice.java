@@ -1,131 +1,99 @@
 package notice.model;
 
-import java.io.Serializable;
+import java.util.Date;
 
-public class Notice implements Serializable{
-	private int notice_no;
-	private String writer_id;
-	private String writer_name;
-	private String title;
-	private String regdate;
-	private String moddate;
-	private int read_cnt;
-	private String Content;
+//공지사항 테이블의 값을 저장 및 제공 등의 기능을 가진 클래스
+public class Notice {
+	//필드
+	private Integer number; //notice_no 글번호.PK
+	private String writerId; // writer_id 작성자 아이디
+	private String title; // title 제목
+	private String content; // content 내용
+	private Date writeDate ; // writedate 작성일
+	private int views;  //views 조회수
 	
 	
-	
-	public String getContent() {
-		return Content;
-	}
-	
-	
-	public void setContent(String content) {
-		Content = content;
-	}
+	public Notice() {}
 
 
-	public int getNotice_no() {
-		return notice_no;
+	public Notice(Integer number, String writerId, String title, String content, Date writeDate, int views) {
+
+		this.number = number;
+		this.writerId = writerId;
+		this.title = title;
+		this.content = content;
+		this.writeDate = writeDate;
+		this.views = views;
 	}
-	public String getWriter_id() {
-		return writer_id;
+
+
+	public Integer getNumber() {
+		return number;
 	}
-	public String getWriter_name() {
-		return writer_name;
+
+
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
+
+
+	public String getWriterId() {
+		return writerId;
+	}
+
+
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
+	}
+
+
 	public String getTitle() {
 		return title;
 	}
-	public String getRegdate() {
-		return regdate;
+
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getModdate() {
-		return moddate;
+
+
+	public String getContent() {
+		return content;
 	}
-	public int getRead_cnt() {
-		return read_cnt;
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+	public Date getWriteDate() {
+		return writeDate;
+	}
+
+
+	public void setWriteDate(Date writeDate) {
+		this.writeDate = writeDate;
+	}
+
+
+	public int getViews() {
+		return views;
+	}
+
+
+	public void setViews(int views) {
+		this.views = views;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Notice [notice_no=" + notice_no + ", writer_id=" + writer_id + ", writer_name=" + writer_name
-				+ ", title=" + title + ", regdate=" + regdate + ", moddate=" + moddate + ", read_cnt=" + read_cnt + "]";
+		return "Notice [number=" + number + ", writerId=" + writerId + ", title=" + title + ", content=" + content
+				+ ", writeDate=" + writeDate + ", views=" + views + "]";
 	}
-
-
-	public Notice(int notice_no, String writer_id, String title, String regdate, int read_cnt) {
-		this.notice_no = notice_no;
-		this.writer_id = writer_id;
-		this.title = title;
-		this.regdate = regdate;
-		this.read_cnt = read_cnt;
-	}
-
-
-	public Notice(int notice_no, String writer_id, String title, String regdate, String moddate, int read_cnt) {
-		super();
-		this.notice_no = notice_no;
-		this.writer_id = writer_id;
-		this.title = title;
-		this.regdate = regdate;
-		this.moddate = moddate;
-		this.read_cnt = read_cnt;
-	}
-
-
-	public Notice(String writer_id, String title, String content) {
-		super();
-		this.writer_id = writer_id;
-		this.title = title;
-		Content = content;
-	}
-
 
 
 	
-	public class NoticeContent {
-		int noticeNo;
-		String writer_id;
-		String title;
-		String regdate;
-		int read_cnt;
-		String Content;
-		public int getNoticeNo() {
-			return noticeNo;
-		}
-		public String getWriter_id() {
-			return writer_id;
-		}
-		public String getTitle() {
-			return title;
-		}
-		public String getRegdate() {
-			return regdate;
-		}
-		public int getRead_cnt() {
-			return read_cnt;
-		}
-		public String getContent() {
-			return Content;
-		}
-		@Override
-		public String toString() {
-			return "NoticeContent [noticeNo=" + noticeNo + ", writer_id=" + writer_id + ", title=" + title
-					+ ", regdate=" + regdate + ", read_cnt=" + read_cnt + ", Content=" + Content + "]";
-		}
-		public NoticeContent(int noticeNo, String writer_id, String title, String regdate, int read_cnt,
-				String content) {
-			this.noticeNo = noticeNo;
-			this.writer_id = writer_id;
-			this.title = title;
-			this.regdate = regdate;
-			this.read_cnt = read_cnt;
-			Content = content;
-		}
-		
-		
-	
-	}
 }
 

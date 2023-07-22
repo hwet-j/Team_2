@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -18,8 +18,12 @@ $(function(){
 </script>
 </head>
 <body>
+<%--	//리턴 Notice notice: 글번호,작성자id,제목,내용,작성일,조회수,
+			Notice notice =NoticeService.getDetail(no); 
+			request.setAttribute("notice",notice); --%>
 
-noc : ${noc}
+
+notice : ${notice}
 <div class="container">
 		<!-- page title -->
 		<h2 class="mt-5 mb-4 text-center">상세보기</h2>
@@ -28,32 +32,45 @@ noc : ${noc}
 			<tbody>
 			<tr>
 			 <th scope= "row">글번호</th>
-			 <td>${noc.number}</td>
+			 <td>${notice.number}</td>
 			 </tr>
 			<tr>
-			 <th scope= "row">id</th>
-			 <td>${noc.notice_id}</td>
+			 <th scope= "row">작성자id</th>
+			 <td>${notice.writerId}</td>
 			 </tr>
 			<tr>
 			 <th scope= "row">제목</th>
-			 <td>${noc.notice_title}</td>
+			 <td>${notice.title}</td>
 			 </tr>
 			<tr>
 			 <th scope= "row">내용</th>
-			 <td>${noc.notice_content}</td>
+			 <td>${notice.content}</td>
+			 </tr>
+			<tr>
+			 <th scope= "row">작성일</th>
+			 <td>${notice.writeDate} </td>
 			 </tr>
 			<tr>
 			 <th scope= "row">조회수</th>
-			 <td>${noc.notice_views}</td>
+			 <td>${notice.views}</td>
 			 </tr>
 			</tbody>
 		</table>
+		
+		
+		<!-- button --> 
+		<!-- d-flex:한개의 row를 block레벨로 차지 
+		   flex-start:왼쪽정렬(기본)/ flex-end:오른쪽정렬 / flex-center:가운데정렬
+		   justify-content-end : 오른쪽정렬-->
 		<div class="d-flex justify-content-end">
 		<c:set var="pageno" value="${empty param.pageNo?1:param.pageNo}"  />
-	<a href="list.do?pageNo=${pageNo}" class="btn btn-outline-dark">목록보기</a>
-	<c:if test="${AUTH_USER.id==ora.user_id}">
-	  <a href="modify.do?no=${ora.number}" class="btn btn-outline-dark">공지수정</a>
+	<a href="<%=request.getContextPath()%>/board/list.do?pageNo=${pageNo}" class="btn btn-outline-dark">목록보기</a>
+	<c:if test="${AUTH_USER.id==notice.writerId}">
+	   <a href="modify.do?no=${notice.number}" class="btn btn-outline-dark">공지수정</a>
      </c:if>
+      <c:if test="${AUTH_USER.id eq board.writerId}">
+	   <a href="delete.do?no=${board.number}" class="btn btn-outline-dark">공지삭제</a>
+	 </c:if>
 </div>
 <a href=""class=""></a>
 </div>
@@ -68,4 +85,4 @@ noc : ${noc}
         integrity="sha384-OgVRvuATP8zjCGMXP5R6nX6KZQJcdTd/ftMf6nH16Pz9JvqBabTTLNZQbVfaGnt"
         crossorigin="anonymous"></script>
 </body>
-</html>
+</html> 

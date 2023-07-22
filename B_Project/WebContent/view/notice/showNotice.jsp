@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -45,4 +45,4 @@
 	<br>
 	<c:if test="${!empty AUTH_USER}"><a href="/view/board/writeNoticeForm.jsp"><button type="button">공지글 작성</button></a></c:if>
 </body>
-</html>
+</html> --%>
