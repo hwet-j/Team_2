@@ -4,94 +4,112 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import jdbc.JDBCUtil;
 import notice.Notice;
-import notice.model.Notice.NoticeContent;
 import notice.model.User_notUse;
 import notice.service.NoticeData;
 
-public class NoticeDAO {
-	Statement stmt = null;
-	PreparedStatement stmt1=null;
-	PreparedStatement stmt2=null;
-	ResultSet rs=null; //
-
+public class NoticeDao3 {
 	
-	//전체조회
-    public  List<Notice> showAllNotice(Connection conn){ 
-    	String sql= "select * " + 
+	public int update(Connection conn, int no, String title)throws SQLException {
+		String sql="update notice" +
+				"set notice_title=?" +
+				"where notice_no=?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1,title);
+			stmt.setInt(2,no);
+			return stmt.executeUpdate();
+		}finally {
+			JDBCUtil.close(stmt);
+		}
+	}
+	
+	public NoticeData getDetail(Connection conn, int no) throws SQLException {
+		String sql = "select notice_no, user_id, notice_title, notice_content, notice_views " +
+				"from notice " +
+				"where notice_no=?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, no);
+			rs = stmt.executeQuery();
+			NoticeData noc = null;
+			if(rs.next()) {
+				noc = new NoticeData();
+				noc.setNumber(rs.getInt("notice_no"));
+				noc.setUser_id(rs.getString("user_id"));
+				noc.setNotice_title(rs.getString("notice_title"));
+				noc.setNotice_content(rs.getString("notice_content"));
+				noc.setNotice_views(rs.getInt("notice_views"));
+				
+				System.out.println("NoticeDao에서 getDetail() NoticeData noc ="+noc);
+			}
+			return noc;			
+		}finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
+		}	
+	}	
+	
+	public void increaseNotice_Views(Connection conn, int no)throws SQLException {
+		String sql = "update notice " +
+					 "set notice_views=notice_views+1 " +
+					 "where notice_no=?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,no);
+			stmt.executeUpdate();
+		}finally {
+			JDBCUtil.close(stmt);
+		}
+	}
+	
+	
+    public  List<Notice> select(Connection conn,int startRow,int size )  throws SQLException{
+    	String sql= "select notice_no, user_id, notice_title, notice_content, notice_views " + 
     				"from notice " +
-    				"order by notice_no desc";
-    List<Notice> NoticeList = new LinkedList<>();
+    				"order by notice_no desc  limit ?,?";
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
     	try {
-			 stmt1 =conn.prepareStatement(sql);
-			 rs = stmt1.executeQuery();
+			 stmt =conn.prepareStatement(sql);
+			 	stmt.setInt(1,startRow);
+			 	stmt.setInt(2,size);
+				
+				rs = stmt.executeQuery();
+			
+				List<Notice> result = new ArrayList<Notice>();
+		
 				while(rs.next()) {
-					int notice_no = rs.getInt("notice_no");
-					String writer_id = rs.getString("writer_id");
-					String title = rs.getString("title");
-					String regdate = rs.getString("regdate");
-					int read_cnt = rs.getInt("read_cnt");
-					Notice notice = new Notice(notice_no, writer_id, title, regdate, read_cnt);
-					NoticeList.add(notice);
-					
+				
+					result.add( convertNotice(rs) ); 
 				}
 				
-				return NoticeList;
-    	} catch (SQLException e) {
-			e.printStackTrace();
+				return result;
 			}finally {
-				JDBCUtil.close(stmt1);
 				JDBCUtil.close(rs);
+				JDBCUtil.close(stmt);
 			}
-    		return null;
 		}
-		@SuppressWarnings("finally")//
+    
 
-   public NoticeContent showNoticeContent(Connection conn,int noticeNum) {
-			String sql = "SELECT N.notice_no, N.writer_id, N.title, N.regdate, N.read_cnt, N.content " +
-						"FROM notice N, notice_content N " +
-						"WHERE N.notice_no = NC.notice_no and N.notice_no=?";
-						String sql2 = "UPDATE Notice "
-								+ "SET READ_CNT=READ_CNT+1 "
-								+ "WHERE notice_NO=?";
-						try {
-							stmt1 = conn.prepareStatement(sql);
-							stmt1.setInt(1, articleNum);
-							rs = stmt1.executeQuery();
-							if(rs.next()) {
-								int article_no=rs.getInt(1);
-								String writer_id=rs.getString(2);
-								String title = rs.getString(3);
-								String regdate = rs.getString(4);
-								int read_cnt = rs.getInt(5)+1;
-								String content = rs.getString(6);
-								ArticleContent articleContent = new ArticleContent(article_no, writer_id, title, regdate, read_cnt, content);
-								System.out.println("dao에서 처리성공"+articleContent.toString());
-								
-								stmt2 = conn.prepareStatement(sql2);
-								stmt2.setInt(1, article_no);
-								int updateCnt = stmt2.executeUpdate();
-								System.out.println("조횟수 증가?"+updateCnt);
-								if(updateCnt==1) {return articleContent;}
-								else {return null;}
-							}else {
-								return null;
-							}
-						} catch (SQLException e) {
-							e.printStackTrace();
-						} finally {
-							JDBCUtil.close(stmt1);
-							JDBCUtil.close(stmt2);
-							JDBCUtil.close(rs);	
-						}
-						return null;
-		}
+    private Notice convertNotice(ResultSet rs) throws SQLException {
+		return
+		new Notice(rs.getInt("notice_no"),
+    				rs.getString("user_id"),			
+    				rs.getString("notice_title"),
+    				rs.getString("notice_content"),
+    				rs.getInt("notice_views")
+    				);
+    }
     
     
     
