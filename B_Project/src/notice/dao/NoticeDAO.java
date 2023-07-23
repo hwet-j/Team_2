@@ -150,35 +150,42 @@ public class NoticeDAO {
 		
 	}// 목록 조회
     
-	public Notice insert(Connection conn, Notice notice) throws SQLException {
+	//공지글등록
+		//파라미터 board - 회원id,제목,내용
+		//리턴     int - inserted된 정보 글번호!!!
+	public Integer insert(Connection conn, Notice notice) throws SQLException {
 		System.out.println("NoticeDao-insert()진입");
 		
-	String sql="insert into notice(user_id,notice_title,notice_content,notice_views) "+
-	 "values(?,?,?,0)";
-	PreparedStatement stmt = null;
-	PreparedStatement stmt2 = null;
+	String sql="insert into notice(writer_id,title,content,writedate,views) "+
+	 "values(?,?,?,now(),0)";
+	PreparedStatement stmt = null; //insert용
+	PreparedStatement stmt2 = null; //select용
 	ResultSet rs = null;
 		try {
 			stmt = conn.prepareStatement(sql);
 			
-			stmt.setObject(1,notice.getWriterId());
+			//4.쿼리실행
+			//stmt.set데이터타입(?순서,값);
+			stmt.setString(1,notice.getWriterId());
 			stmt.setString(2,notice.getTitle());
 			stmt.setString(3,notice.getContent());
-			int insertedCount = stmt.executeUpdate();
 			
+			int insertedCount = stmt.executeUpdate();
+			//입력성공시 1리턴, 실패시 0리턴
 			if(insertedCount>0) {
-				stmt2 = conn.prepareStatement("select last_insert_user_id()from notice");
+				//방금 직전에 입력된 글번호를 DB에서 가져온다
+				//->notice테이블에 insert시 글번호로 사용
+				stmt2 = conn.prepareStatement("select last_insert_id()from notice");
 				rs =stmt2.executeQuery();
 				if(rs.next()) {
-					Integer newNum = rs.getInt(1);
-					//return new Notice(newNum,notice.getWriterId(),notice.getTitle(),notice.getContent(),0); 수정예정
+					return rs.getInt(1);
 				}
 			}
 			return null;
 		}finally {
 			JDBCUtil.close(rs);
-			JDBCUtil.close(stmt);
 			JDBCUtil.close(stmt2);
+			JDBCUtil.close(stmt);
 		}
 	}
 	

@@ -2,6 +2,7 @@ package notice.model;
 
 import java.util.Date;
 
+
 //공지사항 테이블의 값을 저장 및 제공 등의 기능을 가진 클래스
 public class Notice {
 	//필드
@@ -86,7 +87,10 @@ public class Notice {
 		this.views = views;
 	}
 
-
+	
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Notice [number=" + number + ", writerId=" + writerId + ", title=" + title + ", content=" + content

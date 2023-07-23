@@ -2,8 +2,10 @@ package notice.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import notice.dao.NoticeDAO;
 import notice.model.Notice;
@@ -65,4 +67,42 @@ public class NoticeService {
 	}		
 	
   }
+	
+	//공지글등록하기
+			//파라미터 notice: 세션의 회원id,글제목,내용
+			//리턴     noticeno : 방금전 insert된 글번호
+			public int write(WriteRequest req) {
+				
+				Connection conn = null;
+				try {
+					conn = ConnectionProvider.getConnection();
+					conn.setAutoCommit(false);
+					
+					//파라미터 WriteReques(notice) - 작성정보(여기에서는 session에  담긴 회원id, 회원name),제목,내용을 WriteRequest(notice)객체로 생성*/
+					//리턴notice - WriteRequest+작성일,수정일,조회수
+					
+					//파라미터 board   - 회원id,제목,내용,작성일,조회수
+					//리턴     int - inserted된 정보 글번호!!!
+					Integer savedNoticeno = noticeDAO.insert(conn,notice);
+					if(savedNoticeno==null) {
+						throw new RuntimeException("Fail to insert notice");
+					}
+					
+					conn.commit();
+					return savedNoticeno;
+				} catch (SQLException e) {
+					e.printStackTrace();
+					JDBCUtil.rollback(conn);
+					throw new RuntimeException(e);
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+					JDBCUtil.rollback(conn);
+					throw e;
+				} finally {
+					JDBCUtil.close(conn);
+				}
+				
+				
+				
+			}
 }
