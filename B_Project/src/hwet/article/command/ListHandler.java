@@ -11,6 +11,7 @@ import hwet.article.service.ListArticleService;
 import mvc.command.CommandHandler;
 
 // /hwet/article/list.do
+/* 게시판 글 리스트를 확인하는 기능(페이징처리, 카테고리, 검색기능) */
 public class ListHandler implements CommandHandler {
 	
 	private ListArticleService listService = new ListArticleService();
@@ -66,8 +67,6 @@ public class ListHandler implements CommandHandler {
         // 페이지 이동 처리
         String view_page = "/view/HWET/article/list.jsp"; // 기본 페이지
         
-        System.out.println(board_list);
-        System.out.println(board_list.size());
         // 만약 데이터가 없는 페이지이고, 페이지 번호가 1보다 크다면 첫 페이지로 이동합니다. (get방식을 통해 고의적으로 이상한 페이지를 작성했을 때를 대비)
         // 단, 카테고리, 검색어, 검색타입은 유지한 상태로 첫 페이지 이동
         if (board_list.isEmpty() && page_no > 1) {
