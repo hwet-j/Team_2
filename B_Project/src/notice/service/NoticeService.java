@@ -10,6 +10,7 @@ import jdbc.connection.ConnectionProvider;
 import notice.dao.NoticeDAO;
 import notice.model.Notice;
 
+
 //ListNoticeHandler<->Service<->DAO<->DB
 public class NoticeService {
 		
@@ -48,19 +49,19 @@ public class NoticeService {
 	//상세조회
 	//파라미터 int no : 상세조회할 공지글 번호
 	//리턴 Notice notice: 글번호, 작성자id,제목,내용,작성일,조회수
-	public Notice getDetail(int no) {
+	public NoticeData getDetail(int no) {
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			//조회수증가
 			noticeDAO.increaseViews(conn, no);
 			
-			Notice notice = noticeDAO.getDetail(conn, no);
-			System.out.println("서비스 notice="+notice);
-			if(notice==null) {
+			NoticeData nod = noticeDAO.getDetail(conn, no);
+			System.out.println("서비스 noticeData="+nod);
+			if(nod==null) {
 				throw new NoticeNotFoundException();
 			}
-			return notice;
+			return nod;
 	} catch (SQLException e) {
 		e.printStackTrace();
 		throw new RuntimeException();
@@ -71,25 +72,25 @@ public class NoticeService {
 	//공지글등록하기
 			//파라미터 notice: 세션의 회원id,글제목,내용
 			//리턴     noticeno : 방금전 insert된 글번호
-			public int write(WriteRequest req) {
+			public Integer write(WriteRequest req) {
 				
 				Connection conn = null;
 				try {
 					conn = ConnectionProvider.getConnection();
 					conn.setAutoCommit(false);
 					
-					//파라미터 WriteReques(notice) - 작성정보(여기에서는 session에  담긴 회원id, 회원name),제목,내용을 WriteRequest(notice)객체로 생성*/
+					//파라미터 WriteRequest(notice) - 작성정보(여기에서는 session에  담긴 회원id),제목,내용을 WriteRequest(notice)객체로 생성*/
 					//리턴notice - WriteRequest+작성일,수정일,조회수
-					
+					Notice notice =toNotice(req);
 					//파라미터 board   - 회원id,제목,내용,작성일,조회수
 					//리턴     int - inserted된 정보 글번호!!!
-					Integer savedNoticeno = noticeDAO.insert(conn,notice);
+					Notice savedNoticeno = noticeDAO.insert(conn,notice);
 					if(savedNoticeno==null) {
 						throw new RuntimeException("Fail to insert notice");
 					}
 					
 					conn.commit();
-					return savedNoticeno;
+					return savedNoticeno.getNumber();
 				} catch (SQLException e) {
 					e.printStackTrace();
 					JDBCUtil.rollback(conn);
@@ -102,7 +103,42 @@ public class NoticeService {
 					JDBCUtil.close(conn);
 				}
 				
-				
-				
 			}
+			//파라미터 WriteRequest -작성정보(여기에서는 session에 담긴 회원id),제목
+			//리턴 Notice - WriteRequest+작성일,조회수
+			private Notice toNotice(WriteRequest req) {
+				//아직 글번호는 db에서 auto_increment되기에 현재는 모르므로 null 제시
+				Date now =new Date();
+				return new Notice(null, req.getWriter(), req.getTitle(), req.getContent(), now, 0);
+			}
+			
+			//글삭제
+			//파라미터 no -삭제할 글번호
+			//리턴 int 삭제성공시 삭제된글번호리턴, 실패시 0
+			public int deleteNotice(int no) {
+				Connection conn = null;
+				int deletedNo = 0;
+				try {
+					conn = ConnectionProvider.getConnection();
+					conn.setAutoCommit(false);
+					
+					//파라미터 no - 삭제할  글번호
+					//리턴 int 삭제성공시 삭제된글번호리턴, 실패시 0
+					deletedNo = noticeDAO.delete(conn,no);
+								
+					conn.commit();
+					return deletedNo;
+				} catch (SQLException e) {
+					e.printStackTrace();
+					JDBCUtil.rollback(conn);
+					throw new RuntimeException(e);
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+					JDBCUtil.rollback(conn);
+					throw e;
+				} finally {
+					JDBCUtil.close(conn);
+				}
+			}
+			
 }

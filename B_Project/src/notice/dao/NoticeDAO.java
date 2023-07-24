@@ -9,6 +9,8 @@ import java.util.List;
 
 import jdbc.JDBCUtil;
 import notice.model.Notice;
+import notice.model.Writer;
+import notice.service.NoticeData;
 
 
 //notice테이블관련 DB작업용 클래스이다
@@ -32,7 +34,7 @@ public class NoticeDAO {
 	//상세보기
 	//파라미터 int no : 상세조회할 공지글 번호
 	//리턴 Notice notice: 글번호, 작성자id,제목,내용,작성일,조회수
-	public Notice getDetail(Connection conn, int no) throws SQLException {
+	public NoticeData getDetail(Connection conn, int no) throws SQLException {
 		String sql = "select notice_no, writer_id, title, content, writedate, views " +
 				"from notice " +
 				"where notice_no=?";
@@ -43,20 +45,20 @@ public class NoticeDAO {
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, no);
 			rs = stmt.executeQuery();
-			Notice notice = null;
+			NoticeData nod = null;
 			if(rs.next()) {
-				notice = new Notice();
+				nod = new NoticeData();
 				//조회된 각 컬럼의 값을 가져와 Notice클래스 객체로 생성한다
-				notice.setNumber(rs.getInt("notice_no"));
-				notice.setWriterId(rs.getString("writer_id"));
-				notice.setTitle(rs.getString("title"));
-				notice.setContent(rs.getString("content"));
-				notice.setWriteDate(rs.getDate("writedate"));
-				notice.setViews(rs.getInt("views"));
+				nod.setNumber(rs.getInt("notice_no"));
+				nod.setWriter_id(rs.getString("writer_id"));
+				nod.setTitle(rs.getString("title"));
+				nod.setContent(rs.getString("content"));
+				nod.setWriteDate(rs.getDate("writedate"));
+				nod.setViews(rs.getInt("views"));
 				
-				System.out.println("NoticeDao에서 getDetail() Notice notice ="+notice);
+				System.out.println("NoticeDao에서 getDetail() NoticeData nod ="+nod);
 			}
-			return notice;			
+			return nod;			
 		}finally {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(stmt);
@@ -119,7 +121,7 @@ public class NoticeDAO {
   //select쿼리를 실행한 결과집합(ResultSet)을 이용하여 Notice클래스의 객체를 생성
     private Notice convertNotice(ResultSet rs) throws SQLException {
 		return new Notice(rs.getInt("notice_no"),
-    				rs.getString("writer_id"),			
+    				new Writer(rs.getString("writer_id")),			
     				rs.getString("title"),
     				rs.getString("content"),
     				rs.getDate("writedate"),
@@ -153,7 +155,7 @@ public class NoticeDAO {
 	//공지글등록
 		//파라미터 board - 회원id,제목,내용
 		//리턴     int - inserted된 정보 글번호!!!
-	public Integer insert(Connection conn, Notice notice) throws SQLException {
+	public Notice insert(Connection conn, Notice notice) throws SQLException {
 		System.out.println("NoticeDao-insert()진입");
 		
 	String sql="insert into notice(writer_id,title,content,writedate,views) "+
@@ -166,7 +168,7 @@ public class NoticeDAO {
 			
 			//4.쿼리실행
 			//stmt.set데이터타입(?순서,값);
-			stmt.setString(1,notice.getWriterId());
+			stmt.setString(1,notice.getWriter().getId());
 			stmt.setString(2,notice.getTitle());
 			stmt.setString(3,notice.getContent());
 			
@@ -175,10 +177,12 @@ public class NoticeDAO {
 			if(insertedCount>0) {
 				//방금 직전에 입력된 글번호를 DB에서 가져온다
 				//->notice테이블에 insert시 글번호로 사용
-				stmt2 = conn.prepareStatement("select last_insert_id()from notice");
+				stmt2 = conn.prepareStatement("select last_insert_id() from notice");
 				rs =stmt2.executeQuery();
 				if(rs.next()) {
-					return rs.getInt(1);
+					Integer newNum = rs.getInt(1);
+					return new Notice(newNum,notice.getWriter(),notice.getTitle(),notice.getContent(),notice.getWriteDate(),0);
+					//return rs.getInt(1);
 				}
 			}
 			return null;
@@ -189,7 +193,36 @@ public class NoticeDAO {
 		}
 	}
 	
+	//삭제하기
+	//파라미터 no - 삭제할  글번호
+	//리턴 noticeno - 삭제된 글번호
 	
+	public int delete(Connection conn, int no) throws SQLException {
+		//3.객체준비
+		String sql ="delete from notice " +
+					"where notice_no=?";
+		PreparedStatement stmt = null; //delete용
+		try {
+			stmt = conn.prepareStatement(sql);
+			
+			//4.쿼리실행
+			//stmt.set데이터타입(?순서,값);
+			stmt.setInt(1,no);
+		
+			int deletedCount = stmt.executeUpdate();
+			//삭제성공시 삭제된글번호리턴, 실패시 0리턴
+			if(deletedCount>0) {
+				return no;				
+			}
+			
+		}finally {
+			JDBCUtil.close(stmt);
+		}
+		return 0; //삭제실패시 0을 리턴
+	
+	}
 }
+	
+
 	
 

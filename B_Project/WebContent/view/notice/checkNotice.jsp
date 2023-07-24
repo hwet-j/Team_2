@@ -1,6 +1,9 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="u"   tagdir="/WEB-INF/tags"%>
+<%-- <c:set var="변수명" value="변수값" /> --%>
+<c:set var="cPath" value="<%=request.getContextPath() %>" />
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -12,6 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+
 $(function(){
 	
 });
@@ -20,39 +24,44 @@ $(function(){
 <body>
 <%--	//리턴 Notice notice: 글번호,작성자id,제목,내용,작성일,조회수,
 			Notice notice =NoticeService.getDetail(no); 
-			request.setAttribute("notice",notice); --%>
+			//request.setAttribute("notice",notice); 
+			request.setAttribute("nod", nod);--%>
 
-
-notice : ${notice}
+	
+nod : ${nod}
 <div class="container">
 		<!-- page title -->
-		<h2 class="mt-5 mb-4 text-center">상세보기</h2>
+		<h2 class="mt-5 mb-4 text-center">상세보기+수정,삭제</h2>
 		
-		<table class= "table table-bordered mt-3">
+		<form id="noticeForm" action="${cPath}/notice/modify.do" method="post"   enctype="application/x-www-form-urlcencoded" >
+		<input type="hidden" name="noticeno"   id="noticeno" value="${nod.number}"/>
+		<input type="hidden" name="writer_id"  id="writer_id" value="${nod.writer_id}"/>
+		<table class="table table-bordered mt-3">
+		
 			<tbody>
 			<tr>
-			 <th scope= "row">글번호</th>
-			 <td>${notice.number}</td>
+			 <th scope= "row" style="width:15%;">글번호</th>
+			 <td>${nod.number}</td>
 			 </tr>
 			<tr>
 			 <th scope= "row">작성자id</th>
-			 <td>${notice.writerId}</td>
+			 <td>${nod.writer_id}</td>
 			 </tr>
 			<tr>
-			 <th scope= "row">제목</th>
-			 <td>${notice.title}</td>
+			 <th scope= "row"><label for="title">제목</label></th>
+			 <td><input type="text" name="title" id="title" value="${nod.title}" ></td>
 			 </tr>
 			<tr>
-			 <th scope= "row">내용</th>
-			 <td>${notice.content}</td>
+			 <th scope= "row"><label for="content">내용</label></th>
+			 <td><textarea name="content" id="content">${nod.content}</textarea></td>
 			 </tr>
 			<tr>
 			 <th scope= "row">작성일</th>
-			 <td>${notice.writeDate} </td>
+			 <td><fmt:formatDate value="${nod.writeDate}" pattern="yyyy년  M월  d일" /></td>
 			 </tr>
 			<tr>
 			 <th scope= "row">조회수</th>
-			 <td>${notice.views}</td>
+			 <td>${nod.views}</td>
 			 </tr>
 			</tbody>
 		</table>
@@ -65,14 +74,15 @@ notice : ${notice}
 		<div class="d-flex justify-content-end">
 		<c:set var="pageno" value="${empty param.pageNo?1:param.pageNo}"  />
 	<a href="<%=request.getContextPath()%>/board/list.do?pageNo=${pageNo}" class="btn btn-outline-dark">목록보기</a>
-	<c:if test="${AUTH_USER.id==notice.writerId}">
-	   <a href="modify.do?no=${notice.number}" class="btn btn-outline-dark">공지수정</a>
+	<c:if test="${AUTH_USER.id==nod.writer_id}">
+	   <a href="modify.do?no=${nod.number}" class="btn btn-outline-dark">공지수정</a>
      </c:if>
-      <c:if test="${AUTH_USER.id eq board.writerId}">
-	   <a href="delete.do?no=${board.number}" class="btn btn-outline-dark">공지삭제</a>
+      <c:if test="${AUTH_USER.id eq nod.writer_id}">
+	   <a href="delete.do?no=${nod.number}" class="btn btn-outline-dark">공지삭제</a>
 	 </c:if>
 </div>
-<a href=""class=""></a>
+</form>
+
 </div>
 <!-- Bootstrap 4 JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

@@ -7,7 +7,7 @@ import java.util.Date;
 public class Notice {
 	//필드
 	private Integer number; //notice_no 글번호.PK
-	private String writerId; // writer_id 작성자 아이디
+	private Writer writer; // writer_id 작성자 아이디
 	private String title; // title 제목
 	private String content; // content 내용
 	private Date writeDate ; // writedate 작성일
@@ -17,10 +17,10 @@ public class Notice {
 	public Notice() {}
 
 
-	public Notice(Integer number, String writerId, String title, String content, Date writeDate, int views) {
+	public Notice(Integer number, Writer writer, String title, String content, Date writeDate, int views) {
 
 		this.number = number;
-		this.writerId = writerId;
+		this.writer = writer;
 		this.title = title;
 		this.content = content;
 		this.writeDate = writeDate;
@@ -38,13 +38,13 @@ public class Notice {
 	}
 
 
-	public String getWriterId() {
-		return writerId;
+	public Writer getWriter() {
+		return writer;
 	}
 
 
-	public void setWriterId(String writerId) {
-		this.writerId = writerId;
+	public void setWriter(Writer writer) {
+		this.writer = writer;
 	}
 
 
@@ -93,7 +93,7 @@ public class Notice {
 	
 	@Override
 	public String toString() {
-		return "Notice [number=" + number + ", writerId=" + writerId + ", title=" + title + ", content=" + content
+		return "Notice [number=" + number + ", title=" + title + ", content=" + content
 				+ ", writeDate=" + writeDate + ", views=" + views + "]";
 	}
 

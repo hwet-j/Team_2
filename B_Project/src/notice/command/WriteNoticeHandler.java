@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import mvc.command.CommandHandler;
 import notice.model.Notice;
+import notice.model.Writer;
 import notice.service.NoticeService;
 import notice.service.WriteRequest;
 
@@ -26,7 +27,7 @@ import notice.service.WriteRequest;
 
 public class WriteNoticeHandler implements CommandHandler {
 
-	private static final String FORM_VIEW = "/view/notice/writeNoticeForm.jsp";	
+	private static final String FORM_VIEW = "/view/notice/newNoticeForm.jsp";	
 	//private WriteArticleService writeService = new WriteArticleService(); 
 		private NoticeService noticeService = new NoticeService();
 	@Override
@@ -60,6 +61,7 @@ public class WriteNoticeHandler implements CommandHandler {
 			
 			//1.파라미터받기
 			//원래는 로그인을 한 후 글등록작업해야한다.
+			request.getSession().setAttribute("AUTH_USER", new User("hongid"));//임시-->반드시 로그인과정을 거치게 한다. 향후에 삭제햐야할 코드부분
 			User user = (User)request.getSession().getAttribute("AUTH_USER");  //안돼면 주석처리
 			
 			//리턴  WriteRequest - 작성정보(여기에서는 session에  담긴 회원id),제목,내용을 WriteRequest객체로 생성*/
@@ -83,12 +85,12 @@ public class WriteNoticeHandler implements CommandHandler {
 			//4.View - 성공시:목록페이지이동 
 			//실패시 FORM_view 이동
 			
-			return request.getContextPath()+"/notice/listNotice.do";
-				//response.sendRedirect( request.getContextPath()+"/notice/listNotice.do");
+			response.sendRedirect( request.getContextPath()+"/notice/list.do");
+			return null;
 			
 			
 			
-
+		}
 		
 		//p641 53라인
 		/*파라미터
@@ -100,21 +102,16 @@ public class WriteNoticeHandler implements CommandHandler {
 			//작성자정보
 			
 			String title = request.getParameter("title");
-			String contnet = request.getParameter("content");
+			String content = request.getParameter("content");
+			System.out.println("title ="+title);
+			System.out.println("content ="+content);
+			System.out.println("user.getId() ="+user.getId());
 			
 			return  new WriteRequest(
+					new Writer(user.getId()),
 					title,
 					content
 				);
-		}
+		}		
 			
-			
-			
-			
-			
-			
-			
-			
-
-		} 
-}
+} 

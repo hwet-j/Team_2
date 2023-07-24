@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import mvc.command.CommandHandler;
 import notice.model.Notice;
+import notice.service.NoticeData;
 import notice.service.NoticeNotFoundException;
 import notice.service.NoticeService;
 
@@ -13,6 +14,7 @@ import notice.service.NoticeService;
 //요청주소 http://localhost/notice/check.do?no=1
 public class CheckNoticeHandler implements CommandHandler {
 	private NoticeService NoticeService = new NoticeService();
+	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
@@ -24,10 +26,10 @@ public class CheckNoticeHandler implements CommandHandler {
 		try {
 			//파라미터 int no : 상세조회할 글 번호
 			//리턴 Notice notice: 글번호, 작성자id,제목,내용,작성일,조회수
-			Notice notice =NoticeService.getDetail(no);
-			System.out.println("핸들러 notice="+notice);
+			NoticeData nod =NoticeService.getDetail(no);
+			System.out.println("핸들러 nod="+nod);
 			//3.Model
-			request.setAttribute("notice", notice);
+			request.setAttribute("nod", nod);
 			//View
 			return request.getContextPath()+"/view/notice/checkNotice.jsp";
 			

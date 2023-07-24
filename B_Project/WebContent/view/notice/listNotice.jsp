@@ -67,7 +67,7 @@ $(function(){
 		  <td>${notice.number}</td>
 		  <%-- read.do?no=상세하게보고싶은글번호&pageNo=현재페이지"  --%>
 		  <td><a href="check.do?no=${notice.number}&pageNo=${nowPage}">${notice.title}</a></td>
-		  <td>${notice.writerId}</td>
+		  <td>${notice.writer.id}</td>
 		  <td>${notice.writeDate}</td>
 		  <td>${notice.views}</td>
 	  </tr>
@@ -75,7 +75,7 @@ $(function(){
 	 </tbody>
 	</table>
 	<div>
- 	  <a href=<%=request.getContextPath()%>/notice/write.do" class="btn btn-outline-dark btn-sm">공지글 쓰기</a>
+ 	  <a href="<%=request.getContextPath()%>/notice/write.do" class="btn btn-outline-dark btn-sm">공지글 쓰기</a>
  	</div>
 	<br/>
 	

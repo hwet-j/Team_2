@@ -2,31 +2,49 @@ package notice.service;
 
 import java.util.Map;
 
+import notice.model.Writer;
+
 
 public class WriteRequest {
-	private String writer_id;
+	private Writer writer;
 	private String title;
 	private String content;
 	
-	public WriteRequest(String writer_id, String title, String content) {
+	public WriteRequest(Writer writer, String title, String content) {
 
-		this.writer_id = writer_id;
+		this.writer = writer;
 		this.title = title;
 		this.content = content;
 	}
 
-	public String getWriter_id() {
-		return writer_id;
+	
+
+
+
+	public Writer getWriter() {
+		return writer;
 	}
+
+
+
+
 
 	public String getTitle() {
 		return title;
 	}
 
+
+
+
+
 	public String getContent() {
 		return content;
 	}
-	
+
+
+
+
+
 	public void validate(Map<String, Boolean> errors) {
 		if( title==null || title.trim().isEmpty() ) {
 			errors.put("title", Boolean.TRUE);
@@ -36,10 +54,16 @@ public class WriteRequest {
 		}
 	}
 
+
+
+
+
 	@Override
 	public String toString() {
-		return "WriteRequest [writer_id=" + writer_id + ", title=" + title + ", content=" + content + "]";
+		return "WriteRequest [writer=" + writer + ", title=" + title + ", content=" + content + "]";
 	}
+
+	
 
 	
 	
