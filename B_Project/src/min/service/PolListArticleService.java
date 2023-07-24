@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import jdbc.connection.ConnectionProvider;
-import min.model.PolArticle;
 import min.dao.PolArticleDAO;
+import min.model.PolArticle;
+import jdbc.connection.ConnectionProvider;
 
 //p650
 //ListArticleHandler<->Service<->Dao<->DB
