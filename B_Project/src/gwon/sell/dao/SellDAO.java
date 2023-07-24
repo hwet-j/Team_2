@@ -1,4 +1,4 @@
-package sell.dao;
+package gwon.sell.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import gwon.sell.model.Sell;
+import gwon.sell.model.SellDTO;
+import gwon.sell.model.Writer;
 import jdbc.JDBCUtil;
-import sell.model.Sell;
-import sell.model.SellDTO;
-import sell.model.Writer;
 
 public class SellDAO {
 

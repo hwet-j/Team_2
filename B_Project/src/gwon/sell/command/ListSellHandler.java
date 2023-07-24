@@ -1,16 +1,16 @@
-package sell.command;
+package gwon.sell.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import gwon.sell.service.ListSellService;
+import gwon.sell.service.SellPage;
 import mvc.command.CommandHandler;
-import sell.service.ListSellService;
-import sell.service.SellPage;
 
 public class ListSellHandler implements CommandHandler {
 
 	
-	private String FORM_VIEW = "/view/sell/listSell.jsp";
+	private String FORM_VIEW = "/view/gwon/sell/listSell.jsp";
 	private ListSellService listSellService = new ListSellService();
 	
 	@Override

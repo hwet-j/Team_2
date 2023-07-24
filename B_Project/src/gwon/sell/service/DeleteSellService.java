@@ -1,12 +1,12 @@
-package sell.service;
+package gwon.sell.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import gwon.sell.dao.SellDAO;
+import gwon.sell.model.SellDTO;
 import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
-import sell.dao.SellDAO;
-import sell.model.SellDTO;
 
 public class DeleteSellService {
 	

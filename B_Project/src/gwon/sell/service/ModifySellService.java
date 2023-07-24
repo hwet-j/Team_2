@@ -1,13 +1,13 @@
-package sell.service;
+package gwon.sell.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import gwon.sell.dao.SellContentDAO;
+import gwon.sell.dao.SellDAO;
+import gwon.sell.model.Sell;
 import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
-import sell.dao.SellContentDAO;
-import sell.dao.SellDAO;
-import sell.model.Sell;
 
 public class ModifySellService {
 	

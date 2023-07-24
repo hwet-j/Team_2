@@ -1,12 +1,12 @@
-package sell.dao;
+package gwon.sell.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import gwon.sell.model.SellContent;
 import jdbc.JDBCUtil;
-import sell.model.SellContent;
 
 public class SellContentDAO {
 

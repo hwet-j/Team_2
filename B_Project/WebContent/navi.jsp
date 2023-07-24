@@ -57,9 +57,9 @@
             중고거래
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownUsedItems">
-            <a class="dropdown-item" href="#">Link 1</a>
-            <a class="dropdown-item" href="http://localhost/view/trsSell/trsList_sell.jsp">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
+            <a class="dropdown-item" href="gwon/sell/sellList.do">판매</a>
+            <a class="dropdown-item" href="#">구매</a>
+            <a class="dropdown-item" href="#">후기</a>
           </div>
         </li>
         <li class="nav-item dropdown">

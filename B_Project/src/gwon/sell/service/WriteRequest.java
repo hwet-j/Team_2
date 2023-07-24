@@ -1,8 +1,8 @@
-package sell.service;
+package gwon.sell.service;
 
 import java.util.Map;
 
-import sell.model.Writer;
+import gwon.sell.model.Writer;
 
 public class WriteRequest {
 
