@@ -1,4 +1,4 @@
-package sell.command;
+package gwon.sell.command;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -8,17 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import auth.service.User;		// 회원 정보에 접근하기
+import gwon.sell.model.SellDTO;
+import gwon.sell.model.Writer;
+import gwon.sell.service.ModifyRequest;
+import gwon.sell.service.ModifySellService;
+import gwon.sell.service.ReadSellService;
+import gwon.sell.service.SellNotFoundException;
 import mvc.command.CommandHandler;
-import sell.model.SellDTO;
-import sell.model.Writer;
-import sell.service.ModifyRequest;
-import sell.service.ModifySellService;
-import sell.service.ReadSellService;
-import sell.service.SellNotFoundException;
 
 public class ModifySellHandler implements CommandHandler {
 
-	private static final String FORM_VIEW = "/view/sell/modifySell.jsp";
+	private static final String FORM_VIEW = "/view/GWON/sell/modifySell.jsp";
 	
 	private ReadSellService readSellService = new ReadSellService();
 	private ModifySellService modifySellService = new ModifySellService();
@@ -98,7 +98,7 @@ public class ModifySellHandler implements CommandHandler {
 		}
 		
 		//수정 성공하면 목록 전체조회 페이지로 이동
-		response.sendRedirect(request.getContextPath()+"/sellList.do");
+		response.sendRedirect(request.getContextPath()+"/view/GWON/sellList.do");
 		return null;
 	}
 	

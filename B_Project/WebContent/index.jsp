@@ -183,17 +183,17 @@
 		 <tbody>
 		  <tr>
 		   <th scope = "row">1</th>
-		   <th scope="col">제목</th>
+		   <th scope="col"><a href = "#">제목</a></th>
 		   <th scope="col">작성자id</th>
 		  </tr>
 		  <tr>
 		   <th scope = "row">2</th>
-		   <th scope="col">제목</th>
+		   <th scope="col"><a href = "#">제목</a></th>
 		   <th scope="col">작성자id</th>
 		  </tr>
 		  <tr>
 		   <th scope = "row">3</th>
-		   <th scope="col">제목</th>
+		   <th scope="col"><a href = "#">제목</a></th>
 		   <th scope="col">작성자id</th>
 		  </tr>
 		 </tbody>	

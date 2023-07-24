@@ -1,4 +1,4 @@
-package sell.model;
+package gwon.sell.model;
 
 import java.util.Date;
 

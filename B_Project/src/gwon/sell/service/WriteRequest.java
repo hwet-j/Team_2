@@ -1,8 +1,8 @@
-package sell.service;
+package gwon.sell.service;
 
 import java.util.Map;
 
-import sell.model.Writer;
+import gwon.sell.model.Writer;
 
 public class WriteRequest {
 
@@ -85,20 +85,11 @@ public class WriteRequest {
 		if(  sell_category==null ||  sell_category.isEmpty() ) {
 			errors.put("category", Boolean.TRUE);
 		}
-		if(  sell_category==null ||  sell_category.isEmpty() ) {
-			errors.put("category", Boolean.TRUE);
-		}
 		if(  sell_price==0 ||  sell_price < 0 ) {
 			errors.put("price", Boolean.TRUE);
 		}
 		if(  sell_content==null ||  sell_content.isEmpty() ) {
 			errors.put("content", Boolean.TRUE);
-		}
-		if(  sell_file==null || sell_file.isEmpty() ) {
-			errors.put("file", Boolean.TRUE);
-		}
-		if(  sell_fav==null || sell_fav.isEmpty() ) {
-			errors.put("file", Boolean.TRUE);
 		}
 	}
 	

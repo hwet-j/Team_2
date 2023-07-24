@@ -1,4 +1,4 @@
-package sell.command;
+package gwon.sell.command;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import auth.service.User;	// 회원 정보에 접근하기
+import gwon.sell.model.Writer;
+import gwon.sell.service.WriteRequest;
+import gwon.sell.service.WriteSellService;
 import mvc.command.CommandHandler;
-import sell.model.Writer;
-import sell.service.WriteRequest;
-import sell.service.WriteSellService;
 
 public class WriteSellHandler implements CommandHandler {
 
-	private static final String FORM_VIEW = "/view/sell/writeSell.jsp";
+	private static final String FORM_VIEW = "/view/GWON/sell/writeSell.jsp";
 	WriteSellService writeSellService = new WriteSellService();
 	
 	
@@ -59,7 +59,7 @@ public class WriteSellHandler implements CommandHandler {
 		request.setAttribute("writeSellinfo", writeSellinfo);
 		
 		
-		return request.getContextPath() + "/view/sell/writeSellComplete.jsp";
+		return request.getContextPath() + "/view/GWON/sell/writeSellComplete.jsp";
 	}
 
 	private WriteRequest createWriteRequest(User user, HttpServletRequest request) {

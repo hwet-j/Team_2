@@ -1,8 +1,8 @@
-package sell.service;
+package gwon.sell.service;
 
 import java.util.List;
 
-import sell.model.Sell;
+import gwon.sell.model.Sell;
 
 public class SellPage {
 	

@@ -1,12 +1,12 @@
-package sell.command;
+package gwon.sell.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import gwon.sell.model.SellDTO;
+import gwon.sell.service.ReadSellService;
+import gwon.sell.service.SellNotFoundException;
 import mvc.command.CommandHandler;
-import sell.model.SellDTO;
-import sell.service.ReadSellService;
-import sell.service.SellNotFoundException;
 
 public class ReadSellHandler implements CommandHandler {
 
@@ -22,7 +22,7 @@ public class ReadSellHandler implements CommandHandler {
 		try {
 			SellDTO sellDTO = readSellService.getSell(sellNum);
 			request.setAttribute("sellDTO", sellDTO);
-			return request.getContextPath() + "/view/sell/readSell.jsp";
+			return request.getContextPath() + "/view/GWON/sell/readSell.jsp";
 		} catch (SellNotFoundException e){
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;

@@ -1,10 +1,10 @@
-package sell.command;
+package gwon.sell.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import gwon.sell.service.DeleteSellService;
 import mvc.command.CommandHandler;
-import sell.service.DeleteSellService;
 
 	public class DeleteSellHandler implements CommandHandler {
 
@@ -16,7 +16,7 @@ import sell.service.DeleteSellService;
 		
 		deleteSellService.delete(no);
 		
-		response.sendRedirect(request.getContextPath()+"/sellList.do");
+		response.sendRedirect(request.getContextPath()+"/veiw/GWON/sell/sellList.do");
 		return null;
 	}
 }

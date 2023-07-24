@@ -1,4 +1,4 @@
-package sell.model;
+package gwon.sell.model;
 
 public class Writer {
 	private String  user_id;   
