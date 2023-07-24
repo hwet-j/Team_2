@@ -18,7 +18,7 @@ import mvc.command.CommandHandler;
 
 public class ModifySellHandler implements CommandHandler {
 
-	private static final String FORM_VIEW = "/view/gwon/sell/modifySell.jsp";
+	private static final String FORM_VIEW = "/view/GWON/sell/modifySell.jsp";
 	
 	private ReadSellService readSellService = new ReadSellService();
 	private ModifySellService modifySellService = new ModifySellService();
@@ -98,7 +98,7 @@ public class ModifySellHandler implements CommandHandler {
 		}
 		
 		//수정 성공하면 목록 전체조회 페이지로 이동
-		response.sendRedirect(request.getContextPath()+"/sellList.do");
+		response.sendRedirect(request.getContextPath()+"/view/GWON/sellList.do");
 		return null;
 	}
 	

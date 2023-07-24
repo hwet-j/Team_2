@@ -57,7 +57,7 @@
             중고거래
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownUsedItems">
-            <a class="dropdown-item" href="gwon/sell/sellList.do">판매</a>
+            <a class="dropdown-item" href="<%=request.getContextPath() %>/gwon/sell/sellList.do">판매</a>
             <a class="dropdown-item" href="#">구매</a>
             <a class="dropdown-item" href="#">후기</a>
           </div>

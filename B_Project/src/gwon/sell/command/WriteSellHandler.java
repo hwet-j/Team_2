@@ -15,7 +15,7 @@ import mvc.command.CommandHandler;
 
 public class WriteSellHandler implements CommandHandler {
 
-	private static final String FORM_VIEW = "/view/gwon/sell/writeSell.jsp";
+	private static final String FORM_VIEW = "/view/GWON/sell/writeSell.jsp";
 	WriteSellService writeSellService = new WriteSellService();
 	
 	
@@ -59,7 +59,7 @@ public class WriteSellHandler implements CommandHandler {
 		request.setAttribute("writeSellinfo", writeSellinfo);
 		
 		
-		return request.getContextPath() + "/view/gwon/sell/writeSellComplete.jsp";
+		return request.getContextPath() + "/view/GWON/sell/writeSellComplete.jsp";
 	}
 
 	private WriteRequest createWriteRequest(User user, HttpServletRequest request) {

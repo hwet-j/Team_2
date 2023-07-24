@@ -10,7 +10,7 @@ import mvc.command.CommandHandler;
 public class ListSellHandler implements CommandHandler {
 
 	
-	private String FORM_VIEW = "/view/gwon/sell/listSell.jsp";
+	private String FORM_VIEW = "/view/GWON/sell/listSell.jsp";
 	private ListSellService listSellService = new ListSellService();
 	
 	@Override

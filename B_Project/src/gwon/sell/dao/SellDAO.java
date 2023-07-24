@@ -20,7 +20,7 @@ public class SellDAO {
 	//1. 전체조회
 	public int selectCount(Connection conn) throws SQLException {
 		
-		String sql = "select count(*) from sell";
+		String sql = "select count(*) from gwon_sell";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -41,7 +41,7 @@ public class SellDAO {
 	public List<Sell> select(Connection conn,int startRow, int size) throws SQLException {
 		String sql="select sell_no, user_id, user_name, sell_title, sell_category, sell_price, sell_loc, " + 
 					"sell_regdate, sell_moddate, sell_read_cnt " + 
-				    "from sell " + 
+				    "from gwon_sell " + 
 				    "order by sell_no desc  limit ?,?";
 		
 		PreparedStatement stmt = null;
@@ -87,7 +87,7 @@ public class SellDAO {
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			
-			String sql = "select * from sell where sell_no = ?";
+			String sql = "select * from gwon_sell where sell_no = ?";
 			
 			try {
 				stmt = conn.prepareStatement(sql);
@@ -105,7 +105,7 @@ public class SellDAO {
 		}
 		
 		public void plusReadCnt(Connection conn, int no) throws SQLException {
-			String sql = "update sell " +
+			String sql = "update gwon_sell " +
 						"set sell_read_cnt = sell_read_cnt + 1 " +
 						"where sell_no = ?";
 			PreparedStatement stmt = null;
@@ -125,7 +125,7 @@ public class SellDAO {
 			String sql = "select a.sell_no, a.user_id, a.user_name, a.sell_title, " +
 						"a.sell_category, a.sell_price, a.sell_loc, a.sell_regDate, " +
 						"a.sell_modDate, a.sell_read_cnt, b.sell_content, b.sell_file, b.sell_fav "+
-						"from sell a, sell_content b " +
+						"from gwon_sell a, gwon_sell_content b " +
 						"where a.sell_no = b.sell_no " +
 						"and " + "a.sell_no = ?";
 			PreparedStatement stmt = null;
@@ -165,7 +165,7 @@ public class SellDAO {
 		//3. 글 작성
 		public Sell insert(Connection conn, Sell sell) throws SQLException {
 			
-			String sql = "insert into sell(user_id, user_name, " +
+			String sql = "insert into gwon_sell(user_id, user_name, " +
 						"sell_title, sell_category, sell_price, sell_loc, " +
 						"sell_regdate, sell_moddate, sell_read_cnt) " +
 						"values(?,?,?,?,?,?,now(),now(),0)";
@@ -207,7 +207,7 @@ public class SellDAO {
 
 		//4. 글 삭제
 		public int delete(Connection conn, int no)  throws SQLException {
-			String sql = "delete from sell where sell_no=?";
+			String sql = "delete from gwon_sell where sell_no=?";
 			PreparedStatement stmt = null;
 			try {
 				stmt = conn.prepareStatement(sql);
@@ -221,7 +221,7 @@ public class SellDAO {
 		
 		//5. 글 수정
 		public int update(Connection conn, int sell_no, String sell_title, String sell_category, int sell_price, String sell_loc)  throws SQLException {
-			String sql = "update sell " + 
+			String sql = "update gwon_sell " + 
 						 "set sell_title=?, sell_category=?, sell_price=?, sell_loc=?, sell_moddate=now() " + 
 						 "where sell_no=?";
 			PreparedStatement stmt = null;

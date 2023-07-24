@@ -22,7 +22,7 @@ public class ReadSellHandler implements CommandHandler {
 		try {
 			SellDTO sellDTO = readSellService.getSell(sellNum);
 			request.setAttribute("sellDTO", sellDTO);
-			return request.getContextPath() + "/view/gwon/sell/readSell.jsp";
+			return request.getContextPath() + "/view/GWON/sell/readSell.jsp";
 		} catch (SellNotFoundException e){
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;
