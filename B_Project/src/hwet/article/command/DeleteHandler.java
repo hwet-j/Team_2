@@ -9,6 +9,7 @@ import hwet.article.service.DeleteArticleService;
 import mvc.command.CommandHandler;
 
 // /hwet/article/delete.do
+/* 게시판 글을 삭제하는 기능 */
 public class DeleteHandler implements CommandHandler {
 	
 	DeleteArticleService deleteArticleService = new DeleteArticleService();

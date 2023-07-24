@@ -11,6 +11,7 @@ import hwet.article.service.ModifyArticleService;
 import mvc.command.CommandHandler;
 
 // /hwet/article/modify.do
+/* 수정 기능을 작업하는 기능 */
 public class ModifyHandler implements CommandHandler {
 	
 	ModifyArticleService modifyArticleService = new ModifyArticleService();

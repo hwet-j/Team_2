@@ -11,6 +11,7 @@ import hwet.article.service.WriteArticleService;
 import mvc.command.CommandHandler;
 
 // /hwet/article/write.do
+/* 게시글을 작성하는 기능 */
 public class WriteHandler implements CommandHandler {
 	
 	private WriteArticleService writeService = new WriteArticleService();

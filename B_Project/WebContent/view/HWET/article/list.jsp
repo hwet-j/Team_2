@@ -44,9 +44,9 @@
       		col의 범위는 12로 알고있음 (col뒤에 붙는 숫자를 전부 합쳐 12가 되도록 설정)
       	--%>
         <th class="col-1 text-center" style="white-space: nowrap;">번호</th>
-        <th class="col-1 text-center" style="white-space: nowrap;">작성자</th>
         <th class="col-1 text-center" style="white-space: nowrap;" data-toggle="tooltip" title="카테고리 설명">카테고리</th>
         <th class="col-7 text-center" style="white-space: nowrap;">제목</th>
+        <th class="col-1 text-center" style="white-space: nowrap;">작성자</th>
         <th class="col-1 text-center" style="white-space: nowrap;">작성일</th>
         <th class="col-1 text-center" style="white-space: nowrap;">조회수</th>
       </tr>
@@ -63,9 +63,9 @@
       <c:forEach var="board" items="${board_list}" varStatus="status">
         <tr>
           <td class="text-center" style="white-space: nowrap;">${status.index + 1 + ((current_page-1) * list_size)}</td>
-          <td class="text-center" style="white-space: nowrap;">${board.writer}</td>
           <td class="text-center" style="white-space: nowrap;">${board.category}</td>
-          <td class="text-center" style="white-space: nowrap;"><a href="read.do?no=${board.boardId}&page_no=${current_page}">${board.title}</a></td>
+          <td class="text-center" style="white-space: nowrap;"><a href="read.do?no=${board.boardId}&page_no=${current_page}&search_type=${search_type}&keyword=${keyword}&category_info=${category_info}">${board.title}</a></td>
+          <td class="text-center" style="white-space: nowrap;">${board.writer}</td>
           <td class="text-center" style="white-space: nowrap;">${board.regDate}</td>
           <td class="text-center" style="white-space: nowrap;">${board.hit}</td>
         </tr>
