@@ -14,8 +14,6 @@ public class WriteRequest {
 	private String	sell_content;
 	private String	sell_file;
 	private String	sell_fav;
-	
-	
 
 	public WriteRequest(Writer writer, String sell_title, String sell_category, int sell_price, String sell_loc,
 			String sell_content, String sell_file, String sell_fav) {

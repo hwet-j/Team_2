@@ -16,7 +16,6 @@ public class ListSellService {
 	
 	//페이지 기능 구현
 	public SellPage getSellPage(int pageNum) {
-		
 		Connection conn;
 		
 		try {

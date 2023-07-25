@@ -14,7 +14,6 @@ public class ModifyRequest {
 	private String	sell_file;
 	private String	sell_fav;
 
-
 	public ModifyRequest(String user_id, int sell_no, String sell_title, String sell_category, int sell_price,
 			String sell_loc, String sell_content, String sell_file, String sell_fav) {
 		this.user_id = user_id;

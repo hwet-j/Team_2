@@ -20,7 +20,6 @@ public class WriteSellService {
 		
 		Connection conn = null;
 		
-		
 	 try {
 		conn = ConnectionProvider.getConnection();
 		conn.setAutoCommit(false);

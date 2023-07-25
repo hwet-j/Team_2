@@ -13,7 +13,6 @@ public class SellPage {
 	private int  startPage;			
 	private int  endPage;		
 	
-	
 	public SellPage(int total, int currentPage, int size, List<Sell> content) {
 
 		this.total=total;		

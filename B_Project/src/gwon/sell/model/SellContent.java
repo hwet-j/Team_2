@@ -8,7 +8,6 @@ public class SellContent {
 	private String	sell_file;
 	private String	sell_fav;
 
-	
 	public SellContent(Integer sell_no, String sell_content, String sell_file) {
 		this.sell_no = sell_no;
 		this.sell_content = sell_content;

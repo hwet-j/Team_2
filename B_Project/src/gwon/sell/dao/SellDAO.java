@@ -119,8 +119,6 @@ public class SellDAO {
 			
 		}
 
-
-
 		public SellDTO getSellDTO(Connection conn,  int no) throws SQLException {
 			String sql = "select a.sell_no, a.user_id, a.user_name, a.sell_title, " +
 						"a.sell_category, a.sell_price, a.sell_loc, a.sell_regDate, " +

@@ -21,8 +21,6 @@
 
 
 
-
-
 </head>
 <body>
 <%@ include file = "../../../navi.jsp" %>

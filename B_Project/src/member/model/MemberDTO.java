@@ -12,7 +12,6 @@ public class MemberDTO {
     private String user_tlno;       // 핸드폰번호
     private Date user_join_date;    // 회원가입날짜
     
-    
     public MemberDTO(String user_id,String user_name) {
     	this.user_id = user_id;
     	this.user_name = user_name;

@@ -40,7 +40,6 @@ public class SellContentDAO {
 		return new SellContent(rs.getInt("sell_no"), rs.getString("sell_content"), rs.getString("sell_file"), rs.getString("sell_fav"));
 	}
 	
-	
 
 	//3. 글 작성
 	public SellContent insert(Connection conn, SellContent sell_content) throws SQLException  {

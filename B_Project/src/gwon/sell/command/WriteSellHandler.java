@@ -18,7 +18,6 @@ public class WriteSellHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/view/GWON/sell/writeSell.jsp";
 	WriteSellService writeSellService = new WriteSellService();
 	
-	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 

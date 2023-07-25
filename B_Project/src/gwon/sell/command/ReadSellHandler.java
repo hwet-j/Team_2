@@ -15,7 +15,6 @@ public class ReadSellHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
 		int sellNum = Integer.parseInt(request.getParameter("no"));
 		
 		System.out.println(sellNum);

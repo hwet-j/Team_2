@@ -27,6 +27,7 @@ public class Sell {
 		this.sell_read_cnt = sell_read_cnt;
 	}
 	
+	
 	public Integer getSell_no() {
 		return sell_no;
 	}
