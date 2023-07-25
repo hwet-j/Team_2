@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file="/navi.jsp" %>
+<!-- 여기아래로 -->
+<img src="/assets/images/whiBoard/whiskey_banner.jpg" style="height: 100px; width: auto;" >
 <%
 int articleNo = Integer.parseInt(request.getParameter("articleNo"));
 String title = request.getParameter("title");
@@ -22,6 +26,6 @@ String content = request.getParameter("content");
 
 <button type="submit">글수정완료</button>
 </form>
-
+<!-- 여기위로 -->
 </body>
 </html>

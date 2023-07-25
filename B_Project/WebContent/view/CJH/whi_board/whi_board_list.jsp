@@ -20,8 +20,9 @@
 <body>
 <%@ include file="/navi.jsp" %>
 <!-- 여기아래로 -->
-<h2 style="text-align: center; margin-top: 40px;">제목제목</h2>
-
+<div style="text-align: center;">
+<img src="/assets/images/whiBoard/whiskey_banner.jpg" style="height: 100px; width: auto;" >
+</div>
 <div class="container mt-5">
 <table class="table table-bordered table-hover" border="1" >
 	<thead class="thead-dark" style="text-align: center; background-color: black; color: white;">
@@ -31,7 +32,7 @@
 			<td style="width: 80px;">사용자</td>			
 			<td>글 제목</td>
 			<td style="width: 200px;">작성일</td>
-			<td style="width: 80px;">조회수</td>
+			<td style="width: 100px;">조회수</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -48,15 +49,20 @@
 	</tbody>
 	<tfoot>
 		<tr class="">
-		<td colspan="6">
-		<c:forEach var="num" begin="1" end="${PAGECNT}"><a href="/CJH/whi_board/list.do?pageNo=${num}">${num}</a> </c:forEach>
+		<td colspan="5">
+		<c:forEach var="num" begin="1" end="${PAGECNT}"><a href="/CJH/whi_board/list.do?pageNo=${num}" class="btn">${num}</a> </c:forEach>
+		</td>
+		<td>
+		<c:if test="${not empty AUTH_USER}">
+		<div style="font-size: small;"><a href="/view/CJH/whi_board/whi_board_write_form.jsp"><button type="button"class="btn btn-primary">글 작성</button></a></div>
+		</c:if>
 		</td>
 		</tr>
 	</tfoot>
 </table>
 </div>
 <br>
-<a href="/view/CJH/whi_board/whi_board_write_form.jsp"><button type="button">글 작성</button></a> 
+ 
 
 
 
@@ -66,6 +72,7 @@
 <br>
 <br>
 <br>
+<br><br>
 <!-- 여기위로 -->
 <%@ include file="/footer.jsp" %>
 </body>
