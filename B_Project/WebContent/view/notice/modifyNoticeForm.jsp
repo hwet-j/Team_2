@@ -22,22 +22,22 @@ $(function(){
 <div class="container"></div>
 	<h2 class="mt-5 mb-4 text-center">수정</h2>
 	
-	<form id="modifyForm action="modify.do" method="post">
+	<form id="modifyForm" action="modify.do" method="post">
 	<div class="form-group">
 	<label for="no">작성자</label>
-	<input type="text" name= "user_id" id="user_id" class="form-control" value="" readonly="readonly" />
+	<input type="text" name= "writer_id" id="writer_id" class="form-control" value="${modReq.writer_id}" readonly="readonly" />
 	</div>
 	<div class="form-group">
 	<label for="no">글번호</label>
-	<input type="text" name= "no" id="no" class= "form-control" value="" readonly="readonly"/>
+	<input type="text" name= "no" id="no" class= "form-control" value="${modReq.number}" readonly="readonly"/>
 	</div>
 	<div class="form-group">
 	<label for="title">제목</label>
-	<input type="text" name="notice_title" id="notice_title" class="form-control" value=""/>
+	<input type="text" name="title" id="title" class="form-control" value="${modReq.title}"/>
 	</div>
 	<div class="form-group">
 	<label for="">내용</label>
-	<textarea rows="5" name="notice_content" id="notice_content" class="form-control">출력예정</textarea>
+	<textarea rows="5" name="content" id="content" class="form-control">${modReq.content}</textarea>
 	</div>
 	
 	<div class="d-flex justify-content-end">

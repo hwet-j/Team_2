@@ -16,16 +16,25 @@ import notice.service.NoticeData;
 //notice테이블관련 DB작업용 클래스이다
 public class NoticeDAO {
 	
-	public int update(Connection conn, int no, String title)throws SQLException {
-		String sql="update notice" +
-				"set notice_title=?" +
+	public void update(Connection conn,int no, String title, String content)throws SQLException {
+		System.out.println("BoardDAO-modify()진입");
+		System.out.println("title="+title);
+		//3.객체준비
+		String sql="update notice " +
+				"set title=?, content=? " +
 				"where notice_no=?";
-		PreparedStatement stmt = null;
+		PreparedStatement stmt = null;//insert용
 		try {
 			stmt = conn.prepareStatement(sql);
+			
+			//4.쿼리실행
+			//stmt.set데이터타입(?순서,값);
 			stmt.setString(1,title);
-			stmt.setInt(2,no);
-			return stmt.executeUpdate();
+			stmt.setString(2,content);
+			stmt.setInt(3,no);
+			int updatedCount = stmt.executeUpdate();
+			//수정성공시 1리턴, 실패시 0리턴
+			System.out.println("dao의 수정레코드수="+updatedCount);
 		}finally {
 			JDBCUtil.close(stmt);
 		}

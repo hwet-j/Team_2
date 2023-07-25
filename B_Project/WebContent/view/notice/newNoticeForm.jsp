@@ -37,7 +37,7 @@ user=${user}
 	  <div  class="mb-1">	
 	  	<label for="writer_id" class="form-label">작성자</label>
 	  	<input type="text" name="writer_id" id="writer_id" class="form-control" value="${AUTH_USER_id}"/>
-		  <c:if test="${errors.}"><br/><span class="error">작성자를 입력하세요</span></c:if>  
+		  <c:if test="${errors.writer_id}"><br/><span class="error">작성자를 입력하세요</span></c:if>  
 	  </div>
 	  <div  class="mb-1">	
 	  	<label for="title"  class="form-label">제목</label>

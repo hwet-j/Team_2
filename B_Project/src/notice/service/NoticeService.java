@@ -141,4 +141,46 @@ public class NoticeService {
 				}
 			}
 			
+			//수정하기
+			//파라미터 notice:글번호,회원id,글수정제목,수정내용
+			public void modify(ModifyRequest modReq) {
+				
+				Connection conn = null;
+				System.out.println("modReq="+modReq);
+				try {
+					conn = ConnectionProvider.getConnection();
+					conn.setAutoCommit(false);
+					
+					//파라미터 notice - notice:글번호,회원id,글수정제목,수정내용
+					NoticeData notice = noticeDAO.getDetail(conn, modReq.getNumber());
+					if(notice==null) {
+						throw new NoticeNotFoundException();
+					}
+					//수정가능여부체크
+					if(!canModify(modReq.getWriter_id(), notice)) {//수정불가하면
+						throw new PermissionDeniedException();
+					}	
+					//1.notice테이블에 update하는 메서드호출
+					noticeDAO.update(conn, modReq.getNumber(),modReq.getTitle(),modReq.getContent());
+					
+					
+					conn.commit();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					JDBCUtil.rollback(conn);
+					throw new RuntimeException(e);
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+					JDBCUtil.rollback(conn);
+					throw e;
+				} finally {
+					JDBCUtil.close(conn);
+				}
+			}
+			//수정가능여부체크
+			// 수정하고자하는 user의 id가 글작성자id와 일치하는지 비교하여 동일하면 수정가능
+			//리턴 boolean - 수정할 수 있으면 true반환, 불가하면 false반환
+	
+	  private boolean canModify(String modifyingWriter_id, NoticeData notice) { return
+			  modifyingWriter_id.equals(notice.getWriter_id()); }
 }
