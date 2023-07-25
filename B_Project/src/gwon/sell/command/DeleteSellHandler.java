@@ -14,7 +14,7 @@ import mvc.command.CommandHandler;
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int no = Integer.parseInt(request.getParameter("no"));
-		
+		 
 		deleteSellService.delete(no);
 		
 		response.sendRedirect(request.getContextPath()+"/gwon/sell/sellList.do");

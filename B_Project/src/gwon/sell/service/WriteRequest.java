@@ -28,7 +28,6 @@ public class WriteRequest {
 	}
 
 
-
 	@Override
 	public String toString() {
 		return "WriteRequest [writer=" + writer + ", sell_title=" + sell_title + ", sell_category=" + sell_category

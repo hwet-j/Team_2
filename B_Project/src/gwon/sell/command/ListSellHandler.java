@@ -16,7 +16,7 @@ public class ListSellHandler implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+ 
 		int pageNo = 1;
 		String strPageNo = request.getParameter("pageNo");
 		if(strPageNo!=null) {

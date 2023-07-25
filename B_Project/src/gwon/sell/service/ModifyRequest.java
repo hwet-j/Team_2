@@ -62,7 +62,6 @@ public class ModifyRequest {
 	public String getSell_file() {
 		return sell_file;
 	}
-
 	
 	@Override
 	public String toString() {

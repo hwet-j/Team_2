@@ -10,7 +10,6 @@ import jdbc.connection.ConnectionProvider;
 
 public class DeleteSellService {
 	
-	
 	SellDAO sellDAO = new SellDAO();
 	
 	public void delete(int no) throws SellNotFoundException {

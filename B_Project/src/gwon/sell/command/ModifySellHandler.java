@@ -23,7 +23,6 @@ public class ModifySellHandler implements CommandHandler {
 	private ReadSellService readSellService = new ReadSellService();
 	private ModifySellService modifySellService = new ModifySellService();
 	
-	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if( request.getMethod().equalsIgnoreCase("GET") ) {

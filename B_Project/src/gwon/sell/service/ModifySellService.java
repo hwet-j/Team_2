@@ -44,7 +44,6 @@ public class ModifySellService {
 		}finally {
 			JDBCUtil.close(conn);
 		}
-		
 	}
 	
 	private boolean canModify(String modifiedUser_id, Sell sell) {

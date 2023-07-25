@@ -35,7 +35,6 @@ public class WriteSellService {
 		SellContent sell_content = new SellContent(wroteSell.getSell_no(),writeR.getSell_content(),writeR.getSell_file(),writeR.getSell_fav());
 		SellContent wroteSellContent = sellContentDAO.insert(conn, sell_content);
 		
-		
 		if(wroteSellContent == null) {
 			throw new RuntimeException();
 		}

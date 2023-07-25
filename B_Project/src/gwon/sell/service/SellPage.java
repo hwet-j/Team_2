@@ -36,7 +36,6 @@ public class SellPage {
 			if(endPage>totalPages) endPage=totalPages;
 		}
 	}
-	
 		
 	public int getTotal() {
 		return total; 
