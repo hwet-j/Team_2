@@ -17,10 +17,10 @@ public class DeleteHandler implements CommandHandler {
 	@Override
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 삭제할 게시판 번호 받아오기
-		int b_no = Integer.parseInt(request.getParameter("no"));
+		int board_no = Integer.parseInt(request.getParameter("no"));
 		
 		// 삭제 요청 실행
-		deleteArticleService.deleteArticle(b_no);
+		deleteArticleService.deleteArticle(board_no);
 		
 		// 삭제 완료 후 성공 알림창을 띄우고 리스트로 돌아가기
 		try {

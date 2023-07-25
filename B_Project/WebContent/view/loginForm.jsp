@@ -59,7 +59,7 @@
     
   	// 로그인 성공 여부
     function checkLogin() {
-        let userid = $("input[name='user_id']");
+        let user_id = $("input[name='user_id']");
         let password = $("input[name='password']");
         var contextPath = '<%= request.getContextPath() %>';
         
@@ -67,7 +67,7 @@
         $.ajax({
             url: contextPath + "/view/loginError.jsp",
             type: "POST",
-            data: { userid: userid.val() ,
+            data: { user_id: user_id.val() ,
             	password: password.val() },
             success: function(response) {
             	var message = response.replace(/\s/g, ""); // 공백 제거(줄바꾸믕로 해결되지 않아 공백제거로 변경...)
@@ -127,7 +127,7 @@
 
 	            </li>
                 <li class="lg_banner"></li>
-	           <p class="backs">
+	            <p class="backs">
                  	<a href="<%=request.getContextPath() %>/index.jsp">
                  	  <span class="back">메인페이지</span>
                  	</a>

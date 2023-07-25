@@ -43,7 +43,7 @@ public class HwetReplyDAO {
 	
 	// 페이징, 댓글 정보 조회
     public List<HwetReplyDTO> getReplyList(Connection conn, int board_id) {
-        List<HwetReplyDTO> replyList = new ArrayList<>();
+        List<HwetReplyDTO> reply_list = new ArrayList<>();
         // 페이지 번호에 따라 가져올 데이터의 시작 인덱스 계산
         
         String sql = null;
@@ -68,7 +68,7 @@ public class HwetReplyDAO {
 					            	rs.getInt("positive_count"),
 					            	rs.getInt("negative_count"));
             	
-            	replyList.add(reply);
+            	reply_list.add(reply);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class HwetReplyDAO {
 			JDBCUtil.close(pstmt);
 		}
 
-        return replyList;
+        return reply_list;
     }
     
     // 추천수 증가 (좋아요, 싫어요)

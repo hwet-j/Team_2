@@ -64,9 +64,9 @@
         <tr>
           <td class="text-center" style="white-space: nowrap;">${status.index + 1 + ((current_page-1) * list_size)}</td>
           <td class="text-center" style="white-space: nowrap;">${board.category}</td>
-          <td class="text-center" style="white-space: nowrap;"><a href="read.do?no=${board.boardId}&page_no=${current_page}&search_type=${search_type}&keyword=${keyword}&category_info=${category_info}">${board.title}</a></td>
+          <td class="text-center" style="white-space: nowrap;"><a href="read.do?no=${board.board_id}&page_no=${current_page}&search_type=${search_type}&keyword=${keyword}&category_info=${category_info}">${board.title}</a></td>
           <td class="text-center" style="white-space: nowrap;">${board.writer}</td>
-          <td class="text-center" style="white-space: nowrap;">${board.regDate}</td>
+          <td class="text-center" style="white-space: nowrap;">${board.reg_date}</td>
           <td class="text-center" style="white-space: nowrap;">${board.hit}</td>
         </tr>
       </c:forEach>
