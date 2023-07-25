@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<%@ include file="/navi.jsp" %>
+
     <div class="container">
         <h2 class="my-4">게시물 수정 </h2>
         <form action="${pageContext.request.contextPath}/hwet/article/modify.do" method="post">
-            <input type="hidden" name="boardId" value="${data.boardId}">
-            <input type="hidden" name="pageNo" value="${pageNo}">
+            <input type="hidden" name="board_id" value="${data.board_id}">
+            <input type="hidden" name="page_no" value="${page_no}">
             <div class="form-group">
                 <label for="title">제목</label>
                 <input type="text" class="form-control" id="title" name="title" value="${data.title}" required>
