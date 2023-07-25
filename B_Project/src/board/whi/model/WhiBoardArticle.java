@@ -44,6 +44,7 @@ public class WhiBoardArticle {
 		this.articleNo = articleNo;
 		this.title = title;
 		this.content = content;
+		
 	}
 	public WhiBoardArticle(int articleNo, String userId, String title, String content, String regDate, String category,
 			int readCnt) {
