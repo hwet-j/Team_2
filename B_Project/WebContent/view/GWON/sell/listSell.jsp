@@ -23,6 +23,28 @@
 <body>
 <%@ include file = "../../../navi.jsp" %>
 
+<form method="post" action="/gwon/sell/sellSerach.do">
+<div class="container">
+	<div class="row">
+			<table class="table">
+				<tr>
+					<td>
+					  <select class="form-control" name="searchColumn">
+							<!-- <option selected>선택하세요</option> 가능하면 구현하기-->
+							<option value="sell_title">제목</option>
+							<option value="user_id">작성자</option>
+							<option value="sell_category">카테고리</option>
+							<option value="sell_price">희망가격</option>
+							<option value="sell_loc">지역</option>
+					  </select>
+					</td>
+					<td><input type="text" class="form-control" placeholder="검색어 입력" name="searchText" maxlength="100"></td>
+					<td><button type="submit" class="btn btn-secondary">검색</button></td>
+				</tr>
+			</table>
+	</div>
+</div>
+
 <div class = "container">
 	<table class = "table" >
 		<thead>
@@ -47,7 +69,7 @@
 			  <tr>
 			    <td>${sell.sell_no}</td>
 			    <td>${sell.sell_category}</td>
-			    <td><a href="/gwon/sell/sellList.do?no=${sell.sell_no}&pageNo=${nowPage}">${sell.sell_title}</a></td>
+			    <td><a href="/gwon/sell/sellRead.do?no=${sell.sell_no}&pageNo=${nowPage}">${sell.sell_title}</a></td>
 			    <td>${sell.writer.user_id}</td>
 			    <td>${sell.sell_price}</td>
 			    <td>${sell.sell_loc}</td>
@@ -77,8 +99,9 @@
 			 </nav> 
 	    </div>
 </div>
-</body>
 
+</form>
+</body>
 
 <!-- 부트스트랩 JS 파일들 링크 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

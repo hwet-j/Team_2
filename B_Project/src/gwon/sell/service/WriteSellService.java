@@ -20,21 +20,20 @@ public class WriteSellService {
 		
 		Connection conn = null;
 		
-		
 	 try {
 		conn = ConnectionProvider.getConnection();
 		conn.setAutoCommit(false);
 		
-		
 		Sell sell = toSell(writeR);
+		System.out.println(sell);
 		Sell wroteSell = sellDAO.insert(conn, sell);
+		System.out.println(wroteSell);
 		if(wroteSell == null) {
 			throw new RuntimeException();
 		}
 		
 		SellContent sell_content = new SellContent(wroteSell.getSell_no(),writeR.getSell_content(),writeR.getSell_file(),writeR.getSell_fav());
 		SellContent wroteSellContent = sellContentDAO.insert(conn, sell_content);
-		
 		
 		if(wroteSellContent == null) {
 			throw new RuntimeException();

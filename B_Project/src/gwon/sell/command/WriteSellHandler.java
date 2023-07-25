@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import auth.service.User;	// 회원 정보에 접근하기
+import member.model.MemberDTO;	// 회원 정보에 접근하기
 import gwon.sell.model.Writer;
 import gwon.sell.service.WriteRequest;
 import gwon.sell.service.WriteSellService;
@@ -15,9 +15,9 @@ import mvc.command.CommandHandler;
 
 public class WriteSellHandler implements CommandHandler {
 
+	
 	private static final String FORM_VIEW = "/view/GWON/sell/writeSell.jsp";
 	WriteSellService writeSellService = new WriteSellService();
-	
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -43,28 +43,29 @@ public class WriteSellHandler implements CommandHandler {
 		Map<String, Boolean> errors = new HashMap<>();
 		request.setAttribute("errors", errors);
 		
-		User user = (User) request.getSession().getAttribute("AUTH_USER");
-		WriteRequest writerequest = createWriteRequest(user,request);
+		MemberDTO user_data = (MemberDTO) request.getSession().getAttribute("AUTH_USER");
+		WriteRequest writerequest = createWriteRequest(user_data,request);
 		
-		System.out.println("writerequest="+writerequest);
-				
 		writerequest.validate(errors); 
 		
 		if(!errors.isEmpty()) {
 			return request.getContextPath() + FORM_VIEW;
 		}
 		
+		System.out.println("error 찾아라");
 		int writeSellinfo = writeSellService.write(writerequest);
 		
+		
+		System.out.println("error 찾아라2");
 		request.setAttribute("writeSellinfo", writeSellinfo);
 		
 		
 		return request.getContextPath() + "/view/GWON/sell/writeSellComplete.jsp";
 	}
 
-	private WriteRequest createWriteRequest(User user, HttpServletRequest request) {
+	private WriteRequest createWriteRequest(MemberDTO user_data, HttpServletRequest request) {
 		return new WriteRequest(
-				new Writer(user.getId(), user.getName()),
+				new Writer(user_data.getUser_id(), user_data.getUser_name()),
 				request.getParameter("sell_title"),
 				request.getParameter("sell_category"),
 				Integer.parseInt(request.getParameter("sell_price")),
@@ -76,4 +77,3 @@ public class WriteSellHandler implements CommandHandler {
 	
 	
 }
-

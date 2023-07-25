@@ -10,11 +10,11 @@ import mvc.command.CommandHandler;
 
 public class ReadSellHandler implements CommandHandler {
 
+	
 	ReadSellService readSellService = new ReadSellService(); 
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		
 		int sellNum = Integer.parseInt(request.getParameter("no"));
 		

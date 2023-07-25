@@ -8,15 +8,16 @@ import mvc.command.CommandHandler;
 
 	public class DeleteSellHandler implements CommandHandler {
 
+		
 	private DeleteSellService deleteSellService = new DeleteSellService();
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int no = Integer.parseInt(request.getParameter("no"));
-		
+		 
 		deleteSellService.delete(no);
 		
-		response.sendRedirect(request.getContextPath()+"/veiw/GWON/sell/sellList.do");
+		response.sendRedirect(request.getContextPath()+"/gwon/sell/sellList.do");
 		return null;
 	}
 }

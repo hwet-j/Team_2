@@ -22,8 +22,6 @@
 
 
 
-
-
 </head>
 <body>
 <%@ include file = "../../../navi.jsp" %>
@@ -87,11 +85,11 @@
 	</table>
 	
 	<div class="#">
-	 <c:if test="${AUTH_USER.id eq sellDTO.user_id}">
+	 <c:if test="${AUTH_USER.user_id eq sellDTO.user_id}">
 	   <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellDelete.do?no=${sellDTO.sell_no}" style = "float: right; "role="button">삭제</a>
 	 </c:if> 
 	 
-	 <c:if test="${AUTH_USER.id==sellDTO.user_id}">
+	 <c:if test="${AUTH_USER.user_id==sellDTO.user_id}">
 	   <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellModify.do?no=${sellDTO.sell_no}" style = "float: right; "role="button">수정</a>
      </c:if> 
 
@@ -109,21 +107,3 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

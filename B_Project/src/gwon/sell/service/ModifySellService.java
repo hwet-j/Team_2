@@ -44,12 +44,10 @@ public class ModifySellService {
 		}finally {
 			JDBCUtil.close(conn);
 		}
-		
 	}
 	
 	private boolean canModify(String modifiedUser_id, Sell sell) {
 		return sell.getWriter().getUser_id().equals(modifiedUser_id);
-		//sell.getWriter().getUser_id()는 받아온 내용 (select)
 	}
 
 	

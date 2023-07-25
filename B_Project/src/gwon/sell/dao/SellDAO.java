@@ -12,10 +12,10 @@ import java.util.List;
 import gwon.sell.model.Sell;
 import gwon.sell.model.SellDTO;
 import gwon.sell.model.Writer;
+import gwon.sell.service.SearchRequest;
 import jdbc.JDBCUtil;
 
 public class SellDAO {
-
 	
 	//1. 전체조회
 	public int selectCount(Connection conn) throws SQLException {
@@ -119,8 +119,6 @@ public class SellDAO {
 			
 		}
 
-
-
 		public SellDTO getSellDTO(Connection conn,  int no) throws SQLException {
 			String sql = "select a.sell_no, a.user_id, a.user_name, a.sell_title, " +
 						"a.sell_category, a.sell_price, a.sell_loc, a.sell_regDate, " +
@@ -165,6 +163,7 @@ public class SellDAO {
 		//3. 글 작성
 		public Sell insert(Connection conn, Sell sell) throws SQLException {
 			
+			
 			String sql = "insert into gwon_sell(user_id, user_name, " +
 						"sell_title, sell_category, sell_price, sell_loc, " +
 						"sell_regdate, sell_moddate, sell_read_cnt) " +
@@ -184,10 +183,11 @@ public class SellDAO {
 				stmt.setInt(5, sell.getSell_price());
 				stmt.setString(6, sell.getSell_loc());
 				
+				
 				int insertedQuery = stmt.executeUpdate();
 				
 				if(insertedQuery > 0) {
-					String insertedsql = "select last_insert_id() from sell";
+					String insertedsql = "select last_insert_id() from gwon_sell";
 					insertedstmt = conn.prepareStatement(insertedsql);
 					rs = insertedstmt.executeQuery();
 					if(rs.next()) {
@@ -237,7 +237,57 @@ public class SellDAO {
 				JDBCUtil.close(stmt);
 			}
 		}
+		
+		//추가 기능 1. - 검색 기능
+		public List<Sell> search(Connection conn, SearchRequest searchRequest, int startRow, int size) throws SQLException {
+			
+			String sql = null;
+			PreparedStatement stmt = null;
+			List<Sell> list = new ArrayList<>();
+			ResultSet rs = null;
+			String searchColumn	= searchRequest.getSearchColumn();
+			String searchText	= searchRequest.getSearchText();
+			System.out.println(searchColumn);
+			System.out.println(searchText);
+			try {
+				System.out.println("error");
+				sql = "select * from gwon_sell where " + searchColumn + 
+						" like '%"+ searchText.trim() +"%' order by sell_no desc limit ?,?";
+
+				System.out.println(sql);
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1,startRow);
+				stmt.setInt(2,size);
+				System.out.println("startRow");
+				System.out.println("size");
+				rs = stmt.executeQuery();
+				
+				while(rs.next()) {
+					list.add(searchSell(rs));
+				}
+				return list;
+			} finally {
+				JDBCUtil.close(rs);
+				JDBCUtil.close(stmt);
+			}
+			
+		}
+		
+
+		private Sell searchSell(ResultSet rs) throws SQLException {
+			return  new Sell(rs.getInt("sell_no"),
+				    		new Writer(rs.getString("user_id"), rs.getString("user_name")),
+						    rs.getString("sell_title"),
+						    rs.getString("sell_category"),
+						    rs.getInt("sell_price"),
+						    rs.getString("sell_loc"),
+						    toTimestamp(rs.getDate("sell_regdate")),
+						    toTimestamp(rs.getDate("sell_moddate")),
+						    rs.getInt("sell_read_cnt")  );
+		}
+		
+		// 2. 		
+		
+		
 
 }
-
-

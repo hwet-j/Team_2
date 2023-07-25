@@ -35,11 +35,11 @@ public class SellContentDAO {
 			JDBCUtil.close(stmt);
 		}
 	}
+	
 
 	private SellContent changeSellContent(ResultSet rs) throws SQLException {
 		return new SellContent(rs.getInt("sell_no"), rs.getString("sell_content"), rs.getString("sell_file"), rs.getString("sell_fav"));
 	}
-	
 	
 
 	//3. 글 작성
