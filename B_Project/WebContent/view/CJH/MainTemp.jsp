@@ -25,6 +25,7 @@
 
  <form action="/CJH/whi_board/list.do?pageNo=1" method="post"><button type="submit">위스키 게시판으로 이동</button><input type="hidden" name ="pageNo" value="1"> </form>
 <br>
+<form action="/admin/showAll.do" method="post"><button type="submit"> 관리자페이지</button></form>
 <!-- 여기위로 -->
 <%@ include file="/footer.jsp" %>
 </body>

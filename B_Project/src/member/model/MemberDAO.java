@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
@@ -177,4 +181,34 @@ public class MemberDAO {
 		
 	}
 
+	/* 모든유저의 정보를 불러오는 method- 작업자 : 조중현 */
+	public List<MemberDTO> AllMemberShow() throws SQLException{
+		String sql = "SELECT * FROM USER_INFO";
+		List<MemberDTO> list = new LinkedList<MemberDTO>();
+		Connection conn = ConnectionProvider.getConnection();
+		ResultSet rs = conn.createStatement().executeQuery(sql);
+		
+		while(rs.next()) {
+			String userId = rs.getString("user_id");
+			String userPw = "****";
+			String userName = rs.getString("user_name");
+			Date userBirth = rs.getDate("user_birth");
+			String userNickname = rs.getString("user_nickname"); 
+			String userGender = rs.getString("user_gender");
+			String userTlno = rs.getString("user_tlno");
+			Date userJoinDate = rs.getDate("user_joindate");
+			list.add(new MemberDTO(userId, userPw, userName, userBirth, userNickname, userGender, userTlno, userJoinDate));
+		}
+		return list;
+	}
+
+	/* 유저 id를 받아 삭제 시키는 method- 작업자 : 조중현*/
+	public int DeleteMember(String id) throws SQLException {
+		String sql = "DELETE FROM USER_INFO WHERE USER_ID = ?";
+		Connection conn = ConnectionProvider.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, id);
+		int delRow = pstmt.executeUpdate();
+		return delRow;
+	}
 }
