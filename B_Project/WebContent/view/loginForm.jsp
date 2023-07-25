@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 
+<%-- sweetAlert2 : 알림창 관련 디자인 --%>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <head>
     <title>로그인 화면</title>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/popup_login.css">
@@ -11,35 +14,81 @@
     <script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-migrate-1.2.1.min.js"></script>
     
     <script type="text/javascript">
+    
 	$(document).ready(function(){
 		$("#user_id").keypress(function (e) {;
     	    if (e.which == 13){
-    	    	zb_login_check_submit();
+    	    	login_check_submit();
     	    }
     	});
 		$("#password").keypress(function (e) {;
     	    if (e.which == 13){
-    	    	zb_login_check_submit();
+    	    	login_check_submit();
     	    } 
     	});
 		$('#user_id').focus();
 	});
-
-    function zb_login_check_submit() {
+	
+	// 어떤 정보도 입력하지 않으면 입력하도록 알림창
+    function login_check_submit() {
         var $user_id = document.getElementById('user_id');
         var $password = document.getElementById('password');
 
         if ($('#user_id').val() === "") {
-            alert("아이디를 입력해주십시요");
+        	// alert와 똑같은 기능 -> sweetAlert2의 기능을 사용
+        	Swal.fire({
+        		  icon: 'error',
+        		  title: 'ID Not Entered...',
+        		  text: '아이디를 입력해주세요!',
+       		})
             $('#user_id').focus();
             return false;
         }
         if ($('#password').val() === "") {
-            alert("비밀번호를 입력해주십시요");
+        	Swal.fire({
+      		  icon: 'error',
+      		  title: 'Password Not Entered...',
+      		  text: '비밀번호를 입력해주세요!',
+     		})
             $('#password').focus();
             return false;
         }
-        $('#zb_login').submit();
+        // 모든 정보가 입력되었을 때, ajax 함수 실행 (로그인 가능한지 확인)
+        checkLogin();
+    }
+    
+  	// 로그인 성공 여부
+    function checkLogin() {
+        let user_id = $("input[name='user_id']");
+        let password = $("input[name='password']");
+        var contextPath = '<%= request.getContextPath() %>';
+        
+        // AJAX 요청
+        $.ajax({
+            url: contextPath + "/view/loginError.jsp",
+            type: "POST",
+            data: { user_id: user_id.val() ,
+            	password: password.val() },
+            success: function(response) {
+            	var message = response.replace(/\s/g, ""); // 공백 제거(줄바꾸믕로 해결되지 않아 공백제거로 변경...)
+            	// 입력 가능한지 불가능한지 체크하여 가능하면 Success 반환
+                if (message === "Success") {	
+                	$('#login').submit();	// 로그인 가능하므로 submit 실행
+                } else {
+                	Swal.fire({
+                        icon: 'error',
+                        title: '로그인 실패',
+                        text: '아이디 또는 비밀번호가 일치하지 않습니다.',
+                    });
+                	// 로그인 불가능하면 비밀번호는 초기화
+                	password.val('');
+                	return;
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
     }
 	</script>
     
@@ -50,23 +99,25 @@
     <div class="popup_login">
     	<a href="<%=request.getContextPath() %>/index.jsp"><p class="log_top"><img src="<%= request.getContextPath() %>/assets/images/logo.png"></p></a>
     	
-        <form name="zb_login" id="zb_login" method="post" action="/login_check.php">
-        <input type="hidden" name="s_url" value="%2F" />
+        <form name="login" id="login" method="post" action="<%=request.getContextPath() %>/login.do">
 	        <ul class="login_box">
 	            <li class="log_id">
 	            	<input placeholder="아이디 입력" type="text" name="user_id" id="user_id" maxlength="20" />
 	            	<input placeholder="비밀번호 입력" type="password" name="password" id="password" maxlength="20" />
 	            </li>
-	            <a href="#none" onclick="zb_login_check_submit();">
-	            <li class="log_btn"><span class="logtext jBtnLogin">로그인</span></li></a>
+	            
+	            <a href="#none" onclick="login_check_submit();">
+	            	<li class="log_btn"><span class="logtext jBtnLogin">로그인</span></li>
+	            </a>
 	            
 	            <li class="auto_log"><label><input type="checkbox" id="aLogin" name="auto_login" value=1 /><span class="autol">자동 로그인</span></label></li>
 	            <li class="log_btn_02">
-	            	<a href="<%=request.getContextPath() %>/join.jsp">회원가입</a> |
+	            	<a href="<%=request.getContextPath() %>/join.do">회원가입</a> |
                     <a href="#">아이디 찾기</a> |
                     <a href="#">비밀번호 찾기</a> |
                     <a href="#">소셜회원탈퇴</a>
                     
+                    <!-- 이후에 가능하면 기능 구현 -->
 	            	<div class="sns_login">
 	            		<a href="https://kauth.kakao.com/oauth/authorize?client_id=770b249e43c567d7c518187be78e9147&redirect_uri=https%3A%2F%2Fwww.ppomppu.co.kr%2Fopenapi%2Fsocial%2Flogin.php&response_type=code&state=kakao%7C%7CW3n2LcVSR%252BBF4O%252FmEDGNCzS0Hb%252BItbvo7yBcL3o9hj7L5JR8%252F15mO5NAK41Xy1a52p3Qq6d63jhvcy1bgzd4NlbZT%252BXpFUGciJ7GIG%252FQ0gE%253D"><img src="<%=request.getContextPath() %>/assets/images/auth/Login_kakao_ico.png"><span>카카오 로그인</span></a>
 						<a href="https://www.facebook.com/v12.0/dialog/oauth?client_id=179876179410019&redirect_uri=https%3A%2F%2Fwww.ppomppu.co.kr%2Fopenapi%2Fsocial%2Flogin.php&state=facebook%7C%7CDFXhU14w5EWK0Pzi0tuTshmnwo4tUYf6qcwLWvp4vuJ6FL7KGgNxuMy1rqP%252BtZ5azTyhJ%252B2GdB6REbXMHZAAaBuTgFQz70lcqMvG2IzSpBs%253D"><img src="<%=request.getContextPath() %>/assets/images/auth/Login_facebook_ico.png"><span>페이스북 로그인</span></a>
@@ -76,14 +127,13 @@
 
 	            </li>
                 <li class="lg_banner"></li>
-	           <p class="backs">
+	            <p class="backs">
                  	<a href="<%=request.getContextPath() %>/index.jsp">
-                 	  <span class="back">되돌아가기</span>
+                 	  <span class="back">메인페이지</span>
                  	</a>
                  </p>
 	        </ul>
         </form>
-        <p class="log_b"><a href='/'></a></p>
     </div>
 </body>
 </html>

@@ -2,47 +2,70 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" >
+<html>
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"> -->
 
 <title>B조홈페이지::회원가입</title>
 
 <link href="<%=request.getContextPath() %>/assets/css/join.css" rel="stylesheet" type="text/css" />
-
-<script src="<%=request.getContextPath() %>/assets/js/jquery-3.7.0.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/assets/js/chk_member_info.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/assets/js/chk_password.js" type="text/javascript"></script>
 
 <script>
 
+// Input 데이터 Check -> 전부 True 설정되어야 submit가능
 var idChkResult = false;
-var nicknameChkResult = false;
-var telnumberChkResult = false;
 var passwordChkResult = false;
 var password1ChkResult = false;
+var nameChkResult = false;
+var nicknameChkResult = false;
+var genderChkResult = false;
+var birthChkResult = false;
+var telnumberChkResult = false;
 
 //아이디 중복 확인 요청
 function checkDuplicate() {
-    let userid = $("#user_id");
+    let userid = $("input[name='user_id']");
+    let username = $("input[name='nickname']");
+    let tlno = $("input[name='phonenum']");
+    var contextPath = '<%= request.getContextPath() %>';
     // AJAX 요청
     $.ajax({
-        url: "checkDuplicate.jsp",
+        url: contextPath + "/view/member/checkDuplicate.jsp",
         type: "POST",
-        data: { userid: userid },
+        data: { userid: userid.val() ,
+	        	username: username.val(),
+	            tlno: tlno.val() },
         success: function(response) {
-        	var message = response.replace(/\s/g, ""); // 공백 제거(줄바꾸믕로 해결되지 않아 공백제거로 변경...)
-            if (message === "duplicate") {
-                // 아이디 중복
-                document.getElementById("user_id").focus();
-                alert("이미 사용 중인 아이디입니다.");
+        	var message = response.replace(/\s/g, ""); // 공백 제거(줄바꿈으로 해결되지 않아 공백제거로 변경...)
+            if (message === "id_duplicate") {	 	// 아이디 중복
+                userid.focus();
+                $("#id_message_span").text("이미 사용 중인 아이디입니다.");
+                idChkResult = false;
+                return;
             } else {
-                // 아이디 중복 아님
-                alert("사용 가능한 아이디입니다.");
+            	if (message === "nickname_duplicate") {	 // 닉네임 중복
+            		username.focus();
+                    $("#nickname_message_span").text("이미 사용 중인 닉네임입니다.");
+                    nicknameChkResult = false;
+                    return;
+            	} else {
+            		if (message === "tlno_duplicate") {	 // 전화번호 중복
+            			tlno.focus();
+                        $("#tel_message_span").text("이미 사용 중인 전화번호입니다.");
+                        telnumberChkResult = false;
+                        return;
+                	} else {
+                		// 중복 정보가 없으면 submit 진행
+                		document.forms['write'].submit();
+                	}
+            	}
             }
         },
         error: function(xhr, status, error) {
@@ -53,9 +76,19 @@ function checkDuplicate() {
 
 
 
-
+// 최종 submit 함수 -> 모든값이 True면 submit진행됨
 function check_submit()
  {
+	// 함수를 시작하면서 blur작업을 진행해야지 정상적으로 진행됨 만약 형식에 어긋나는 정보가 존재하지만 focus() 상태에서 submit이 진행되면 그대로 전송됨
+	// 단, password 관련 정보는 blur() 작업시, 초기화 작업이 진행되기도 하므로 제외하고 진행한다. 
+	 $('#user_id').blur();
+	 $('#user_nickname').blur();
+	 $('#phonenum').blur();
+	 $('#user_name').blur();
+	 $('#birth_date').blur();
+	 $('#gender').blur();
+	 
+	 // 형식에 전부 올바르게 작성했다면 checkDuplicate진행 입력 form의 위에서 부터 체크 
      if(!idChkResult){
          $('#user_id').focus();
      }else if(!passwordChkResult){
@@ -64,14 +97,21 @@ function check_submit()
          $('#password1').focus();
      }else if(!nicknameChkResult){
          $('#user_nickname').focus();
+     }else if(!nameChkResult){
+         $('#user_name').focus();
+     }else if(!genderChkResult){
+         $('#gender').focus();
+     }else if(!birthChkResult){
+         $('#birth_date').focus();
+     }else if(!telnumberChkResult){
+         $('#phonenum').focus();
      } else{
-         document.forms['write'].submit();
+    	 checkDuplicate();
      }
   }
 
 
 $(document).ready(function() {
-	
 	/**************************************
 	생일 최소,최대 날짜 설정
 	**************************************/
@@ -115,20 +155,60 @@ $(document).ready(function() {
 		
 	});
     
-
+	// 닉네임
 	$('#user_nickname').blur(function(){
 
 		$("#nickname_info_span").hide();
 
 		var nickname = $('#user_nickname').val();
 
-		var result_obj = chkUserNinkName(nickname);
+		var result_obj = chkUserNickName(nickname);
 		nicknameChkResult = result_obj.flag;
 
 		$("#nickname_message_span").text(result_obj.msg);
 
 	});
 	
+	// 이름
+	$('#user_name').blur(function(){
+
+		var name = $('#user_name').val();
+
+		var result_obj = chkUserName(name);
+		
+		nameChkResult = result_obj.flag;
+
+		$("#name_message_span").text(result_obj.msg);
+
+	});
+	
+	// 성별
+	$('#gender').blur(function(){
+
+		var gender = $('#gender').val();
+
+		var result_obj = chkUserGender(gender);
+		
+		genderChkResult = result_obj.flag;
+
+		$("#gender_message_span").text(result_obj.msg);
+
+	});
+	
+	// 성별
+	$('#birth_date').blur(function(){
+
+		var birth_date = $('#birth_date').val();
+
+		var result_obj = chkUserBirth(birth_date);
+		
+		birthChkResult = result_obj.flag;
+
+		$("#birth_message_span").text(result_obj.msg);
+
+	});
+	
+	// 전화번호
 	$('#phonenum').blur(function(){
 
 		$("#tel_info_span").hide();
@@ -141,7 +221,8 @@ $(document).ready(function() {
 		$("#tel_message_span").text(result_obj.msg);
 
 	});
-
+	
+	// 비밀번호
 	$('#password').blur(function(){
 		var password = $('#password').val();
 		var user_id = $("#user_id").val();
@@ -169,7 +250,8 @@ $(document).ready(function() {
 		}
 		
 	});
-
+	
+	// 비밀번호 확인
 	$('#password1').blur(function(){
 		var password = $('#password').val();
 		var password1 = $('#password1').val();
@@ -234,7 +316,7 @@ $(document).ready(function() {
 	$("#nickname_info_span").hide();
 	$("#tel_info_span").hide();
 
-	//이메일 도메인 선택
+	/* //이메일 도메인 선택
     $("#selectEmailDomain").change(function() {
         var selectEmailDomain = $("#selectEmailDomain").val();
         if(selectEmailDomain == "otherDomains") {
@@ -250,7 +332,7 @@ $(document).ready(function() {
     //이메일 도메인 변경
     $("#emailDomain").change(function() {
         $("#email").blur();
-    });
+    }); */
 });
 
 
@@ -317,7 +399,6 @@ String.prototype.trim = function() {
 	                    <span>* 비밀번호 생성 규칙 
 		                    <br> 1. 영대소문자,숫자,특문 중 3개 이상 조합 
 		                    <br> 2. 8자 이상 16자 이하 
-		                    <br> 3. 생년월일 사용불가
 	                    </span>
 	                </div>
 
@@ -334,7 +415,7 @@ String.prototype.trim = function() {
 			
 			<li>
 	            <span class="j_t">이름</span> 
-	            <input name="name" type="text" maxlength=20 class="inp_ty01" id="user_name" >
+	            <input name="name" type="text" maxlength=20 class="inp_ty01" id="user_name">
 	            <span class="j_t_i" id="name_message_span"></span>
             </li>
 			
@@ -347,36 +428,38 @@ String.prototype.trim = function() {
 	                <br> 2. 4byte 이상 20byte 이하
 	                <br> 3. 특수문자 _-@!~+= 사용가능
 	                <br> 4. 공백 사용제한</span>
-	            </div>
+	            </div> 
 	            <span class="j_t_i" id="nickname_message_span"></span>
             </li>
             
             <li>
 	            <span class="j_t">성별</span> 
-	            <select name="gender">
-	            
+	            <select id="gender" name="gender" required>
 				  <option value="">성별을 선택하세요</option>
 				  <optgroup label="-------------------------">
 				  <option value="male">남자</option>
 				  <option value="female">여자</option>
 				  </optgroup>
 				</select>
+				<span class="j_t_i" id="gender_message_span"></span>
             </li>
             
             <li>
 	            <span class="j_t">생년월일</span> 
-	            <input name="birth" type="date" class="inp_ty01" id="birth_date" />
+	            <input name="birth" type="date" class="inp_ty01" id="birth_date" required/>
+	            <span class="j_t_i" id="birth_message_span"></span>
             </li>
             
             <li>
 	            <span class="j_t">전화번호</span> 
-	            <input type="tel" id="phonenum" name="phonenum" placeholder="000-1234-5678" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" />
+	            <input type="tel" id="phonenum" name="phonenum" placeholder="000-1234-5678" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" required/>
 	            <div class="arrow_box" id="tel_info_span">
 	                <span>* 전화번호 생성 규칙 
 	                <br> 1. 000-1234-5678 의 형식을 유지
 	                <br> 2. 하이픈(-)도 직접 입력
 	                <br> 3. 공백 사용제한</span>
 	            </div>
+	            <span class="j_t_i" id="tel_message_span"> </span>
             </li>
             
             <!-- 이메일 사용 X 
@@ -408,6 +491,5 @@ String.prototype.trim = function() {
             <a class="n_u_02" onclick="check_submit()"  style="cursor:pointer;">가입하기</a>
         </div>
     </div>
-	<input type="submit" value="테스트">
 </form>
 

@@ -27,7 +27,6 @@ public class ControllerUsingURI extends HttpServlet {
 
 	// get방식요청시 호출.요청을 처리하고 응답을 생성
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet()호출");//콘솔출력
 
 		// process 실행
 		process(request,response);
@@ -35,7 +34,6 @@ public class ControllerUsingURI extends HttpServlet {
 
 	//post방식요청시 호출.요청을 처리하고 응답을 생성
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doPost()호출");
 		
 		// process 실행
 		process(request,response);
@@ -72,9 +70,9 @@ public class ControllerUsingURI extends HttpServlet {
         }
         
         // 초기 설정 상태 확인
-        System.out.println("configFile="+configFile);
-        System.out.println("prop="+prop);
-        System.out.println("configFilePath="+configFilePath);
+        // System.out.println("configFile="+configFile);
+        // System.out.println("prop="+prop);
+        // System.out.println("configFilePath="+configFilePath);
     }
 
 	//한번만 호출. DB연결해제, 리소스 반환

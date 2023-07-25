@@ -17,7 +17,7 @@ $(function(){
 </script>
 </head>
 <body>
-<%@ include file="../../nav.jsp" %>
+<%@ include file="/navi.jsp" %>
 
 <div class="container"></div>
 	<h2 class="mt-5 mb-4 text-center">수정</h2>

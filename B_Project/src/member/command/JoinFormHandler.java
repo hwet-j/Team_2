@@ -5,10 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import mvc.command.CommandHandler;
 
+/* 회원가입 창과 연결해주는 Handler */
+
 // joinForm.do
 public class JoinFormHandler implements CommandHandler{
 	          
-	//요청메서드
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		

@@ -37,7 +37,7 @@ $(document).ready(function(){
      http://localhost/
      http://localhost/index_notice.jsp
  </pre>	
-<%@ include file="/nav.jsp" %>
+<%@ include file="/navi.jsp" %>
 <%= request.getContextPath()  %>
 	<h2>메인</h2>
 	<a href="/notice/list.do">공지보기</a>

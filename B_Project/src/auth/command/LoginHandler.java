@@ -1,14 +1,14 @@
 package auth.command;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import auth.service.LoginFailException;
+import auth.service.LoginService;
+import member.model.MemberDTO;
 import mvc.command.CommandHandler;
+
+/* 로그인폼(GET)과 로그인 기능(POST)을 구현 */
 
 // login.do
 public class LoginHandler implements CommandHandler{
@@ -27,56 +27,28 @@ public class LoginHandler implements CommandHandler{
 		}
 	
 	}
-
+	
+	// 로그인 기능
 	private String processSubmit(HttpServletRequest request, HttpServletResponse response) {
-		
 		String id = request.getParameter("user_id"); 
 		String password = request.getParameter("password");  
 		
-		System.out.println(id);
-		System.out.println(password);
+		LoginService service = new LoginService();
 		
-		Map<String, Boolean> errors = new HashMap<String, Boolean>();
-		request.setAttribute("errors", errors);
+		// 로그인에 성공하면 로그인에 성공한 유저의 정보를 가져와 저장
+		MemberDTO user_data = service.login(id, password);
 		
-		if(id==null || id.isEmpty()) {
-			//에러가 있다면
-			//Map참조변수 errors에  필드명을 key로, True를 값으로 저장 
-			errors.put("memberid", Boolean.TRUE );
-		}
+		// 로그인한 유저의 정보를 session값으로 저장
+		HttpSession session = request.getSession();
+		session.setAttribute("AUTH_USER", user_data);
 		
-		if(password==null || password.isEmpty()) {
-			errors.put("password", Boolean.TRUE );
-		}
-		
-		if(!errors.isEmpty()) {
-			return "/index.jsp";
-		}
-		
-		try {
-			
-			response.sendRedirect("/index.jsp");
-			return "/loginForm.do";	// 계속 테스트하기위해 Form으로
-		} catch (LoginFailException e) {
-			
-		} catch (IOException e) {
-			
-		}
-		
-		
-		return "/loginForm.do";	// 계속 테스트하기위해 Form으로
-	}
-	
-	// 좌우 공백 제거 -> String클래스에 trim() 메서드를 사용해서 공백을 좌우의 공백을 제거할 수 있다. 
-	// 아래 코드는 String클래스의 trim()메서드를 사용하지 않고 정규표현식을 사용해서 공백을 제거해주었다.
-	private String trim(String str) {
-		str = str.replaceAll("^\\s+|\\s+$", "");
-		return str;
+		return "/index.jsp";
 	}
 	
 
 	private String processForm(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		// Get방식으로 요청받으면 로그인 창을 띄우는 핸들러 실행
 		return "/loginForm.do";
 	}
+	
 }
