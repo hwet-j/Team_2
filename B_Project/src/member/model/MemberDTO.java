@@ -12,6 +12,12 @@ public class MemberDTO {
     private String user_tlno;       // 핸드폰번호
     private Date user_join_date;    // 회원가입날짜
     
+    
+    public MemberDTO(String user_id,String user_name) {
+    	this.user_id = user_id;
+    	this.user_name = user_name;
+    }
+    
     public MemberDTO(String user_id, String user_pw, String user_name, Date user_birth, String user_nickname,
             String user_gender, String user_tlno, Date user_join_date) {
         this.user_id = user_id;

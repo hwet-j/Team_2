@@ -16,7 +16,7 @@ import mvc.command.CommandHandler;
 		
 		deleteSellService.delete(no);
 		
-		response.sendRedirect(request.getContextPath()+"/veiw/GWON/sell/sellList.do");
+		response.sendRedirect(request.getContextPath()+"/gwon/sell/sellList.do");
 		return null;
 	}
 }

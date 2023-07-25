@@ -47,7 +47,7 @@
 			  <tr>
 			    <td>${sell.sell_no}</td>
 			    <td>${sell.sell_category}</td>
-			    <td><a href="/gwon/sell/sellList.do?no=${sell.sell_no}&pageNo=${nowPage}">${sell.sell_title}</a></td>
+			    <td><a href="/gwon/sell/sellRead.do?no=${sell.sell_no}&pageNo=${nowPage}">${sell.sell_title}</a></td>
 			    <td>${sell.writer.user_id}</td>
 			    <td>${sell.sell_price}</td>
 			    <td>${sell.sell_loc}</td>

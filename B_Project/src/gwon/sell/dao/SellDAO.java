@@ -165,6 +165,7 @@ public class SellDAO {
 		//3. 글 작성
 		public Sell insert(Connection conn, Sell sell) throws SQLException {
 			
+			
 			String sql = "insert into gwon_sell(user_id, user_name, " +
 						"sell_title, sell_category, sell_price, sell_loc, " +
 						"sell_regdate, sell_moddate, sell_read_cnt) " +
@@ -184,10 +185,11 @@ public class SellDAO {
 				stmt.setInt(5, sell.getSell_price());
 				stmt.setString(6, sell.getSell_loc());
 				
+				
 				int insertedQuery = stmt.executeUpdate();
 				
 				if(insertedQuery > 0) {
-					String insertedsql = "select last_insert_id() from sell";
+					String insertedsql = "select last_insert_id() from gwon_sell";
 					insertedstmt = conn.prepareStatement(insertedsql);
 					rs = insertedstmt.executeQuery();
 					if(rs.next()) {
@@ -239,5 +241,3 @@ public class SellDAO {
 		}
 
 }
-
-
