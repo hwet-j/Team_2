@@ -12,9 +12,10 @@ public class MemberDeleteController implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = request.getParameter("user_id");
 		int delRow = new MemberDAO().DeleteMember(id);
+		
 		if(delRow==1) {
 			request.setAttribute("MSG", "Delete Success!");
-			return request.getContextPath()+"/admin/showAll.do";
+			return "/admin/showAll.do";
 		}
 		else {
 			String delFail = "삭제에 실패했습니다.";
