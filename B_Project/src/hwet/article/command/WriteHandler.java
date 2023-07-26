@@ -69,9 +69,9 @@ public class WriteHandler implements CommandHandler {
 				out.println("    confirmButtonText: 'Yes'");
 				out.println("}).then((result) => {");
 				out.println("if (result.isConfirmed) {");
-				out.println("    window.location.href = '" + request.getContextPath() + "/hwet/article/read.do?no=" + result + "&page_no=1';");
+				out.println("    window.location.href = '/hwet/article/read.do?no=" + result + "&page_no=1';");
 				out.println("	} else {");
-				out.println("    window.location.href = '" + request.getContextPath() + "/hwet/article/list.do';");
+				out.println("    window.location.href = '/hwet/article/list.do';");
 				out.println("	}");
 				out.println("})");
 				out.println("</script>");
@@ -111,7 +111,7 @@ public class WriteHandler implements CommandHandler {
 				out.println("    title: '글작성 실패',");
 				out.println("    text: '목록으로 돌아갑니다.',");
 				out.println("}).then(function() {");
-				out.println("    window.location.href = '" + request.getContextPath() + "/hwet/article/list.do';");
+				out.println("    window.location.href = '/hwet/article/list.do';");
 				out.println("});");
 				out.println("</script>");
 				out.println("</body>");
@@ -156,7 +156,7 @@ public class WriteHandler implements CommandHandler {
 				out.println("    confirmButtonText: 'Yes'");
 				out.println("}).then((result) => {");
 				out.println("if (result.isConfirmed) {");
-				out.println("    window.location.href = '" + request.getContextPath() + "/login.do';");
+				out.println("    window.location.href = '/login.do';");
 				out.println("	} else {");
 				out.println("	window.location.href = document.referrer;");
 				out.println("	}");

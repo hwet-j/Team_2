@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="<%=request.getContextPath() %>/index2.jsp">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/index.jsp">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">공지사항</a>
@@ -68,7 +68,7 @@
             회창
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownBoard1">
-            <a class="dropdown-item" href="<%=request.getContextPath() %>/hwet/article/list.do">게시판</a>
+            <a class="dropdown-item" href="/hwet/article/list.do">게시판</a>
             <a class="dropdown-item" href="#">Link 2</a>
             <a class="dropdown-item" href="#">Link 3</a>
           </div>
@@ -99,15 +99,15 @@
       <ul class="navbar-nav">
       	<c:if test="${empty AUTH_USER}">
 	        <li class="nav-item">
-	          <a class="nav-link" href="<%=request.getContextPath() %>/join.do">회원가입</a>
+	          <a class="nav-link" href="/join.do">회원가입</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="<%=request.getContextPath() %>/loginForm.do">로그인</a>
+	          <a class="nav-link" href="/loginForm.do">로그인</a>
 	        </li>
         </c:if>
         <c:if test="${!empty AUTH_USER}">
 	        <li class="nav-item">
-	          <a class="nav-link" href="<%=request.getContextPath() %>/logout.do">로그아웃</a>
+	          <a class="nav-link" href="/logout.do">로그아웃</a>
 	        </li>
         </c:if>
       </ul>
