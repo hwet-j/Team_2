@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import hwet.article.service.AddReplyService;
 import mvc.command.CommandHandler;
 
-// /hwet/article/addReply.do
-/* 댓글을 추가하는 기능 */
+/* hwet/article/addReply.do  댓글을 추가하는 기능 */
 public class AddReplyHandler implements CommandHandler {
 	
 	AddReplyService replyService = new AddReplyService();
