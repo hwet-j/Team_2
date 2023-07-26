@@ -9,6 +9,8 @@ import member.model.MemberDAO;
 import member.model.MemberDTO;
 import mvc.command.CommandHandler;
 
+
+// /admin/showAll.do
 public class MemberAdminController implements CommandHandler {
 
 	@Override
@@ -16,7 +18,7 @@ public class MemberAdminController implements CommandHandler {
 		List<MemberDTO> list = new MemberDAO().AllMemberShow();
 		request.setAttribute("USERS", list);
 		
-		return request.getContextPath()+"/view/Admin/AdminUser.jsp";
+		return "/view/Admin/AdminUser.jsp";
 	}
 	
 	

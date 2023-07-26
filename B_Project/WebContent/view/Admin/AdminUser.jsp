@@ -44,17 +44,17 @@
 	</tr>
 </thead>
 <tbody>
-<c:forEach var="user" items="${USERS }">
+<c:forEach var="user" items="${USERS}">
 	<tr>
-		<td>${user.userId }</td>
-		<td>${user.userPw }</td>
-		<td>${user.userName }</td>
-		<td>${user.userBirth }</td>
-		<td>${user.userNickname }</td>
-		<td>${user.userGender }</td>
-		<td>${user.userTlno }</td>
-		<td>${user.userJoinDate }</td>
-		<td><a href="/admin/deleteUser.do?userId=${user.userId }">
+		<td>${user.user_id }</td>
+		<td>${user.user_pw }</td>
+		<td>${user.user_name }</td>
+		<td>${user.user_birth }</td>
+		<td>${user.user_nickname }</td>
+		<td>${user.user_gender }</td>
+		<td>${user.user_tlno }</td>
+		<td>${user.user_join_date }</td>
+		<td><a href="/admin/deleteUser.do?user_id=${user.user_id }">
 		<button class="btn-primary">회원 삭제</button></a> 
 		</td>
 	</tr>

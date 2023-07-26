@@ -1,8 +1,5 @@
 package member.command;
 
-import java.io.PrintWriter;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +10,7 @@ public class MemberDeleteController implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String id = request.getParameter("userId");
+		String id = request.getParameter("user_id");
 		int delRow = new MemberDAO().DeleteMember(id);
 		if(delRow==1) {
 			request.setAttribute("MSG", "Delete Success!");
