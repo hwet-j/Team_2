@@ -106,6 +106,11 @@
 	        </li>
         </c:if>
         <c:if test="${!empty AUTH_USER}">
+        	<c:if test="${AUTH_USER.user_id.contains('admin')}">
+        	<li class="nav-item">
+	          <a class="nav-link" href="/admin/showAll.do">관리자페이지</a>
+	        </li>
+        	</c:if>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/logout.do">로그아웃</a>
 	        </li>

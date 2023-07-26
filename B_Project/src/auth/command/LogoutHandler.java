@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import mvc.command.CommandHandler;
 
-// logout.do
+/* logout.do 로그아웃 기능, 회원관련 세션을 삭제해준다. */
 public class LogoutHandler implements CommandHandler{
 	
 	@Override

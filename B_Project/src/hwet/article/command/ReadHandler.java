@@ -11,8 +11,7 @@ import hwet.article.service.ReadArticleService;
 import hwet.article.service.ReadReplyService;
 import mvc.command.CommandHandler;
 
-// /hwet/article/read.do
-/* 게시글 하나를 자세히 확인하는 기능 */
+/* hwet/article/read.do  게시글 하나를 자세히 확인하는 기능 */
 public class ReadHandler implements CommandHandler {
 	
 	private ReadArticleService readArticleService = new ReadArticleService();

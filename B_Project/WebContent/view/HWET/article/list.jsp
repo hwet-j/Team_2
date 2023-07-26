@@ -131,17 +131,31 @@
 </body>
 
 <script>
-<%-- 검색 버튼 클릭시 get방식으로 데이터를 전송 --%>
+
 $(document).ready(function() {
-  $("#searchButton").click(function() {
+    // 검색 버튼 클릭 시 search 함수 실행
+    $("#searchButton").click(function() {
+        search();
+    });
+
+    // Enter 키 누를 때 검색 기능 실행
+    $("#keyword").keypress(function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            search();
+        }
+    });
+});
+
+<%-- 검색 버튼 클릭시 get방식으로 데이터를 전송 --%>
+function search() {
     var keywordInput = $("#keyword");
     var keyword = keywordInput.val();
-    <%-- 검색어를 입력해야지만 url이동이 되도록 하려했지만, 아무것도 입력안했을 때 검색어가 없는 상태로 다시 돌아오도록 하기 위해 제거 --%>
     var search_type = $('[name="search_type"]').val();
     var url = "/hwet/article/list.do?category_info=${category_info}&page_no=${current_page}" + "&search_type=" + search_type + "&keyword=" + keyword;
     window.location.href = url;
-  });
-});
+}
+
 </script>
 
 <!-- 부트스트랩 JS 파일들 링크 -->

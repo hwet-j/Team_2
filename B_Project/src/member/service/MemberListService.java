@@ -2,27 +2,28 @@ package member.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import member.model.MemberDAO;
 import member.model.MemberDTO;
 
-public class JoinService {
+public class MemberListService {
 	private MemberDAO  memberDAO = new MemberDAO();
 	
-	/* 회원가입처리 (일반) */
-	public int join(MemberDTO member) {
+	/* 회원 정보 가져오기 */
+	public List<MemberDTO> AllMemberShow(int page_no, int list_size, String search_type,String keyword) {
 		Connection conn = null;
-		int result = 0;
+		List<MemberDTO> result = new ArrayList<MemberDTO>();
 		try {
 			conn = ConnectionProvider.getConnection();
 			// autoCommit false 설정 
 			conn.setAutoCommit(false); 
 			
-			// 리턴값 0 : 회원가입 실패, 리턴값 1 : 회원가입 성공
-			result = memberDAO.joinInsert(conn, member);
+			result = memberDAO.AllMemberShow(conn, page_no, list_size, search_type, keyword);
 						
 			conn.commit(); 
 			return result;
@@ -35,8 +36,8 @@ public class JoinService {
 		}
 	}
 	
-	/* 회원가입처리 (관리자) */
-	public int joinAdmin(String user_id,String password) {
+	/* 검색된 회원 총 길이 가져오기 */
+	public int allMemberCount(String search_type,String keyword) {
 		Connection conn = null;
 		int result = 0;
 		try {
@@ -44,19 +45,19 @@ public class JoinService {
 			// autoCommit false 설정 
 			conn.setAutoCommit(false); 
 			
-			// 리턴값 0 : 회원가입 실패, 리턴값 1 : 회원가입 성공
-			result = memberDAO.joinAdminInsert(conn, user_id, password);
-						
+			result = memberDAO.allMemberCount(conn, search_type, keyword);
+			
 			conn.commit(); 
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JDBCUtil.rollback(conn);  //rollback  
+			JDBCUtil.rollback(conn);//rollback  
 			throw new RuntimeException(e);
 		}finally {
 			JDBCUtil.close(conn); 
 		}
 	}
+	
 	
 	
 }

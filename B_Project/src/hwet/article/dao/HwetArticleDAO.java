@@ -66,16 +66,15 @@ public class HwetArticleDAO {
     	
         try {
         	if(!search_type.equals("")) {
-        		keyword = "%" + keyword + "%";	// sql문에 검색을 위한 코드 변경
             	if (search_type.equals("title")) {	// 제목 검색
-            		sql = "SELECT * FROM hwet_board WHERE category LIKE ? AND title LIKE ? ORDER BY board_id DESC LIMIT ?, ?";
+            		sql = "SELECT * FROM hwet_board WHERE category LIKE ? AND title LIKE CONCAT('%', ? , '%') ORDER BY board_id DESC LIMIT ?, ?";
             		pstmt = conn.prepareStatement(sql);
             		pstmt.setString(1, cate_info);
             		pstmt.setString(2, keyword);
                 	pstmt.setInt(3, start_index);
                 	pstmt.setInt(4, list_size);
             	} else if (search_type.equals("content")) {	// 제목 + 내용 검색
-            		sql = "SELECT * FROM hwet_board WHERE category LIKE ? AND (content LIKE ? OR title LIKE ?) ORDER BY board_id DESC LIMIT ?, ?";
+            		sql = "SELECT * FROM hwet_board WHERE category LIKE ? AND (content LIKE CONCAT('%', ? , '%') OR title LIKE CONCAT('%', ? , '%')) ORDER BY board_id DESC LIMIT ?, ?";
             		pstmt = conn.prepareStatement(sql);
             		pstmt.setString(1, cate_info);
             		pstmt.setString(2, keyword);
@@ -83,7 +82,7 @@ public class HwetArticleDAO {
                 	pstmt.setInt(4, start_index);
                 	pstmt.setInt(5, list_size);
             	} else if (search_type.equals("writer")) {	// 작성자 검색
-            		sql = "SELECT * FROM hwet_board WHERE category LIKE ? AND writer LIKE ? ORDER BY board_id DESC LIMIT ?, ?";
+            		sql = "SELECT * FROM hwet_board WHERE category LIKE ? AND writer LIKE CONCAT('%', ? , '%') ORDER BY board_id DESC LIMIT ?, ?";
             		pstmt = conn.prepareStatement(sql);
             		pstmt.setString(1, cate_info);
             		pstmt.setString(2, keyword);
