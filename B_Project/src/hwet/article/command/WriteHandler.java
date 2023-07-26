@@ -11,6 +11,7 @@ import hwet.article.service.WriteArticleService;
 import mvc.command.CommandHandler;
 
 // /hwet/article/write.do
+/* 게시글을 작성하는 기능 */
 public class WriteHandler implements CommandHandler {
 	
 	private WriteArticleService writeService = new WriteArticleService();
@@ -68,7 +69,7 @@ public class WriteHandler implements CommandHandler {
 				out.println("    confirmButtonText: 'Yes'");
 				out.println("}).then((result) => {");
 				out.println("if (result.isConfirmed) {");
-				out.println("    window.location.href = '" + request.getContextPath() + "/hwet/article/read.do?no=" + result + "&pageNo=1';");
+				out.println("    window.location.href = '" + request.getContextPath() + "/hwet/article/read.do?no=" + result + "&page_no=1';");
 				out.println("	} else {");
 				out.println("    window.location.href = '" + request.getContextPath() + "/hwet/article/list.do';");
 				out.println("	}");

@@ -21,8 +21,6 @@
 
 
 
-
-
 </head>
 <body>
 <%@ include file = "../../../navi.jsp" %>
@@ -105,16 +103,3 @@
  	       	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -16,21 +16,21 @@ import jdbc.connection.ConnectionProvider;
 public class MemberDAO {
 	
 	// user_info 테이블에 정보 넣기 (회원가입) - > 관리자도 함께 사용가능할듯
-	public int joinInsert(Connection conn, MemberDTO mem) throws SQLException {
+	public int joinInsert(Connection conn, MemberDTO member) throws SQLException {
 		// 가입일을 제외하고 전부 PrepareStatement의 매개변수로 받아 사용
 		String sql = "INSERT INTO user_info "
 				+ "(user_id, user_pw, user_name, user_birth, user_nickname, user_gender, user_tlno, user_joindate) " + 
 				"VALUES(?, ?, ?, ?, ?, ?, ?, CURRENT_DATE)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		
-		pstmt.setString(1,mem.getUserId());
-		pstmt.setString(2,mem.getUserPw());
-		pstmt.setString(3,mem.getUserName());
+		pstmt.setString(1,member.getUser_id());
+		pstmt.setString(2,member.getUser_pw());
+		pstmt.setString(3,member.getUser_name());
 		// 시간의 경우는 여러 방식이 가능함
-		pstmt.setTimestamp(4, new Timestamp(mem.getUserBirth().getTime()));
-		pstmt.setString(5,mem.getUserNickname());
-		pstmt.setString(6,mem.getUserGender());
-		pstmt.setString(7,mem.getUserTlno());
+		pstmt.setTimestamp(4, new Timestamp(member.getUser_birth().getTime()));
+		pstmt.setString(5,member.getUser_nickname());
+		pstmt.setString(6,member.getUser_gender());
+		pstmt.setString(7,member.getUser_tlno());
 		
 		// 쿼리실행 (executeUpdate는 실행된 Row수를 반환한다 -> insert문 하나를 실행했으므로 성공하면 1, 실패하면 0을 반환함
 		int result = pstmt.executeUpdate();
@@ -39,7 +39,7 @@ public class MemberDAO {
 	}
 	
 	/* AJAX - userid 중복 확인을 위한 메서드  boolean형태로 작성하여 중복이면 true 그렇지 않으면 false 반환  - 유효성 검사에 사용  */ 
-	public boolean idDuplicateCheck(String userId) throws SQLException {
+	public boolean idDuplicateCheck(String user_id) throws SQLException {
 		Connection conn = ConnectionProvider.getConnection();
 		boolean result = false;
 		int cnt = 0;
@@ -49,7 +49,7 @@ public class MemberDAO {
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		
-		pstmt.setString(1,userId);
+		pstmt.setString(1,user_id);
 		
 		ResultSet rs = pstmt.executeQuery();
 		// cnt라는 변수에 결과값 저장 -> COUNT(*)의 결과 저장
@@ -118,7 +118,7 @@ public class MemberDAO {
 	}
 
 	/* login WHERE절에 아이디, 비밀번호를 입력했을때, 데이터가 존재한다면 로그인 성공 및 데이터를 Session에 저장할 것이므로 return type -> DTO */ 
-	public MemberDTO login(Connection conn, String userId, String password){
+	public MemberDTO login(Connection conn, String user_id, String password){
 		MemberDTO user_data = null;
 		String sql = "SELECT user_id, user_pw, user_name, user_birth, user_nickname, user_gender, user_tlno, user_joindate FROM user_info WHERE user_id = ? AND user_pw = ?";
 		
@@ -126,7 +126,7 @@ public class MemberDAO {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,userId);
+			pstmt.setString(1,user_id);
 			pstmt.setString(2,password);
 			
 			rs = pstmt.executeQuery();
@@ -149,7 +149,7 @@ public class MemberDAO {
 	}
 	
 	/* AJAX - login WHERE절에 아이디, 비밀번호,아이디가 존재하는지 확인 (로그인 가능한지) */ 
-	public boolean loginCheck(String userId, String password) throws SQLException{
+	public boolean loginCheck(String user_id, String password) throws SQLException{
 		Connection conn = ConnectionProvider.getConnection();
 		boolean result = false;
 		String sql = "SELECT COUNT(*) FROM user_info WHERE user_id = ? AND user_pw = ?";
@@ -159,7 +159,7 @@ public class MemberDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,userId);
+			pstmt.setString(1,user_id);
 			pstmt.setString(2,password);
 			
 			rs = pstmt.executeQuery();

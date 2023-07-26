@@ -44,9 +44,9 @@
       		col의 범위는 12로 알고있음 (col뒤에 붙는 숫자를 전부 합쳐 12가 되도록 설정)
       	--%>
         <th class="col-1 text-center" style="white-space: nowrap;">번호</th>
-        <th class="col-1 text-center" style="white-space: nowrap;">작성자</th>
         <th class="col-1 text-center" style="white-space: nowrap;" data-toggle="tooltip" title="카테고리 설명">카테고리</th>
         <th class="col-7 text-center" style="white-space: nowrap;">제목</th>
+        <th class="col-1 text-center" style="white-space: nowrap;">작성자</th>
         <th class="col-1 text-center" style="white-space: nowrap;">작성일</th>
         <th class="col-1 text-center" style="white-space: nowrap;">조회수</th>
       </tr>
@@ -63,10 +63,10 @@
       <c:forEach var="board" items="${board_list}" varStatus="status">
         <tr>
           <td class="text-center" style="white-space: nowrap;">${status.index + 1 + ((current_page-1) * list_size)}</td>
-          <td class="text-center" style="white-space: nowrap;">${board.writer}</td>
           <td class="text-center" style="white-space: nowrap;">${board.category}</td>
-          <td class="text-center" style="white-space: nowrap;"><a href="read.do?no=${board.boardId}&page_no=${current_page}">${board.title}</a></td>
-          <td class="text-center" style="white-space: nowrap;">${board.regDate}</td>
+          <td class="text-center" style="white-space: nowrap;"><a href="read.do?no=${board.board_id}&page_no=${current_page}&search_type=${search_type}&keyword=${keyword}&category_info=${category_info}">${board.title}</a></td>
+          <td class="text-center" style="white-space: nowrap;">${board.writer}</td>
+          <td class="text-center" style="white-space: nowrap;">${board.reg_date}</td>
           <td class="text-center" style="white-space: nowrap;">${board.hit}</td>
         </tr>
       </c:forEach>
@@ -131,7 +131,7 @@ $(document).ready(function() {
   $("#searchButton").click(function() {
     var keywordInput = $("#keyword");
     var keyword = keywordInput.val();
-  
+    <%-- 검색어를 입력해야지만 url이동이 되도록 하려했지만, 아무것도 입력안했을 때 검색어가 없는 상태로 다시 돌아오도록 하기 위해 제거 --%>
     var search_type = $('[name="search_type"]').val();
     var url = "${pageContext.request.contextPath}/hwet/article/list.do?category_info=${category_info}&page_no=${current_page}" + "&search_type=" + search_type + "&keyword=" + keyword;
     window.location.href = url;

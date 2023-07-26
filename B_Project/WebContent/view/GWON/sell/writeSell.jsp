@@ -19,8 +19,6 @@
 }
 </style>
 
-
-
 </head>
 <body>
 <%@ include file = "../../../navi.jsp" %>
@@ -29,8 +27,8 @@
 	 <h2  class="">writeSell(글 작성)</h2>
 	 <form action="/gwon/sell/sellWrite.do" method="post">
 	  <div  class="">	
-	  	<label for="AUTH_USER.id" class="form-label" readonly = "readonly" >작성자</label>
-	  	<input type="text" name="AUTH_USER.id" id="AUTH_USER.id" class="form-control" value="${AUTH_USER.id}"/><br/>
+	  	<label for="AUTH_USER.user_id" class="form-label" readonly = "readonly" >작성자</label>
+	  	<input type="text" name="AUTH_USER.user_id" id="AUTH_USER.user_id" class="form-control" value="${AUTH_USER.user_id}"/><br/>
 	  </div>
 	  <div  class="">	
 	  	<label for="sell_title"  class="form-label">제목</label>
