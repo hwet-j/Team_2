@@ -12,10 +12,10 @@
 
 <title>B조홈페이지::회원가입</title>
 
-<link href="<%=request.getContextPath() %>/assets/css/join.css" rel="stylesheet" type="text/css" />
+<link href="/assets/css/join.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script src="<%=request.getContextPath() %>/assets/js/chk_member_info.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/assets/js/chk_password.js" type="text/javascript"></script>
+<script src="/assets/js/chk_member_info.js" type="text/javascript"></script>
+<script src="/assets/js/chk_password.js" type="text/javascript"></script>
 
 <script>
 
@@ -34,10 +34,9 @@ function checkDuplicate() {
     let userid = $("input[name='user_id']");
     let username = $("input[name='nickname']");
     let tlno = $("input[name='phonenum']");
-    var contextPath = '<%= request.getContextPath() %>';
     // AJAX 요청
     $.ajax({
-        url: contextPath + "/view/member/checkDuplicate.jsp",
+        url: "/view/member/checkDuplicate.jsp",
         type: "POST",
         data: { userid: userid.val() ,
 	        	username: username.val(),
@@ -241,11 +240,11 @@ $(document).ready(function() {
 
 		// 자물쇠 (사용불가, 가능에 따라 색깔 설정 및 이미지 설정)
 		if(passwordChkResult){
-			$("#password_img_span").html('<span style="color:#72C55D">사용가능</span> <img src="<%=request.getContextPath() %>/assets/images/auth/pass_ok.gif">');
+			$("#password_img_span").html('<span style="color:#72C55D">사용가능</span> <img src="/assets/images/auth/pass_ok.gif">');
 			// css 메서드를 활용하여 글자색상 변경
 			$("#password_message_span").css("color","#72C55D");
 		}else{
-			$("#password_img_span").html("사용불가 <img src='<%=request.getContextPath() %>/assets/images/auth/pass_no.gif'>");
+			$("#password_img_span").html("사용불가 <img src='/assets/images/auth/pass_no.gif'>");
 			$("#password_message_span").css("color","red");
 		}
 		
@@ -375,7 +374,7 @@ String.prototype.trim = function() {
 
     <div class="join_box">
         <ul class="j_s_01">
-            <li><a href="<%=request.getContextPath() %>/index.jsp"><img src="<%=request.getContextPath() %>/assets/images/logo.png" alt="로고" /></a></li>
+            <li><a href="/index.jsp"><img src="/assets/images/logo.png" alt="로고" /></a></li>
         </ul>
         
         <ul class="j_a_b">
