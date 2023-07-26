@@ -6,9 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import mvc.command.CommandHandler;
 
 
-/* 로그인 폼 창으로 연결해주는 Handler */
-
-// loginForm.do
+/* loginForm.do 로그인 폼 창으로 연결해주는 Handler */
 public class LoginFormHandler implements CommandHandler {
 	
 	private static final String FORM_VIEW = "/view/loginForm.jsp";

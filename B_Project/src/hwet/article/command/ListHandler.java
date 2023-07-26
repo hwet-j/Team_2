@@ -10,8 +10,7 @@ import hwet.article.model.HwetArticleDTO;
 import hwet.article.service.ListArticleService;
 import mvc.command.CommandHandler;
 
-// /hwet/article/list.do
-/* 게시판 글 리스트를 확인하는 기능(페이징처리, 카테고리, 검색기능) */
+/* hwet/article/list.do  게시판 글 리스트를 확인하는 기능(페이징처리, 카테고리, 검색기능) */
 public class ListHandler implements CommandHandler {
 	
 	private ListArticleService listService = new ListArticleService();

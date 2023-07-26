@@ -9,20 +9,19 @@ import jdbc.connection.ConnectionProvider;
 import member.model.MemberDAO;
 import member.model.MemberDTO;
 
-public class JoinService {
+public class MemberEditService {
 	private MemberDAO  memberDAO = new MemberDAO();
 	
-	/* 회원가입처리 (일반) */
-	public int join(MemberDTO member) {
+	/* 회원 정보 가져오기 */
+	public MemberDTO getMemberDetail(String user_id) {
 		Connection conn = null;
-		int result = 0;
+		MemberDTO result = null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			// autoCommit false 설정 
 			conn.setAutoCommit(false); 
 			
-			// 리턴값 0 : 회원가입 실패, 리턴값 1 : 회원가입 성공
-			result = memberDAO.joinInsert(conn, member);
+			result = memberDAO.getMemberDetail(conn, user_id);
 						
 			conn.commit(); 
 			return result;
@@ -35,8 +34,8 @@ public class JoinService {
 		}
 	}
 	
-	/* 회원가입처리 (관리자) */
-	public int joinAdmin(String user_id,String password) {
+	/* 회원 정보 수정 */
+	public int editMember(MemberDTO member) {
 		Connection conn = null;
 		int result = 0;
 		try {
@@ -44,8 +43,7 @@ public class JoinService {
 			// autoCommit false 설정 
 			conn.setAutoCommit(false); 
 			
-			// 리턴값 0 : 회원가입 실패, 리턴값 1 : 회원가입 성공
-			result = memberDAO.joinAdminInsert(conn, user_id, password);
+			result = memberDAO.editMember(conn, member);
 						
 			conn.commit(); 
 			return result;

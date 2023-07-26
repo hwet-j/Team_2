@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import hwet.article.service.RecommandReplyService;
 import mvc.command.CommandHandler;
 
-// /hwet/article/recommendReply.do
-/* 추천, 비추천 기능 */
+/* hwet/article/recommendReply.do  추천, 비추천 기능 */
 public class RecommendReplyHandler implements CommandHandler {
 
 	RecommandReplyService recommandReplyService = new RecommandReplyService();

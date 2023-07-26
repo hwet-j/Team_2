@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +16,7 @@ import jdbc.connection.ConnectionProvider;
 
 public class MemberDAO {
 	
-	// user_info 테이블에 정보 넣기 (회원가입) - > 관리자도 함께 사용가능할듯
+	/* user_info 테이블에 정보 넣기 (회원가입) - > 관리자도 함께 사용가능할듯 */
 	public int joinInsert(Connection conn, MemberDTO member) throws SQLException {
 		// 가입일을 제외하고 전부 PrepareStatement의 매개변수로 받아 사용
 		String sql = "INSERT INTO user_info "
@@ -181,13 +182,51 @@ public class MemberDAO {
 		
 	}
 
-	/* 모든유저의 정보를 불러오는 method- 작업자 : 조중현 */
-	public List<MemberDTO> AllMemberShow() throws SQLException{
-		String sql = "SELECT * FROM USER_INFO";
-		List<MemberDTO> list = new LinkedList<MemberDTO>();
-		Connection conn = ConnectionProvider.getConnection();
-		ResultSet rs = conn.createStatement().executeQuery(sql);
+	/* 유저의 정보를 불러오는 method- 작업자 : 조중현  */
+	public List<MemberDTO> AllMemberShow(Connection conn, int page_no, int list_size, String search_type,String keyword) throws SQLException{
 		
+		List<MemberDTO> list = new LinkedList<MemberDTO>();
+		int start_index = (page_no - 1) * list_size;
+		String sql = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		// 검색
+		if(!search_type.equals("")) {
+			keyword = "%" + keyword + "%";
+			if (search_type.equals("id")) {
+				sql = "SELECT * FROM USER_INFO WHERE user_id LIKE ? LIMIT ?, ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, start_index);
+				pstmt.setInt(3, list_size);
+			} else if (search_type.equals("name")) {
+				sql = "SELECT * FROM USER_INFO WHERE user_name LIKE ? LIMIT ?, ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, start_index);
+				pstmt.setInt(3, list_size);
+			} else if (search_type.equals("nickname")) {
+				sql = "SELECT * FROM USER_INFO WHERE user_nickname LIKE ? LIMIT ?, ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, start_index);
+				pstmt.setInt(3, list_size);
+			} else if (search_type.equals("join_date")) {
+				sql = "SELECT * FROM USER_INFO WHERE user_joindate LIKE ? LIMIT ?, ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, start_index);
+				pstmt.setInt(3, list_size);
+			} 
+		} else {
+			sql = "SELECT * FROM USER_INFO LIMIT ?, ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start_index);
+			pstmt.setInt(2, list_size);
+		}
+		
+		rs = pstmt.executeQuery();
 		while(rs.next()) {
 			String userId = rs.getString("user_id");
 			String userPw = "****";
@@ -199,6 +238,9 @@ public class MemberDAO {
 			Date userJoinDate = rs.getDate("user_joindate");
 			list.add(new MemberDTO(userId, userPw, userName, userBirth, userNickname, userGender, userTlno, userJoinDate));
 		}
+		
+		JDBCUtil.close(rs);
+		JDBCUtil.close(pstmt);
 		return list;
 	}
 
@@ -209,6 +251,142 @@ public class MemberDAO {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, id);
 		int delRow = pstmt.executeUpdate();
+		
+		JDBCUtil.close(pstmt);
+		JDBCUtil.close(conn);
 		return delRow;
 	}
+	
+	/* 유저 개수를 반환하는 메서드  */
+	public int allMemberCount(Connection conn, String search_type,String keyword) throws SQLException{
+		String sql = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		if(!search_type.equals("")) {
+			keyword = "%" + keyword + "%";
+			if (search_type.equals("id")) {
+				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_id LIKE ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+			} else if (search_type.equals("name")) {
+				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_name LIKE ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+			} else if (search_type.equals("nickname")) {
+				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_nickname LIKE ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+			} else if (search_type.equals("join_date")) {
+				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_joindate LIKE ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+			} 
+		} else {
+			sql = "SELECT COUNT(*) total_count FROM USER_INFO";
+			pstmt = conn.prepareStatement(sql);
+		}
+    	ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			result = rs.getInt("total_count");
+		}
+		
+		JDBCUtil.close(rs);
+		JDBCUtil.close(pstmt);
+		return result;
+	}
+	
+	/* 관리자용 회원가입 메서드 (아이디와 비밀번호만 입력) */
+	public int joinAdminInsert(Connection conn, String user_id, String password) {
+		String sql = "INSERT INTO user_info "
+				+ "(user_id, user_pw) " + 
+				"VALUES(?, ?)";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,user_id);
+			pstmt.setString(2,password);
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { // 자원반납
+			JDBCUtil.close(pstmt);
+		}
+		
+		return 0;
+	}
+	
+	/* 하나의 회원 정보를 가져오는 메서드 - 마이페이지, 관리자페이지 */ 
+	public MemberDTO getMemberDetail(Connection conn, String user_id){
+		MemberDTO user_data = null;
+		String sql = "SELECT user_id, user_pw, user_name, user_birth, user_nickname, user_gender, user_tlno, user_joindate "
+				+ "FROM user_info WHERE user_id = ?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,user_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) { 
+				user_data = new MemberDTO(rs.getString("user_id"), rs.getString("user_pw"), 
+						rs.getString("user_name"), rs.getDate("user_birth"), rs.getString("user_nickname"), 
+						rs.getString("user_gender"), rs.getString("user_tlno"),  rs.getDate("user_joindate"));
+			}
+			
+			return user_data;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return user_data;
+		} finally { // 자원반납
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
+		}
+		
+	}
+	
+	/* 회원정보를 수정하는 메서드 - 관리자 페이지에서 관리자가 수정 */
+	public int editMember(Connection conn, MemberDTO member) {
+		String sql = "UPDATE user_info " + 
+				"SET user_pw = ?, user_name = ?, user_birth = ?," + 
+				"user_nickname = ?, user_gender = ?, user_tlno = ?, user_joindate = ? " + 
+				"WHERE user_id = ?";
+		PreparedStatement pstmt;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,member.getUser_pw());
+			pstmt.setString(2,member.getUser_name());
+			pstmt.setTimestamp(3, new Timestamp(member.getUser_birth().getTime()));
+			pstmt.setString(4,member.getUser_nickname());
+			System.out.println(member.getUser_gender());
+			if (member.getUser_gender() == null || member.getUser_gender().equals("")) {
+				pstmt.setNull(5, Types.VARCHAR);		// null 값 입력 
+			} else {
+				pstmt.setString(5, member.getUser_gender());
+			}
+			if (member.getUser_tlno() == null || member.getUser_tlno().equals("")) {
+				pstmt.setNull(6, Types.VARCHAR);	
+			} else {
+				pstmt.setString(6,member.getUser_tlno());
+			}
+			pstmt.setTimestamp(7, new Timestamp(member.getUser_join_date().getTime()));
+			
+			pstmt.setString(8,member.getUser_id());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	
 }
