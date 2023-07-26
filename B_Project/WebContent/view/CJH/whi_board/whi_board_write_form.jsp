@@ -16,7 +16,7 @@
 <h1>글 작성하기</h1>
 <form action="/CJH/whi_board/write.do" method="post">
 <p>
-작성자 아이디<input type="text" name="id">
+작성자 아이디<input type="text" name="id" value="${AUTH_USER.id }" readonly="readonly">
 </p>
 <p>
 위스키 종류 

@@ -26,7 +26,7 @@ public class DeleteHandler implements CommandHandler {
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
-			String redirectURL = request.getContextPath() + "/hwet/article/list.do";
+			String redirectURL = "/hwet/article/list.do";
 			String script = "<!DOCTYPE html>"
 	                + "<html>"
 	                + "<head>"

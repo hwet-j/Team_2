@@ -59,7 +59,7 @@
     // Ajax를 이용하여 좋아요/싫어요 기능 추가 (정상적이지 못함 -> jsp 파일로 안하고 java파일로..)
     function recommendReply(type, board_id, reply_id) {
         $.ajax({
-            url: '<%=request.getContextPath()%>/hwet/article/recommendReply.do',
+            url: '/hwet/article/recommendReply.do',
             type: 'POST',
             data: {
                 type: type,
@@ -128,7 +128,7 @@
     		  denyButtonText: '아니오',
     		}).then((result) => {
     		  if (result.isConfirmed) {
-    			  window.location.href = '<%=request.getContextPath()%>/login.do';
+    			  window.location.href = '/login.do';
     		  } else if (result.isDenied) {
 				  return;
     		  }
@@ -229,7 +229,7 @@
         
         <c:if test="${AUTH_USER.user_id == data.writer}">
             <!-- 수정 버튼을 클릭했을 때 폼 전송 -->
-            <form action="${pageContext.request.contextPath}/hwet/article/modifyForm.do" method="post" class="ml-2">
+            <form action="/hwet/article/modifyForm.do" method="post" class="ml-2">
                 <!-- hidden 타입의 input 요소를 추가하여 기존 데이터를 전송 -->
                 <input type="hidden" name="board_id" value="${data.board_id}">
                 <input type="hidden" name="page_no" value="${page_no}">
@@ -241,7 +241,7 @@
         <!-- 삭제 버튼 -->
         <c:if test="${AUTH_USER.user_id eq data.writer}">
            	<!-- 삭제 버튼 -->
-	        <form id="deleteForm" action="${pageContext.request.contextPath}/hwet/article/delete.do" method="post">
+	        <form id="deleteForm" action="/hwet/article/delete.do" method="post">
 	            <input type="hidden" name="no" value="${data.board_id}">
 	            <button type="submit" class="btn btn-danger ml-2" onclick="return confirmDelete()">게시글 삭제</button>
 	        </form>
@@ -252,7 +252,7 @@
 		<!-- 댓글 작성 폼 -->
 		<div class="container mt-4">
 		    <h2><label for="reply_content">댓글 작성</label></h2>
-		    <form id="reply_form" action="${pageContext.request.contextPath}/hwet/article/addReply.do" method="post">
+		    <form id="reply_form" action="/hwet/article/addReply.do" method="post">
 		        <input type="hidden" name="board_id" value="${data.board_id}">
 		        <input type="hidden" name="user_id" value="${AUTH_USER.user_id}">
 		        <input type="hidden" name="user_nickname" value="${AUTH_USER.user_nickname}">
