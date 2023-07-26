@@ -193,27 +193,26 @@ public class MemberDAO {
 		
 		// 검색
 		if(!search_type.equals("")) {
-			keyword = "%" + keyword + "%";
 			if (search_type.equals("id")) {
-				sql = "SELECT * FROM USER_INFO WHERE user_id LIKE ? LIMIT ?, ?";
+				sql = "SELECT * FROM USER_INFO WHERE user_id LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, start_index);
 				pstmt.setInt(3, list_size);
 			} else if (search_type.equals("name")) {
-				sql = "SELECT * FROM USER_INFO WHERE user_name LIKE ? LIMIT ?, ?";
+				sql = "SELECT * FROM USER_INFO WHERE user_name LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, start_index);
 				pstmt.setInt(3, list_size);
 			} else if (search_type.equals("nickname")) {
-				sql = "SELECT * FROM USER_INFO WHERE user_nickname LIKE ? LIMIT ?, ?";
+				sql = "SELECT * FROM USER_INFO WHERE user_nickname LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, start_index);
 				pstmt.setInt(3, list_size);
 			} else if (search_type.equals("join_date")) {
-				sql = "SELECT * FROM USER_INFO WHERE user_joindate LIKE ? LIMIT ?, ?";
+				sql = "SELECT * FROM USER_INFO WHERE user_joindate LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, start_index);
@@ -265,21 +264,20 @@ public class MemberDAO {
 		int result = 0;
 		
 		if(!search_type.equals("")) {
-			keyword = "%" + keyword + "%";
 			if (search_type.equals("id")) {
-				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_id LIKE ?";
+				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_id LIKE CONCAT('%', ? , '%')";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 			} else if (search_type.equals("name")) {
-				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_name LIKE ?";
+				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_name LIKE CONCAT('%', ? , '%')";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 			} else if (search_type.equals("nickname")) {
-				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_nickname LIKE ?";
+				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_nickname LIKE CONCAT('%', ? , '%')";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 			} else if (search_type.equals("join_date")) {
-				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_joindate LIKE ?";
+				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_joindate LIKE CONCAT('%', ? , '%')";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 			} 
