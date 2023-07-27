@@ -110,18 +110,24 @@ public class JoinHandler implements CommandHandler  {
 			return null;
 		} else {
 			String id = request.getParameter("user_id"); 
-			String password = request.getParameter("user_password");  
+			String password = request.getParameter("password");  
 			
 			JoinService service = new JoinService();
 			
-			int result = service.joinAdmin(id, password);
-			String script = "<script>window.opener.onSubFormComplete(); window.close();</script>";
-	        try {
-				response.getWriter().write(script);
-			} catch (IOException e) {
-				e.printStackTrace();
+			boolean isDuplicate = service.idDuplicateCheck(id);
+			if (isDuplicate) {
+		        try {
+		        	response.setContentType("text/plain");
+		        	response.setCharacterEncoding("UTF-8");
+					response.getWriter().write(String.valueOf(isDuplicate));	// boolean형 데이터를 String으로  변환하여 전송
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				int result = service.joinAdmin(id, password);
 			}
-	        
+			
+			
 			return null;
 		}
 		
@@ -134,23 +140,7 @@ public class JoinHandler implements CommandHandler  {
 		return "/joinForm.do";
 	}
 	
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

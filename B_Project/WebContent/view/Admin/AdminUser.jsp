@@ -26,8 +26,8 @@
     /* 유저 생성 시 서브창을 띄워서 진행 */
     function openSignUpForm() {
         // 창의 크기를 설정
-        var width = 400;
-        var height = 300;
+        var width = 450;
+        var height = 350;
         // 창의 위치를 설정 (화면의 중앙에 표시되도록)
         var left = (screen.availWidth - width) / 2;
         var top = (screen.availHeight - height) / 2;

@@ -28,14 +28,13 @@ public class MemberEditController implements CommandHandler {
 		String user_nickname = request.getParameter("user_nickname");
 		String user_tlno = request.getParameter("user_tlno");
 		String user_join_date = request.getParameter("user_join_date");
-		if (user_birth == null) {
-			user_birth = "1900-01-01";
-		}
 		
 		Date birth = null;
 		Date join_date = null;
+		if (user_birth != null && !user_birth.equals("")) {
+			birth = format.parse(user_birth);
+		}
 		
-		birth = format.parse(user_birth);
 		join_date = format.parse(user_join_date);
 		
 		MemberDTO member_data = memberEditService.getMemberDetail(user_id);
