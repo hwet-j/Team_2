@@ -8,16 +8,33 @@ import gwon.sell.service.ReadSellService;
 import gwon.sell.service.SellNotFoundException;
 import mvc.command.CommandHandler;
 
-public class ReadSellHandler implements CommandHandler {
-	
-	ReadSellService readSellService = new ReadSellService(); 
+public class LikeSellHandler implements CommandHandler {
 
+	
+	private String FORM_VIEW = "/view/GWON/sell/readSell.jsp";
+	private ReadSellService readSellService = new ReadSellService();
+	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+
+		if(request.getMethod().equalsIgnoreCase("POST")) {
+			return processSubmit(request,response);
+		}else{
+			response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+			return null;
+		}
+	}
+	
+	// 폼 내용을 보내기
+	public String processSubmit(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		int sellNum = Integer.parseInt(request.getParameter("no"));
+		int likeCheck = readSellService.getLikeSell(sellNum);
 		
-		System.out.println(sellNum);
+		if(likeCheck != 1) {
+			return request.getContextPath() + "/view/GWON/sell/readSell.jsp";
+		}
+		
 		try {
 			SellDTO sellDTO = readSellService.getSell(sellNum);
 			request.setAttribute("sellDTO", sellDTO);
@@ -27,4 +44,5 @@ public class ReadSellHandler implements CommandHandler {
 			return null;
 		} 
 	}
+	
 }

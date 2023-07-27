@@ -32,7 +32,7 @@ public class WriteSellService {
 			throw new RuntimeException();
 		}
 		
-		SellContent sell_content = new SellContent(wroteSell.getSell_no(),writeR.getSell_content(),writeR.getSell_file(),writeR.getSell_fav());
+		SellContent sell_content = new SellContent(wroteSell.getSell_no(),writeR.getSell_content(),writeR.getSell_file());
 		SellContent wroteSellContent = sellContentDAO.insert(conn, sell_content);
 		
 		if(wroteSellContent == null) {
@@ -53,6 +53,7 @@ public class WriteSellService {
 		JDBCUtil.close(conn);
 	}
 }
+	
 	
 	private Sell toSell(WriteRequest writeR) {
 		Date now = new Date();

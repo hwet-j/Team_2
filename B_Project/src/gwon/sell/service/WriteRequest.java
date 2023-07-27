@@ -13,10 +13,9 @@ public class WriteRequest {
 	private String	sell_loc;
 	private String	sell_content;
 	private String	sell_file;
-	private String	sell_fav;
 
 	public WriteRequest(Writer writer, String sell_title, String sell_category, int sell_price, String sell_loc,
-			String sell_content, String sell_file, String sell_fav) {
+			String sell_content, String sell_file) {
 		this.writer = writer;
 		this.sell_title = sell_title;
 		this.sell_category = sell_category;
@@ -24,7 +23,6 @@ public class WriteRequest {
 		this.sell_loc = sell_loc;
 		this.sell_content = sell_content;
 		this.sell_file = sell_file;
-		this.sell_fav = sell_fav;
 	}
 
 
@@ -32,10 +30,8 @@ public class WriteRequest {
 	public String toString() {
 		return "WriteRequest [writer=" + writer + ", sell_title=" + sell_title + ", sell_category=" + sell_category
 				+ ", sell_price=" + sell_price + ", sell_loc=" + sell_loc + ", sell_content=" + sell_content
-				+ ", sell_file=" + sell_file + ", sell_fav=" + sell_fav + "]";
+				+ ", sell_file=" + sell_file +  "]";
 	}
-
-
 
 	public Writer getWriter() {
 		return writer;
@@ -66,13 +62,6 @@ public class WriteRequest {
 	public String getSell_file() {
 		return sell_file;
 	}
-	
-
-
-	public String getSell_fav() {
-		return sell_fav;
-	}
-
 
 
 	public void validate(Map<String,Boolean> errors) {

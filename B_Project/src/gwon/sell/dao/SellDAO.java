@@ -147,7 +147,7 @@ public class SellDAO {
 					dto.setSell_read_cnt(rs.getInt("sell_read_cnt"));
 					dto.setSell_content(rs.getString("sell_content"));
 					dto.setSell_file(rs.getString("sell_file"));
-					dto.setSell_fav(rs.getString("sell_fav"));
+					dto.setSell_fav(rs.getInt("sell_fav"));
 					
 				}
 				System.out.println(dto);
@@ -285,9 +285,6 @@ public class SellDAO {
 						    toTimestamp(rs.getDate("sell_moddate")),
 						    rs.getInt("sell_read_cnt")  );
 		}
-		
-		// 2. 		
-		
 		
 
 }
