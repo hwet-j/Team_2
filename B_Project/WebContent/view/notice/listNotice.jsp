@@ -16,9 +16,16 @@
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-$(function(){
-	
-});
+function dataCheck()
+{
+	if(document.getElementById("search").value == "")
+	{
+		alert("검색할 단어를 입력하세요");
+		document.getElementById("search").focus();
+		return;
+	}
+	document.form.submit();
+}
 </script>
 </head>
 <body>
@@ -39,8 +46,22 @@ $(function(){
 
 	 <!-- 내용 -->	
 	<div class="container"><!-- page title -->
-	<h2  class="mt-4 mb-3 text-center">listNotice(공지사항)</h2>
+	<h2  class="mt-4 mb-3 text-center">공지사항</h2>
 	
+	<!-- 검색 -->
+	<form name=form action="/notice/searchListNotice" method=post>
+		<div class="form-group">
+		
+		<select name=field>
+		<option value=title>제목</option>
+		<option value=content>내용</option>
+		<option value=write_name>작성자</option>
+		</select>
+		
+		<input onmouseover="this.focus()" type="text" id="search" name="search" placeholder="검색할 공지를 입력하세요">
+		<button type="button" onclick=dataCheck() class="btn btn-default">검색</button>
+		</div>
+		</form>
 	<!-- Board List table -->
 	<div>총 게시글수: ${noticePage.total}건 /현재페이지: ${nowPage}</div>
 	<table class="table table-hover">
@@ -65,7 +86,7 @@ $(function(){
 	  <c:forEach var="notice"   items="${noticePage.content}">
 	  <tr>
 		  <td>${notice.number}</td>
-		  <%-- read.do?no=상세하게보고싶은글번호&pageNo=현재페이지"  --%>
+		  <%-- check.do?no=상세하게보고싶은글번호&pageNo=현재페이지"  --%>
 		  <td><a href="check.do?no=${notice.number}&pageNo=${nowPage}">${notice.title}</a></td>
 		  <td>${notice.writer.id}</td>
 		  <td>${notice.writeDate}</td>

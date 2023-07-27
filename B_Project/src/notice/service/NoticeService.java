@@ -36,7 +36,7 @@ public class NoticeService {
 			List<Notice> content;  //notice목록 */
 			
 			NoticePage np = new NoticePage(total, pageNum, size, content);
-			System.out.println("ListNoticeService- getNoticePage()의 결과 np="+np);
+			System.out.println("NoticeService- getNoticePage()의 결과 np="+np);
 			return np;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -183,4 +183,10 @@ public class NoticeService {
 	
 	  private boolean canModify(String modifyingWriter_id, NoticeData notice) { return
 			  modifyingWriter_id.equals(notice.getWriter_id()); }
+	  
+	  
+	  public SearchNoticePage searchListNotice(SearchNoticePage searchNoticePage) {
+		  return NoticeDAO.searchListNotice(searchNoticePage);
+	  }
+	  
 }

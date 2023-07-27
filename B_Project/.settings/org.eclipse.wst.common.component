@@ -2,15 +2,7 @@
     <wb-module deploy-name="B_Project">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-<<<<<<< HEAD
-        <property name="context-root" value="B_Project"/>
-<<<<<<< HEAD
-        <property name="java-output-path" value="/B_Project"/>
-=======
-=======
         <property name="context-root" value="/"/>
->>>>>>> branch 'pj4' of https://github.com/choongangJinho/Team_2.git
         <property name="java-output-path" value="/B_Project/build/classes"/>
->>>>>>> branch 'pj4' of https://github.com/choongangJinho/Team_2.git
     </wb-module>
 </project-modules>

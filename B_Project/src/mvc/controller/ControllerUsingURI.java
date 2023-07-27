@@ -64,6 +64,7 @@ public class ControllerUsingURI extends HttpServlet {
                 Class<?> handlerClass = Class.forName(handlerClassName);
                 CommandHandler handlerInstance = (CommandHandler) handlerClass.newInstance();
                 commandHandlerMap.put(command, handlerInstance);
+                System.out.println(commandHandlerMap.get(command)+"="+handlerInstance);
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 throw new ServletException(e);
             }

@@ -11,6 +11,7 @@ import jdbc.JDBCUtil;
 import notice.model.Notice;
 import notice.model.Writer;
 import notice.service.NoticeData;
+import notice.service.SearchNoticePage;
 
 
 //notice테이블관련 DB작업용 클래스이다
@@ -229,6 +230,37 @@ public class NoticeDAO {
 		}
 		return 0; //삭제실패시 0을 리턴
 	
+	}
+	
+	//검색하기
+	public SearchNoticePage searchListNotice(SearchNoticePage searchNoticePage)throws SQLException
+	//1. 전체 게시물 수 구하기
+	{ String sql = "select count(*) from notice where ";
+	sql += searchNoticePage.getField();
+	sql += " like '%";
+	sql += searchNoticePage.getSearch();
+	sql += "%'";
+	Connection conn = null;
+	PreparedStatement stmt = null;
+	ResultSet rs=null;
+	//페이지 관련 정보
+		  int total=0;               	//총게시글수
+		  int currentPage =0;		    //보고싶은 페이지=>현재 페이지
+		  List<Notice> content = null;  //board목록 
+		  int totalPages=0; 			//총페이지수
+	      int startPage=0; 				//시작페이지
+	      int endPage=0; 				//끝페이지
+	try {
+	stmt = conn.prepareStatement(sql);
+	rs = stmt.executeQuery();
+	if (rs.next()) {
+		total = rs.getInt(1);
+	}
+	else {
+		total = 0;
+	}
+	
+		
 	}
 }
 	

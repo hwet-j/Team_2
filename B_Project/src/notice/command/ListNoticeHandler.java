@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 //목록보기 요청 담당 컨트롤러이다
-//요청주소  http://localhost/notice/listNotice.do?
+//요청주소  http://localhost/notice/list.do?
 import mvc.command.CommandHandler;
 import notice.service.NoticeService;
 import notice.service.NoticePage;
