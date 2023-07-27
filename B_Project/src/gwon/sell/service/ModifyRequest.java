@@ -87,10 +87,7 @@ public class ModifyRequest {
 		if(  sell_title==null ||  sell_title.trim().isEmpty() ) {
 			errors.put("title", Boolean.TRUE);
 		}
-		if(  sell_category==null ||  sell_category.isEmpty() ) {
-			errors.put("category", Boolean.TRUE);
-		}
-		if(  sell_price==0 ||  sell_price < 0 ) {
+		if( (int)Integer.parseInt("sell_price")==0 ||  (int)Integer.parseInt("sell_price") < 0 ) {
 			errors.put("price", Boolean.TRUE);
 		}
 		if(  sell_content==null ||  sell_content.isEmpty() ) {

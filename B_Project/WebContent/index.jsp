@@ -21,8 +21,8 @@
 }
 
 .container-items {
- width : 600px;
- height : 200px;
+ width : auto;
+ height : auto;
  padding-left : 50px;
  padding-right : 50px;
  margin-bottom : 50px;

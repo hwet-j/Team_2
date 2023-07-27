@@ -24,28 +24,24 @@
 <%@ include file = "../../../navi.jsp" %>
 
  <div class="container">
-	<h2  class="">글 수정하기</h2>
-<%-- 	 <div class="">
-	   <label for="sell_no" class="form-label">글번호</label>
-	   <input type="text" name="sell_no" id="sell_no" class="form-control" value="${modRequest.sell_no}" readonly="readonly"/>
-	  </div> --%>
+	<h2  class="" align = "center">중고거래 글수정하기</h2>
 	<form action="/gwon/sell/sellModify.do" method="post">
 	 <div class="">
 	   <label for="sell_no" class="form-label">글 번호</label>
-	   <input type="text" name="sell_no" id="sell_no" class="form-control" value="${modRequest.sell_no}" readonly="readonly"/>
+	   <input type="text" name="sell_no" id="sell_no" class="form-control" value="${modRequest.sell_no}" readonly="readonly" />
 	  </div>
 	 <div class="">
 	   <label for="user_id" class="form-label">작성자</label>
 	   <input type="text" name="user_id" id="user_id" class="form-control" value="${modRequest.user_id}" readonly="readonly"/>
 	  </div>
 	 <div class="">
-	 	<label for="sell_title" class="form-label" value="${modRequest.sell_title}">제목</label>
-	 	<input type="text" name="sell_title" id="sell_title" class="form-control"/>
+	 	<label for="sell_title" class="form-label" >글 제목</label>
+	 	<input type="text" name="sell_title" id="sell_title" class="form-control" value="${modRequest.sell_title}"  required/>
 	 </div>
 	 <div class="">
 	 	<label for="sell_category"  class="form-label">카테고리</label>
-	  	<select name = "sell_category" id = "sell_category" class="form-control" value="${modRequest.sell_category}" size = "1" >
-	  		<option selected>카테고리를 선택하세요</option>
+	  	<select name = "sell_category" id = "sell_category" class="form-control"  size = "1"   required>
+	  		<option selected >${modRequest.sell_category}</option>
 	  		<option value = "생활용품"	  ${data.category == '생활용품' ? 'selected' : ''}>생활용품</option>
 	  		<option value = "가구/가전"   ${data.category == '가구/가전' ? 'selected' : ''}>가구/가전</option>
 	  		<option value = "의류"	      ${data.category == '의류' ? 'selected' : ''}>의류</option>
@@ -55,12 +51,12 @@
 	 </div>
 	 <div class="">
 	 	<label for="sell_price" class="form-label">희망가격</label>
-	 	<input type="number" name="sell_price" id="sell_price" class="form-control" value="${modRequest.sell_price}" />
+	 	<input type="number" name="sell_price" id="sell_price" class="form-control" min = "1" value="${modRequest.sell_price}"  required/>
 	 </div>
 	 <div class="">
 	  	<label for="sell_loc"  class="form-label">판매장소</label>
-	    <select size = "1" name = "sell_loc" id = "sell_loc" class="form-control" value="${modRequest.sell_loc}">
-	    	<option selected>장소를 선택하세요</option>
+	    <select size = "1" name = "sell_loc" id = "sell_loc" class="form-control"  required >
+	    	<option selected >${modRequest.sell_loc}</option>
 	  		<option value = "서울" ${data.category == '서울' ? 'selected' : ''}>서울</option>
 	  		<option value = "경기" ${data.category == '경기' ? 'selected' : ''}>경기</option>
 	  		<option value = "충북" ${data.category == '충북' ? 'selected' : ''}>충북</option>
@@ -82,15 +78,9 @@
 	 	<label for="sell_file" class="form-label">파일 다운로드</label>
 	 	<input type="text" name="sell_file" id="sell_file" class="form-control" value="${modRequest.sell_file}"/>
 	 </div>
-<%-- 	 <div class="">
-	 	<label for="sell_fav" class="form-label">sell_fav</label>
-	 	<input type="number" name="sell_fav" id="sell_fav" class="form-control" value="${modRequest.sell_fav}"/>
-	 </div>
-	 <br/>
-	  --%>
 	 
 	<div class="">
-     <button type="submit" id = "floating-button" class= "btn btn-secondary" style = "float : right;">수정하기</button>
+     <button type="submit" id = "floating-button" class= "btn btn-success" style = "float : right;">수정하기</button>
      <button type="reset"  id = "floating-button" class= "btn btn-secondary" style = "float : right;">새로고침</button>
      <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellRead.do?no=${modRequest.sell_no}" style = "float: right; "role="button">취소</a>
      <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do" style = "float: right; "role="button">목록</a>
