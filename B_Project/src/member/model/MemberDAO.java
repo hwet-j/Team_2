@@ -74,59 +74,75 @@ public class MemberDAO {
 		return result;
 	}
 	
-	/* AJAX- nickname이 존재하는지 확인 (userid와 동일) - 유효성 검사에 사용 */
-	public boolean nicknameDuplicateCheck(String user_nickname) throws SQLException {
-		Connection conn = ConnectionProvider.getConnection();
+	/* AJAX - nickname이 존재하는지 확인 (userid와 동일) - 유효성 검사에 사용 */
+	public boolean nicknameDuplicateCheck(String user_nickname){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		boolean result = false;
-		int cnt = 0;
-		String sql = "SELECT COUNT(*) FROM user_info WHERE user_nickname = ?";
-		
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setString(1,user_nickname);
-		
-		ResultSet rs = pstmt.executeQuery();
-		
-		while(rs.next()) { 
-			cnt = rs.getInt(1);
+		try {
+			conn = ConnectionProvider.getConnection();
+			
+			int cnt = 0;
+			String sql = "SELECT COUNT(*) FROM user_info WHERE user_nickname = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,user_nickname);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) { 
+				cnt = rs.getInt(1);
+			}
+			if (cnt == 0) {
+				result = false;
+			} else {
+				result = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
 		}
-		if (cnt == 0) {
-			result = false;
-		} else {
-			result = true;
-		}
-		
-		JDBCUtil.close(rs);
-		JDBCUtil.close(pstmt);
-		JDBCUtil.close(conn);
 		
 		return result;
 	}
 	
 	/* AJAX- 전화번호가 존재하는지 확인 (userid와 동일) - 유효성 검사에 사용 */
-	public boolean tlnoDuplicateCheck(String user_tlno) throws SQLException {
-		Connection conn = ConnectionProvider.getConnection();
+	public boolean tlnoDuplicateCheck(String user_tlno){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		boolean result = false;
-		int cnt = 0;
-		String sql = "SELECT COUNT(*) FROM user_info WHERE user_tlno = ?";
-		
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setString(1,user_tlno);
-		
-		ResultSet rs = pstmt.executeQuery();
-		
-		while(rs.next()) { 
-			cnt = rs.getInt(1);
+		try {
+			conn = ConnectionProvider.getConnection();
+			
+			int cnt = 0;
+			String sql = "SELECT COUNT(*) FROM user_info WHERE user_tlno = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1,user_tlno);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) { 
+				cnt = rs.getInt(1);
+			}
+			if (cnt == 0) {
+				result = false;
+			} else {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
 		}
-		if (cnt == 0) {
-			result = false;
-		} else {
-			result = true;
-		}
-		JDBCUtil.close(rs);
-		JDBCUtil.close(pstmt);
-		JDBCUtil.close(conn);
 		return result;
 	}
 

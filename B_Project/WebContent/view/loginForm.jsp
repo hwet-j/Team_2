@@ -43,9 +43,9 @@
         }
         if ($('#password').val() === "") {
         	Swal.fire({
-      		  icon: 'error',
-      		  title: 'Password Not Entered...',
-      		  text: '비밀번호를 입력해주세요!',
+      		  	icon: 'error',
+      		  	title: 'Password Not Entered...',
+      		  	text: '비밀번호를 입력해주세요!',
      		})
             $('#password').focus();
             return false;

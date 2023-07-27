@@ -318,7 +318,7 @@ $(document).ready(function() {
 });
 
 
-/* 윈도우의 크기가 변경될 떄마다 요소를 숨김
+/* 윈도우의 크기가 변경될 때마다 요소를 숨김
  $(function() {
     var $window = $(window);
     var width = $window.width();

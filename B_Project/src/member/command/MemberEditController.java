@@ -1,5 +1,6 @@
 package member.command;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -45,7 +46,22 @@ public class MemberEditController implements CommandHandler {
 		member_data.setUser_tlno(user_tlno);
 		member_data.setUser_join_date(join_date);
 		
-		memberEditService.editMember(member_data);
+		// 유효성 검사 
+		String message = memberEditService.duplicateMemberCheck(member_data);
+		
+		
+		if (message.equals("")) {
+			memberEditService.editMember(member_data);
+		} else {
+			try {
+	        	response.setContentType("text/plain");
+	        	response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		return null;
 	}
