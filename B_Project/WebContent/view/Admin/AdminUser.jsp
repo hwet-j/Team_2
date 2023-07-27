@@ -26,8 +26,8 @@
     /* 유저 생성 시 서브창을 띄워서 진행 */
     function openSignUpForm() {
         // 창의 크기를 설정
-        var width = 400;
-        var height = 300;
+        var width = 450;
+        var height = 350;
         // 창의 위치를 설정 (화면의 중앙에 표시되도록)
         var left = (screen.availWidth - width) / 2;
         var top = (screen.availHeight - height) / 2;
@@ -122,24 +122,39 @@
         	            user_join_date: user_join_date
         	        },
         	        success: function (response) {
-        	            $('#user_name-' + user_id).text(user_name).show();
-        	            $('#user_birth-' + user_id).text(user_birth).show();
-        	            $('#user_nickname-' + user_id).text(user_nickname).show();
-        	    	    $('#user_gender-' + user_id).text(user_gender).show();
-        	    	    $('#user_tlno-' + user_id).text(user_tlno).show();
-        	    	    $('#user_join_date-' + user_id).text(user_join_date).show();
+        	        	if (response === "nicknameDuplicate") {	
+        	        		Swal.fire({
+        	        			  icon: 'error',
+        	        			  title: '수정에 실패했습니다.',
+        	        			  text: '닉네임 ' + user_nickname + '은 이미 사용중입니다.',
+        	        			})
+        	        	} else if (response === "tlnoDuplicate") {	
+        	        		Swal.fire({
+      	        			  	icon: 'error',
+      	        				title: '수정에 실패했습니다.',
+      	        				text: '전화번호 ' + user_tlno + '은 이미 사용중입니다.',
+      	        			})
+        	        	} else {
+        	        		$('#user_name-' + user_id).text(user_name).show();
+             	            $('#user_birth-' + user_id).text(user_birth).show();
+             	            $('#user_nickname-' + user_id).text(user_nickname).show();
+             	    	    $('#user_gender-' + user_id).text(user_gender).show();
+             	    	    $('#user_tlno-' + user_id).text(user_tlno).show();
+             	    	    $('#user_join_date-' + user_id).text(user_join_date).show();
 
-        	            // 수정 가능한 input 태그를 숨기고, 일반 span 태그를 보여줌
-        	            $('#user_name_input-' + user_id).hide();
-        	            $('#user_birth_input-' + user_id).hide();
-        	            $('#user_nickname_input-' + user_id).hide();
-        	    	    $('#user_gender_select-' + user_id).hide();
-        	    	    $('#user_tlno_input-' + user_id).hide();
-        	    	    $('#user_join_date_input-' + user_id).hide();
+             	            // 수정 가능한 input 태그를 숨기고, 일반 span 태그를 보여줌
+             	            $('#user_name_input-' + user_id).hide();
+             	            $('#user_birth_input-' + user_id).hide();
+             	            $('#user_nickname_input-' + user_id).hide();
+             	    	    $('#user_gender_select-' + user_id).hide();
+             	    	    $('#user_tlno_input-' + user_id).hide();
+             	    	    $('#user_join_date_input-' + user_id).hide();
 
-        	            /* 저장버튼을 숨기고 수정버튼을 보이도록 변경 */
-        	            $('#save_btn-' + user_id).hide();
-        	            $('#edit_btn-' + user_id).show();
+             	            /* 저장버튼을 숨기고 수정버튼을 보이도록 변경 */
+             	            $('#save_btn-' + user_id).hide();
+             	            $('#edit_btn-' + user_id).show();
+        	        	}
+        	           
         	        },
         	        error: function (xhr, status, error) {
         	            console.log('Error:', error);
@@ -274,7 +289,7 @@ function search() {
 		</td>
 		<td>
 		    <span id="user_tlno-${user.user_id}">${user.user_tlno}</span>
-		    <input type="text" id="user_tlno_input-${user.user_id}" style="display: none;width: 130px;" value="${user.user_tlno}">
+		    <input type="text" id="user_tlno_input-${user.user_id}" style="display: none;width: 115px;" value="${user.user_tlno}">
 		</td>
 		<td>
 		    <span id="user_join_date-${user.user_id}">${user.user_join_date}</span>

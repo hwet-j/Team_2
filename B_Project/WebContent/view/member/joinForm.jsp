@@ -194,7 +194,7 @@ $(document).ready(function() {
 
 	});
 	
-	// 성별
+	// 생일
 	$('#birth_date').blur(function(){
 
 		var birth_date = $('#birth_date').val();
@@ -314,28 +314,11 @@ $(document).ready(function() {
 	$("#password_info_span").hide();
 	$("#nickname_info_span").hide();
 	$("#tel_info_span").hide();
-
-	/* //이메일 도메인 선택
-    $("#selectEmailDomain").change(function() {
-        var selectEmailDomain = $("#selectEmailDomain").val();
-        if(selectEmailDomain == "otherDomains") {
-            $("#emailDomain").val("");
-            $("#selectEmailDomain").parent().hide();
-            $("#emailDomain").show();
-        } else {
-            $("#emailDomain").val(selectEmailDomain);
-        }
-        $("#emailDomain").change();
-    });
-
-    //이메일 도메인 변경
-    $("#emailDomain").change(function() {
-        $("#email").blur();
-    }); */
+	
 });
 
 
-/* 윈도우의 크기가 변경될 떄마다 요소를 숨김
+/* 윈도우의 크기가 변경될 때마다 요소를 숨김
  $(function() {
     var $window = $(window);
     var width = $window.width();
@@ -369,8 +352,6 @@ String.prototype.trim = function() {
 
 
 <form name="write" method="post" action="join.do" >
-
-	<input type="hidden" name="id" value="" />
 
     <div class="join_box">
         <ul class="j_s_01">
@@ -461,29 +442,6 @@ String.prototype.trim = function() {
 	            <span class="j_t_i" id="tel_message_span"> </span>
             </li>
             
-            <!-- 이메일 사용 X 
-            <li>
-	            <span class="j_t">이메일</span>
-	            <input name="email" id="email" type="hidden" maxlength=255 value=""  class="inp_ty01" />
-	            <span><input type="email" id="email_id" name="email_id" value="" style="width: 35%;" /></span>
-	            <span class="at">@</span>
-	            <span class="selectWrap">
-	                <select id="selectEmailDomain" name="selectEmailDomain" title="도메인 선택" style="width:93px;height: 26px;font-size: 12px;">
-	                    <option value="">도메인 선택</option>
-	                    <option value="naver.com">naver.com</option>
-	                    <option value="hanmail.net">hanmail.net</option>
-	                    <option value="daum.net">daum.net</option>
-	                    <option value="nate.com">nate.com</option>
-	                    <option value="gmail.com">gmail.com</option>
-	                    <option value="otherDomains" boxview="true">직접 입력</option>
-	                </select>
-	            </span>
-	            <input type="email" id="emailDomain" name="emailDomain" class="emailInput" value="" style="width:93px;display: none"/>
-	
-	            <span class="j_t_i" id="mail_message_span"></span>
-            </li>
-             -->
-
         </ul>
 
         <div class="btn_join_03">

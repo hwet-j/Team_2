@@ -46,7 +46,7 @@ function chkUserNickName(nickname){
 		obj.msg = '닉네임을 입력해주세요.';
 	}else if(/^[a-z0-9]*$/.test(nickname) && nickname.length < 4){
 		obj.msg = '영문,숫자는 4자 이상 입력해 주세요.';
-	}else if(nickname.length < 2 || nickname.length > 20){
+	}else if(nickname.length < 3 || nickname.length > 20){
 		obj.msg = '2~20자를 입력해주세요.';
 	}else if(nickname.indexOf(' ') > -1){
 		obj.msg = '공백은 입력할 수 없습니다.';
