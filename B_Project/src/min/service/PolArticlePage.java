@@ -1,8 +1,8 @@
 package min.service;
 
 import java.util.List;
-import min.model.PolArticle;
 
+import min.model.PolArticle;
 
 
 //p648

@@ -8,14 +8,12 @@ import auth.service.LoginService;
 import member.model.MemberDTO;
 import mvc.command.CommandHandler;
 
-/* 로그인폼(GET)과 로그인 기능(POST)을 구현 */
 
-// login.do
+/* login.do 로그인폼(GET)과 로그인 기능(POST)을 구현 */
 public class LoginHandler implements CommandHandler{
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("LoginHandler의 process()진입");
 		
 		if( request.getMethod().equalsIgnoreCase("GET") ) {//요청방식이 get방식이면  FORM_VIEW 보여주기
 			return processForm(request,response);

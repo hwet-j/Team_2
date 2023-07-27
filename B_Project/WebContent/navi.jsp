@@ -1,220 +1,122 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body {margin:0;font-family:Arial}
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-.splitNav {
-	float : right;
-	background-color: #333;
-	color: white;
-}
 
-.nav {
-  overflow: hidden;
-  background-color: #333; 
-}
 
-.nav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
 
-.active {
-  background-color: ligthblue;   /* #04AA6D */
-  color: white;
-}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container">
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-.nav .icon {
-  display: none;
-}
-
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
-
-.dropdown .dropBtn {
-  font-size: 17px;    
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.nav a:hover, .dropdown:hover .dropBtn {
-  background-color: #555;
-  color: white;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-@media screen and (max-width: 600px) {
-  .nav a:not(:first-child), .dropdown .dropBtn {
-    display: none;
-  }
-  .nav a.icon {
-    float: left;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .nav.responsive {position: relative;}
-  .nav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .nav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-  .nav.responsive .dropdown {float: none;}
-  .nav.responsive .dropdown-content {position: relative;}
-  .nav.responsive .dropdown .dropBtn {
-    display: block;
-    width: 100%;
-    text-align: left;
-  }
-}
-</style>
-</head>
-<body>
-
-<div class="nav" id="myNav">
-
-  <div class = "splitNav">
-  	<a href = "<%= request.getContextPath() %>/loginForm.do">로그인</a>
-  	<a href = "#">로그아웃</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/index.jsp">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">공지사항</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPolitics" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            정치
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownPolitics">
+            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownWhisky" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            위스키
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownWhisky">
+            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAnimal" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            동물
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownAnimal">
+            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUsedItems" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            중고거래
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownUsedItems">
+            <a class="dropdown-item" href="<%=request.getContextPath() %>/gwon/sell/sellList.do">판매</a>
+            <a class="dropdown-item" href="#">구매</a>
+            <a class="dropdown-item" href="#">후기</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBoard1" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            회창
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownBoard1">
+            <a class="dropdown-item" href="/hwet/article/list.do">게시판</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMovie" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            영화
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMovie">
+            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBoard2" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            경탁
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownBoard2">
+            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+      	<c:if test="${empty AUTH_USER}">
+	        <li class="nav-item">
+	          <a class="nav-link" href="/join.do">회원가입</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="/loginForm.do">로그인</a>
+	        </li>
+        </c:if>
+        <c:if test="${!empty AUTH_USER}">
+        	<c:if test="${AUTH_USER.user_id.contains('admin')}">
+        	<li class="nav-item">
+	          <a class="nav-link" href="/admin/showAll.do">관리자페이지</a>
+	        </li>
+        	</c:if>
+	        <li class="nav-item">
+	          <a class="nav-link" href="/logout.do">로그아웃</a>
+	        </li>
+        </c:if>
+      </ul>
+      
+    </div>
   </div>
-  <a href="#home" class="active">Home</a>
-  <a href="#">공지사항</a>
-  <a href="#">기타</a>
-  <div class="dropdown">
-    <button class="dropBtn">정치 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </div> 
-  <div class="dropdown">
-    <button class="dropBtn">위스키 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </div> 
-  <div class="dropdown">
-    <button class="dropBtn">동물 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </div> 
-  <div class="dropdown">
-    <button class="dropBtn">중고거래 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="http://localhost/view/trsSell/trsList_sell.jsp">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </div> 
-    <div class="dropdown">
-    <button class="dropBtn">게시판(회창)
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="<%=request.getContextPath() %>/hwet/article/list.do">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </div> 
-    <div class="dropdown">
-    <button class="dropBtn">영화 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </div> 
-    <div class="dropdown">
-    <button class="dropBtn">게시판(경탁) 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </div> 
-  <a href="#about">관리자페이지</a>
-  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
-</div>
-
-<script>
-function myFunction() {
-  var x = document.getElementById("myNav");
-  if (x.className === "nav") {
-    x.className += " responsive";
-  } else {
-    x.className = "nav";
-  }
-}
-</script>
-
-
-
-</body>
-</html>
+</nav>

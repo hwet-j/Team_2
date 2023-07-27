@@ -10,24 +10,24 @@ import hwet.article.model.HwetArticleDTO;
 import hwet.article.service.ModifyArticleService;
 import mvc.command.CommandHandler;
 
-// /hwet/article/modify.do
+/* hwet/article/modify.do  수정 기능을 작업하는 기능 */
 public class ModifyHandler implements CommandHandler {
 	
 	ModifyArticleService modifyArticleService = new ModifyArticleService();
 	@Override
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 수정을 위해 필요한 데이터 가져오기
-		String bNo = request.getParameter("boardId"); 
-		int no = Integer.parseInt(bNo);
+		String board_no = request.getParameter("board_id"); 
+		int no = Integer.parseInt(board_no);
 		String title = request.getParameter("title");
 		String category = request.getParameter("category");
 		String link = request.getParameter("link");
 		String content = request.getParameter("content");
-		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		int page_no = Integer.parseInt(request.getParameter("page_no"));
 
 		// 가져온 데이터를 DTO 객체화
 		HwetArticleDTO data = new HwetArticleDTO();
-		data.setBoardId(no);
+		data.setBoard_id(no);
 		data.setTitle(title);
 		data.setCategory(category);
 		data.setLink(link);
@@ -63,9 +63,9 @@ public class ModifyHandler implements CommandHandler {
 				out.println("    confirmButtonText: 'Yes'");
 				out.println("}).then((result) => {");
 				out.println("if (result.isConfirmed) {");
-				out.println("    window.location.href = '" + request.getContextPath() + "/hwet/article/read.do?no=" + no + "&pageNo=" + pageNo + "';");
+				out.println("    window.location.href = '/hwet/article/read.do?no=" + no + "&page_no=" + page_no + "';");
 				out.println("	} else {");
-				out.println("    window.location.href = '" + request.getContextPath() + "/hwet/article/list.do';");
+				out.println("    window.location.href = '/hwet/article/list.do';");
 				out.println("	}");		
 				out.println("})");
 				out.println("</script>");

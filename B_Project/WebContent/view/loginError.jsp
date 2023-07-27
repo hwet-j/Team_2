@@ -4,13 +4,13 @@
 
 
 <%
-String userid = request.getParameter("userid");
+String user_id = request.getParameter("user_id");
 String password = request.getParameter("password");
 String message = "";
 
 MemberDAO memDAO = new MemberDAO();
  
-if (memDAO.loginCheck(userid, password)) {
+if (memDAO.loginCheck(user_id, password)) {
     message = "Success";
 } else {
 	message = "Failed";
