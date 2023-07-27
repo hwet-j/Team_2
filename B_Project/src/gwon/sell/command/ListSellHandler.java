@@ -13,7 +13,6 @@ public class ListSellHandler implements CommandHandler {
 	private String FORM_VIEW = "/view/GWON/sell/listSell.jsp";
 	private ListSellService listSellService = new ListSellService();
 	
-	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
  
@@ -33,6 +32,11 @@ public class ListSellHandler implements CommandHandler {
 	}
 
 }
+
+
+
+
+
 
 
 

@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
 <style>
 #floating-button {
 	margin : 2px;
@@ -79,11 +78,11 @@
 	  	<input type="text" name="sell_file" id="sell_file"  class="form-control" /><br/>
 	  	<c:if test="${errors.sell_file}"><span class="error">파일 업로드</span></c:if>
 	  </div>
-	  <div  class="">	
+<%-- 	  <div  class="">	
 	  	<label for="sell_fav"  class="form-label">sell_fav</label>
-	  	<input type="text" name="sell_fav" id="sell_fav"  class="form-control" /><br/>
+	  	<input type="number" name="sell_fav" id="sell_fav"  class="form-control" /><br/>
 	  	<c:if test="${errors.sell_fav}"><span class="error">sell_fav</span></c:if>
-	  </div>
+	  </div> --%>
 	 
 	  <div>
 	 	<a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do" style = "float: right; "role="button">목록</a>

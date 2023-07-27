@@ -12,10 +12,23 @@ public class ModifyRequest {
 	private String	sell_loc;
 	private String	sell_content;
 	private String	sell_file;
-	private String	sell_fav;
+	private int		sell_fav;
 
+	
 	public ModifyRequest(String user_id, int sell_no, String sell_title, String sell_category, int sell_price,
-			String sell_loc, String sell_content, String sell_file, String sell_fav) {
+			String sell_loc, String sell_content, String sell_file) {
+		this.user_id = user_id;
+		this.sell_no = sell_no;
+		this.sell_title = sell_title;
+		this.sell_category = sell_category;
+		this.sell_price = sell_price;
+		this.sell_loc = sell_loc;
+		this.sell_content = sell_content;
+		this.sell_file = sell_file;
+	}
+	
+	public ModifyRequest(String user_id, int sell_no, String sell_title, String sell_category, int sell_price,
+			String sell_loc, String sell_content, String sell_file, int sell_fav) {
 		this.user_id = user_id;
 		this.sell_no = sell_no;
 		this.sell_title = sell_title;
@@ -27,7 +40,7 @@ public class ModifyRequest {
 		this.sell_fav = sell_fav;
 	}
 
-	public String getSell_fav() {
+	public int getSell_fav() {
 		return sell_fav;
 	}
 

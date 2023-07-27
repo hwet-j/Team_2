@@ -19,8 +19,6 @@
 }
 </style>
 
-
-
 </head>
 <body>
 <%@ include file = "../../../navi.jsp" %>
@@ -84,12 +82,12 @@
 	 	<label for="sell_file" class="form-label">파일 다운로드</label>
 	 	<input type="text" name="sell_file" id="sell_file" class="form-control" value="${modRequest.sell_file}"/>
 	 </div>
-	 <div class="">
+<%-- 	 <div class="">
 	 	<label for="sell_fav" class="form-label">sell_fav</label>
-	 	<input type="text" name="sell_fav" id="sell_fav" class="form-control" value="${modRequest.sell_fav}"/>
+	 	<input type="number" name="sell_fav" id="sell_fav" class="form-control" value="${modRequest.sell_fav}"/>
 	 </div>
 	 <br/>
-	 
+	  --%>
 	 
 	<div class="">
      <button type="submit" id = "floating-button" class= "btn btn-secondary" style = "float : right;">수정하기</button>

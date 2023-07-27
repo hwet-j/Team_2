@@ -16,7 +16,6 @@
 .table {
 	padding : 50px;
 }
-
 </style>
 
 </head>
@@ -79,10 +78,12 @@
 		 </tbody>
 		 </table>
 		 
+		 <c:if test="${AUTH_USER.user_id != sellDTO.user_id}">
 	 	 <a href="/gwon/sell/sellWrite.do" class="btn btn-outline-primary" style = "float: right; "role="button">작성</a>
+	 	 </c:if>
 	 	 
          <div>
-			 <nav aria-label="Page navigation example">
+			 <nav aria-label="Page navigation example" style = "claar : both">
 			  <ul class="pagination justify-content-center"> 
 			  <c:if test="${sellPage.startPage>10}">
 			   <li class="page-item"><a class="page-link" href="/gwon/sell/sellList.dopageNo=${sellPage.startPage-10}">&lt;&lt;이전</a></li>
