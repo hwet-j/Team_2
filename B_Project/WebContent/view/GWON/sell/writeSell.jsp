@@ -23,15 +23,15 @@
 <%@ include file = "../../../navi.jsp" %>
 
  <div class="container">
-	 <h2  class="">writeSell(글 작성)</h2>
+	 <h2  class="" align = "center">중고거래 글작성하기</h2>
 	 <form action="/gwon/sell/sellWrite.do" method="post">
 	  <div  class="">	
 	  	<label for="AUTH_USER.user_id" class="form-label" >작성자</label>
 	  	<input type="text" name="AUTH_USER.user_id" id="AUTH_USER.user_id" class="form-control" value="${AUTH_USER.user_id}"  readonly = "readonly" required /><br/>
 	  </div>
 	  <div  class="">	
-	  	<label for="sell_title"  class="form-label">제목</label>
-	  	<input type="text" name="sell_title" id="sell_title"  class="form-control" required/><br/>
+	  	<label for="sell_title"  class="form-label">글 제목</label>
+	  	<input type="text" name="sell_title" id="sell_title"  class="form-control" placeholder = "제목을 입력하세요" required/><br/>
 	  	 <c:if test="${errors.sell_title}"><span class="error">제목을 입력하세요</span></c:if>
 	  </div>
 	  <div  class="">	
@@ -46,9 +46,9 @@
 	  </div>
 	  <br/>
 	  <div  class="">	
-	  	<label for="sell_price"  class="form-label">희망가격</label>
-	  	<input type="number" name="sell_price" id="sell_price"  class="form-control" required/><br/>
-	  	 <c:if test="${errors.sell_price}"><span class="error">희망가격을 입력하세요</span></c:if>
+	  	<label for="sell_price"  class="form-label">희망가격 (원)</label>
+	  	<input type="number" name="sell_price" id="sell_price"  class="form-control" min = "1" placeholder = "희망가격을 입력하세요" required/><br/>
+	  	 <c:if test="${errors.sell_price}"><span class="error" style = "font-color : red;">희망가격을 입력하세요</span></c:if>
 	  </div>
 	  <div  class="">	
 	  	<label for="sell_loc"  class="form-label">판매장소</label>
@@ -68,7 +68,7 @@
 	  <br/>
 	  <div  class="">	
 	  	<label for="sell_content"  class="form-label">판매내용</label>
-	  	<textarea name="sell_content" id="sell_content" class="form-control"  rows="5" cols="30" required></textarea><br/>
+	  	<textarea name="sell_content" id="sell_content" class="form-control"  rows="5" cols="30" placeholder = "내용을 입력하세요" required></textarea><br/>
 	  	<c:if test="${errors.sell_content}"><span class="error">내용을 입력하세요</span></c:if>
 	  </div>
 	  <div  class="">	
@@ -80,25 +80,8 @@
 	  <div>
 	 	<a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do" style = "float: right; "role="button">목록</a>
 	 	<button type="reset"  id = "floating-button" class= "btn btn-secondary" style = "float : right;">새로고침</button>
-	 	<button type="submit" id = "floating-button" class= "btn btn-secondary" style = "float : right;">글쓰기</button>
+	 	<button type="submit" id = "floating-button" class= "btn btn-success" style = "float : right;">작성</button>
 	  </div> 
-	  
-	  <!-- 버튼 크기 조절 방법 (chat)
-	  
-	  1. html
-	  <form id="myForm" action="submit_page.php" method="post">
-	    폼 요소들을 여기에 추가하세요
-	  <input type="text" name="username" required>
-	  <a href="#" id="submitButton">제출하기</a>
-	  </form>
-	  
-	  2. js
-	  document.getElementById("submitButton").addEventListener("click", function() {
-  			document.getElementById("myForm").submit();
-	  });
-	   -->
-	  
-	  
 	 </form> 
  </div>
 </body>

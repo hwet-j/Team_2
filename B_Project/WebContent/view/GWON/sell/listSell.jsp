@@ -16,16 +16,21 @@
 .table {
 	padding : 50px;
 }
-</style>
 
+.searchTab {
+	margin-bottom : 5px;
+}
+</style>
 </head>
 <body>
 <%@ include file = "../../../navi.jsp" %>
 
 <form method="post" action="/gwon/sell/sellSerach.do">
 <div class="container">
+	<h2  class="title" align = "center">중고거래 글 목록보기</h2>
+	<br/>
 	<div class="row">
-			<table class="" style = "float : right;">
+			<table class="searchTab" style = "float : right;">
 				<tr>
 					<td>
 					  <select class="form-control" name="searchColumn">
@@ -33,12 +38,12 @@
 							<option value="sell_title">제목</option>
 							<option value="user_id">작성자</option>
 							<option value="sell_category">카테고리</option>
-							<option value="sell_price">희망가격</option>
+							<option value="sell_price" >희망가격</option>
 							<option value="sell_loc">지역</option>
 					  </select>
 					</td>
 					<td><input type="text" class="form-control" placeholder="검색어 입력" name="searchText" maxlength="100"></td>
-					<td><button type="submit" class="btn btn-secondary">검색</button></td>
+					<td><button type = "submit" class="btn btn-success"><img src = "../../../image/search.svg"/></button></td>
 				</tr>
 			</table>
 	</div>
@@ -79,7 +84,7 @@
 		 </table>
 		 
 		 <c:if test="${AUTH_USER.user_id != sellDTO.user_id}">
-	 	 <a href="/gwon/sell/sellWrite.do" class="btn btn-outline-primary" style = "float: right; "role="button">작성</a>
+	 	 <a href="/gwon/sell/sellWrite.do" class="btn btn-success" style = "float: right; "role="button">작성</a>
 	 	 </c:if>
 	 	 
          <div>

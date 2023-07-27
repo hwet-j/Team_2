@@ -24,7 +24,7 @@
 <%@ include file = "../../../navi.jsp" %>
 
  <div class="container">
-	<h2  class="">글 수정하기</h2>
+	<h2  class="" align = "center">중고거래 글수정하기</h2>
 	<form action="/gwon/sell/sellModify.do" method="post">
 	 <div class="">
 	   <label for="sell_no" class="form-label">글 번호</label>
@@ -35,7 +35,7 @@
 	   <input type="text" name="user_id" id="user_id" class="form-control" value="${modRequest.user_id}" readonly="readonly"/>
 	  </div>
 	 <div class="">
-	 	<label for="sell_title" class="form-label" >제목</label>
+	 	<label for="sell_title" class="form-label" >글 제목</label>
 	 	<input type="text" name="sell_title" id="sell_title" class="form-control" value="${modRequest.sell_title}"  required/>
 	 </div>
 	 <div class="">
@@ -51,7 +51,7 @@
 	 </div>
 	 <div class="">
 	 	<label for="sell_price" class="form-label">희망가격</label>
-	 	<input type="number" name="sell_price" id="sell_price" class="form-control" value="${modRequest.sell_price}"  required/>
+	 	<input type="number" name="sell_price" id="sell_price" class="form-control" min = "1" value="${modRequest.sell_price}"  required/>
 	 </div>
 	 <div class="">
 	  	<label for="sell_loc"  class="form-label">판매장소</label>
@@ -80,7 +80,7 @@
 	 </div>
 	 
 	<div class="">
-     <button type="submit" id = "floating-button" class= "btn btn-secondary" style = "float : right;">수정하기</button>
+     <button type="submit" id = "floating-button" class= "btn btn-success" style = "float : right;">수정하기</button>
      <button type="reset"  id = "floating-button" class= "btn btn-secondary" style = "float : right;">새로고침</button>
      <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellRead.do?no=${modRequest.sell_no}" style = "float: right; "role="button">취소</a>
      <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do" style = "float: right; "role="button">목록</a>
