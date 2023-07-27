@@ -25,7 +25,7 @@
 <form method="post" action="/gwon/sell/sellSerach.do">
 <div class="container">
 	<div class="row">
-			<table class="table">
+			<table class="" style = "float : right;">
 				<tr>
 					<td>
 					  <select class="form-control" name="searchColumn">
@@ -70,7 +70,7 @@
 			    <td>${sell.sell_category}</td>
 			    <td><a href="/gwon/sell/sellRead.do?no=${sell.sell_no}&pageNo=${nowPage}">${sell.sell_title}</a></td>
 			    <td>${sell.writer.user_id}</td>
-			    <td>${sell.sell_price}</td>
+			    <td>${sell.sell_price}원</td>
 			    <td>${sell.sell_loc}</td>
 			    <td>${sell.sell_read_cnt}</td>
 			   </tr>

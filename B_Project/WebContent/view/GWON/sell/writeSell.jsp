@@ -26,18 +26,17 @@
 	 <h2  class="">writeSell(글 작성)</h2>
 	 <form action="/gwon/sell/sellWrite.do" method="post">
 	  <div  class="">	
-	  	<label for="AUTH_USER.user_id" class="form-label" readonly = "readonly" >작성자</label>
-	  	<input type="text" name="AUTH_USER.user_id" id="AUTH_USER.user_id" class="form-control" value="${AUTH_USER.user_id}"/><br/>
+	  	<label for="AUTH_USER.user_id" class="form-label" >작성자</label>
+	  	<input type="text" name="AUTH_USER.user_id" id="AUTH_USER.user_id" class="form-control" value="${AUTH_USER.user_id}"  readonly = "readonly" required /><br/>
 	  </div>
 	  <div  class="">	
 	  	<label for="sell_title"  class="form-label">제목</label>
-	  	<input type="text" name="sell_title" id="sell_title"  class="form-control" /><br/>
-	  	 <c:if test="${errors.sell_title}"><span class="error">제목</span></c:if>
+	  	<input type="text" name="sell_title" id="sell_title"  class="form-control" required/><br/>
+	  	 <c:if test="${errors.sell_title}"><span class="error">제목을 입력하세요</span></c:if>
 	  </div>
 	  <div  class="">	
 	  	<label for="sell_category"  class="form-label">카테고리</label>
-	  	<select name = "sell_category" id = "sell_category" class="form-control" size = "1" >
-			<option selected>카테고리를 선택하세요</option>
+	  	<select name = "sell_category" id = "sell_category" class="form-control" size = "1"  required>
 	  		<option value = "생활용품"	  ${data.category == '생활용품' ? 'selected' : ''}>생활용품</option>
 	  		<option value = "가구/가전"   ${data.category == '가구/가전' ? 'selected' : ''}>가구/가전</option>
 	  		<option value = "의류"	      ${data.category == '의류' ? 'selected' : ''}>의류</option>
@@ -48,13 +47,12 @@
 	  <br/>
 	  <div  class="">	
 	  	<label for="sell_price"  class="form-label">희망가격</label>
-	  	<input type="number" name="sell_price" id="sell_price"  class="form-control" /><br/>
-	  	 <c:if test="${errors.sell_title}"><span class="error">희망가격</span></c:if>
+	  	<input type="number" name="sell_price" id="sell_price"  class="form-control" required/><br/>
+	  	 <c:if test="${errors.sell_price}"><span class="error">희망가격을 입력하세요</span></c:if>
 	  </div>
 	  <div  class="">	
 	  	<label for="sell_loc"  class="form-label">판매장소</label>
-	    <select name = "sell_loc" id = "sell_loc" class="form-control" size = "1">
-	  		<option selected>장소를 선택하세요</option>
+	    <select name = "sell_loc" id = "sell_loc" class="form-control" size = "1" required>
 	  		<option value = "서울" ${data.category == '서울' ? 'selected' : ''}>서울</option>
 	  		<option value = "경기" ${data.category == '경기' ? 'selected' : ''}>경기</option>
 	  		<option value = "충북" ${data.category == '충북' ? 'selected' : ''}>충북</option>
@@ -69,20 +67,15 @@
 	  </div>
 	  <br/>
 	  <div  class="">	
-	  	<label for="sell_content"  class="form-label">내용</label>
-	  	<textarea name="sell_content" id="sell_content" class="form-control"  rows="5" cols="30"></textarea><br/>
-	  	<c:if test="${errors.sell_content}"><span class="error">내용</span></c:if>
+	  	<label for="sell_content"  class="form-label">판매내용</label>
+	  	<textarea name="sell_content" id="sell_content" class="form-control"  rows="5" cols="30" required></textarea><br/>
+	  	<c:if test="${errors.sell_content}"><span class="error">내용을 입력하세요</span></c:if>
 	  </div>
 	  <div  class="">	
 	  	<label for="sell_file"  class="form-label">파일 업로드</label>
 	  	<input type="text" name="sell_file" id="sell_file"  class="form-control" /><br/>
-	  	<c:if test="${errors.sell_file}"><span class="error">파일 업로드</span></c:if>
+	  	<c:if test="${errors.sell_file}"><span class="error">파일 업로드를 하세요</span></c:if>
 	  </div>
-<%-- 	  <div  class="">	
-	  	<label for="sell_fav"  class="form-label">sell_fav</label>
-	  	<input type="number" name="sell_fav" id="sell_fav"  class="form-control" /><br/>
-	  	<c:if test="${errors.sell_fav}"><span class="error">sell_fav</span></c:if>
-	  </div> --%>
 	 
 	  <div>
 	 	<a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do" style = "float: right; "role="button">목록</a>
