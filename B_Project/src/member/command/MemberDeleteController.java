@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import member.model.MemberDAO;
 import mvc.command.CommandHandler;
 
+/* admin/deleteUser.do */
 public class MemberDeleteController implements CommandHandler {
 
 	@Override
@@ -14,16 +15,11 @@ public class MemberDeleteController implements CommandHandler {
 		int delRow = new MemberDAO().DeleteMember(id);
 		
 		if(delRow==1) {
-			request.setAttribute("MSG", "Delete Success!");
 			return "/admin/showAll.do";
 		}
 		else {
-			String delFail = "삭제에 실패했습니다.";
-			request.setAttribute("MSG", "Delete Fail!");
-			response.sendRedirect("/admin/showAll.do");
-
+			return "/admin/showAll.do";
 		}
-		return null;
 	}
 
 }
