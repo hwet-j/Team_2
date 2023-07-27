@@ -19,7 +19,6 @@ public class WhiBoardArticleHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int pageNo = Integer.parseInt(request.getParameter("pageNo")); // 컨텐츠 불러와지는거 확인되면 페이징 처리 할때 쓰자
-		System.out.println("pageNo="+pageNo);
 		Connection conn = ConnectionProvider.getConnection();
 		WhiBoardDAO dao = new WhiBoardDAO();
 		int articleTotalCnt = dao.countTotalArticle(conn);
@@ -29,8 +28,12 @@ public class WhiBoardArticleHandler implements CommandHandler {
 		List<WhiBoardArticle> articleList = new LinkedList<>();
 		WhiBoardArticleService whiBoardArticleService = new WhiBoardArticleService();
 		articleList = whiBoardArticleService.showPagedArticle(pageNo);
-		
+		//3- 카테고리 불러오기
+		List<String> categoryList = new WhiBoardDAO().getCategory(conn);
+		request.setAttribute("CATEGORY_LIST", categoryList);
 		request.setAttribute("WHI_ARTICLE", articleList);
+		
+		conn.close();
 		return request.getContextPath()+"/view/CJH/whi_board/whi_board_list.jsp";
 	}
 
