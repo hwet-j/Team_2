@@ -11,7 +11,8 @@ import tak.article.service.ModifyArticleService;
 import tak.article.service.ModifyRequest;
 import tak.article.service.OurArticleData;
 import tak.article.service.ReadArticleService;
-import auth.service.User;
+//import auth.service.User;
+import member.model.MemberDTO;
 import mvc.command.CommandHandler;
 
 //p669
@@ -19,7 +20,7 @@ import mvc.command.CommandHandler;
 //요청주소  http://localhost:/article/modify.do
 public class ModifyArticleHandler implements CommandHandler {
 
-	private static final String FORM_VIEW = "/view/article/modifyForm.jsp";
+	private static final String FORM_VIEW = "/view/TAK/modifyForm.jsp";
 	
 	//수정폼보여줄 때 상세내용을 가져오기위한 Service
 	private ReadArticleService readArticleService = new ReadArticleService();
@@ -50,7 +51,7 @@ public class ModifyArticleHandler implements CommandHandler {
 		//2.비즈니스로직<->Service<->DAO<->DB
 		//파라미터 int no : 수정하고 싶은 글번호
 		OurArticleData oad = readArticleService.getDetail(no);//p670 43라인
-		User user = (User)request.getSession().getAttribute("AUTH_USER"); //세션로그인유저정보
+		MemberDTO user = (MemberDTO)request.getSession().getAttribute("AUTH_USER"); //세션로그인유저정보
 		if(!canModify(user, oad)) { //수정불가하면
 			response.sendError(HttpServletResponse.SC_FORBIDDEN);
 			return null;
@@ -58,7 +59,7 @@ public class ModifyArticleHandler implements CommandHandler {
 		
 		//수정을 위해 세션에서 가져온 회원id, 글번호, db에서 가져온 제목과 내용
 		ModifyRequest modReq = 
-			new ModifyRequest(user.getId(), no, oad.getTitle(), oad.getContent());
+			new ModifyRequest(user.getUser_id(), no, oad.getTitle(), oad.getContent());
 		
 		//3.Model-p670 53라인
 		request.setAttribute("modReq", modReq);
@@ -70,8 +71,8 @@ public class ModifyArticleHandler implements CommandHandler {
 	//수정가능여부체크-p670 61라인
 	// 로그인한 user의 id가 글작성자id와 일치하는 비교하여 동일하면 수정가능     
 	//리턴 boolean - 수정할 수 있으면 true반환, 불가하면 false반환
-	private boolean canModify(User user, OurArticleData oad) {
-		return   user.getId().equals(oad.getWriter_id());
+	private boolean canModify(MemberDTO user, OurArticleData oad) {
+		return   user.getUser_id().equals(oad.getWriter_id());
 	}
 	
 	
@@ -82,10 +83,10 @@ public class ModifyArticleHandler implements CommandHandler {
 		String title = request.getParameter("title");//제목
 		String content = request.getParameter("content");//내용
 		String writerId = request.getParameter("writerId");//작성자id(여기에서는 db의 수정대상이 아니다)
-		User authUser = (User)request.getSession().getAttribute("AUTH_USER");//교재에서는 작성자id를 세션에서 가져옴-p670 68라인
+		MemberDTO authUser = (MemberDTO)request.getSession().getAttribute("AUTH_USER");//교재에서는 작성자id를 세션에서 가져옴-p670 68라인
 		
 		//수정처리를 위한 데이터를 ModifyRequest객체로 생성-P670 72라인
-		ModifyRequest modReq = new ModifyRequest(authUser.getId(), no, title, content);
+		ModifyRequest modReq = new ModifyRequest(authUser.getUser_id(), no, title, content);
 		request.setAttribute("modReq", modReq); //P670 75라인
 
 		//유효성검사
@@ -104,7 +105,7 @@ public class ModifyArticleHandler implements CommandHandler {
 
 		//4.View - 성공시 /view/article/modifySuccess.jsp (p670 85)
 		//여기에서는  성공시  목록보기요청
-		response.sendRedirect(request.getContextPath()+"/article/list.do");
+		response.sendRedirect(request.getContextPath()+"/tak/article/list.do");
 		return null;
 	}
 }
