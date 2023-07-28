@@ -74,18 +74,6 @@ public class ModifySellHandler implements CommandHandler {
 										request.getParameter("sell_file"));
 		
 		
-		System.out.println("여기서부터 시작");
-		System.out.println("no"+request.getParameter("sell_no"));
-		System.out.println("title"+request.getParameter("sell_title"));
-		System.out.println("cate"+request.getParameter("sell_category"));
-		System.out.println("price"+request.getParameter("sell_price"));
-		System.out.println("loc"+request.getParameter("sell_loc"));
-		System.out.println("con"+request.getParameter("sell_content"));
-		System.out.println("file"+request.getParameter("sell_file"));
-		System.out.println("fav"+request.getParameter("sell_fav"));
-		
-		System.out.println(modRequest);
-		
 		request.setAttribute("modRequest", modRequest); 
 		
 		modifySellService.modify(modRequest);

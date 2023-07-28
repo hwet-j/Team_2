@@ -28,7 +28,7 @@
 
 <form method="post" action="/gwon/sell/sellLike.do">
  <div class="container">
-	<h2  class="#">sellRead(중고거래 상세조회)</h2>
+	<h2  class="" align = "center">중고거래 글 상세보기</h2>
 	
 	<table class="table table-bordered">
 	 <tbody>
@@ -91,7 +91,7 @@
 	 </c:if> 
 	 
 	 <c:if test="${AUTH_USER.user_id eq sellDTO.user_id}">
-	   <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellModify.do?no=${sellDTO.sell_no}" style = "float: right; "role="button">수정</a>
+	   <a id = "floating-button" class="btn btn-success" href="/gwon/sell/sellModify.do?no=${sellDTO.sell_no}" style = "float: right; "role="button">수정</a>
      </c:if> 
 
 	 <c:set var="pageNo" value="${empty param.pageNo?1:param.pageNo}" />
@@ -102,9 +102,10 @@
 	<input type = "hidden" name = "no" value = "${sellDTO.sell_no}"></input>
 	<div class =""></div>
 		<c:if test="${AUTH_USER.user_id eq sellDTO.user_id}">
-			<button type = "submit" class = "btn btn-secondary" style = "clear : both">좋아요</button>
+			<button type = "submit" class="btn btn-success"><img src = "../../../image/heart.svg"/>&nbsp;좋아요</button>
+			<!-- <button type = "submit" class = "btn btn-secondary" style = "clear : both">좋아요</button> -->
 		 </c:if> 
-		<span>추천 수 : ${sellDTO.sell_fav}</span>
+		<span>&nbsp;<img src = "../../../image/heart-fill.svg"/>&nbsp;&nbsp;+ ${sellDTO.sell_fav}</span>
 	</div>
  </div>
 
