@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import hwet.article.service.AddReplyService;
 import mvc.command.CommandHandler;
 
-// /hwet/article/addReply.do
-/* 댓글을 추가하는 기능 */
+/* hwet/article/addReply.do  댓글을 추가하는 기능 */
 public class AddReplyHandler implements CommandHandler {
 	
 	AddReplyService replyService = new AddReplyService();
@@ -44,7 +43,7 @@ public class AddReplyHandler implements CommandHandler {
 		String encoded_keyword = URLEncoder.encode(keyword, "UTF-8");
 		String encoded_category_info = URLEncoder.encode(category_info, "UTF-8");
 		String encoded_search_type = URLEncoder.encode(search_type, "UTF-8");
-		String redirectURL = request.getContextPath() + "/hwet/article/read.do?no=" + board_id + "&page_no=" + page_no + "&search_type=" + encoded_search_type + "&keyword=" + encoded_keyword + "&category_info=" + encoded_category_info; 
+		String redirectURL = "/hwet/article/read.do?no=" + board_id + "&page_no=" + page_no + "&search_type=" + encoded_search_type + "&keyword=" + encoded_keyword + "&category_info=" + encoded_category_info; 
 		response.sendRedirect(redirectURL);
 		
         return null;

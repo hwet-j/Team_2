@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import hwet.article.service.DeleteArticleService;
 import mvc.command.CommandHandler;
 
-// /hwet/article/delete.do
-/* 게시판 글을 삭제하는 기능 */
+/* hwet/article/delete.do 게시판 글을 삭제하는 기능 */
 public class DeleteHandler implements CommandHandler {
 	
 	DeleteArticleService deleteArticleService = new DeleteArticleService();
@@ -26,7 +25,7 @@ public class DeleteHandler implements CommandHandler {
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
-			String redirectURL = request.getContextPath() + "/hwet/article/list.do";
+			String redirectURL = "/hwet/article/list.do";
 			String script = "<!DOCTYPE html>"
 	                + "<html>"
 	                + "<head>"

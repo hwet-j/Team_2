@@ -31,7 +31,7 @@ public class ModifySellService {
 			}
 			
 			sellDAO.update(conn, modRequest.getSell_no(), modRequest.getSell_title(), modRequest.getSell_category(), modRequest.getSell_price(), modRequest.getSell_loc());
-			sellContentDAO.update(conn, modRequest.getSell_content(), modRequest.getSell_file(), modRequest.getSell_fav(), modRequest.getSell_no() );
+			sellContentDAO.update(conn, modRequest.getSell_content(), modRequest.getSell_file(), modRequest.getSell_no() );
 			
 			conn.commit();
 		} catch (SQLException e) {
@@ -49,6 +49,5 @@ public class ModifySellService {
 	private boolean canModify(String modifiedUser_id, Sell sell) {
 		return sell.getWriter().getUser_id().equals(modifiedUser_id);
 	}
-
 	
 }

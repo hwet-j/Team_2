@@ -23,7 +23,7 @@
 <div class="container my-6">
 	<h2>글 작성</h2>
 	
-	<form action="${pageContext.request.contextPath}/hwet/article/write.do" id="writeForm" method="POST">
+	<form action="/hwet/article/write.do" id="writeForm" method="POST">
 	<div class="form-group">
 		<label for="writer">작성자</label>
 		<input type="text" class="form-control" id="writer" name="writer" value="${sessionScope.AUTH_USER.user_id}" readonly>
@@ -69,7 +69,7 @@
     
     <div class="row mb-4">
 	    <div class="col-6">
-			<a href="${pageContext.request.contextPath}/hwet/article/list.do" class="btn btn-secondary">글목록</a>
+			<a href="/hwet/article/list.do" class="btn btn-secondary">글목록</a>
 			<button type="button" class="btn btn-info" onclick="resetForm()">다시 작성하기</button>
 	    </div>
 	    

@@ -32,7 +32,7 @@
   <div class="btn-group mb-2 mt-4">
   	<%-- 카테고리의 종류를 jsp파일에서 직접 설정하여 사용, 카테고리가 수정되면 여기서도 수정해야함 (에러표시가 있지만 정삭작동함) --%>
   	<c:forEach var="category" items="${['전체', 'DB', 'HTML/CSS', 'JAVA', '기타']}">
-      <a href="${pageContext.request.contextPath}/hwet/article/list.do?category_info=${category}&page_no=${current_page}&search_type=${search_type}&keyword=${keyword}" class="btn btn-outline-primary <c:if test='${category_info eq category}'>active</c:if>">${category}</a>
+      <a href="/hwet/article/list.do?category_info=${category}&page_no=${current_page}&search_type=${search_type}&keyword=${keyword}" class="btn btn-outline-primary <c:if test='${category_info eq category}'>active</c:if>">${category}</a>
     </c:forEach>
   </div>
   
@@ -91,7 +91,7 @@
     
 		<%-- 글쓰기 버튼 (우측 정렬) --%>
 		<div class="col-md-6 text-right">
-			<a href="${pageContext.request.contextPath}/hwet/article/write.do" class="btn btn-primary">글쓰기</a>
+			<a href="/hwet/article/write.do" class="btn btn-primary">글쓰기</a>
 	    </div>
 	</div>
 	
@@ -100,7 +100,7 @@
 	    <%-- 이전 페이지로 이동하는 링크 --%>
 	    <c:if test="${current_page > 1}">
 	        <li class="page-item">
-	            <a class="page-link" href="${pageContext.request.contextPath}/hwet/article/list.do?category_info=${category_info}&page_no=${current_page - 1}&search_type=${search_type}&keyword=${keyword}">이전</a>
+	            <a class="page-link" href="/hwet/article/list.do?category_info=${category_info}&page_no=${current_page - 1}&search_type=${search_type}&keyword=${keyword}">이전</a>
 	        </li>
 	    </c:if>
 		
@@ -108,14 +108,14 @@
 	    <c:forEach begin="${current_page < 5 ? 1 : current_page-4}" end="${total_pages < current_page + 4 ? total_pages : current_page + 4}" var="page">
 	    	<%-- 표시되는 페이지와 현재페이지가 동일하면 class명에 active를 추가하여 표현 --%>
 	        <li class="page-item <c:if test='${page == current_page}'>active</c:if>">
-	            <a class="page-link" href="${pageContext.request.contextPath}/hwet/article/list.do?category_info=${category_info}&page_no=${page}&search_type=${search_type}&keyword=${keyword}">${page}</a>
+	            <a class="page-link" href="/hwet/article/list.do?category_info=${category_info}&page_no=${page}&search_type=${search_type}&keyword=${keyword}">${page}</a>
 	        </li>
 	    </c:forEach>
 	
 	    <%-- 다음 페이지로 이동하는 링크 --%>
 	    <c:if test="${current_page < total_pages}">
 	        <li class="page-item">
-	            <a class="page-link" href="${pageContext.request.contextPath}/hwet/article/list.do?category_info=${category_info}&page_no=${current_page + 1}&search_type=${search_type}&keyword=${keyword}">다음</a>
+	            <a class="page-link" href="/hwet/article/list.do?category_info=${category_info}&page_no=${current_page + 1}&search_type=${search_type}&keyword=${keyword}">다음</a>
 	        </li>
 	    </c:if>
 	</ul>
@@ -126,17 +126,31 @@
 </body>
 
 <script>
-<%-- 검색 버튼 클릭시 get방식으로 데이터를 전송 --%>
+
 $(document).ready(function() {
-  $("#searchButton").click(function() {
+    // 검색 버튼 클릭 시 search 함수 실행
+    $("#searchButton").click(function() {
+        search();
+    });
+
+    // Enter 키 누를 때 검색 기능 실행
+    $("#keyword").keypress(function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            search();
+        }
+    });
+});
+
+<%-- 검색 버튼 클릭시 get방식으로 데이터를 전송 --%>
+function search() {
     var keywordInput = $("#keyword");
     var keyword = keywordInput.val();
-    <%-- 검색어를 입력해야지만 url이동이 되도록 하려했지만, 아무것도 입력안했을 때 검색어가 없는 상태로 다시 돌아오도록 하기 위해 제거 --%>
     var search_type = $('[name="search_type"]').val();
-    var url = "${pageContext.request.contextPath}/hwet/article/list.do?category_info=${category_info}&page_no=${current_page}" + "&search_type=" + search_type + "&keyword=" + keyword;
+    var url = "/hwet/article/list.do?category_info=${category_info}&page_no=${current_page}" + "&search_type=" + search_type + "&keyword=" + keyword;
     window.location.href = url;
-  });
-});
+}
+
 </script>
 
 <!-- 부트스트랩 JS 파일들 링크 -->

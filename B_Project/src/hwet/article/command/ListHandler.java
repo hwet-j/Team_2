@@ -10,8 +10,7 @@ import hwet.article.model.HwetArticleDTO;
 import hwet.article.service.ListArticleService;
 import mvc.command.CommandHandler;
 
-// /hwet/article/list.do
-/* 게시판 글 리스트를 확인하는 기능(페이징처리, 카테고리, 검색기능) */
+/* hwet/article/list.do  게시판 글 리스트를 확인하는 기능(페이징처리, 카테고리, 검색기능) */
 public class ListHandler implements CommandHandler {
 	
 	private ListArticleService listService = new ListArticleService();
@@ -73,7 +72,7 @@ public class ListHandler implements CommandHandler {
         	// senRedirect로 데이터를 전송하는과정에서 한글이 들어가면 에러가 발생하여 찾아본 결과 URL은 ASCII 문자로만 이루어져있어야 하기 때문에
         	// 한글과 같은 비 ASCII 문자를 인코딩하여 입력해 줘야 한다. 
         	String encoded_keyword = URLEncoder.encode(keyword, "UTF-8");
-            response.sendRedirect(request.getContextPath() + "/hwet/article/list.do?page_no=1&search_type="+search_type+"&keyword="+ encoded_keyword);
+            response.sendRedirect("/hwet/article/list.do?page_no=1&search_type="+search_type+"&keyword="+ encoded_keyword);
             return null; // 이동한 후에는 더 이상의 처리를 하지 않도록 null을 반환
         }
 

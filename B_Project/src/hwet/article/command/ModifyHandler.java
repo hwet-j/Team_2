@@ -10,8 +10,7 @@ import hwet.article.model.HwetArticleDTO;
 import hwet.article.service.ModifyArticleService;
 import mvc.command.CommandHandler;
 
-// /hwet/article/modify.do
-/* 수정 기능을 작업하는 기능 */
+/* hwet/article/modify.do  수정 기능을 작업하는 기능 */
 public class ModifyHandler implements CommandHandler {
 	
 	ModifyArticleService modifyArticleService = new ModifyArticleService();
@@ -64,9 +63,9 @@ public class ModifyHandler implements CommandHandler {
 				out.println("    confirmButtonText: 'Yes'");
 				out.println("}).then((result) => {");
 				out.println("if (result.isConfirmed) {");
-				out.println("    window.location.href = '" + request.getContextPath() + "/hwet/article/read.do?no=" + no + "&page_no=" + page_no + "';");
+				out.println("    window.location.href = '/hwet/article/read.do?no=" + no + "&page_no=" + page_no + "';");
 				out.println("	} else {");
-				out.println("    window.location.href = '" + request.getContextPath() + "/hwet/article/list.do';");
+				out.println("    window.location.href = '/hwet/article/list.do';");
 				out.println("	}");		
 				out.println("})");
 				out.println("</script>");
