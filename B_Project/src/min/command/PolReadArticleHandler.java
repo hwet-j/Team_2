@@ -32,7 +32,7 @@ public class PolReadArticleHandler implements CommandHandler {
 			request.setAttribute("pad", pad);
 			
 			//4.View
-			return request.getContextPath()+"/view/article/readPolArticle.jsp";
+			return request.getContextPath()+"/view/min/readPolArticle.jsp";
 		}catch(PolArticleNotFoundException e) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);//404
 			return null;
