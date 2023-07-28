@@ -31,9 +31,6 @@
 	
 	// 어떤 정보도 입력하지 않으면 입력하도록 알림창
     function login_check_submit() {
-        var $user_id = document.getElementById('user_id');
-        var $password = document.getElementById('password');
-
         if ($('#user_id').val() === "") {
         	// alert와 똑같은 기능 -> sweetAlert2의 기능을 사용
         	Swal.fire({
@@ -46,9 +43,9 @@
         }
         if ($('#password').val() === "") {
         	Swal.fire({
-      		  icon: 'error',
-      		  title: 'Password Not Entered...',
-      		  text: '비밀번호를 입력해주세요!',
+      		  	icon: 'error',
+      		  	title: 'Password Not Entered...',
+      		  	text: '비밀번호를 입력해주세요!',
      		})
             $('#password').focus();
             return false;
@@ -69,7 +66,7 @@
             data: { user_id: user_id.val() ,
             	password: password.val() },
             success: function(response) {
-            	var message = response.replace(/\s/g, ""); // 공백 제거(줄바꾸믕로 해결되지 않아 공백제거로 변경...)
+            	var message = response.replace(/\s/g, ""); // 공백 제거(줄바꿈로 해결되지 않아 공백제거로 변경...)
             	// 입력 가능한지 불가능한지 체크하여 가능하면 Success 반환
                 if (message === "Success") {	
                 	$('#login').submit();	// 로그인 가능하므로 submit 실행
@@ -89,6 +86,19 @@
             }
         });
     }
+  	
+  	
+    /* 아이디 및 비밀번호 찾기 서브창을 띄워서 진행 */
+    function findUserForm(type) {
+        // 창의 크기를 설정
+        var width = 450;
+        var height = 350;
+        // 창의 위치를 설정 (화면의 중앙에 표시되도록)
+        var left = (screen.availWidth - width) / 2;
+        var top = (screen.availHeight - height) / 2;
+        var findUserForm = window.open('/view/findUser.jsp?find_type=' + type, 'findUser Form', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+    }
+    
 	</script>
     
     
@@ -112,8 +122,8 @@
 	            <li class="auto_log"><label><input type="checkbox" id="aLogin" name="auto_login" value=1 /><span class="autol">자동 로그인</span></label></li>
 	            <li class="log_btn_02">
 	            	<a href="/join.do">회원가입</a> |
-                    <a href="#">아이디 찾기</a> |
-                    <a href="#">비밀번호 찾기</a> |
+                    <a href="#" onclick="findUserForm('id')">아이디 찾기</a> |
+                    <a href="#" onclick="findUserForm('pw')">비밀번호 찾기</a> |
                     <a href="#">소셜회원탈퇴</a>
                     
                     <!-- 이후에 가능하면 기능 구현 -->

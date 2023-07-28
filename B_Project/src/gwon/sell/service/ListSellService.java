@@ -30,6 +30,7 @@ public class ListSellService {
 		}
 	}
 	
+	
 	public SellPage searchSellPage(int pageNum, SearchRequest searchRequest) {
 		
 		Connection conn;
@@ -45,10 +46,15 @@ public class ListSellService {
 			return sellPage;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		} finally {
+			
+			
 		}
 	}
-	
 }
+
+
+
 
 
 

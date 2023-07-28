@@ -14,29 +14,33 @@
 <%@ include file="/navi.jsp" %>
 <!-- 여기아래로 -->
 <h1>글 작성하기</h1>
+<div class="form-group">
 <form action="/CJH/whi_board/write.do" method="post">
 <p>
-작성자 아이디<input type="text" name="id" value="${AUTH_USER.id }" readonly="readonly">
+작성자 아이디<input type="text" name="id" value="${AUTH_USER.user_id }" readonly="readonly">
 </p>
 <p>
-위스키 종류 
-<input type="radio" name="category" value="버번">버번
-<input type="radio" name="category" value="싱글몰트">싱글몰트
-<input type="radio" name="category" value="블렌디드">블렌디드
-<input type="radio" name="category" value="기타">기타
-</p>
-<p>
-글 제목 <input type="text" name="title" width="500px">
-</p>
-<p>
-본문 <br>
-<textarea rows="50" cols="100" name="content"></textarea>
-</p>
+<div class="mb-3">
+<label for="whiskySelect" class="form-label">위스키 분류 :</label>
+<select class="form-select" name="category">
+	<option value="버번">버번</option>
+	<option value="스페이사이드">스페이사이드</option>
+	<option value="스카치">스카치</option>
+	<option value="아일라">아일라</option>
+	<option value="기타">기타</option>
+</select> 
+</div>
 <div>
-	<button type="submit">글작성</button>
+	글 제목 <input type="text" name="title" class="form-control col-md-6" width="600px;">
+</div>
+<div>
+	본문<textarea class="form-control col-md-8" rows="50" cols="100" name="content"></textarea>
+</div>
+<div>
+	<button type="submit" class="btn-primary md-2">글작성</button>
 </div>
 </form>
-
+</div>
 <br>
 <br>
 <br>

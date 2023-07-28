@@ -16,13 +16,31 @@ public class SellDTO {
 	private	int		sell_read_cnt;
 	private String	sell_content;
 	private String	sell_file;
-	private String	sell_fav;
+	private int		sell_fav;
 	
 	public SellDTO() {}
+	
+	public SellDTO(int sell_no, String user_id, String user_name, String sell_title, String sell_category,
+			int sell_price, String sell_loc, Date sell_regDate, Date sell_modDate, int sell_read_cnt,
+			String sell_file, int sell_fav) {
+		this.sell_no = sell_no;
+		this.user_id = user_id;
+		this.user_name = user_name;
+		this.sell_title = sell_title;
+		this.sell_category = sell_category;
+		this.sell_price = sell_price;
+		this.sell_loc = sell_loc;
+		this.sell_regDate = sell_regDate;
+		this.sell_modDate = sell_modDate;
+		this.sell_read_cnt = sell_read_cnt;
+		this.sell_file = sell_file;
+		this.sell_fav = sell_fav;
+	}
+
 
 	public SellDTO(int sell_no, String user_id, String user_name, String sell_title, String sell_category,
 			int sell_price, String sell_loc, Date sell_regDate, Date sell_modDate, int sell_read_cnt,
-			String sell_content, String sell_file, String sell_fav) {
+			String sell_content, String sell_file, int sell_fav) {
 		this.sell_no = sell_no;
 		this.user_id = user_id;
 		this.user_name = user_name;
@@ -86,7 +104,7 @@ public class SellDTO {
 		return sell_file;
 	}
 
-	public String getSell_fav() {
+	public int getSell_fav() {
 		return sell_fav;
 	}
 
@@ -138,7 +156,7 @@ public class SellDTO {
 		this.sell_file = sell_file;
 	}
 
-	public void setSell_fav(String sell_fav) {
+	public void setSell_fav(int sell_fav) {
 		this.sell_fav = sell_fav;
 	}
 
@@ -150,7 +168,6 @@ public class SellDTO {
 				+ sell_read_cnt + ", sell_content=" + sell_content + ", sell_file=" + sell_file + ", sell_fav="
 				+ sell_fav + "]";
 	};
-	
 	
 	
 }

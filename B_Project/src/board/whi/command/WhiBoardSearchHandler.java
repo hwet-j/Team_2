@@ -31,8 +31,11 @@ public class WhiBoardSearchHandler implements CommandHandler {
 		//객체 생성
 		List<WhiBoardArticle> articleList = new LinkedList<>();
 		
-		//비즈니스 로직 실행
+			//비즈니스 로직 실행
+		//1 - 검색결과 가져오기
 		articleList = new WhiBoardDAO().search_article(conn, search_type, subject, pageNo);
+		request.setAttribute("WHI_ARTICLE", articleList);
+		//2- 페이지의 개수 가져오기
 		int articleCnt = new WhiBoardDAO().search_article_count(conn, search_type, subject);
 		if(articleCnt%pagingSize==0) {
 			pageCnt = articleCnt/pagingSize;
@@ -40,7 +43,10 @@ public class WhiBoardSearchHandler implements CommandHandler {
 			pageCnt = articleCnt/pagingSize+1;
 		}
 		request.setAttribute("PAGECNT", pageCnt);
-		request.setAttribute("WHI_ARTICLE", articleList);
+		//3- 카테고리 불러오기
+		List<String> categoryList = new WhiBoardDAO().getCategory(conn);
+		request.setAttribute("CATEGORY_LIST", categoryList);
+		
 		return request.getContextPath()+"/view/CJH/whi_board/whi_board_list.jsp";
 	}
 

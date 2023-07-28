@@ -36,6 +36,8 @@ public class MemberDAO {
 		// 쿼리실행 (executeUpdate는 실행된 Row수를 반환한다 -> insert문 하나를 실행했으므로 성공하면 1, 실패하면 0을 반환함
 		int result = pstmt.executeUpdate();
 		
+		JDBCUtil.close(pstmt);
+		
 		return result;
 	}
 	
@@ -65,57 +67,118 @@ public class MemberDAO {
 			result = true;
 		}
 		
+		JDBCUtil.close(rs);
+		JDBCUtil.close(pstmt);
+		JDBCUtil.close(conn);
+		
 		return result;
 	}
 	
-	/* AJAX- nickname이 존재하는지 확인 (userid와 동일) - 유효성 검사에 사용 */
-	public boolean nicknameDuplicateCheck(String user_nickname) throws SQLException {
-		Connection conn = ConnectionProvider.getConnection();
+	/* AJAX - nickname이 존재하는지 확인 (userid와 동일) - 유효성 검사에 사용 */
+	public boolean nicknameDuplicateCheck(String user_nickname){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		boolean result = false;
-		int cnt = 0;
-		String sql = "SELECT COUNT(*) FROM user_info WHERE user_nickname = ?";
-		
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setString(1,user_nickname);
-		
-		ResultSet rs = pstmt.executeQuery();
-		
-		while(rs.next()) { 
-			cnt = rs.getInt(1);
-		}
-		if (cnt == 0) {
-			result = false;
-		} else {
-			result = true;
+		try {
+			conn = ConnectionProvider.getConnection();
+			
+			int cnt = 0;
+			String sql = "SELECT COUNT(*) FROM user_info WHERE user_nickname = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,user_nickname);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) { 
+				cnt = rs.getInt(1);
+			}
+			if (cnt == 0) {
+				result = false;
+			} else {
+				result = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
 		}
 		
 		return result;
 	}
 	
 	/* AJAX- 전화번호가 존재하는지 확인 (userid와 동일) - 유효성 검사에 사용 */
-	public boolean tlnoDuplicateCheck(String user_tlno) throws SQLException {
-		Connection conn = ConnectionProvider.getConnection();
+	public boolean tlnoDuplicateCheck(String user_tlno){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		boolean result = false;
-		int cnt = 0;
-		String sql = "SELECT COUNT(*) FROM user_info WHERE user_tlno = ?";
-		
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setString(1,user_tlno);
-		
-		ResultSet rs = pstmt.executeQuery();
-		
-		while(rs.next()) { 
-			cnt = rs.getInt(1);
+		try {
+			conn = ConnectionProvider.getConnection();
+			
+			int cnt = 0;
+			String sql = "SELECT COUNT(*) FROM user_info WHERE user_tlno = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1,user_tlno);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) { 
+				cnt = rs.getInt(1);
+			}
+			if (cnt == 0) {
+				result = false;
+			} else {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
 		}
-		if (cnt == 0) {
-			result = false;
-		} else {
-			result = true;
-		}
-		
 		return result;
+	}
+	
+	/* 전화번호로 회원 정보 가져오기 - 아이디, 비밀번호 찾기 */
+	public MemberDTO findUserInfo(String user_tlno){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberDTO user_data = null;
+		
+		boolean result = false;
+		try {
+			conn = ConnectionProvider.getConnection();
+			
+			int cnt = 0;
+			String sql = "SELECT * FROM user_info WHERE user_tlno = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_tlno);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) { 
+				user_data = new MemberDTO(rs.getString("user_id"), rs.getString("user_pw"), 
+						rs.getString("user_name"), rs.getDate("user_birth"), rs.getString("user_nickname"), 
+						rs.getString("user_gender"), rs.getString("user_tlno"),  rs.getDate("user_joindate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
+		}
+		return user_data;
 	}
 
 	/* login WHERE절에 아이디, 비밀번호를 입력했을때, 데이터가 존재한다면 로그인 성공 및 데이터를 Session에 저장할 것이므로 return type -> DTO */ 
@@ -257,37 +320,40 @@ public class MemberDAO {
 	}
 	
 	/* 유저 개수를 반환하는 메서드  */
-	public int allMemberCount(Connection conn, String search_type,String keyword) throws SQLException{
+	public int allMemberCount(Connection conn, String search_type,String keyword){
 		String sql = null;
 		PreparedStatement pstmt = null;
-		
+		ResultSet rs = null;
 		int result = 0;
-		
-		if(!search_type.equals("")) {
-			if (search_type.equals("id")) {
-				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_id LIKE CONCAT('%', ? , '%')";
+		try {
+			if(!search_type.equals("")) {
+				if (search_type.equals("id")) {
+					sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_id LIKE CONCAT('%', ? , '%')";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, keyword);
+				} else if (search_type.equals("name")) {
+					sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_name LIKE CONCAT('%', ? , '%')";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, keyword);
+				} else if (search_type.equals("nickname")) {
+					sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_nickname LIKE CONCAT('%', ? , '%')";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, keyword);
+				} else if (search_type.equals("join_date")) {
+					sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_joindate LIKE CONCAT('%', ? , '%')";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, keyword);
+				} 
+			} else {
+				sql = "SELECT COUNT(*) total_count FROM USER_INFO";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, keyword);
-			} else if (search_type.equals("name")) {
-				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_name LIKE CONCAT('%', ? , '%')";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, keyword);
-			} else if (search_type.equals("nickname")) {
-				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_nickname LIKE CONCAT('%', ? , '%')";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, keyword);
-			} else if (search_type.equals("join_date")) {
-				sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_joindate LIKE CONCAT('%', ? , '%')";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, keyword);
-			} 
-		} else {
-			sql = "SELECT COUNT(*) total_count FROM USER_INFO";
-			pstmt = conn.prepareStatement(sql);
-		}
-    	ResultSet rs = pstmt.executeQuery();
-		while(rs.next()) {
-			result = rs.getInt("total_count");
+			}
+	    	rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result = rs.getInt("total_count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		JDBCUtil.close(rs);
@@ -341,12 +407,11 @@ public class MemberDAO {
 			return user_data;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return user_data;
 		} finally { // 자원반납
 			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
 		}
-		
+		return user_data;
 	}
 	
 	/* 회원정보를 수정하는 메서드 - 관리자 페이지에서 관리자가 수정 */
@@ -355,31 +420,51 @@ public class MemberDAO {
 				"SET user_pw = ?, user_name = ?, user_birth = ?," + 
 				"user_nickname = ?, user_gender = ?, user_tlno = ?, user_joindate = ? " + 
 				"WHERE user_id = ?";
-		PreparedStatement pstmt;
+		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,member.getUser_pw());
-			pstmt.setString(2,member.getUser_name());
-			pstmt.setTimestamp(3, new Timestamp(member.getUser_birth().getTime()));
-			pstmt.setString(4,member.getUser_nickname());
-			System.out.println(member.getUser_gender());
+			
+			if (member.getUser_name() == null || member.getUser_name().equals("")) {
+				pstmt.setNull(2, Types.VARCHAR);		// DB에 null값을 입력하는 방법
+			} else {
+				pstmt.setString(2,member.getUser_name());
+			}
+			
+			if (member.getUser_birth() == null || member.getUser_birth().equals("")) {
+				pstmt.setNull(3, Types.DATE);
+			} else {
+				pstmt.setTimestamp(3, new Timestamp(member.getUser_birth().getTime()));
+			}
+			
+			if (member.getUser_nickname() == null || member.getUser_nickname().equals("")) {
+				pstmt.setNull(4, Types.VARCHAR);
+			} else {
+				pstmt.setString(4,member.getUser_nickname());
+			}
+			
+			
 			if (member.getUser_gender() == null || member.getUser_gender().equals("")) {
-				pstmt.setNull(5, Types.VARCHAR);		// null 값 입력 
+				pstmt.setNull(5, Types.VARCHAR);
 			} else {
 				pstmt.setString(5, member.getUser_gender());
 			}
+			
 			if (member.getUser_tlno() == null || member.getUser_tlno().equals("")) {
 				pstmt.setNull(6, Types.VARCHAR);	
 			} else {
 				pstmt.setString(6,member.getUser_tlno());
 			}
+			
 			pstmt.setTimestamp(7, new Timestamp(member.getUser_join_date().getTime()));
 			
 			pstmt.setString(8,member.getUser_id());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
 		}
 		
 		return result;

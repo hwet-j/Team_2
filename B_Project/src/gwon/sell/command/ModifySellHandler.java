@@ -36,6 +36,7 @@ public class ModifySellHandler implements CommandHandler {
 	}
 
 	private String processForm(HttpServletRequest request, HttpServletResponse response) throws IOException, SellNotFoundException {
+
 		int no = Integer.parseInt(request.getParameter("no"));
 
 		SellDTO sellDTO = readSellService.getSell(no);
@@ -48,7 +49,7 @@ public class ModifySellHandler implements CommandHandler {
 		
 		//수정을 위해 세션에서 가져온 회원id, 글번호, db에서 가져온 제목과 내용
 		ModifyRequest modRequest = 
-			new ModifyRequest(user_data.getUser_id(), no, sellDTO.getSell_title(), sellDTO.getSell_category(), sellDTO.getSell_price(), sellDTO.getSell_loc(), sellDTO.getSell_content(), sellDTO.getSell_file(), sellDTO.getSell_fav());
+			new ModifyRequest(user_data.getUser_id(), no, sellDTO.getSell_title(), sellDTO.getSell_category(), sellDTO.getSell_price(), sellDTO.getSell_loc(), sellDTO.getSell_content(), sellDTO.getSell_file());
 		
 		request.setAttribute("modRequest", modRequest);
 		
@@ -58,7 +59,6 @@ public class ModifySellHandler implements CommandHandler {
 	private boolean canModify(MemberDTO user_data, SellDTO sellDTO) {
 		return   user_data.getUser_id().equals(sellDTO.getUser_id());
 	}
-	
 	
 	private String processSubmit(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -71,21 +71,8 @@ public class ModifySellHandler implements CommandHandler {
 										Integer.parseInt(request.getParameter("sell_price")),
 										request.getParameter("sell_loc"),
 										request.getParameter("sell_content"),
-										request.getParameter("sell_file"),
-										request.getParameter("sell_fav"));
+										request.getParameter("sell_file"));
 		
-		
-		System.out.println("여기서부터 시작");
-		System.out.println("no"+request.getParameter("sell_no"));
-		System.out.println("title"+request.getParameter("sell_title"));
-		System.out.println("cate"+request.getParameter("sell_category"));
-		System.out.println("price"+request.getParameter("sell_price"));
-		System.out.println("loc"+request.getParameter("sell_loc"));
-		System.out.println("con"+request.getParameter("sell_content"));
-		System.out.println("file"+request.getParameter("sell_file"));
-		System.out.println("fav"+request.getParameter("sell_fav"));
-		
-		System.out.println(modRequest);
 		
 		request.setAttribute("modRequest", modRequest); 
 		

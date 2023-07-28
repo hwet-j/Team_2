@@ -59,6 +59,18 @@ public class JoinService {
 	}
 	
 	
+	/* 회원아이디 중복확인 (관리자) */
+	public boolean idDuplicateCheck(String user_id) {
+		boolean result = false;
+		try {
+			result = memberDAO.idDuplicateCheck(user_id);
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+	
 }
 
 

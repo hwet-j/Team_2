@@ -9,8 +9,6 @@ import gwon.sell.service.SellPage;
 import mvc.command.CommandHandler;
 
 public class SearchSellHandler implements CommandHandler {
-
-
 	
 	// 단순히 가져온 게 아니라 데이터를 담아 DAO까지 보내서 다시 가져와야 함
 	private String FORM_VIEW = "/view/GWON/sell/listSell.jsp";

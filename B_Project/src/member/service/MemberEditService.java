@@ -57,6 +57,21 @@ public class MemberEditService {
 	}
 	
 	
+	/* 회원 수정시 중복 확인  */
+	public String duplicateMemberCheck(MemberDTO member) {
+		String result = "";
+			
+		if (memberDAO.nicknameDuplicateCheck(member.getUser_nickname())) {	// 닉네임 중복
+			result = "nicknameDuplicate";
+			return result;
+		} else if (memberDAO.tlnoDuplicateCheck(member.getUser_tlno())) {	// 전화번호 중복
+			result = "tlnoDuplicate";
+			return result;
+		}
+		return result;	
+	}
+	
+	
 }
 
 

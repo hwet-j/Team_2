@@ -25,5 +25,4 @@ public class Writer {
 	public String toString() {
 		return "Writer [user_id=" + user_id + ", user_name=" + user_name + "]";
 	} 
-
 }

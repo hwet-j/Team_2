@@ -28,10 +28,10 @@
 <hr>
 ${SELCTED_ARTICLE.content }
 <hr>
-<c:if test="${AUTH_USER.userId eq SELCTED_ARTICLE.userId or AUTH_USER.userId eq 'admin'}">
+<c:if test="${AUTH_USER.user_id eq SELCTED_ARTICLE.userId or AUTH_USER.user_id eq 'admin'}">
 <a href="/CJH/whi_board/delete.do?articleNo=${SELCTED_ARTICLE.articleNo }"><button type="button" class="btn btn-primary">글 삭제</button></a>
 </c:if>
-<c:if test="${AUTH_USER.userId eq SELCTED_ARTICLE.userId}">
+<c:if test="${AUTH_USER.user_id eq SELCTED_ARTICLE.userId}">
 <a href="/view/CJH/whi_board/whi_board_content_modifyform.jsp?articleNo=${SELCTED_ARTICLE.articleNo }&title=${SELCTED_ARTICLE.title }&content=${SELCTED_ARTICLE.content }"><button type="button" class="btn btn-primary">글 수정</button></a>
 </c:if>
 <a href="javascript:history.go(-1);" class="btn btn-primary">뒤로 가기</a>
