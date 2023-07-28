@@ -40,9 +40,8 @@ public class WhiBoardDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(conn);
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		
 		return null;
@@ -77,9 +76,8 @@ public class WhiBoardDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(conn);
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		
 		return null;
@@ -99,6 +97,9 @@ public class WhiBoardDAO {
 			else {return 0;}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		return totalArticleCnt; 
 	}
@@ -134,8 +135,8 @@ public class WhiBoardDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		return null;
 	}
@@ -199,5 +200,113 @@ public class WhiBoardDAO {
 		return 0;
 	}
 
-		
+	//검색된 글만 페이징처리하여 출력하는 쿼리문 실행 후 return 
+	public List<WhiBoardArticle> search_article(Connection conn, String search_type, String subject, int pageNo) {
+		//쿼리문 생성
+		String sql = "SELECT * FROM whi_board WHERE "+search_type.trim()+" LIKE ? LIMIT ?,?";
+		//객체 생성
+		List<WhiBoardArticle> articleList = new LinkedList<WhiBoardArticle>();
+		//페이지네이션 사이즈 지정
+		int pagingSize = 10;
+		//쿼리문 실행 후 객체 생성 후 객체배열에 담아 return
+		try {
+			pstmt=conn.prepareStatement(sql);
+			//pstmt.setString(1, search_type);
+			//컬럼명은 동적인 bind를 사용하면 안된다고함.
+			pstmt.setString(1, "%"+subject+"%");
+			pstmt.setInt(2, 0+(pageNo-1)*pagingSize);
+			pstmt.setInt(3, pagingSize);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int articleNo = rs.getInt("article_no");
+				String userId = rs.getString("USER_ID");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				String regDate = rs.getString("reg_date");
+				String category = rs.getString("CATEGORY");
+				int readCnt = rs.getInt("READ_CNT");
+				String imgSrc = rs.getString("img_src");
+				WhiBoardArticle whiBoardArticle = new WhiBoardArticle(articleNo, userId, title, content, regDate, category, readCnt, imgSrc);
+				whiBoardArticle.toString();
+				articleList.add(whiBoardArticle);
+			}
+			return articleList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}
+
+	//검색된 글의 개수에 따른 페이지의 개수 세는 쿼리문
+	public int search_article_count(Connection conn, String search_type, String subject) {
+		//쿼리문 생성
+		String sql = "SELECT COUNT(*) FROM whi_board WHERE ? = LIKE '%?%'";
+		//페이지네이션 사이즈 지정
+		int pagingSize = 10;
+		//쿼리문 실행 후 INT TYPE 리턴
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, search_type);
+			pstmt.setString(2, subject);
+			rs = pstmt.executeQuery();
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return 0;
+	}
+
+	public List<String> getCategory(Connection conn) {
+		String sql = "SELECT distinct(CATEGORY) FROM whi_board;";
+		List<String> categoryList = new LinkedList<>();
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				categoryList.add(rs.getString(1));
+			}
+			return categoryList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
+		}
+		return null;
+	}
+
+	public List<WhiBoardArticle> categorize_article(Connection conn, String category) {
+		String sql = "SELECT * FROM whi_board WHERE CATEGORY = ?";
+		List<WhiBoardArticle> articleList = new LinkedList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int articleNo = rs.getInt("article_no");
+				String userId = rs.getString("USER_ID");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				String regDate = rs.getString("reg_date");
+				int readCnt = rs.getInt("READ_CNT");
+				String imgSrc = rs.getString("img_src");
+				WhiBoardArticle whiBoardArticle = new WhiBoardArticle(articleNo, userId, title, content, regDate, category, readCnt, imgSrc);
+				whiBoardArticle.toString();
+				articleList.add(whiBoardArticle);
+			}
+			return articleList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}	
 }

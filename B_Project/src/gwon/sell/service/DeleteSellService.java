@@ -33,6 +33,5 @@ public class DeleteSellService {
 		}finally {
 			JDBCUtil.close(conn);
 		}
-		
 	}
 }

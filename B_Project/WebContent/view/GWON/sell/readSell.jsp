@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/core" %> --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +14,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-
 <style>
 #floating-button {
 	margin : 2px;
@@ -21,14 +21,13 @@
 </style>
 
 
-
 </head>
 <body>
 <%@ include file = "../../../navi.jsp" %>
 
-
+<form method="post" action="/gwon/sell/sellLike.do">
  <div class="container">
-	<h2  class="#">sellRead(중고거래 상세조회)</h2>
+	<h2  class="" align = "center">중고거래 글 상세보기</h2>
 	
 	<table class="table table-bordered">
 	 <tbody>
@@ -62,11 +61,11 @@
 	  <tr>
 	   <th scope="row">작성일</th>
 	   <!-- 부트스트랩에서 날짜 form 찾기  -->
-	   <td><fmt:formatDate value="${sellDTO.sell_regDate}"   pattern="yyyy년 M월 d일"/></td>
+	   <td><fmt:formatDate value="${sellDTO.sell_regDate}"   pattern="yyyy년  MM월  dd일"/></td>
 	  </tr>
 	  <tr>
 	   <th scope="row">수정일</th>
-	   <td><fmt:formatDate value="${sellDTO.sell_modDate}"   pattern="yyyy.MM.dd HH:mm:ss"/> </td>
+	   	<td><fmt:formatDate value="${sellDTO.sell_modDate}"   pattern="yyyy년  MM월 dd일"/> </td>
 	  </tr>
 	  <tr>
 	   <th scope="row">조회수</th>
@@ -83,22 +82,33 @@
 	  </tr>
 	 </tbody>	
 	</table>
+  
 	
-	<div class="#">
+	<div class="">
 	 <c:if test="${AUTH_USER.user_id eq sellDTO.user_id}">
 	   <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellDelete.do?no=${sellDTO.sell_no}" style = "float: right; "role="button">삭제</a>
 	 </c:if> 
 	 
-	 <c:if test="${AUTH_USER.user_id==sellDTO.user_id}">
-	   <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellModify.do?no=${sellDTO.sell_no}" style = "float: right; "role="button">수정</a>
+	 <c:if test="${AUTH_USER.user_id eq sellDTO.user_id}">
+	   <a id = "floating-button" class="btn btn-success" href="/gwon/sell/sellModify.do?no=${sellDTO.sell_no}" style = "float: right; "role="button">수정</a>
      </c:if> 
 
 	 <c:set var="pageNo" value="${empty param.pageNo?1:param.pageNo}" />
  	   <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do?pageNo=${pageNo}" style = "float: right; "role="button">목록</a>
 		 
 	</div>
+	
+	<input type = "hidden" name = "no" value = "${sellDTO.sell_no}"></input>
+	<div class =""></div>
+		<c:if test="${AUTH_USER.user_id eq sellDTO.user_id}">
+			<button type = "submit" class="btn btn-success"><img src = "../../../image/heart.svg"/>&nbsp;좋아요</button>
+			<!-- <button type = "submit" class = "btn btn-secondary" style = "clear : both">좋아요</button> -->
+		 </c:if> 
+		<span>&nbsp;<img src = "../../../image/heart-fill.svg"/>&nbsp;&nbsp;+ ${sellDTO.sell_fav}</span>
+	</div>
  </div>
 
+</form>
 </body>
 
 
