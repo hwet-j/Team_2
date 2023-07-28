@@ -16,7 +16,7 @@
           <a class="nav-link" href="/index.jsp">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">공지사항</a>
+          <a class="nav-link" href="/notice/list.do">공지사항</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPolitics" role="button"

@@ -65,7 +65,6 @@ public class SellPage {
 		return endPage;  
 	}
 
-
 	@Override
 	public String toString() {
 		return "SellPage [total=" + total + ", currentPage=" + currentPage + ", content=" + content + ", totalPages="

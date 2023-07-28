@@ -30,6 +30,7 @@ public class ListSellService {
 		}
 	}
 	
+	
 	public SellPage searchSellPage(int pageNum, SearchRequest searchRequest) {
 		
 		Connection conn;
@@ -47,8 +48,10 @@ public class ListSellService {
 			throw new RuntimeException(e);
 		}
 	}
-	
 }
+
+
+
 
 
 

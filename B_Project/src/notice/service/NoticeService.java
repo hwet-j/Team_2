@@ -185,8 +185,6 @@ public class NoticeService {
 			  modifyingWriter_id.equals(notice.getWriter_id()); }
 	  
 	  
-	  public SearchNoticePage searchListNotice(SearchNoticePage searchNoticePage) {
-		  return NoticeDAO.searchListNotice(searchNoticePage);
-	  }
+	  
 	  
 }

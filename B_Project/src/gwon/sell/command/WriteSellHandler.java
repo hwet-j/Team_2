@@ -14,7 +14,6 @@ import gwon.sell.service.WriteSellService;
 import mvc.command.CommandHandler;
 
 public class WriteSellHandler implements CommandHandler {
-
 	
 	private static final String FORM_VIEW = "/view/GWON/sell/writeSell.jsp";
 	WriteSellService writeSellService = new WriteSellService();
@@ -71,8 +70,7 @@ public class WriteSellHandler implements CommandHandler {
 				Integer.parseInt(request.getParameter("sell_price")),
 				request.getParameter("sell_loc"),
 				request.getParameter("sell_content"),
-				request.getParameter("sell_file"),
-				request.getParameter("sell_fav"));
+				request.getParameter("sell_file"));
 	}
 	
 	

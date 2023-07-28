@@ -8,13 +8,39 @@ import notice.model.Notice;
 
 //총게시글수,notice목록,페이징처리정보
 public class NoticePage {
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+	public void setContent(List<Notice> content) {
+		this.content = content;
+	}
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
+	}
 	private int total; //총게시글수
 	private int currentPage; //보고싶은 페이지=>현재 페이지
 	private List<Notice> content; //notice목록
 	private int totalPages; //총페이지수
 	private int startPage; //시작페이지
 	private int endPage; //끝페이지
-	
+	private int startRow; //시작글번호
+	private int endRow;//끝 글번호
+	private int size;
 	//생성자
 			//NoticeService에서   총게시글수+board목록,(페이징처리정보) 정보
 			/*int total               	//총게시글수
@@ -23,6 +49,12 @@ public class NoticePage {
 			  List<Board> content  		//board목록 */
 	
 	
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
 	NoticePage(int total,int currentPage, int size, List<Notice> content){
 		this.total=total;	//총게시글수
 		this.currentPage=currentPage;//보고싶은 페이지=>현재 페이지
@@ -31,14 +63,13 @@ public class NoticePage {
 			totalPages=0;
 			startPage=0;
 			endPage=0;
-			
 		}else {//게시글이 존재하는 경우
 		
 		totalPages=total/size;	 //총페이지수
 		if(total%size>0) { 
 			totalPages++;
 		}	
-				
+	
 	int modVal = currentPage%3; // 현재페이지를 3으로 나눈 나머지=> 3의 배수 3,6,9~
 	//시작페이지
 	startPage=currentPage/3*3+1; 
@@ -62,6 +93,12 @@ public class NoticePage {
 	 *시작페이지가 11이면 끝페이지 13 */
 		}//게시글이 존재하는 경우의 끝
 }
+	public int getStartRow() {
+		return startRow; //시작 글번호
+	}
+	public int getEndRow() {
+		return endRow; //끝 글번호
+	}
 	public int getTotal() {
 		return total; //총게시글수
 	}
@@ -92,14 +129,14 @@ public class NoticePage {
 	public int getEndPage() {
 		return endPage;
 	}
-	
-	
-	
 	@Override
 	public String toString() {
 		return "NoticePage [total=" + total + ", currentPage=" + currentPage + ", content=" + content + ", totalPages="
-				+ totalPages + ", startPage=" + startPage + ", endPage=" + endPage + "]";
+				+ totalPages + ", startPage=" + startPage + ", endPage=" + endPage + ", startRow=" + startRow
+				+ ", endRow=" + endRow + "]";
 	}
+	
+
 	
 	}
 	

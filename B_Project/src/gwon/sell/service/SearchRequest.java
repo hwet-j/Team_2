@@ -24,5 +24,4 @@ public class SearchRequest {
 		return "SellRequest [searchColumn=" + searchColumn + ", searchText=" + searchText + "]";
 	}
 	
-	
 }

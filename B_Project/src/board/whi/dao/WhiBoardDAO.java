@@ -260,5 +260,53 @@ public class WhiBoardDAO {
 			JDBCUtil.close(pstmt);
 		}
 		return 0;
+	}
+
+	public List<String> getCategory(Connection conn) {
+		String sql = "SELECT distinct(CATEGORY) FROM whi_board;";
+		List<String> categoryList = new LinkedList<>();
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				categoryList.add(rs.getString(1));
+			}
+			return categoryList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
+		}
+		return null;
+	}
+
+	public List<WhiBoardArticle> categorize_article(Connection conn, String category) {
+		String sql = "SELECT * FROM whi_board WHERE CATEGORY = ?";
+		List<WhiBoardArticle> articleList = new LinkedList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int articleNo = rs.getInt("article_no");
+				String userId = rs.getString("USER_ID");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				String regDate = rs.getString("reg_date");
+				int readCnt = rs.getInt("READ_CNT");
+				String imgSrc = rs.getString("img_src");
+				WhiBoardArticle whiBoardArticle = new WhiBoardArticle(articleNo, userId, title, content, regDate, category, readCnt, imgSrc);
+				whiBoardArticle.toString();
+				articleList.add(whiBoardArticle);
+			}
+			return articleList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
 	}	
 }

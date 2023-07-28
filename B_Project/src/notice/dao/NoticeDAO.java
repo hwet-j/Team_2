@@ -1,22 +1,73 @@
 package notice.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jdbc.JDBCUtil;
 import notice.model.Notice;
 import notice.model.Writer;
 import notice.service.NoticeData;
-import notice.service.SearchNoticePage;
+
 
 
 //notice테이블관련 DB작업용 클래스이다
 public class NoticeDAO {
+	private String url = "jdbc:mysql://localhost:3306/cab?serverTimezone=UTC";
+	private String uid = "root";
+	private String upw = "rootpw";
 	
+	public NoticeDAO() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<NoticeDTO> noticeSelect() {
+		
+		ArrayList<NoticeDTO> dtos = new ArrayList<NoticeDTO>();
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DriverManager.getConnection(url, uid, upw);
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select * from notice");
+			
+			while (rs.next()) {
+			int notice_no = rs.getInt("notice_no");
+			String writer_id = rs.getString("writer_id");
+			String title = rs.getString("title");
+			String content = rs.getString("content");
+			Date writedate = rs.getDate("writedate");
+			int views = rs.getInt("views");
+			
+			NoticeDTO dto = new NoticeDTO(notice_no,writer_id,title,content,writedate,views);
+			dtos.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				if(conn != null) conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
+		return dtos;
+	}
 	public void update(Connection conn,int no, String title, String content)throws SQLException {
 		System.out.println("BoardDAO-modify()진입");
 		System.out.println("title="+title);
@@ -231,39 +282,53 @@ public class NoticeDAO {
 		return 0; //삭제실패시 0을 리턴
 	
 	}
+
 	
 	//검색하기
-	public SearchNoticePage searchListNotice(SearchNoticePage searchNoticePage)throws SQLException
-	//1. 전체 게시물 수 구하기
-	{ String sql = "select count(*) from notice where ";
-	sql += searchNoticePage.getField();
-	sql += " like '%";
-	sql += searchNoticePage.getSearch();
-	sql += "%'";
-	Connection conn = null;
-	PreparedStatement stmt = null;
-	ResultSet rs=null;
-	//페이지 관련 정보
-		  int total=0;               	//총게시글수
-		  int currentPage =0;		    //보고싶은 페이지=>현재 페이지
-		  List<Notice> content = null;  //board목록 
-		  int totalPages=0; 			//총페이지수
-	      int startPage=0; 				//시작페이지
-	      int endPage=0; 				//끝페이지
-	try {
-	stmt = conn.prepareStatement(sql);
-	rs = stmt.executeQuery();
-	if (rs.next()) {
-		total = rs.getInt(1);
-	}
-	else {
-		total = 0;
-	}
-	
-		
-	}
-}
-	
 
+	public ArrayList<NoticeDTO> selectList(String field, String value) {
+		ArrayList<NoticeDTO> list = new ArrayList<NoticeDTO>(); //리턴해줄부분 초기화
+		Connection conn = null; // DB 연결부분 초기화
+		conn = this.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql1 = "select * from notice order by no"; //검색어 없을때 기본값
+		String sql2 = "select * from notice where "+field+" like ?"; //검색어 있을때
+		try {
+			if(value==null || value=="") {
+			//키워드(value)가 있는지 체크. 없을시
+			pstmt = conn.prepareStatement(sql1);
+			}else {
+			//키워드 있을시
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setString(1, "%"+value+"%");
+			}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {//한 열만 출력시 if(rs.next()) 값이 여러개면 while(rs.next())
+			int notice_no = rs.getInt("notice_no");
+			String writer_id = rs.getString("writer_id");
+			String title = rs.getString("content");
+			String content = rs.getString("content");
+			Date writedate = rs.getDate("writedate");
+			int views = rs.getInt("views");
+			//rs에서 현재 DB에 있는 값을 불러와서 위에 선언한 변수에 넣어준다.
+			NoticeDTO dto = new NoticeDTO();
+			dto.setNotice_no(notice_no);
+			dto.setWriter_id(writer_id);
+			dto.setTitle(title);
+			dto.setContent(content);
+			dto.setWritedate(writedate);
+			dto.setViews(views);
+			
+			list.add(dto);//현재 리스트에 위에서 설정한 값들을 넣어준다.
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}finally {
+				JDBCUtil.close(rs);
+				JDBCUtil.close(pstmt);
+			}
+			return list;
+		
+}
 	
 

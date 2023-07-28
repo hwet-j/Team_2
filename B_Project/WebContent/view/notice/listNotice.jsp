@@ -1,6 +1,9 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@page import="notice.dao.NoticeDTO" %>
+ <%@page import="java.util.ArrayList" %>
+ <%@page import="notice.dao.NoticeDAO" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -50,18 +53,37 @@ function dataCheck()
 	
 	<!-- 검색 -->
 	<form name=form action="/notice/searchListNotice" method=post>
+	<!-- 변수 field,value 받은 후 현재 페이지에서 바로 DAO를 호출한다음 list에 뿌리기  -->
 		<div class="form-group">
 		
-		<select name=field>
+		<select name=field><!-- 검색키  -->
 		<option value=title>제목</option>
 		<option value=content>내용</option>
 		<option value=write_name>작성자</option>
 		</select>
-		
-		<input onmouseover="this.focus()" type="text" id="search" name="search" placeholder="검색할 공지를 입력하세요">
-		<button type="button" onclick=dataCheck() class="btn btn-default">검색</button>
+		<!-- title, content, write_name sql 작성시 넣은 컬럼이름. (select*from notice where title like "%?%";-->
+		<input onmouseover="this.focus()" type="text" id="search" name="search" placeholder="검색할 공지를 입력하세요"><!--  search는 like 안의 ?에 들어갈 부분 -->
+		<button type="button" onclick=dataCheck() class="btn btn-default">검색</button> <!-- 검색버튼 클릭시 submit 후 현재 페이지 갱신하고 field,value 변수를 받은 후 넣기 -->
 		</div>
 		</form>
+		<%
+			NoticeDAO noticeDAO = new NoticeDAO();
+			String field = request.getParameter("field"); //select의 option value가 들어간다(title,content,write_name)
+			String value = request.getParameter("value");//검색버튼을 누르면 field, value에 값을 넣어준다
+			ArrayList<NoticeDTO> list = noticeDAO.selectList(field,value);
+			%>
+			
+		<%for(int i=0; i<list.size(); i++) {
+			NoticeDTO dto = list.get(i);
+			%>
+			<%= dto.getNotice_no() %>
+			<%= dto.getWriter_id() %>
+			<%= dto.getTitle() %>
+			<%= dto.getContent() %>
+			<%= dto.getWritedate() %>
+			<%= dto.getViews() %>
+			<%} %>
+		
 	<!-- Board List table -->
 	<div>총 게시글수: ${noticePage.total}건 /현재페이지: ${nowPage}</div>
 	<table class="table table-hover">

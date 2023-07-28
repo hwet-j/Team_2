@@ -14,8 +14,8 @@ public class WhiBoardDeleteHandler implements CommandHandler {
 		WhiBoardDeleteService whiBoardDeleteService = new WhiBoardDeleteService();
 		Boolean deleteChk = whiBoardDeleteService.deleteArticle(articleNo);
 		
-		if(deleteChk) {return request.getContextPath()+"/CJH/whi_board/list.do?pageNo=1";}
-		else {return request.getContextPath()+"/view/CJH/MainTemp.jsp";}
+		return request.getContextPath()+"/CJH/whi_board/list.do?pageNo=1";
+		
 		
 	}
 

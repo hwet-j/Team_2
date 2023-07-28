@@ -27,7 +27,10 @@
 <!-- 테이블을 포함한 영역 -->
 <div class="container mt-5">
 <div class="btn-group mb-2 mt-4">
-
+<a href="/CJH/whi_board/list.do?pageNo=1"><button type="button" class="btn btn-secondary">전체글보기</button></a>
+<c:forEach var="category" items="${CATEGORY_LIST }">
+<a href="/CJH/whi_board/categorize.do?pageNo=1&category=${category}"><button type="button" class="btn btn-secondary">${category}</button></a>
+</c:forEach>
 </div>
 <!-- 테이블시작 -->
 <table class="table table-bordered table-hover" border="1" >
