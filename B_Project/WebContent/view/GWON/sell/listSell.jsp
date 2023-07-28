@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
+#floating-button {
+	margin : 2px;
+}
 .table {
 	padding : 50px;
 }
@@ -28,6 +31,30 @@
 <form method="post" action="/gwon/sell/sellSerach.do">
 <div class="container">
 	<h2  class="title" align = "center">중고거래 글 목록보기</h2>
+	
+	<br/>
+	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <img id = "carouselPic" class="d-block w-100" src="<%=request.getContextPath() %>/gwon/sell/sellDownload.do?no=${sellDTO.sell_no}&sell_file=${sellDTO.sell_file}" alt="First slide">
+	    </div>
+	    <div class="carousel-item">
+	      <img id = "carouselPic" class="d-block w-100" src="<%=request.getContextPath() %>/gwon/sell/sellDownload.do?no=${(sellDTO.sell_no)}&sell_file=${sellDTO.sell_file}" alt="Second slide">
+	    </div>
+	    <div class="carousel-item">
+	      <img id = "carouselPic" class="d-block w-100" src="<%=request.getContextPath() %>/gwon/sell/sellDownload.do?no=${(sellDTO.sell_no)}&sell_file=${sellDTO.sell_file}" alt="Third slide">
+	    </div>
+	  </div>
+	  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Previous</span>
+	  </a>
+	  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Next</span>
+	  </a>
+	</div>
+	
 	<br/>
 	<div class="row">
 			<table class="searchTab" style = "float : right;">
@@ -46,8 +73,8 @@
 					<td><button type = "submit" class="btn btn-success"><img src = "../../../image/search.svg"/></button></td>
 				</tr>
 			</table>
+		</div>
 	</div>
-</div>
 
 <div class = "container">
 	<table class = "table" >
@@ -83,8 +110,11 @@
 		 </tbody>
 		 </table>
 		 
+		
+		 
 		 <c:if test="${AUTH_USER.user_id != sellDTO.user_id}">
-	 	 <a href="/gwon/sell/sellWrite.do" class="btn btn-success" style = "float: right; "role="button">작성</a>
+	 	 <a id = "floating-button" href="/gwon/sell/sellWrite.do" class="btn btn-success" style = "float: right; "role="button">작성</a>
+	 	 <a id = "floating-button" href="/gwon/sell/sellList.do" class="btn btn-secondary" style = "float: right; "role="button">목록</a>
 	 	 </c:if>
 	 	 
          <div>
