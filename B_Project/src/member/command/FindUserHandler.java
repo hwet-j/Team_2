@@ -6,10 +6,11 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
+import member.model.MemberDTO;
 import member.service.FindUserService;
 import mvc.command.CommandHandler;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 /* findUser.do */
 public class FindUserHandler implements CommandHandler  {
@@ -32,23 +33,68 @@ public class FindUserHandler implements CommandHandler  {
 	
 	// 기능 
 	private String processSubmit(HttpServletRequest request, HttpServletResponse response) {
+		String type = request.getParameter("type");
 		String tlno = request.getParameter("tlno");
 		
-		String result = findUserService.existTlnoCheck(tlno) ? "exist" : "not_exist";
-        try {
-        	String code = generateRandomNumber();
-        	// JSON 형식으로 응답을 설정합니다.
-        	JSONObject jsonResponse = new JSONObject();
-        	jsonResponse.put("result", result);
-        	jsonResponse.put("code", code);
-        	
-        	response.setContentType("application/json");
-        	response.setCharacterEncoding("UTF-8");
-        	// JSON 형식으로 응답을 생성합니다.
-        	response.getWriter().write(jsonResponse.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (type.equals("code")) {
+			String result = findUserService.existTlnoCheck(tlno) ? "exist" : "not_exist";
+	        try {
+	        	String code = generateRandomNumber();
+	        	// JSON 형식으로 응답을 설정합니다.
+	        	JSONObject jsonResponse = new JSONObject();
+	        	jsonResponse.put("result", result);
+	        	jsonResponse.put("code", code);
+	        	
+	        	response.setContentType("application/json");
+	        	response.setCharacterEncoding("UTF-8");
+	        	// JSON 형식으로 응답을 생성합니다.
+	        	response.getWriter().write(jsonResponse.toString());
+	        	
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			String code_number = request.getParameter("code_number");
+			String verification_code = request.getParameter("verification_code");
+			String massage = "";
+					
+			if (code_number.equals(verification_code)) {
+				MemberDTO user_info = findUserService.findUserInfo(tlno);
+				try {
+				 	massage = "success";
+					 
+		        	JSONObject jsonResponse = new JSONObject();
+		        	jsonResponse.put("massage", massage);
+		        	jsonResponse.put("user_id", user_info.getUser_id());
+		        	jsonResponse.put("user_pw", user_info.getUser_pw());
+		        	
+		        	response.setContentType("application/json");
+		        	response.setCharacterEncoding("UTF-8");
+		        	// JSON 형식으로 응답을 생성합니다.
+		        	response.getWriter().write(jsonResponse.toString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			} else {
+				 try {
+				 	massage = "failed";
+					 
+		        	JSONObject jsonResponse = new JSONObject();
+		        	jsonResponse.put("massage", massage);
+		        	
+		        	response.setContentType("application/json");
+		        	response.setCharacterEncoding("UTF-8");
+		        	// JSON 형식으로 응답을 생성합니다.
+		        	response.getWriter().write(jsonResponse.toString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
 		}
+		
+		
 		return null;
 	}
 

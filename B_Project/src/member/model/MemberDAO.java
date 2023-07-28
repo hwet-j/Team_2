@@ -145,6 +145,41 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	/* 전화번호로 회원 정보 가져오기 - 아이디, 비밀번호 찾기 */
+	public MemberDTO findUserInfo(String user_tlno){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberDTO user_data = null;
+		
+		boolean result = false;
+		try {
+			conn = ConnectionProvider.getConnection();
+			
+			int cnt = 0;
+			String sql = "SELECT * FROM user_info WHERE user_tlno = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_tlno);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) { 
+				user_data = new MemberDTO(rs.getString("user_id"), rs.getString("user_pw"), 
+						rs.getString("user_name"), rs.getDate("user_birth"), rs.getString("user_nickname"), 
+						rs.getString("user_gender"), rs.getString("user_tlno"),  rs.getDate("user_joindate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
+		}
+		return user_data;
+	}
 
 	/* login WHERE절에 아이디, 비밀번호를 입력했을때, 데이터가 존재한다면 로그인 성공 및 데이터를 Session에 저장할 것이므로 return type -> DTO */ 
 	public MemberDTO login(Connection conn, String user_id, String password){
