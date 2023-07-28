@@ -35,7 +35,7 @@
             위스키
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownWhisky">
-            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="/CJH/whi_board/list.do?pageNo=1">테이스팅 노트</a>
             <a class="dropdown-item" href="#">Link 2</a>
             <a class="dropdown-item" href="#">Link 3</a>
           </div>
