@@ -3,10 +3,9 @@ package tak.article.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import article.dao.ArticleContentDAO;
-import auth.service.User;
-import jdbc.JdbcUtil;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
+import tak.article.dao.ArticleContentDAO;
 import tak.article.dao.ArticleDAO;
 
 //p667
@@ -44,13 +43,13 @@ public class ModifyArticleService {
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JdbcUtil.rollback(conn);
+			JDBCUtil.rollback(conn);
 			throw new RuntimeException();
 		}catch(PermissionDeniedException e){ //수정불가시
-			JdbcUtil.rollback(conn);
+			JDBCUtil.rollback(conn);
 			throw e;
 		}finally {
-			JdbcUtil.close(conn);
+			JDBCUtil.close(conn);
 		}
 		
 	}

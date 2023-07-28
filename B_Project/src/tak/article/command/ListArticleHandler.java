@@ -1,14 +1,11 @@
 package tak.article.command;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import article.model.Article;
-import article.service.ArticlePage;
-import article.service.ListArticleService;
 import mvc.command.CommandHandler;
+import tak.article.service.ArticlePage;
+import tak.article.service.ListArticleService;
 
 //p651
 //목록조회요청 담당 컨트롤러 클래스이다

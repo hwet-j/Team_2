@@ -7,11 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import article.model.Writer;
-import article.service.WriteArticleService;
-import article.service.WriteRequest;
+import tak.article.model.Writer;
+import tak.article.service.WriteArticleService;
+import tak.article.service.WriteRequest;
 import auth.service.LoginFailException;
 import auth.service.User;
+import member.model.MemberDTO;
 import mvc.command.CommandHandler;
 
 //p640
@@ -52,7 +53,7 @@ public class WriteArticleHandler implements CommandHandler {
 		//1.파라미터받기
 		
 		//원래는 로그인을 한 후 글등록작업해야한다.p641 39라인
-		User user = (User)request.getSession(false).getAttribute("AUTH_USER");
+		MemberDTO user = (MemberDTO)request.getSession(false).getAttribute("AUTH_USER");
 		
 	   //리턴  WriteRequest - 작성정보(여기에서는 session에  담긴 회원id, 회원name),제목,내용을 WriteRequest객체로 생성*/
 		WriteRequest writeRequest = createWriteRequst(user, request);//p641 40라인

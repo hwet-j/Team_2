@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import jdbc.JdbcUtil;
+import jdbc.JDBCUtil;
 
 //article_content 관련 db작업 클래스
 public class ArticleContentDAO {
@@ -28,7 +28,7 @@ public class ArticleContentDAO {
 			return stmt.executeUpdate();
 			//update가 성공되면 1리턴, 실패시 0리턴
 		}finally {
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -59,7 +59,7 @@ public class ArticleContentDAO {
 		return insertedCount;
 		
 		}finally {
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(stmt);
 		}
 	}
 	

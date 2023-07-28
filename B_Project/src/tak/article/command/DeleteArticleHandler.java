@@ -3,8 +3,8 @@ package tak.article.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import article.service.DeleteArticleService;
 import mvc.command.CommandHandler;
+import tak.article.service.DeleteArticleService;
 
 //삭제요청을 담당하는 컨트롤러이다
 //요청주소  http://localhost/article/delete.do

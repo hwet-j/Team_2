@@ -7,10 +7,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import article.service.ModifyArticleService;
-import article.service.ModifyRequest;
-import article.service.OurArticleData;
-import article.service.ReadArticleService;
+import tak.article.service.ModifyArticleService;
+import tak.article.service.ModifyRequest;
+import tak.article.service.OurArticleData;
+import tak.article.service.ReadArticleService;
 import auth.service.User;
 import mvc.command.CommandHandler;
 

@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import article.model.Article;
-import article.model.Writer;
-import article.service.OurArticleData;
-import jdbc.JdbcUtil;
+import tak.article.model.Article;
+import tak.article.model.Writer;
+import tak.article.service.OurArticleData;
+import jdbc.JDBCUtil;
 
 //P646~648
 //article테이블관련 DB작업용 클래스이다
@@ -30,7 +30,7 @@ public class ArticleDAO {
 			return stmt.executeUpdate();
 			//update가 성공되면 1리턴, 실패시 0리턴
 		}finally {
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -46,7 +46,7 @@ public class ArticleDAO {
 			return stmt.executeUpdate();
 			//delete가 성공되면 1리턴, 실패시 0리턴
 		}finally {
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class ArticleDAO {
 			return stmt.executeUpdate();
 			//update가 성공되면 1리턴, 실패시 0리턴
 		}finally {
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -111,8 +111,8 @@ public class ArticleDAO {
 			}
 			return ora;			
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
 		}	
 	}
 	
@@ -128,7 +128,7 @@ public class ArticleDAO {
 			stmt.setInt(1,no);
 			stmt.executeUpdate();
 		}finally {
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -170,8 +170,8 @@ public class ArticleDAO {
 			
 			return result;
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -203,8 +203,8 @@ public class ArticleDAO {
 			
 			return result;
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -241,8 +241,8 @@ public class ArticleDAO {
 			System.out.println("totalCNT"+totalCNT);
 			return totalCNT;			
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
 		}
 	}
 	public int selectSearchCount(Connection conn,String search) throws SQLException {
@@ -262,8 +262,8 @@ public class ArticleDAO {
 			System.out.println("selectSearchCount"+totalCNT);
 			return totalCNT;			
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
 		}
 	}
 
@@ -311,9 +311,9 @@ public class ArticleDAO {
 		
 		return null;
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt2);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt2);
+			JDBCUtil.close(stmt);
 		}
 		
 	}

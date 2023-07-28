@@ -3,8 +3,8 @@ package tak.article.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import article.service.ArticlePage;
-import article.service.ListArticleService;
+import tak.article.service.ArticlePage;
+import tak.article.service.ListArticleService;
 import mvc.command.CommandHandler;
 
 public class SearchListArticleHandler implements CommandHandler {
