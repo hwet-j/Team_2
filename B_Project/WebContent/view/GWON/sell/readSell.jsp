@@ -25,7 +25,6 @@
 <body>
 <%@ include file = "../../../navi.jsp" %>
 
-
 <form method="post" action="/gwon/sell/sellLike.do">
  <div class="container">
 	<h2  class="" align = "center">중고거래 글 상세보기</h2>
