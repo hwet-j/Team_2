@@ -24,7 +24,7 @@ public class DeleteArticleHandler implements CommandHandler {
 		//3.Model
 		//4.View
 		//여기에서는  성공시  목록보기요청
-		response.sendRedirect(request.getContextPath()+"/article/list.do");
+		response.sendRedirect(request.getContextPath()+"/tak/article/list.do");
 		return null;
 	}
 	
