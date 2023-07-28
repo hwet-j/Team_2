@@ -20,8 +20,6 @@
 </style>
 
 
-
-
 </head>
 <body>
 <%@ include file = "../../../navi.jsp" %>
@@ -31,6 +29,7 @@
  <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do" style = "float: right; "role="button">목록</a>
  <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellRead.do?no=${writeSellinfo}" style = "float: right; "role="button">확인</a>
 </body>
+
 
 
 <!-- 부트스트랩 JS 파일들 링크 -->

@@ -10,7 +10,7 @@ import hwet.article.model.HwetArticleDTO;
 import hwet.article.service.ListArticleService;
 import mvc.command.CommandHandler;
 
-// /hwet/article/list.do
+/* hwet/article/list.do  게시판 글 리스트를 확인하는 기능(페이징처리, 카테고리, 검색기능) */
 public class ListHandler implements CommandHandler {
 	
 	private ListArticleService listService = new ListArticleService();
@@ -66,15 +66,13 @@ public class ListHandler implements CommandHandler {
         // 페이지 이동 처리
         String view_page = "/view/HWET/article/list.jsp"; // 기본 페이지
         
-        System.out.println(board_list);
-        System.out.println(board_list.size());
         // 만약 데이터가 없는 페이지이고, 페이지 번호가 1보다 크다면 첫 페이지로 이동합니다. (get방식을 통해 고의적으로 이상한 페이지를 작성했을 때를 대비)
         // 단, 카테고리, 검색어, 검색타입은 유지한 상태로 첫 페이지 이동
         if (board_list.isEmpty() && page_no > 1) {
         	// senRedirect로 데이터를 전송하는과정에서 한글이 들어가면 에러가 발생하여 찾아본 결과 URL은 ASCII 문자로만 이루어져있어야 하기 때문에
         	// 한글과 같은 비 ASCII 문자를 인코딩하여 입력해 줘야 한다. 
         	String encoded_keyword = URLEncoder.encode(keyword, "UTF-8");
-            response.sendRedirect(request.getContextPath() + "/hwet/article/list.do?pageNo=1&searchType="+search_type+"&keyword="+ encoded_keyword);
+            response.sendRedirect("/hwet/article/list.do?page_no=1&search_type="+search_type+"&keyword="+ encoded_keyword);
             return null; // 이동한 후에는 더 이상의 처리를 하지 않도록 null을 반환
         }
 

@@ -3,39 +3,39 @@ package hwet.article.model;
 import java.util.Date;
 
 public class HwetArticleDTO {
-    private int boardId;		// 글번호
-    private String writer;		// 작성자
-    private String title;		// 제목
-    private String category;	// 카테고리
-    private String link;		// 링크
-    private String content;		// 내용
-    private Date regDate;		// 첫 작성일자
-    private int hit;			// 조회수
-    private Date updateDate;	// 수정일자
+    private int board_id;           // 글번호
+    private String writer;          // 작성자
+    private String title;           // 제목
+    private String category;        // 카테고리
+    private String link;            // 링크
+    private String content;         // 내용
+    private Date reg_date;          // 첫 작성일자
+    private int hit;                // 조회수
+    private Date update_date;       // 수정일자
     
     public HwetArticleDTO() {
-    	
+        
     }
     
-    public HwetArticleDTO(int boardId, String writer, String title, String category, String link, String content,
-			Date regDate, int hit, Date updateDate) {
-		this.boardId = boardId;
-		this.writer = writer;
-		this.title = title;
-		this.category = category;
-		this.link = link;
-		this.content = content;
-		this.regDate = regDate;
-		this.hit = hit;
-		this.updateDate = updateDate;
-	}
-
-	public int getBoardId() {
-        return boardId;
+    public HwetArticleDTO(int board_id, String writer, String title, String category, String link, String content,
+            Date reg_date, int hit, Date update_date) {
+        this.board_id = board_id;
+        this.writer = writer;
+        this.title = title;
+        this.category = category;
+        this.link = link;
+        this.content = content;
+        this.reg_date = reg_date;
+        this.hit = hit;
+        this.update_date = update_date;
     }
 
-    public void setBoardId(int boardId) {
-        this.boardId = boardId;
+    public int getBoard_id() {
+        return board_id;
+    }
+
+    public void setBoard_id(int board_id) {
+        this.board_id = board_id;
     }
 
     public String getWriter() {
@@ -78,12 +78,12 @@ public class HwetArticleDTO {
         this.content = content;
     }
 
-    public Date getRegDate() {
-        return regDate;
+    public Date getReg_date() {
+        return reg_date;
     }
 
-    public void setRegDate(Date regDate) {
-        this.regDate = regDate;
+    public void setReg_date(Date reg_date) {
+        this.reg_date = reg_date;
     }
 
     public int getHit() {
@@ -94,12 +94,11 @@ public class HwetArticleDTO {
         this.hit = hit;
     }
 
-    public Date getUpdateDate() {
-        return updateDate;
+    public Date getUpdate_date() {
+        return update_date;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setUpdate_date(Date update_date) {
+        this.update_date = update_date;
     }
 }
-

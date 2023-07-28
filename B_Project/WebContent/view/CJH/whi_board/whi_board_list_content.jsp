@@ -16,8 +16,10 @@
 <body>
 <%@ include file="/navi.jsp" %>
 <!-- 여기아래로 -->
-
-<h1>상세글입니다ㅏㅏㅏㅏ</h1>
+<div style="text-align: center;">
+<img src="/assets/images/whiBoard/whiskey_banner.jpg" style="height: 100px; width: auto;" >
+</div>
+<h1>상세글보기</h1>
 글번호 : ${SELCTED_ARTICLE.articleNo } 
 작성자아이디 : ${SELCTED_ARTICLE.userId } <br>
 술종류 : ${SELCTED_ARTICLE.category }<br>
@@ -26,16 +28,19 @@
 <hr>
 ${SELCTED_ARTICLE.content }
 <hr>
-
-<a href="/CJH/whi_board/delete.do?articleNo=${SELCTED_ARTICLE.articleNo }"><button type="button">글 삭제</button></a>
-<a href="/view/CJH/whi_board/whi_board_content_modifyform.jsp?articleNo=${SELCTED_ARTICLE.articleNo }&title=${SELCTED_ARTICLE.title }&content=${SELCTED_ARTICLE.content }"><button type="button">글 수정</button></a>
-
+<c:if test="${AUTH_USER.user_id eq SELCTED_ARTICLE.userId or AUTH_USER.user_id eq 'admin'}">
+<a href="/CJH/whi_board/delete.do?articleNo=${SELCTED_ARTICLE.articleNo }"><button type="button" class="btn btn-primary">글 삭제</button></a>
+</c:if>
+<c:if test="${AUTH_USER.user_id eq SELCTED_ARTICLE.userId}">
+<a href="/view/CJH/whi_board/whi_board_content_modifyform.jsp?articleNo=${SELCTED_ARTICLE.articleNo }&title=${SELCTED_ARTICLE.title }&content=${SELCTED_ARTICLE.content }"><button type="button" class="btn btn-primary">글 수정</button></a>
+</c:if>
+<a href="javascript:history.go(-1);" class="btn btn-primary">뒤로 가기</a>
 
 <br>
 <br>
 <br>
 <br>
-
+<br><br><br>
 <!-- 여기위로 -->
 <%@ include file="/footer.jsp" %>
 </body>

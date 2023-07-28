@@ -11,14 +11,14 @@ import member.model.MemberDTO;
 public class LoginService {
 	
 	// 컨트롤러로 부터 전달 받은 회원정보를 DAO에 넘겨줘 회원가입처리 메서드를 호출 
-	public MemberDTO login(String memberid, String password){
-		MemberDAO memDao = new MemberDAO();
+	public MemberDTO login(String member_id, String password){
+		MemberDAO mem_dao = new MemberDAO();
 		Connection conn = null;
 		MemberDTO user_data = null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			
-			user_data = memDao.login(conn, memberid, password);
+			user_data = mem_dao.login(conn, member_id, password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			// 에러가 발생하면 Rollback 메서드 실행

@@ -12,10 +12,10 @@
 
 <title>B조홈페이지::회원가입</title>
 
-<link href="<%=request.getContextPath() %>/assets/css/join.css" rel="stylesheet" type="text/css" />
+<link href="/assets/css/join.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script src="<%=request.getContextPath() %>/assets/js/chk_member_info.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/assets/js/chk_password.js" type="text/javascript"></script>
+<script src="/assets/js/chk_member_info.js" type="text/javascript"></script>
+<script src="/assets/js/chk_password.js" type="text/javascript"></script>
 
 <script>
 
@@ -34,10 +34,9 @@ function checkDuplicate() {
     let userid = $("input[name='user_id']");
     let username = $("input[name='nickname']");
     let tlno = $("input[name='phonenum']");
-    var contextPath = '<%= request.getContextPath() %>';
     // AJAX 요청
     $.ajax({
-        url: contextPath + "/view/member/checkDuplicate.jsp",
+        url: "/view/member/checkDuplicate.jsp",
         type: "POST",
         data: { userid: userid.val() ,
 	        	username: username.val(),
@@ -195,7 +194,7 @@ $(document).ready(function() {
 
 	});
 	
-	// 성별
+	// 생일
 	$('#birth_date').blur(function(){
 
 		var birth_date = $('#birth_date').val();
@@ -241,11 +240,11 @@ $(document).ready(function() {
 
 		// 자물쇠 (사용불가, 가능에 따라 색깔 설정 및 이미지 설정)
 		if(passwordChkResult){
-			$("#password_img_span").html('<span style="color:#72C55D">사용가능</span> <img src="<%=request.getContextPath() %>/assets/images/auth/pass_ok.gif">');
+			$("#password_img_span").html('<span style="color:#72C55D">사용가능</span> <img src="/assets/images/auth/pass_ok.gif">');
 			// css 메서드를 활용하여 글자색상 변경
 			$("#password_message_span").css("color","#72C55D");
 		}else{
-			$("#password_img_span").html("사용불가 <img src='<%=request.getContextPath() %>/assets/images/auth/pass_no.gif'>");
+			$("#password_img_span").html("사용불가 <img src='/assets/images/auth/pass_no.gif'>");
 			$("#password_message_span").css("color","red");
 		}
 		
@@ -315,28 +314,11 @@ $(document).ready(function() {
 	$("#password_info_span").hide();
 	$("#nickname_info_span").hide();
 	$("#tel_info_span").hide();
-
-	/* //이메일 도메인 선택
-    $("#selectEmailDomain").change(function() {
-        var selectEmailDomain = $("#selectEmailDomain").val();
-        if(selectEmailDomain == "otherDomains") {
-            $("#emailDomain").val("");
-            $("#selectEmailDomain").parent().hide();
-            $("#emailDomain").show();
-        } else {
-            $("#emailDomain").val(selectEmailDomain);
-        }
-        $("#emailDomain").change();
-    });
-
-    //이메일 도메인 변경
-    $("#emailDomain").change(function() {
-        $("#email").blur();
-    }); */
+	
 });
 
 
-/* 윈도우의 크기가 변경될 떄마다 요소를 숨김
+/* 윈도우의 크기가 변경될 때마다 요소를 숨김
  $(function() {
     var $window = $(window);
     var width = $window.width();
@@ -371,11 +353,9 @@ String.prototype.trim = function() {
 
 <form name="write" method="post" action="join.do" >
 
-	<input type="hidden" name="id" value="" />
-
     <div class="join_box">
         <ul class="j_s_01">
-            <li><a href="<%=request.getContextPath() %>/index.jsp"><img src="<%=request.getContextPath() %>/assets/images/logo.png" alt="로고" /></a></li>
+            <li><a href="/index.jsp"><img src="/assets/images/logo.png" alt="로고" /></a></li>
         </ul>
         
         <ul class="j_a_b">
@@ -462,29 +442,6 @@ String.prototype.trim = function() {
 	            <span class="j_t_i" id="tel_message_span"> </span>
             </li>
             
-            <!-- 이메일 사용 X 
-            <li>
-	            <span class="j_t">이메일</span>
-	            <input name="email" id="email" type="hidden" maxlength=255 value=""  class="inp_ty01" />
-	            <span><input type="email" id="email_id" name="email_id" value="" style="width: 35%;" /></span>
-	            <span class="at">@</span>
-	            <span class="selectWrap">
-	                <select id="selectEmailDomain" name="selectEmailDomain" title="도메인 선택" style="width:93px;height: 26px;font-size: 12px;">
-	                    <option value="">도메인 선택</option>
-	                    <option value="naver.com">naver.com</option>
-	                    <option value="hanmail.net">hanmail.net</option>
-	                    <option value="daum.net">daum.net</option>
-	                    <option value="nate.com">nate.com</option>
-	                    <option value="gmail.com">gmail.com</option>
-	                    <option value="otherDomains" boxview="true">직접 입력</option>
-	                </select>
-	            </span>
-	            <input type="email" id="emailDomain" name="emailDomain" class="emailInput" value="" style="width:93px;display: none"/>
-	
-	            <span class="j_t_i" id="mail_message_span"></span>
-            </li>
-             -->
-
         </ul>
 
         <div class="btn_join_03">
