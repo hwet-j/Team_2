@@ -86,6 +86,19 @@
             }
         });
     }
+  	
+  	
+    /* 아이디 및 비밀번호 찾기 서브창을 띄워서 진행 */
+    function findUserForm(type) {
+        // 창의 크기를 설정
+        var width = 450;
+        var height = 350;
+        // 창의 위치를 설정 (화면의 중앙에 표시되도록)
+        var left = (screen.availWidth - width) / 2;
+        var top = (screen.availHeight - height) / 2;
+        var findUserForm = window.open('/view/findUser.jsp?type=' + type, 'findUser Form', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+    }
+    
 	</script>
     
     
@@ -109,8 +122,8 @@
 	            <li class="auto_log"><label><input type="checkbox" id="aLogin" name="auto_login" value=1 /><span class="autol">자동 로그인</span></label></li>
 	            <li class="log_btn_02">
 	            	<a href="/join.do">회원가입</a> |
-                    <a href="#">아이디 찾기</a> |
-                    <a href="#">비밀번호 찾기</a> |
+                    <a href="#" onclick="openSignUpForm(id)">아이디 찾기</a> |
+                    <a href="#" onclick="openSignUpForm(pw)">비밀번호 찾기</a> |
                     <a href="#">소셜회원탈퇴</a>
                     
                     <!-- 이후에 가능하면 기능 구현 -->
