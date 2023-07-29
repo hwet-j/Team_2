@@ -52,7 +52,7 @@ function dataCheck()
 	<h2  class="mt-4 mb-3 text-center">공지사항</h2>
 	
 	<!-- 검색 -->
-	<form name=form action="/notice/searchListNotice" method=post>
+	<form name=form action="/notice/list.do" method=post>
 	<!-- 변수 field,value 받은 후 현재 페이지에서 바로 DAO를 호출한다음 list에 뿌리기  -->
 		<div class="form-group">
 		

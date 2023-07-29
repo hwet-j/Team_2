@@ -9,9 +9,11 @@ public class NoticeDTO {
 	private String content;
 	private Date writedate;
 	private int views;
+	
+	public NoticeDTO() {}
+	
 	public NoticeDTO(int notice_no, String writer_id, String title, String content, Date writedate, int views) {
 		//매개변수에 입력받으면 선언된 변수에 값을 저장
-		super();
 		this.notice_no = notice_no;
 		this.writer_id = writer_id;
 		this.title = title;

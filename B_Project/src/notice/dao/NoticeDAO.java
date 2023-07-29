@@ -289,7 +289,6 @@ public class NoticeDAO {
 	public ArrayList<NoticeDTO> selectList(String field, String value) {
 		ArrayList<NoticeDTO> list = new ArrayList<NoticeDTO>(); //리턴해줄부분 초기화
 		Connection conn = null; // DB 연결부분 초기화
-		conn = this.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql1 = "select * from notice order by no"; //검색어 없을때 기본값
@@ -321,14 +320,18 @@ public class NoticeDAO {
 			dto.setViews(views);
 			
 			list.add(dto);//현재 리스트에 위에서 설정한 값들을 넣어준다.
-			}catch(Exception ex) {
+			}
+		}catch(Exception ex) {
 				ex.printStackTrace();
-			}finally {
+			}
+			finally {
 				JDBCUtil.close(rs);
 				JDBCUtil.close(pstmt);
 			}
 			return list;
-		
-}
+		}
+
+	}
+	
 	
 

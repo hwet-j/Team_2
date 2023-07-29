@@ -14,8 +14,8 @@ public class ReadSellService {
 	private SellContentDAO sellContentDAO = new SellContentDAO();
 	
 	//상세 조회 정보 취합
-	public SellDTO getSell(int no) throws SellNotFoundException {
-		Connection conn;
+	public SellDTO getSell(int no) throws SellNotFoundException, SQLException {
+		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			
@@ -29,31 +29,29 @@ public class ReadSellService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException();
+		} finally {
+			conn.close();
 		}
 		
 	}
 	
 	//좋아요 적용된 상세 조회
-	public int getLikeSell(int no) throws SellNotFoundException {
-		Connection conn;
+	public int getLikeSell(int no) throws SellNotFoundException, SQLException {
+		
+		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			
 			int likeCheck = sellContentDAO.plusLike(conn, no);
-			
 			if(likeCheck != 1) {
 				throw new SellNotFoundException();
 			}else {
 				return 1;
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException();
+		} finally {
+			conn.close();
 		}
-		
 	}
-	
-	
-	
 }

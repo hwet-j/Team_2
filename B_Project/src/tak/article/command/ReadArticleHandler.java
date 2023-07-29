@@ -3,9 +3,9 @@ package tak.article.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import article.service.ArticleNotFoundException;
-import article.service.OurArticleData;
-import article.service.ReadArticleService;
+import tak.article.service.ArticleNotFoundException;
+import tak.article.service.OurArticleData;
+import tak.article.service.ReadArticleService;
 import mvc.command.CommandHandler;
 
 //p659
@@ -32,7 +32,7 @@ public class ReadArticleHandler implements CommandHandler {
 			request.setAttribute("ora", ora);
 			
 			//4.View
-			return request.getContextPath()+"/view/article/readArticle.jsp";
+			return request.getContextPath()+"/view/TAK/readArticle.jsp";
 		}catch(ArticleNotFoundException e) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);//404
 			return null;

@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import article.model.Article;
-import article.model.Writer;
-import article.service.OurArticleData;
-import jdbc.JdbcUtil;
+import tak.article.model.Article;
+import tak.article.model.Writer;
+import tak.article.service.OurArticleData;
+import jdbc.JDBCUtil;
 
 //P646~648
 //article테이블관련 DB작업용 클래스이다
@@ -22,7 +22,7 @@ public class ArticleDAO {
 
 	//update쿼리를 통한 글삭제
 	public int deleteUp(Connection conn, int no)   throws SQLException {
-		String sql = "update article set isshow='N' where article_no=?";
+		String sql = "update tak_board set isshow='N' where article_no=?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(sql);
@@ -30,7 +30,7 @@ public class ArticleDAO {
 			return stmt.executeUpdate();
 			//update가 성공되면 1리턴, 실패시 0리턴
 		}finally {
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -38,7 +38,7 @@ public class ArticleDAO {
 	//삭제-delete쿼리를 통한 글삭제
 	//우리는 article삭제시 article_content테이블에서도 해당 글번호가 연쇄적으로 삭제하게끔.
 	public int delete(Connection conn, int no)  throws SQLException {
-		String sql = "delete from article where article_no=?";
+		String sql = "delete from tak_board where article_no=?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(sql);
@@ -46,7 +46,7 @@ public class ArticleDAO {
 			return stmt.executeUpdate();
 			//delete가 성공되면 1리턴, 실패시 0리턴
 		}finally {
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -57,7 +57,7 @@ public class ArticleDAO {
 	 *리턴 		int : update가 성공되면 1리턴, 실패시 0리턴
 	 */
 	public int update(Connection conn, int no, String title,String content)  throws SQLException {
-		String sql = "update article " + 
+		String sql = "update tak_board " + 
 					 "set title=?, regdate=now(),content=? " + 
 					 "where article_no=?";
 		PreparedStatement stmt = null;
@@ -69,7 +69,7 @@ public class ArticleDAO {
 			return stmt.executeUpdate();
 			//update가 성공되면 1리턴, 실패시 0리턴
 		}finally {
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -84,7 +84,7 @@ public class ArticleDAO {
 	//리턴     OurArticleData : 글번호,작성자id,작성자명,제목,작성일,수정일,조회수,내용
 	public OurArticleData getDetail(Connection conn, int no) throws SQLException {
 		String sql="select article_no,writer_id,writer_name,title,regdate,moddate,read_cnt,good,content,isshow "+
-				"from article "+
+				"from tak_board "+
 				"where article_no =?" ;
 		
 		PreparedStatement stmt = null;
@@ -111,15 +111,15 @@ public class ArticleDAO {
 			}
 			return ora;			
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
 		}	
 	}
 	
 	//조회수증가-P656 20라인
 	//파라미터 int no : 상세조회할 글 번호
 	public void increaseReadCount(Connection conn, int no)  throws SQLException {
-		String sql = "update article " + 
+		String sql = "update tak_board " + 
 					 "set read_cnt=read_cnt+1 " + 
 					 "where article_no=?";
 		PreparedStatement stmt = null;
@@ -128,7 +128,7 @@ public class ArticleDAO {
 			stmt.setInt(1,no);
 			stmt.executeUpdate();
 		}finally {
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -146,8 +146,8 @@ public class ArticleDAO {
 				int size    -1페이지당 출력할 게시글수  */
 	public List<Article> select(Connection conn,int startRow, int size) throws SQLException {
 		String sql="select article_no, writer_id, writer_name, title," + 
-					      "regdate,    moddate,   read_cnt " + 
-				    "from article " + 
+					      "regdate,    moddate,   read_cnt ,good " + 
+				    "from tak_board " + 
 					"where isshow='Y' "+      
 				    "order by article_no desc  limit ?,?";//p647 21라인
 		PreparedStatement stmt = null;
@@ -170,16 +170,16 @@ public class ArticleDAO {
 			
 			return result;
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
 	
 	public List<Article> selectSearch(Connection conn,int startRow, int size,String search) throws SQLException {
 		String sql="select article_no, writer_id, writer_name, title," + 
-				"regdate,    moddate,   read_cnt " + 
-				"from article " + 
+				"regdate,    moddate,   read_cnt, good " + 
+				"from tak_board " + 
 				"where isshow='Y' and content like concat('%',?,'%')"+      
 				"order by article_no desc  limit ?,?";//p647 21라인
 		PreparedStatement stmt = null;
@@ -203,8 +203,8 @@ public class ArticleDAO {
 			
 			return result;
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -219,14 +219,15 @@ public class ArticleDAO {
 				    rs.getString("title"),
 				    rs.getDate("regdate"),
 				    rs.getDate("moddate"),
-				    rs.getInt("read_cnt")  );
+				    rs.getInt("read_cnt"),
+				    rs.getInt("good"));
 	}
 	
 	
 	
 	//총 게시물수 조회-P646
 	public int selectCount(Connection conn) throws SQLException {
-		String sql="select count(*) from article";
+		String sql="select count(*) from tak_board";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -241,12 +242,12 @@ public class ArticleDAO {
 			System.out.println("totalCNT"+totalCNT);
 			return totalCNT;			
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
 		}
 	}
 	public int selectSearchCount(Connection conn,String search) throws SQLException {
-		String sql="select count(*) as totalCNT from article where content like concat('%',?,'%')";
+		String sql="select count(*) as totalCNT from tak_board where content like concat('%',?,'%')";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -262,8 +263,8 @@ public class ArticleDAO {
 			System.out.println("selectSearchCount"+totalCNT);
 			return totalCNT;			
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
 		}
 	}
 
@@ -277,7 +278,7 @@ public class ArticleDAO {
 		
 		//3.객체준비
 		String sql =
-		"insert into article(writer_id,writer_name,title,regdate,modDate,read_cnt,good,content,isshow) " + 
+		"insert into tak_board(writer_id,writer_name,title,regdate,modDate,read_cnt,good,content,isshow) " + 
 		"values(?,?,?,?,?,0,0,?,'Y')";
 		
 		PreparedStatement stmt  = null; //insert용
@@ -300,7 +301,7 @@ public class ArticleDAO {
 		if(insertedCount>0) { //p635 31라인
 			//방금 직전에 입력된 글번호를 DB에서 가져온다
 			//->article_content 테이블에 insert시 글번호로 사용
-			stmt2 =	conn.prepareStatement("select last_insert_id() from article");
+			stmt2 =	conn.prepareStatement("select last_insert_id() from tak_board");
 			rs = stmt2.executeQuery();
 			if(rs.next()) {
 				Integer newNum = rs.getInt(1);
@@ -311,9 +312,9 @@ public class ArticleDAO {
 		
 		return null;
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt2);
-			JdbcUtil.close(stmt);
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt2);
+			JDBCUtil.close(stmt);
 		}
 		
 	}
@@ -321,6 +322,21 @@ public class ArticleDAO {
 	//p635 52라인 - Date타입을 Timestamp타입으로 변환 
 	private Timestamp toTimestamp(Date date) {
 		return new Timestamp(date.getTime());
+	}
+
+
+	public void goodCount(Connection conn, int no) throws SQLException {
+		String sql = "update tak_board " + 
+				 "set good=good+1 " + 
+				 "where article_no=?";
+	PreparedStatement stmt = null;
+	try {
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1,no);
+		stmt.executeUpdate();
+	}finally {
+		JDBCUtil.close(stmt);
+	}
 	}
 
 

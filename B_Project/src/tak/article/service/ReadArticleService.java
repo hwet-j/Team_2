@@ -3,7 +3,7 @@ package tak.article.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import article.dao.ArticleContentDAO;
+import tak.article.dao.ArticleContentDAO;
 import jdbc.connection.ConnectionProvider;
 import tak.article.dao.ArticleDAO;
 

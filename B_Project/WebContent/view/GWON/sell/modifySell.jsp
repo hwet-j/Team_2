@@ -25,7 +25,7 @@
 
  <div class="container">
 	<h2  class="" align = "center">중고거래 글수정하기</h2>
-	<form action="/gwon/sell/sellModify.do" method="post">
+	<form action="/gwon/sell/sellModify.do" method="post" enctype="multipart/form-data">
 	 <div class="">
 	   <label for="sell_no" class="form-label">글 번호</label>
 	   <input type="text" name="sell_no" id="sell_no" class="form-control" value="${modRequest.sell_no}" readonly="readonly" />
@@ -69,7 +69,7 @@
 	  		<option value = "제주" ${data.category == '제주' ? 'selected' : ''}>제주</option>
 	  	</select>
 	 </div>
-	 
+	  
 	 <div class="">
 	 	<label for="sell_content" class="form-label">내용</label>
 	 	<textarea rows="5" name="sell_content" id="sell_content" class="form-control">${modRequest.sell_content}"</textarea>

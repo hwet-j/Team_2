@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!--  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>B_Project</groupId>
   <artifactId>B_Project</artifactId>
@@ -16,19 +16,21 @@
       </plugin>
     </plugins>
   </build>
-</project>
-<!-- spring-core -->
+spring-context
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-core</artifactId>
     <version>6.0.11</version>
 </dependency>
-<!-- spring-context -->
+spring-core
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-context</artifactId>
     <version>6.0.11</version>
 </dependency>
+</project>
+
+ -->
 
 
 
@@ -39,5 +41,4 @@
 
 
 
-
-
+ -->

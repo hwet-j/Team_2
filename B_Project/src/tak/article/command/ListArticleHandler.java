@@ -1,21 +1,18 @@
 package tak.article.command;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import article.model.Article;
-import article.service.ArticlePage;
-import article.service.ListArticleService;
 import mvc.command.CommandHandler;
+import tak.article.service.ArticlePage;
+import tak.article.service.ListArticleService;
 
 //p651
 //목록조회요청 담당 컨트롤러 클래스이다
 //요청주소  http://localhost/article/list.do
 public class ListArticleHandler implements CommandHandler {
 
-	private String FORM_VIEW = "/view/article/listArticle.jsp";
+	private String FORM_VIEW = "/view/TAK/listArticle.jsp";
 	private ListArticleService listArticleService = new ListArticleService();
 	
 	//p652 15라인
@@ -42,6 +39,7 @@ public class ListArticleHandler implements CommandHandler {
 		  innt  endPage;	//끝페이지*/
 		request.setAttribute("articlePage", articlePage);
 		request.setAttribute("nowPage", pageNo); //현재페이지
+		System.out.println("핸들러 마지막");
 		
 		//4.View
 		return request.getContextPath()+FORM_VIEW;

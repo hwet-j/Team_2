@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 
-import article.dao.ArticleContentDAO;
-import article.model.Article;
-import jdbc.JdbcUtil;
+import tak.article.dao.ArticleContentDAO;
+import tak.article.model.Article;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import tak.article.dao.ArticleDAO;
 
@@ -69,14 +69,14 @@ public class WriteArticleService {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JdbcUtil.rollback(conn);
+			JDBCUtil.rollback(conn);
 			throw new RuntimeException(e);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
-			JdbcUtil.rollback(conn);
+			JDBCUtil.rollback(conn);
 			throw e;
 		} finally {
-			JdbcUtil.close(conn);
+			JDBCUtil.close(conn);
 		}
 	}
 	

@@ -31,7 +31,7 @@ public class LoginHandler implements CommandHandler{
 		String id = request.getParameter("user_id"); 
 		String password = request.getParameter("password");  
 		
-		LoginService service = new LoginService();
+		LoginService service = new LoginService();  
 		
 		// 로그인에 성공하면 로그인에 성공한 유저의 정보를 가져와 저장
 		MemberDTO user_data = service.login(id, password);
