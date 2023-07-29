@@ -52,14 +52,14 @@ function dataCheck()
 	<h2  class="mt-4 mb-3 text-center">공지사항</h2>
 	
 	<!-- 검색 -->
-	<form name=form action="/notice/list.do" method=post>
+	<form name=form action="/notice/search.do" method=post>
 	<!-- 변수 field,value 받은 후 현재 페이지에서 바로 DAO를 호출한다음 list에 뿌리기  -->
 		<div class="form-group">
 		
 		<select name=field><!-- 검색키  -->
 		<option value=title>제목</option>
 		<option value=content>내용</option>
-		<option value=write_name>작성자</option>
+		<option value=writer_id>작성자</option>
 		</select>
 		<!-- title, content, write_name sql 작성시 넣은 컬럼이름. (select*from notice where title like "%?%";-->
 		<input onmouseover="this.focus()" type="text" id="search" name="search" placeholder="검색할 공지를 입력하세요"><!--  search는 like 안의 ?에 들어갈 부분 -->
@@ -110,7 +110,7 @@ function dataCheck()
 		  <td>${notice.number}</td>
 		  <%-- check.do?no=상세하게보고싶은글번호&pageNo=현재페이지"  --%>
 		  <td><a href="check.do?no=${notice.number}&pageNo=${nowPage}">${notice.title}</a></td>
-		  <td>${notice.writer.id}</td>
+		  <td>${notice.writer}</td>
 		  <td>${notice.writeDate}</td>
 		  <td>${notice.views}</td>
 	  </tr>

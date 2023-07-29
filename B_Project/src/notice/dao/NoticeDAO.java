@@ -179,6 +179,54 @@ public class NoticeDAO {
 			}
 		}
     
+    
+    
+    
+    // 검색결과 가져오기
+    public  List<Notice> selectSearch(Connection conn,int startRow,int size, String field, String search )  throws SQLException{
+    	String sql= "select notice_no, writer_id, title, content, writedate, views " + 
+    				"from notice " + "where "+field+" like concat('%',?,'%') "+
+    				"order by notice_no desc  limit ?,?";
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
+    	try {
+			 stmt =conn.prepareStatement(sql);
+			 	//stmt.setString(1,field);
+			 	stmt.setString(1,search);
+			 	stmt.setInt(2,startRow);
+			 	stmt.setInt(3,size);
+				rs = stmt.executeQuery();
+			
+				List<Notice> result = new ArrayList<Notice>();
+				//List참조변수.add(값); list에   값을 추가
+				//List참조변수.get(int 인덱스번호); list에서 값을 가져오기
+				while(rs.next()) {
+					//데이터타입 변수명=rs.get데이터타입("컬럼명");
+					//데이터타입 변수명=rs.get데이터타입(int 컬럼순서);
+					result.add( convertNotice(rs) ); 
+				}//while
+				
+				return result;
+			}finally {
+				JDBCUtil.close(rs);
+				JDBCUtil.close(stmt);
+			}
+		}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   //select쿼리를 실행한 결과집합(ResultSet)을 이용하여 Notice클래스의 객체를 생성
     private Notice convertNotice(ResultSet rs) throws SQLException {
 		return new Notice(rs.getInt("notice_no"),
@@ -213,6 +261,36 @@ public class NoticeDAO {
 		
 	}// 목록 조회
     
+	
+	//검색결과 개수 반환
+	public int selectSearchCount(Connection conn,String content,String search) throws SQLException {
+		String sql="select count(*) as totalcnt from notice where ? like concat('%',?,'%')";
+		PreparedStatement stmt = null;
+		ResultSet rs=null;
+		try {
+			 stmt =conn.prepareStatement(sql);
+			 stmt.setString(1,content );
+			 stmt.setString(2,search);
+			 rs =stmt.executeQuery();
+			int totalCNT= 0; //총 게시물수를 저장하기 위한 변수 선언 및 초기화
+			if(rs.next()) {
+				totalCNT=rs.getInt("totalcnt");
+			}
+			return totalCNT;
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(stmt);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	//공지글등록
 		//파라미터 board - 회원id,제목,내용
 		//리턴     int - inserted된 정보 글번호!!!

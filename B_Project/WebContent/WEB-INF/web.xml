@@ -51,6 +51,30 @@
   	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
 	
-	
+	<!-- post 요청시 한글깨짐방지 -->
+	<filter>
+        <filter-name>setCharacterEncodingFilter</filter-name>
+        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <async-supported>true</async-supported>
+    </filter>
+
   
+  <!--주석해제-->
+  <filter-mapping>
+        <filter-name>setCharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+
+  
+ 
+    
+
 </web-app>
+  
+  
+
