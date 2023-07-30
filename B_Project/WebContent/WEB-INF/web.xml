@@ -23,9 +23,9 @@
 		<!-- param-value를 작성해줄때는 공백을 모두 포함해서 인식하기 때문에 = 연산산자 뒤에 공백이없도록 작성해야함 -->
 		<param-value>
 			jdbcdriver=com.mysql.cj.jdbc.Driver
-			jdbcUrl=jdbc:mysql://172.30.1.32:3306/board?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC
-			dbUser=scott
-			dbPass=Qnfl1234
+			jdbcUrl=jdbc:mysql://localhost:3306/board?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC
+			dbUser=root
+			dbPass=1234
 			validationQuery=select 1
 			minIdle=3
 			maxTotal=30
