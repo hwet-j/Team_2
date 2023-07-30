@@ -3,7 +3,7 @@ package tak.article.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import jdbc.JdbcUtil;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import tak.article.dao.ArticleDAO;
 
@@ -31,10 +31,10 @@ public class DeleteArticleService {
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JdbcUtil.rollback(conn);
+			JDBCUtil.rollback(conn);
 			throw new RuntimeException();
 		}finally {
-			JdbcUtil.close(conn);
+			JDBCUtil.close(conn);
 		}		
 		
 	}
@@ -60,10 +60,10 @@ public class DeleteArticleService {
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JdbcUtil.rollback(conn);
+			JDBCUtil.rollback(conn);
 			throw new RuntimeException();
 		}finally {
-			JdbcUtil.close(conn);
+			JDBCUtil.close(conn);
 		}
 		
 	}

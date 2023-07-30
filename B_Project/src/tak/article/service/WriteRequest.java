@@ -2,7 +2,7 @@ package tak.article.service;
 
 import java.util.Map;
 
-import article.model.Writer;
+import tak.article.model.Writer;
 
 //p637
 //글등록폼에서 입력한 제목,내용/작성자정보(여기에서는 session에  담긴 회원id, 회원name)

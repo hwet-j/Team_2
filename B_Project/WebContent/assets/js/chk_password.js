@@ -22,17 +22,6 @@ function chkPasswordAdmin_change(password, user_id, old_password)
 	return _chkPwdChg(password, user_id, 3, old_password, "");
 }
 
-/* 5. 장터등록 비밀번호 체크 */
-function chkPasswordMarket(password)
-{
-	return _chkPwd(password, undefined, 3);
-}
-
-/* 6. 장터 비밀번호 변경 체크 */
-function chkPasswordMarket_change(password, old_password)
-{
-	return _chkPwdChg(password, undefined, 3, old_password, "장터");
-}
 
 /* 비밀번호 재입력 체크 */
 function chkPassword_repeat(password, repeat_password, pwdChkResult)

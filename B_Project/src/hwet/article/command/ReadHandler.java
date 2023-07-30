@@ -41,6 +41,8 @@ public class ReadHandler implements CommandHandler {
 		// 조회수 증가 후 데이터 가져오기
 		HwetArticleDTO data = readArticleService.getDetail(board_id);
 		
+		System.out.println(data.getContent());
+		
 		// 댓글 정보 가져오기 (페이징 처리 없음) 
 		List<HwetReplyDTO> re_data = readReplyService.getReplyList(board_id);
 		

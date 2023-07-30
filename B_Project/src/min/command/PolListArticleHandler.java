@@ -10,7 +10,7 @@ import mvc.command.CommandHandler;
 //p651
 public class PolListArticleHandler implements CommandHandler {
 	
-	private String FORM_VIEW ="/view/article/listPolArticle.jsp";
+	private String FORM_VIEW ="/view/min/listPolArticle.jsp";
 	private PolListArticleService polListArticleService = new PolListArticleService();
 	
 	@Override

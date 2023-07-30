@@ -2,7 +2,7 @@ package tak.article.service;
 
 import java.util.List;
 
-import article.model.Article;
+import tak.article.model.Article;
 
 //p648
 //총게시글수,article목록,페이징처리정보

@@ -7,11 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import article.model.Writer;
-import article.service.WriteArticleService;
-import article.service.WriteRequest;
-import auth.service.LoginFailException;
-import auth.service.User;
+import tak.article.model.Writer;
+import tak.article.service.WriteArticleService;
+import tak.article.service.WriteRequest;
+//import auth.service.LoginFailException;
+//import auth.service.User;
+import member.model.MemberDTO;
 import mvc.command.CommandHandler;
 
 //p640
@@ -20,7 +21,7 @@ import mvc.command.CommandHandler;
 
 public class WriteArticleHandler implements CommandHandler {
 
-	private static final String FORM_VIEW = "/view/article/newArticleForm.jsp";
+	private static final String FORM_VIEW = "/view/TAK/newArticleForm.jsp";
 	private WriteArticleService writeService = new WriteArticleService();
 	
 	@Override
@@ -52,7 +53,7 @@ public class WriteArticleHandler implements CommandHandler {
 		//1.파라미터받기
 		
 		//원래는 로그인을 한 후 글등록작업해야한다.p641 39라인
-		User user = (User)request.getSession(false).getAttribute("AUTH_USER");
+		MemberDTO user = (MemberDTO)request.getSession(false).getAttribute("AUTH_USER");
 		
 	   //리턴  WriteRequest - 작성정보(여기에서는 session에  담긴 회원id, 회원name),제목,내용을 WriteRequest객체로 생성*/
 		WriteRequest writeRequest = createWriteRequst(user, request);//p641 40라인
@@ -74,7 +75,7 @@ public class WriteArticleHandler implements CommandHandler {
 		
 		//4.View - 성공시(교재):/view/article/newArticleSuccess.jsp이동
 		//실패시 FORM_VIEW 이동
-		return request.getContextPath()+"/view/article/newArticleSuccess.jsp";
+		return request.getContextPath()+"/view/TAK/newArticleSuccess.jsp";
 		
 	}
 
@@ -84,14 +85,14 @@ public class WriteArticleHandler implements CommandHandler {
 	   request	 - 글등록폼에서 넘어온 parameter를 받기 위함	
 	 * 리턴
 	   WriteRequest - 작성정보(여기에서는 session에  담긴 회원id, 회원name),제목,내용을 WriteRequest객체로 생성*/
-	private WriteRequest createWriteRequst(User user, HttpServletRequest request) {
+	private WriteRequest createWriteRequst(MemberDTO user, HttpServletRequest request) {
 		//작성자정보(여기에서는 session에  담긴 회원id, 회원name)를 Writer객체로 생성
 
 		String title = request.getParameter("title"); //제목
 		String content = request.getParameter("content"); //내용
 		//String memberNick = request.getParameter("memberNick");//작성자nick
 		return  new WriteRequest(
-					new Writer( user.getId(), user.getName() ),
+					new Writer( user.getUser_id(), user.getUser_name() ),
 					request.getParameter("title"),
 					request.getParameter("content")
 				);
