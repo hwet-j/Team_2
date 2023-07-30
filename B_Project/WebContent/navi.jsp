@@ -24,7 +24,7 @@
             정치
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownPolitics">
-            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="/min/article/polList.do">메인페이지</a>
             <a class="dropdown-item" href="#">Link 2</a>
             <a class="dropdown-item" href="#">Link 3</a>
           </div>
@@ -35,7 +35,7 @@
             위스키
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownWhisky">
-            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="/CJH/whi_board/list.do?pageNo=1">테이스팅 노트</a>
             <a class="dropdown-item" href="#">Link 2</a>
             <a class="dropdown-item" href="#">Link 3</a>
           </div>
@@ -90,7 +90,7 @@
             경탁
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownBoard2">
-            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="/tak/article/list.do">Link 1</a>
             <a class="dropdown-item" href="#">Link 2</a>
             <a class="dropdown-item" href="#">Link 3</a>
           </div>

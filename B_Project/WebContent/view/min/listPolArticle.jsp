@@ -49,7 +49,7 @@ polArticlePage : ${polArticlePage}
  	 </tbody>
  	</table>
  	<div>
- 	  <a href="write.do" class="btn btn-outline-dark btn-sm">글 쓰기(p653 12라인)</a>
+ 	  <a href="polwrite.do" class="btn btn-outline-dark btn-sm">글 쓰기(p653 12라인)</a>
  	</div>
   	 <br/>          
 </body>

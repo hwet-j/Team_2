@@ -12,7 +12,22 @@ import jdbc.JDBCUtil;
 public class PolArticleContentDAO {
 
 	
-	
+	//수정 p665
+	public int update(Connection conn, int no, String content)  throws SQLException {
+		String sql = "update min_pol_content " + 
+						"set content=? " + 
+						"where pol_no=?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1,content);
+			stmt.setInt(2,no);
+			return stmt.executeUpdate();
+			//update가 성공되면 1리턴, 실패시 0리턴
+		}finally {
+			JDBCUtil.close(stmt);
+		}
+	}
 	
 	//글등록 -p637 12라인
 	/*파라미터
@@ -22,9 +37,10 @@ public class PolArticleContentDAO {
 	public int insert(Connection conn, Integer number, String content) throws SQLException {
 		System.out.println("PolArticleContentDAO-insert()진입");
 		
+		
 		//3.객체준비
-		String sql = "insert into polarticle_content(polarticle_no,content) " + 
-				     "values(?,?)";
+		String sql = "insert into min_pol_content(pol_no,content) " + 
+						"values(?,?)";
 		PreparedStatement stmt = null; 
 		
 		try {

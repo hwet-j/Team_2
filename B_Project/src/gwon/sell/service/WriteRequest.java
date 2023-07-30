@@ -66,17 +66,13 @@ public class WriteRequest {
 
 	public void validate(Map<String,Boolean> errors) {
 		if(  sell_title==null ||  sell_title.trim().isEmpty() ) {
-			errors.put("title", Boolean.TRUE);
-		}
-		if(  sell_category==null ||  sell_category.isEmpty() ) {
-			errors.put("category", Boolean.TRUE);
+			errors.put("sell_title", Boolean.TRUE);
 		}
 		if(  sell_price==0 ||  sell_price < 0 ) {
-			errors.put("price", Boolean.TRUE);
+			errors.put("sell_price", Boolean.TRUE);
 		}
 		if(  sell_content==null ||  sell_content.isEmpty() ) {
-			errors.put("content", Boolean.TRUE);
+			errors.put("sell_content", Boolean.TRUE);
 		}
 	}
-	
 }

@@ -43,11 +43,11 @@
 	  </tr>
 	  <tr>
 	   <th scope="row">작성일</th>
-	   <td><fmt:formatDate value="${pad.regDate}"   pattern="yyyy년 M월 d일"/></td>
+	   <td>${pad.regDate}</td>
 	  </tr>
 	  <tr>
 	   <th scope="row">수정일</th>
-	   <td><fmt:formatDate value="${pad.modifiedDate}"   pattern="yyyy.MM.dd HH:mm:ss"/> </td>
+	   <td>${pad.modifiedDate}</td>
 	  </tr>
 	  <tr>
 	   <th scope="row">조회수</th>
@@ -55,7 +55,7 @@
 	  </tr>
 	  <tr>
 	   <th scope="row">내용</th>
-	   <td><u:pre value="${pad.content}"/></td>
+	   <td>${pad.content}</td>
 	  </tr>
 	 </tbody>	
 	</table>
@@ -66,17 +66,16 @@
 	   justify-content-end : 오른쪽정렬-->
 	<div class="d-flex justify-content-end">
 	 <c:set var="pageNo" value="${empty param.pageNo?1:param.pageNo}" /> 
-     <a href="list.do?pageNo=${pageNo}" class="btn btn-outline-dark">목록보기</a>
+     <a href="polList.do?pageNo=${pageNo}" class="btn btn-outline-dark">목록보기</a>
      
-     <c:if test="${AUTH_USER.id==ora.writer_id}">
-	  <a href="modify.do?no=${pad.number}" class="btn btn-outline-dark">게시글수정</a>
+     <c:if test="${AUTH_USER.user_id==pad.writer_id}">
+	  <a href="polmodify.do?no=${pad.number}" class="btn btn-outline-dark">게시글수정</a>
      </c:if>
 		 
 
-
-	  <c:if test="${AUTH_USER.id eq pad.writer_id}">
-	   <a href="delete.do?no=${pad.number}" class="btn btn-outline-dark">게시글삭제(up)</a>
-	 </c:if> 
+  <c:if test="${AUTH_USER.user_id eq pad.writer_id}">
+	   <a href="poldelete.do?no=${pad.number}" class="btn btn-outline-dark">게시글삭제(del)</a>
+	 </c:if>
 	</div>
  </div>
 </body>
