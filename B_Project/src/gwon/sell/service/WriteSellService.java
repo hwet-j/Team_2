@@ -25,9 +25,7 @@ public class WriteSellService {
 		conn.setAutoCommit(false);
 		
 		Sell sell = toSell(writeR);
-		System.out.println(sell);
 		Sell wroteSell = sellDAO.insert(conn, sell);
-		System.out.println(wroteSell);
 		if(wroteSell == null) {
 			throw new RuntimeException();
 		}
