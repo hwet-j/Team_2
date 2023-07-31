@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +12,17 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<script>
+ function readURL(obj){
+	  if (obj.files && obj.files[0]) { //파일이 있드면
+	         var reader = new FileReader(); //FileReader()객체생성
+	         reader.onload = function (e) {
+	        	 //id가 preview인 요소의 src속성값을 설정 =>img src속성값을 파일명으로 적용
+	        	 $('#preview').attr('src', e.target.result)};
+		         reader.readAsDataURL(obj.files[0]);
+	 }
+ }
+</script>
 
 <style>
 #floating-button {
@@ -21,7 +32,7 @@
 
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "../../../header.html" %>
 
  <div class="container">
 	<h2  class="" align = "center">중고거래 글수정하기</h2>
@@ -74,10 +85,17 @@
 	 	<label for="sell_content" class="form-label">내용</label>
 	 	<textarea rows="5" name="sell_content" id="sell_content" class="form-control">${modRequest.sell_content}"</textarea>
 	 </div>
-	 <div class="">
-	 	<label for="sell_file" class="form-label">파일 다운로드</label>
-	 	<input type="text" name="sell_file" id="sell_file" class="form-control" value="${modRequest.sell_file}"/>
-	 </div>
+	  <div> 
+	   	  <input type="hidden" name="originalSell_file" value="${modRequest.sell_file}" />
+	   	  <img src= "<%=request.getContextPath() %>/gwon/sell/sellDownload.do?fileNo=${sellDTO.sell_no}&sell_file=${sellDTO.sell_file}"  id="preview" style="width:250px;"/>
+	  </div>
+	  <div>
+	  <tr>
+	   <th class="col-3"><label for="sell_file">파일 수정</label></th>
+	   <td><input type="file" name="sell_file" id="sell_file" onchange="readURL(this);"/></td>
+	  </tr>
+	  </div> 
+<%--  	 </c:if>  --%>
 	 
 	<div class="">
      <button type="submit" id = "floating-button" class= "btn btn-success" style = "float : right;">수정하기</button>
@@ -87,7 +105,9 @@
 	</div>
 	</form>
  </div>
- 	
- 	       	
 </body>
+<!-- 부트스트랩 JS 파일들 링크 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </html>

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Date;
@@ -257,32 +256,32 @@ public class MemberDAO {
 		// 검색
 		if(!search_type.equals("")) {
 			if (search_type.equals("id")) {
-				sql = "SELECT * FROM USER_INFO WHERE user_id LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
+				sql = "SELECT * FROM user_info WHERE user_id LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, start_index);
 				pstmt.setInt(3, list_size);
 			} else if (search_type.equals("name")) {
-				sql = "SELECT * FROM USER_INFO WHERE user_name LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
+				sql = "SELECT * FROM user_info WHERE user_name LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, start_index);
 				pstmt.setInt(3, list_size);
 			} else if (search_type.equals("nickname")) {
-				sql = "SELECT * FROM USER_INFO WHERE user_nickname LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
+				sql = "SELECT * FROM user_info WHERE user_nickname LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, start_index);
 				pstmt.setInt(3, list_size);
 			} else if (search_type.equals("join_date")) {
-				sql = "SELECT * FROM USER_INFO WHERE user_joindate LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
+				sql = "SELECT * FROM user_info WHERE user_joindate LIKE CONCAT('%', ? , '%') LIMIT ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, start_index);
 				pstmt.setInt(3, list_size);
 			} 
 		} else {
-			sql = "SELECT * FROM USER_INFO LIMIT ?, ?";
+			sql = "SELECT * FROM user_info LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start_index);
 			pstmt.setInt(2, list_size);
@@ -308,7 +307,7 @@ public class MemberDAO {
 
 	/* 유저 id를 받아 삭제 시키는 method- 작업자 : 조중현*/
 	public int DeleteMember(String id) throws SQLException {
-		String sql = "DELETE FROM USER_INFO WHERE USER_ID = ?";
+		String sql = "DELETE FROM user_info WHERE USER_ID = ?";
 		Connection conn = ConnectionProvider.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, id);
@@ -328,24 +327,24 @@ public class MemberDAO {
 		try {
 			if(!search_type.equals("")) {
 				if (search_type.equals("id")) {
-					sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_id LIKE CONCAT('%', ? , '%')";
+					sql = "SELECT COUNT(*) total_count FROM user_info WHERE user_id LIKE CONCAT('%', ? , '%')";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, keyword);
 				} else if (search_type.equals("name")) {
-					sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_name LIKE CONCAT('%', ? , '%')";
+					sql = "SELECT COUNT(*) total_count FROM user_info WHERE user_name LIKE CONCAT('%', ? , '%')";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, keyword);
 				} else if (search_type.equals("nickname")) {
-					sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_nickname LIKE CONCAT('%', ? , '%')";
+					sql = "SELECT COUNT(*) total_count FROM user_info WHERE user_nickname LIKE CONCAT('%', ? , '%')";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, keyword);
 				} else if (search_type.equals("join_date")) {
-					sql = "SELECT COUNT(*) total_count FROM USER_INFO WHERE user_joindate LIKE CONCAT('%', ? , '%')";
+					sql = "SELECT COUNT(*) total_count FROM user_info WHERE user_joindate LIKE CONCAT('%', ? , '%')";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, keyword);
 				} 
 			} else {
-				sql = "SELECT COUNT(*) total_count FROM USER_INFO";
+				sql = "SELECT COUNT(*) total_count FROM user_info";
 				pstmt = conn.prepareStatement(sql);
 			}
 	    	rs = pstmt.executeQuery();
