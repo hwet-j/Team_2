@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>폐쇄예정 게시판</title>
+<title>동물 게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 부트스트랩 CSS 파일 링크 -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -14,6 +14,7 @@
 </head>
 <body>
 <%@ include file = "../../../navi.jsp" %>
+<h1 style="text-align: center;">동물 게시판</h1><br>
 <div class="container">
 <a href="/Angel/article.do?pageNo=1"><Button type="button" class="btn btn-secondary">전체글보기</Button></a>
 <a href="/Angel/category.do?category=전재권"><Button type="button" class="btn btn-secondary">전재권</Button></a>
@@ -23,6 +24,9 @@
 <a href="/Angel/category.do?category=백경탁"><Button type="button" class="btn btn-secondary">백경탁</Button></a>
 <a href="/Angel/category.do?category=김현민"><Button type="button" class="btn btn-secondary">김현민</Button></a>
 <a href="/Angel/category.do?category=정회창"><Button type="button" class="btn btn-secondary">정회창</Button></a>
+<br><br>
+
+
 <table border="1" style="text-align: center;" class="table table-hover table-borderless">
 <thead>
 	<tr class="table-primary">
@@ -35,6 +39,7 @@
 	</tr>	
 </thead>
 <tbody>
+<!-- ${ARTICLE} 페이지 번호마다 보여질 게시물 목록 -->
 <c:forEach var="article" items="${ARTICLE}">
 	<tr>
 		<td>${article.articleNo}</td>
@@ -48,7 +53,9 @@
 </tbody>
 	<tr>
 		<td colspan="6">
-			<c:forEach var="num" begin="1" end="${PageCount}">
+			<!-- ${PAGECOUNT} 페이징 처리할 때 페이징 개수 6개 -->
+			<c:forEach var="num" begin="1" end="${PAGECOUNT}">
+				<!-- pageNo는 ArticleHandler의 파라미터로 넘겨진다 -->
 				<a href="/Angel/article.do?pageNo=${num}">${num}</a>
 			</c:forEach>
 		</td>
@@ -56,9 +63,11 @@
 </table>
 </div>
 <br>
+
+
 <div style="display: flex; flex-direction: column; align-items: center;">
   <p><a href="/view/ANGEL/article/Write.jsp?articleNo=">
-  	<input type="submit" class="btn-primary" value="글쓰기"/></a></p>
+  	<input type="submit" class="btn btn-primary" value="글쓰기"/></a></p>
   <p><form method="get" action="/Angel/search.do">
 	  	<select id="type" name="type" size="1">
 	  		<option value="name">이름</option>

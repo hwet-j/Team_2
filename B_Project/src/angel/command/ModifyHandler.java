@@ -15,13 +15,13 @@ public class ModifyHandler implements CommandHandler {
 		int articleNo = Integer.parseInt(request.getParameter("articleNo"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		System.out.println("핸들러시작");
 		Article article = new Article(articleNo, title, content);
 		
 		ArticleService articleService = new ArticleService();
 		int row = articleService.modify(article);
-		System.out.println("핸들러 마무리 접근");
-		return request.getContextPath() + "/view/ANGEL/main.jsp" ;
+		//return request.getContextPath() + "/view/ANGEL/main.jsp" ;
+		
+		return request.getContextPath() + "/Angel/detail.do?articleNo=" + articleNo;
 	}
 
 }

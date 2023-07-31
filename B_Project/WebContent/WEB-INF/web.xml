@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
   <display-name>B_Project</display-name>
@@ -54,3 +55,61 @@
 	
   
 </web-app>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>B_Project</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+  <!-- DB연동 관련 -->
+  <listener>
+  	<!-- 패키지명.클래스명 -->
+  	<listener-class>jdbc.DBCPInitListener</listener-class>
+  </listener>
+  
+  <!-- DB 커넥션풀관련 -->
+  <context-param>
+	<param-name>poolConfig</param-name>
+		<!-- param-value를 작성해줄때는 공백을 모두 포함해서 인식하기 때문에 = 연산산자 뒤에 공백이없도록 작성해야함 -->
+		<param-value>
+			jdbcdriver=com.mysql.cj.jdbc.Driver
+			jdbcUrl=jdbc:mysql://152.67.216.37:3306/board?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC
+			dbUser=scott
+			dbPass=Qnfl1234.
+			validationQuery=select 1
+			minIdle=3
+			maxTotal=30
+			poolName=board
+		</param-value> 
+	</context-param>
+	
+	<!-- MVC 컨트롤러 코드 -->
+	<servlet>
+		<servlet-name>ControllerUsingURI</servlet-name>
+		<servlet-class>mvc.controller.ControllerUsingURI</servlet-class>
+  	<!-- p.536 참고 -->
+  	<init-param>
+  		<param-name>configFile</param-name>
+  		<param-value>/WEB-INF/commandHandler.properties</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+	</servlet> 
+  
+  <!-- .do 로 끝이나는 url 패턴을 만나면 ControllerUsingURI라는 이름을 가진 servelt을 불러온다.-->
+  <servlet-mapping>
+  	<servlet-name>ControllerUsingURI</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+	
+	
+  
+</web-app>
+>>>>>>> branch 'test' of https://github.com/ggabmon/Team_2.git
