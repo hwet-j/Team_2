@@ -111,6 +111,9 @@
 	          <a class="nav-link" href="/admin/showAll.do">관리자페이지</a>
 	        </li>
         	</c:if>
+        	<li class="nav-item">
+	          <a class="nav-link" href="/myPage.do?user_id=${AUTH_USER.user_id}">마이페이지</a>
+	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/logout.do">로그아웃</a>
 	        </li>
