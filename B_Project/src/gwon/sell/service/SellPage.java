@@ -28,11 +28,11 @@ public class SellPage {
 				totalPages++; 
 			}
 	        
-			int modVal = currentPage%10;
-			startPage=currentPage/10*10+1;
-			if(modVal==0)  startPage=startPage-10;
+			int modVal = currentPage%5;
+			startPage=currentPage/5*5+1;
+			if(modVal==0)  startPage=startPage-5;
 			
-			endPage=startPage+9;
+			endPage=startPage+4;
 			if(endPage>totalPages) endPage=totalPages;
 		}
 	}

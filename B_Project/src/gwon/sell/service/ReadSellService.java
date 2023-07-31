@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import gwon.sell.dao.SellContentDAO;
 import gwon.sell.dao.SellDAO;
 import gwon.sell.model.SellDTO;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 
 public class ReadSellService {
@@ -30,7 +31,7 @@ public class ReadSellService {
 			e.printStackTrace();
 			throw new RuntimeException();
 		} finally {
-			conn.close();
+			JDBCUtil.close(conn);
 		}
 		
 	}
@@ -51,7 +52,7 @@ public class ReadSellService {
 			e.printStackTrace();
 			throw new RuntimeException();
 		} finally {
-			conn.close();
+			JDBCUtil.close(conn);
 		}
 	}
 }
