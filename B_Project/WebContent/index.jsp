@@ -14,13 +14,13 @@
 <style>
 
 .container {
-/*  display : flex; */
+ display : flex;
  flex-direction: row;
  justify-content: center;
 }
 
 .container-items {
- width: 50%
+ width: auto;
  height : auto;
  padding-left : 50px;
  padding-right : 50px;

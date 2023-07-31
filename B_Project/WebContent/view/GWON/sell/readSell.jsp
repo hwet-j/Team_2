@@ -14,6 +14,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
+
+.table {
+	font-size : 1em;
+}
+
 #floating-button {
 	margin : 2px;
 }
@@ -21,6 +26,16 @@
 .col-3 {
    text-align : center;
 }
+
+.image {
+	margin-left  : auto;
+	margin-right : auto;
+	margin-bottom : 10px;
+	display : flex;
+	justify-content : center;
+	width:250px;
+}
+
 </style>
 
 <script>
@@ -51,51 +66,47 @@
 
 
  <div class="container">
-	<h2  class="" align = "center">중고거래 글 상세보기</h2>
-	
-	
+ 	<div style = "text-align : right;">
+ 		<p >  
+ 			   조회수  ${sellDTO.sell_read_cnt} &nbsp;&nbsp;
+			   작성  <fmt:formatDate value="${sellDTO.sell_regDate}"   pattern="yyyy-MM-dd"/> &nbsp;
+			   수정  <fmt:formatDate value="${sellDTO.sell_modDate}"   pattern="yyyy-MM-dd"/>
+	    </p>
+	</div>    
+	<img  class = "image" src= "<%=request.getContextPath() %>/gwon/sell/sellDownload.do?fileNo=${sellDTO.sell_no}&sell_file=${sellDTO.sell_file}"  id="preview" />
 	<table class="table table-bordered">
 	 <tbody>
-	<%-- <c:if test="${not empty sellDTO.sell_file && sellDTO.sell_file = null}"> --%>
-	  <tr>
-	   <th colspan ="12">
-	   	  <input type="hidden" name="originalSell_file" id="originalSell_file" value="${sellDTO.sell_file}" />
-	   	  <img src= "<%=request.getContextPath() %>/gwon/sell/sellDownload.do?fileNo=${sellDTO.sell_no}&sell_file=${sellDTO.sell_file}"  id="preview" style="width:250px;"/>
-	    </th>
-	  </tr>
-	<%--   <tr>
-	   <th class="col-3"><label for="sell_file">수정용이미지</label></th>
-	   <td><input type="file" name="sell_file" id="sell_file" onchange="readURL(this);"/></td>
-	  </tr> 
-	 </c:if> --%>
-	  <tr>
-	   <th class="col-3">글번호</th>
-	   <td class="col-9">${sellDTO.sell_no}</td>
-	  </tr>
 	  <tr>
 	   <th class="col-3">작성자id</th>
-	   <td class="col-9">${sellDTO.user_id}</td>
+	   <td class="col-3">${sellDTO.user_id}</td>
+	   <th class="col-3">위치</th>
+	   <td class="col-3">${sellDTO.sell_loc}</td>
 	  </tr>
 	  <tr>
-	   <th class="col-3">작성자명</th>
-	   <td>${sellDTO.user_name}</td>
-	  </tr>
+      </tr>
 	  <tr>
 	   <th class="col-3">제목</th>
-	   <td>${sellDTO.sell_title}</td>
+	   <td colspan = "9">${sellDTO.sell_title}</td>
 	  </tr>
 	  <tr>
-	   <th class="col-3">글카테고리</th>
-	   <td>${sellDTO.sell_category}</td>
+	   <th class="col-3">글번호</th>
+	   <td colspan = "9">${sellDTO.sell_no}</td>
+	  </tr>
 	  <tr>
+<%-- 	  <tr>
+	   <th class="col-3">작성자명</th>
+	   <td>${sellDTO.user_name}</td>
+	  </tr> --%>
+	  <tr>
+	   <th class="col-3">글카테고리</th>
+	   <td colspan = "9">${sellDTO.sell_category}</td>
+	   </tr>
 	  <tr>
 	   <th class="col-3">가격</th>
-	   <td>${sellDTO.sell_price}</td>
-	  <tr>
-	  <tr>
-	   <th class="col-3">위치</th>
-	   <td>${sellDTO.sell_loc}</td>
-	  <tr>
+	   <td colspan = "9">${sellDTO.sell_price}</td>
+	  </tr>
+	  
+<%-- 	  <tr>
 	   <th class="col-3">작성일</th>
 	   <!-- 부트스트랩에서 날짜 form 찾기  -->
 	   <td><fmt:formatDate value="${sellDTO.sell_regDate}"   pattern="yyyy년  MM월  dd일"/></td>
@@ -106,11 +117,11 @@
 	  </tr>
 	  <tr>
 	   <th class="col-3">조회수</th>
-	   <td>${sellDTO.sell_read_cnt}</td>
+	   <td>${sellDTO.sell_read_cnt}</td> --%>
 	  </tr>
-	  <tr>
+	  <tr style = "height : 200px;">
 	   <th class="col-3">내용</th>
-	   <td>${sellDTO.sell_content}</td>
+	   <td colspan = "9">${sellDTO.sell_content}</td>
 	  </tr>
 	  
 	 </tbody>	
@@ -136,7 +147,8 @@
 			<button type = "submit" class="btn btn-success"><img src = "../../../image/heart.svg"/>&nbsp;좋아요</button>
 			<!-- <button type = "submit" class = "btn btn-secondary" style = "clear : both">좋아요</button> -->
 		 </c:if> 
-		<span>&nbsp;<img src = "../../../image/heart-fill.svg"/>&nbsp;&nbsp;+&nbsp;${sellDTO.sell_fav}</span>
+		<span>&nbsp;<img src = "../../../image/heart-fill.svg"/>&nbsp;&nbsp;+&nbsp;${sellDTO.sell_fav}
+		</span>
 	</div>
 </form>
 
