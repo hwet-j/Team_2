@@ -107,7 +107,7 @@ public class WhiBoardDAO {
 	public WhiBoardArticle selectContent(Connection conn, int articleNo) {
 		String sql1 = "SELECT * FROM whi_board "
 				+ "WHERE article_no=? ";
-		String sql2 = "UPDATE WHI_BOARD SET READ_CNT = READ_CNT+1 WHERE article_no=?";
+		String sql2 = "UPDATE whi_board SET READ_CNT = READ_CNT+1 WHERE article_no=?";
 		try {
 			pstmt=conn.prepareStatement(sql1);
 			pstmt.setInt(1, articleNo);
@@ -282,7 +282,7 @@ public class WhiBoardDAO {
 	}
 
 	public List<WhiBoardArticle> categorize_article(Connection conn, String category) {
-		String sql = "SELECT * FROM whi_board WHERE CATEGORY = ?";
+		String sql = "SELECT * FROM whi_board WHERE CATEGORY = ? ORDER BY ARTICLE_NO DESC";
 		List<WhiBoardArticle> articleList = new LinkedList<>();
 		try {
 			pstmt = conn.prepareStatement(sql);
