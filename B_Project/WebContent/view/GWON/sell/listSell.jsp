@@ -26,7 +26,7 @@
 </style>
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "../../../header.html" %>
 
 <form method="post" action="/gwon/sell/sellSerach.do">
 <div class="container">
@@ -120,8 +120,8 @@
          <div>
 			 <nav aria-label="Page navigation example" style = "claar : both">
 			  <ul class="pagination justify-content-center"> 
-			  <c:if test="${sellPage.startPage>10}">
-			   <li class="page-item"><a class="page-link" href="/gwon/sell/sellList.dopageNo=${sellPage.startPage-10}">&lt;&lt;이전</a></li>
+			  <c:if test="${sellPage.startPage>5}">
+			   <li class="page-item"><a class="page-link" href="/gwon/sell/sellList.dopageNo=${sellPage.startPage-5}">&lt;&lt;이전</a></li>
 			  </c:if> 
 			  
 			  <c:forEach var="pNo"  begin="${sellPage.startPage}"    end="${sellPage.endPage}"  step="1">
@@ -129,7 +129,7 @@
 			  </c:forEach>
 			  
 			  <c:if test="${sellPage.endPage<sellPage.totalPages}"> 
-			   <li class="page-item"><a class="page-link" href="/gwon/sell/sellList.do?pageNo=${sellPage.startPage+10}">다음&gt;&gt;</a></li>
+			   <li class="page-item"><a class="page-link" href="/gwon/sell/sellList.do?pageNo=${sellPage.startPage+5}">다음&gt;&gt;</a></li>
 			  </c:if>
 			  </ul> 
 			 </nav> 

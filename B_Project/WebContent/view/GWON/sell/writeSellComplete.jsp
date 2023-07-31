@@ -22,7 +22,7 @@
 
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "../../../header.html" %>
 
  <div style = "text-align : center; font-size : 20px"><h3>글 작성이 완료되었습니다.</h3></div>
  <br/><br/><br/>
