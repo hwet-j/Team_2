@@ -23,9 +23,15 @@
 		<!-- param-value를 작성해줄때는 공백을 모두 포함해서 인식하기 때문에 = 연산산자 뒤에 공백이없도록 작성해야함 -->
 		<param-value>
 			jdbcdriver=com.mysql.cj.jdbc.Driver
+<<<<<<< HEAD
+			jdbcUrl=jdbc:mysql://localhost:3306/board?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC
+			dbUser=root
+			dbPass=1234
+=======
 			jdbcUrl=jdbc:mysql://152.67.216.37:3306/board?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC
 			dbUser=scott
 			dbPass=Qnfl1234.
+>>>>>>> branch 'master' of https://github.com/ggabmon/Team_2.git
 			validationQuery=select 1
 			minIdle=3
 			maxTotal=30

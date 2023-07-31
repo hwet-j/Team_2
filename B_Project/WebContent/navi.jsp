@@ -35,7 +35,7 @@
             위스키
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownWhisky">
-            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="/CJH/whi_board/list.do?pageNo=1">테이스팅 노트</a>
             <a class="dropdown-item" href="#">Link 2</a>
             <a class="dropdown-item" href="#">Link 3</a>
           </div>
@@ -111,6 +111,9 @@
 	          <a class="nav-link" href="/admin/showAll.do">관리자페이지</a>
 	        </li>
         	</c:if>
+        	<li class="nav-item">
+	          <a class="nav-link" href="/myPage.do?user_id=${AUTH_USER.user_id}">마이페이지</a>
+	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/logout.do">로그아웃</a>
 	        </li>
