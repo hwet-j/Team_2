@@ -14,7 +14,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
-<title>위스키 게시판</title>
+<title>위스키 보틀 사진 게시판</title>
 
 </head>
 <body>
@@ -25,8 +25,8 @@
 <img src="/assets/images/whiBoard/whiskey_banner.jpg" style="height: 100px; width: auto;" >
 </div>
 <!-- 테이블을 포함한 영역 -->
-<div class="container mt-5">
-<div class="btn-group mb-2 mt-4">
+<div class="container mt-2">
+<div class="btn-group mb-2 mt-2">
 <a href="/CJH/whi_board/list.do?pageNo=1"><button type="button" class="btn btn-secondary">전체글보기</button></a>
 <c:forEach var="category" items="${CATEGORY_LIST }">
 <a href="/CJH/whi_board/categorize.do?pageNo=1&category=${category}"><button type="button" class="btn btn-secondary">${category}</button></a>
@@ -59,7 +59,7 @@
 	<tfoot>
 		<tr>
 		<td colspan="6">
-		<c:forEach var="num" begin="1" end="${PAGECNT}"><a href="/CJH/whi_board/list.do?pageNo=${num}" class="btn">${num}</a> </c:forEach>
+		<c:forEach var="num" begin="1" end="${PAGECNT}"><a href="/CJH/whi_board/list.do?pageNo=${num}" class="btn btn-secondary">${num}</a> </c:forEach>
 		</td>
 		</tr>
 	</tfoot>	
