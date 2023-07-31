@@ -21,7 +21,7 @@ public class PolArticlePage {
 	//ListPolArticleService에서 총게시글 수 + polarticle목록 페이징처리
 	
 	
-	public PolArticlePage(int total, int currentPage,int size, List<PolArticle> content) {
+	public PolArticlePage(int total, int currentPage, int size, List<PolArticle> content) {
 		this.total = total;
 		this.currentPage = currentPage;
 		this.content = content;
@@ -35,11 +35,11 @@ public class PolArticlePage {
 				totalPages++;
 			}
 			
-			int modVal = currentPage%5;
-			startPage=currentPage/5*5+1;
-			if(modVal==0)  startPage=startPage-5;
+			int modVal = currentPage%10;
+			startPage=currentPage/10*10+1;
+			if(modVal==0)  startPage=startPage-10;
 			
-			endPage=startPage+4;	//끝페이지-p649 33라인
+			endPage=startPage+9;	//끝페이지-p649 33라인
 			if(endPage>totalPages) endPage=totalPages;
 			
 		}
