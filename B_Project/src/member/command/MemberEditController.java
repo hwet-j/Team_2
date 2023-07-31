@@ -36,8 +36,6 @@ public class MemberEditController implements CommandHandler {
 			birth = format.parse(user_birth);
 		}
 		
-		
-		
 		MemberDTO member_data = memberEditService.getMemberDetail(user_id);
 		member_data.setUser_name(user_name);
 		member_data.setUser_birth(birth);

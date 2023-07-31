@@ -23,6 +23,20 @@
     
     <script>
     $(document).ready(function() {
+    	$("#content").keydown(function (event) {
+            // Shift 키와 Enter 키가 함께 눌렸을 때 줄바꿈 기능 수행
+            if (event.shiftKey && event.keyCode === 13) {
+                event.preventDefault(); // 기본 동작인 줄바꿈을 방지
+                var content = $('#content');
+                content.val(content.val() + "\n");
+            }
+            // Enter 키만 눌렸을 때 메시지 전송
+            else if (event.keyCode === 13) {
+                event.preventDefault(); // 기본 동작인 줄바꿈을 방지
+                sendMessage(); // 메시지를 전송하는 함수 호출
+            }
+        });
+    	
         // 채팅방 대화목록 스크롤 최하단으로 이동
         function scrollToBottom() {
             var scrollArea = $(".scroll-area");
@@ -31,8 +45,13 @@
 
         // 페이지 로드시 최하단으로 스크롤 이동
         scrollToBottom();
-
-        $("#send_button").click(function(event) {
+        
+        
+        $("#send_button").click(function (event) {
+            sendMessage(); // 메시지를 전송하는 함수 호출
+        });
+        
+        function sendMessage() {
         	var room_id = $('#room_id').val();
             var writer = $('#writer').val();
             var content = $('#content').val();
@@ -57,6 +76,7 @@
                     
                     $("#postList").append(response.input_data);
                     scrollToBottom();
+                    
                 },
                 error: function() {
                 	Swal.fire({
@@ -67,8 +87,8 @@
             			return false;
                 }
             });
-        	
-        });
+            $('#content').val('');
+        };
             
     });
     </script>
@@ -132,10 +152,10 @@
 		    <div id="postList" class="list-group chat-list">
 		        <c:forEach items="${messages}" var="message">
 		            <span class="chat-bubble ${AUTH_USER.user_id eq message.sender_id ? 'right-bubble' : 'left-bubble'}">
-		                <c:if test="${!AUTH_USER.user_id eq message.sender_id}">
+		                <c:if test="${AUTH_USER.user_id ne message.sender_id}">
 		                    <span>[${message.sender_id}]</span>
 		                </c:if>
-		                <span style="font-weight: bold;">${message.content}</span>
+		                <span style="white-space: pre-wrap;" style="font-weight: bold;">${message.content}</span>
 		                <span style="font-size: small;">(<fmt:formatDate value="${message.created_at}" pattern="yyyy-MM-dd HH:mm:ss" />)</span>
 		            </span>
 		        </c:forEach>
