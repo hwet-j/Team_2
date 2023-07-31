@@ -21,7 +21,7 @@
 
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "../../../header.html" %>
 
  <div class="container">
 	<h2  class="" align = "center">중고거래 글수정하기</h2>
@@ -74,10 +74,22 @@
 	 	<label for="sell_content" class="form-label">내용</label>
 	 	<textarea rows="5" name="sell_content" id="sell_content" class="form-control">${modRequest.sell_content}"</textarea>
 	 </div>
-	 <div class="">
+	<%--  <div class="">
 	 	<label for="sell_file" class="form-label">파일 다운로드</label>
 	 	<input type="text" name="sell_file" id="sell_file" class="form-control" value="${modRequest.sell_file}"/>
-	 </div>
+	 </div> --%>
+	 <%-- 	 <c:if test="${not empty sellDTO.sell_file && sellDTO.sell_file = null}">
+	  <tr> --%>
+	  <th class ="col-9">
+	   	  <input type="hidden" name="originalSell_file" id="originalSell_file" value="${sellDTO.sell_file}" />
+	   	  <img src= "<%=request.getContextPath() %>/gwon/sell/sellDownload.do?fileNo=${sellDTO.sell_no}&sell_file=${sellDTO.sell_file}"  id="preview" style="width:250px;"/>
+	    </th>
+	  </tr>
+	  <tr>
+	   <th class="col-3"><label for="sell_file">파일 수정</label></th>
+	   <td><input type="file" name="sell_file" id="sell_file" onchange="readURL(this);"/></td>
+	  </tr> 
+<%-- 	 </c:if> --%>
 	 
 	<div class="">
      <button type="submit" id = "floating-button" class= "btn btn-success" style = "float : right;">수정하기</button>
