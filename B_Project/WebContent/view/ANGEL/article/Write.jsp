@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+    pageEncoding="UTF-8"%>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -14,16 +13,22 @@
 </head>
 <body>
 <%@ include file = "../../../navi.jsp" %>
-<form action="/Angel/write.do" method="post">
-<div class="container-fluid" style="margin: 20px;">
-<input type="hidden" name="articleNo" value="${articleNo}"/>
-<p>아이디 : <br><input type="text" name="memberid" size="20"></input></p>
-<p>제목 : <br><input type="text" name="title" size="20"></input></p>
-<p>이름 : <br><input type="text" name="name" size="20"></input></p>
-<p>내용 : <br><textarea name="content" rows="20" cols="50"></textarea></p>
-<input type="submit" class="btn-primary" value="글쓰기"></input>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col" style="margin: 20px;">
+      <form action="/Angel/write.do" method="post">
+        <input type="hidden" name="articleNo" value="${articleNo}"/>
+        <p>아이디 : <br><input type="text" name="memberid" size="20" class="form-control"></input></p>
+        <p>제목 : <br><input type="text" name="title" size="20" class="form-control"></input></p>
+        <p>이름 : <br><input type="text" name="name" size="20" class="form-control"></input></p>
+        <p>내용 : <br><textarea name="content" rows="20" cols="50" class="form-control"></textarea></p>
+        <div class="d-flex justify-content-center">
+        	<input type="submit" class="btn btn-primary" value="글쓰기"></input>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-</form>
 </body>
 <!-- 부트스트랩 JS 파일들 링크 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

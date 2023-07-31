@@ -20,13 +20,27 @@ int articleNo = Integer.parseInt(request.getParameter("articleNo"));
 String title = request.getParameter("title");
 String content = request.getParameter("content");
 %>
-<form action="/Angel/modify.do" method="post">
+<%-- <form action="/Angel/modify.do" method="post">
 <div class="container-fluid" style="margin: 20px;">
 <input type="hidden" name="articleNo" value=<%= articleNo%>></input>
 <p>제목 : <br><input type="text" name="title" size="20" value=<%= title%>></input></p>
 <p>내용 : <br><textarea name="content" rows="20" cols="50"><%= content%></textarea></p>
 <input type="submit" class="btn-primary" value="수정"></input>
 </div>
+</form> --%>
+<div class="container">
+	<div class="row justify-content-center">
+    	<div class="col" style="margin: 20px;">
+    		<form action="/Angel/modify.do" method="post">
+		      <input type="hidden" name="articleNo" value="<%= articleNo%>">
+		      <p>제목 : <br><input type="text" name="title" size="20" value="<%= title%>" class="form-control"></p>
+		      <p>내용 : <br><textarea name="content" rows="20" cols="50" class="form-control"><%= content%></textarea></p>
+			  <div class="d-flex justify-content-center">
+		 		<input type="submit" class="btn btn-primary" value="수정">
+		      </div>
+		</div>
+  </div>
+</div> 
 </form>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

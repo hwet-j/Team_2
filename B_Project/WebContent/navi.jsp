@@ -36,8 +36,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownWhisky">
             <a class="dropdown-item" href="/CJH/whi_board/list.do?pageNo=1">테이스팅 노트</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
+            <a class="dropdown-item" href="/CJH/whi_photo/list.do?pageNo=1">보틀 자랑 게시판</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -46,9 +45,9 @@
             동물
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownAnimal">
-            <a class="dropdown-item" href="#">Link 1</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
+            <a class="dropdown-item" href="/Angel/article.do?pageNo=1">동물</a>
+            <a class="dropdown-item" href="#">강아지</a>
+            <a class="dropdown-item" href="#">고양이</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -69,7 +68,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownBoard1">
             <a class="dropdown-item" href="/hwet/article/list.do">게시판</a>
-            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="/chat/showRoom.do">채팅(구현중)</a>
             <a class="dropdown-item" href="#">Link 3</a>
           </div>
         </li>
@@ -111,6 +110,9 @@
 	          <a class="nav-link" href="/admin/showAll.do">관리자페이지</a>
 	        </li>
         	</c:if>
+        	<li class="nav-item">
+	          <a class="nav-link" href="/myPage.do?user_id=${AUTH_USER.user_id}">마이페이지</a>
+	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/logout.do">로그아웃</a>
 	        </li>

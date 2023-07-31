@@ -1,9 +1,12 @@
 package angel.command;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import angel.model.Article;
+import angel.model.Comment;
 import angel.service.ArticleService;
 import mvc.command.CommandHandler;
 
@@ -16,6 +19,9 @@ public class DetailHandler implements CommandHandler {
 		ArticleService articleService = new ArticleService();
 		Article article = articleService.selectContent(articleNo);
 		request.setAttribute("DETAIL_CONTENT", article);
+		
+		List<Comment> commentText = articleService.comment(articleNo);
+		request.setAttribute("DETAIL_COMMENT", commentText);
 		
 		return request.getContextPath() + "/view/ANGEL/article/ArticleDetail.jsp";
 	}
