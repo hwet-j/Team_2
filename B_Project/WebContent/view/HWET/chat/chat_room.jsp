@@ -39,7 +39,7 @@
     	
         // 채팅방 대화목록 스크롤 최하단으로 이동
         function scrollToBottom() {
-            var scrollArea = $(".scroll-area");
+            var scrollArea = $(".scroll-frame");
             scrollArea.scrollTop(scrollArea.prop("scrollHeight"));
         }
 
@@ -75,8 +75,8 @@
                 success: function(response) {
                     
                     $("#postList").append(response.input_data);
-                    scrollToBottom();
                     
+                    scrollToBottom();
                 },
                 error: function() {
                 	Swal.fire({
