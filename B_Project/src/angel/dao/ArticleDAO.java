@@ -8,13 +8,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 import angel.model.Article;
+import angel.model.Comment;
 import jdbc.JDBCUtil;
+import jdbc.connection.ConnectionProvider;
 public class ArticleDAO {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	PreparedStatement pstmt2 = null;	
 	ResultSet rs = null;
 	
+	//모든 게시물 목록(articleNo, memberid, name, title, regdate, readCnt, content) 불러오기
 	public List<Article> selectAll(Connection conn) {
 		String sql = "select * from angel_animaltable order by articleNo desc";
 		List<Article> article = new LinkedList<>();
@@ -29,22 +32,21 @@ public class ArticleDAO {
 				String regdate = rs.getString("regdate");
 				int readCnt = rs.getInt("readCnt");
 				String content = rs.getString("content");
+				
 				Article arti = new Article(articleNo, memberid, name, title, regdate, readCnt, content);
-//				System.out.println("작동되면 말좀해봐");
-	//			System.out.println(arti.toString());
-				article.add(arti);
+				article.add(arti);	
 			}
 			return article;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
-			
+			JDBCUtil.close(pstmt);
 		}
 		return null;
 	}
 
+	//총 게시물 수 가져오기
 	public int articleTotal(Connection conn) {
 		int articleTotal = 0;
 		String sql = "select count(*) from angel_animaltable";
@@ -56,9 +58,13 @@ public class ArticleDAO {
 				articleTotal = rs.getInt(1);
 				return articleTotal;
 			} else {
-				return 0; }
+				return 0; 
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		return articleTotal;
 	}
@@ -93,6 +99,9 @@ public class ArticleDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		return null;
 	}
@@ -109,8 +118,8 @@ public class ArticleDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 			
 		}
 		return false;
@@ -121,7 +130,6 @@ public class ArticleDAO {
 		String sql = "update angel_animaltable set content=?, title=? where articleNo=?";
 		
 		try {
-			System.out.println("쿼리문 작동시작");
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, article.getContent());
 			pstmt.setString(2, article.getTitle());
@@ -131,8 +139,8 @@ public class ArticleDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		return row;
 	}
@@ -151,19 +159,24 @@ public class ArticleDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		return row;
 	}
 
+	//페이징 처리. 페이지 번호마다 보여질 게시물 목록 가져오기
 	public List<Article> pageNoArticle(Connection conn, int pageNo) {
 		String sql = "select * from angel_animaltable order by 1 desc limit ?, ?";
+
+		//페이지 번호마다 보여질 게시물 개수
 		int ten = 10;
-		int startNum = 0+(pageNo-1)*ten;
-		int totalCnt = articleTotal(conn);
-		System.out.println("totalCnt"+totalCnt);
-//		if(0+(pageNo-1)*five >totalCnt) {five = totalCnt%five;}
+		//페이지 번호마다 시작되는 로우를 나타냄. 1페이지 0, 2페이지 10, 3페이지 20 ... 
+		int startNum = 0 + (pageNo-1) * ten;
+		int articleTotal = articleTotal(conn);
+		if(0 + (pageNo-1) * ten > articleTotal) {
+			ten = articleTotal % ten;}
+		
 		List<Article> pageNoArticle = new LinkedList<>();
 		
 		try {
@@ -181,13 +194,15 @@ public class ArticleDAO {
 				int readCnt = rs.getInt("readCnt");
 				String content = rs.getString("content");
 				Article arti = new Article(articleNo, memberid, name, title, regdate, readCnt, content);
-//				System.out.println("작동되면 말좀해봐");
-	//			System.out.println(arti.toString());
+
 				pageNoArticle.add(arti);
 			}
 			return pageNoArticle;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		return null;
 	}
@@ -217,6 +232,9 @@ public class ArticleDAO {
 			return select;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		return null;
 		
@@ -247,8 +265,121 @@ public class ArticleDAO {
 			return select;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		return null;
+	}
+
+	public List<Comment> comment(int articleNo) {
+		String sql = "select * from angel_comment where articleNo= ?";
+		
+		List<Comment> commentText = new LinkedList<>();
+		
+		try {
+			conn = ConnectionProvider.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, articleNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int commentNo = rs.getInt("commentNo");
+				String name = rs.getString("name");
+				String comment = rs.getString("comment");
+				String regdate = rs.getString("regdate");
+				
+				Comment commentList = new Comment(articleNo, commentNo, name, comment, regdate);
+				commentText.add(commentList);
+			}
+			return commentText;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}
+
+	public int writeComment(Connection conn, int articleNo, Comment writeComment) {
+		String sql = "insert into angel_comment(articleNo, name, comment) values (?, ?, ?)";
+		
+		try {
+			conn = ConnectionProvider.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, articleNo);
+			pstmt.setString(2, writeComment.getName());
+			pstmt.setString(3, writeComment.getComment());
+			int row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return 0; 
+	}
+	
+	public int commentDelete(Connection conn, int commentNo) {
+		String sql = "delete from angel_comment where commentNo = ?";
+		
+		try {
+			conn = ConnectionProvider.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, commentNo);
+			int row = pstmt.executeUpdate();
+			return row;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
+		}
+		return 0;
+	}
+	
+	public int showArticleNo(Connection conn, int commentNo) {
+		String sql = "select articleNo from angel_comment where commentNo = ?";
+		int articleNo = 0;
+		
+		try {
+			conn = ConnectionProvider.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, commentNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				articleNo = rs.getInt("articleNo");
+			}
+			return articleNo;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return articleNo;
+	}
+
+	public int modifyComment(Connection conn, int commentNo, String comment) {
+		String sql = "update angel_comment set comment = ? where commentNo = ?";
+		int row = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, comment);
+			pstmt.setInt(2, commentNo);
+			row = pstmt.executeUpdate();
+			return row;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return row;
 	}
 }	
 
