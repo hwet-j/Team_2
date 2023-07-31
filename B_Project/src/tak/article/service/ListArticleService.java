@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import article.model.Article;
+import tak.article.model.Article;
 import jdbc.connection.ConnectionProvider;
 import tak.article.dao.ArticleDAO;
 

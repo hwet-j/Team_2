@@ -37,13 +37,14 @@ public class Article {
 	}
 
 	//생성자-p631 14라인
-	public Article(Integer number, Writer writer, String title, Date regDate, Date modifiedDate, int readCount) {
+	public Article(Integer number, Writer writer, String title, Date regDate, Date modifiedDate, int readCount,int good) {
 		this.number = number;
 		this.writer = writer;
 		this.title = title;
 		this.regDate = regDate;
 		this.modifiedDate = modifiedDate;
 		this.readCount = readCount;
+		this.good = good;
 	}
 
 	//메서드-p631 24라인

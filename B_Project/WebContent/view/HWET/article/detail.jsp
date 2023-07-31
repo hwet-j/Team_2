@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="hwet.article.model.HwetArticleDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -205,7 +206,7 @@
             </tr>
             <tr>
                 <th>내용</th>
-                <td>${data.content}</td>
+                <td style="white-space: pre-wrap;">${data.content}</td>
             </tr>
             <tr>
                 <th>작성일</th>
@@ -227,8 +228,8 @@
         
         <a href="list.do?page_no=${page_no}&search_type=${search_type}&keyword=${keyword}&category_info=${category_info}" class="btn btn-secondary">목록보기</a>
         
+        <%-- 수정 버튼 / 작성자만 수정권한  --%>
         <c:if test="${AUTH_USER.user_id == data.writer}">
-            <!-- 수정 버튼을 클릭했을 때 폼 전송 -->
             <form action="/hwet/article/modifyForm.do" method="post" class="ml-2">
                 <!-- hidden 타입의 input 요소를 추가하여 기존 데이터를 전송 -->
                 <input type="hidden" name="board_id" value="${data.board_id}">
@@ -238,9 +239,8 @@
             </form>
         </c:if>
         
-        <!-- 삭제 버튼 -->
-        <c:if test="${AUTH_USER.user_id eq data.writer}">
-           	<!-- 삭제 버튼 -->
+        <%-- 삭제 버튼 / 작성자와 관리자 삭제권한  --%>
+        <c:if test="${fn:contains(AUTH_USER.user_id, 'admin') || AUTH_USER.user_id eq data.writer}">
 	        <form id="deleteForm" action="/hwet/article/delete.do" method="post">
 	            <input type="hidden" name="no" value="${data.board_id}">
 	            <button type="submit" class="btn btn-danger ml-2" onclick="return confirmDelete()">게시글 삭제</button>

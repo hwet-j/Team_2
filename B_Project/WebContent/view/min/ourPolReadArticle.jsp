@@ -49,11 +49,11 @@
  <a href="polList.do?pageNo=${pageNo}">목록보기</a>
  
  <c:if test="${AUTH_USER.id==pad.writer_id}">
- <a href="modify.do?no=${pad.number}">게시글수정</a>
+ <a href="polmodify.do?no=${pad.number}">게시글수정</a>
  </c:if>
  
  <c:if test="${AUTH_USER.id eq pad.writer_id}">
- <a href="delete.do?no=${pad.number}">게시글삭제</a>
+ <a href="poldelete.do?no=${pad.number}">게시글삭제해야지</a>
  </c:if>
 </body>
 </html>
