@@ -11,7 +11,7 @@ import jdbc.connection.ConnectionProvider;
 public class ListSellService {
 	
 	private SellDAO sellDAO = new SellDAO();
-	int size = 10;
+	int size = 5;
 	
 	//페이지 기능 구현
 	public SellPage getSellPage(int pageNum) {

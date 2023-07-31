@@ -20,7 +20,7 @@
 
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "../../../header.html" %>
 
  <div class="container">
 	 <h2  class="" align = "center">중고거래 글작성하기</h2>
