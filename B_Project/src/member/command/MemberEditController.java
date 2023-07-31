@@ -36,7 +36,7 @@ public class MemberEditController implements CommandHandler {
 			birth = format.parse(user_birth);
 		}
 		
-		join_date = format.parse(user_join_date);
+		
 		
 		MemberDTO member_data = memberEditService.getMemberDetail(user_id);
 		member_data.setUser_name(user_name);
@@ -44,7 +44,10 @@ public class MemberEditController implements CommandHandler {
 		member_data.setUser_gender(user_gender);
 		member_data.setUser_nickname(user_nickname);
 		member_data.setUser_tlno(user_tlno);
-		member_data.setUser_join_date(join_date);	
+		if (user_join_date != null) {
+			join_date = format.parse(user_join_date);
+			member_data.setUser_join_date(join_date);	
+		} 
 		// 유효성 검사 
 		String message = memberEditService.duplicateMemberCheck(member_data);
 		
