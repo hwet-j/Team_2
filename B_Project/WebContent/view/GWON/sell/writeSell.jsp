@@ -74,7 +74,6 @@
 	  <div  class="">	
 	  	<label for="sell_file"  class="form-label">이미지</label>
 	  	<input type="file" name="sell_file" id="sell_file"  class="form-control-file" onchange="readURL(this);"/>
-	  	<img src="#" id="preview" style="width:150px;"/> 
 	  </div>
 <%-- 	  <div  class="">	
 	  	<label for="sell_file"  class="form-label">파일 업로드</label>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import gwon.sell.dao.SellDAO;
 import gwon.sell.model.Sell;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 
 public class ListSellService {
@@ -15,7 +16,7 @@ public class ListSellService {
 	
 	//페이지 기능 구현
 	public SellPage getSellPage(int pageNum) {
-		Connection conn;
+		Connection conn = null;
 		
 		try {
 			conn = ConnectionProvider.getConnection();
@@ -27,13 +28,15 @@ public class ListSellService {
 			return sellPage;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		} finally {
+			JDBCUtil.close(conn);
 		}
 	}
 	
 	
 	public SellPage searchSellPage(int pageNum, SearchRequest searchRequest) {
 		
-		Connection conn;
+		Connection conn = null;
 		
 		try {
 			conn = ConnectionProvider.getConnection();
@@ -47,8 +50,7 @@ public class ListSellService {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
-			
-			
+			JDBCUtil.close(conn);
 		}
 	}
 }
