@@ -46,9 +46,9 @@
             동물
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownAnimal">
-            <a class="dropdown-item" href="#">Link 1</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
+            <a class="dropdown-item" href="/Angel/article.do?pageNo=1">동물</a>
+            <a class="dropdown-item" href="#">강아지</a>
+            <a class="dropdown-item" href="#">고양이</a>
           </div>
         </li>
         <li class="nav-item dropdown">
