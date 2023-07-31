@@ -6,15 +6,8 @@
 <html lang="ko">
 <head>
  <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title></title>
- <!-- Bootstrap 4 CSS -->
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
- <!-- Flatly 테마 CSS -->
- <!-- <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css"> -->
- <!--<link rel="stylesheet" href="https://bootswatch.com/4/Cosmo/bootstrap.min.css"> --> 
- <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css">  
-    
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
  <script>
  $(function(){
@@ -26,11 +19,11 @@
 	<%--//리턴 OurArticleData ora : 글번호,작성자id,작성자명,제목,작성일,수정일,조회수,내용
 			OurArticleData ora = readArticleService.getDetail(no);  
 			request.setAttribute("ora", ora); --%>
- <h2>ourPolReadArticle.jsp</h2>
- pad : ${pad}
+ <h2>ourReadArticle.jsp</h2>
+ ora : ${ora}
  <p><hr/></p>
- *작성일:<fmt:formatDate value="${pad.regDate}"   pattern="yyyy년 M월 d일"/><br/>
- *수정일:<fmt:formatDate value="${pad.modifiedDate}"   pattern="yyyy.MM.dd HH:mm:ss"/>     
+ *작성일:<fmt:formatDate value="${ora.regDate}"   pattern="yyyy년 M월 d일"/><br/>
+ *수정일:<fmt:formatDate value="${ora.modifiedDate}"   pattern="yyyy.MM.dd HH:mm:ss"/>     
 
  <p><hr/></p>
  
@@ -46,14 +39,14 @@
  var="pageNo"라고 정의한 변수pageNo에 값으로 저장해라
  --%>
  <c:set var="pageNo" value="${empty param.pageNo?1:param.pageNo}" /> 
- <a href="polList.do?pageNo=${pageNo}">목록보기</a>
+ <a href="list.do?pageNo=${pageNo}">목록보기</a>
  
- <c:if test="${AUTH_USER.id==pad.writer_id}">
- <a href="modify.do?no=${pad.number}">게시글수정</a>
+ <c:if test="${AUTH_USER.id==ora.writer_id}">
+ <a href="modify.do?no=${ora.number}">게시글수정</a>
  </c:if>
  
- <c:if test="${AUTH_USER.id eq pad.writer_id}">
- <a href="delete.do?no=${pad.number}">게시글삭제</a>
+ <c:if test="${AUTH_USER.id eq ora.writer_id}">
+ <a href="delete.do?no=${ora.number}">게시글삭제</a>
  </c:if>
 </body>
 </html>

@@ -12,6 +12,10 @@
 <%-- sweetAlert2 : 알림창 관련 디자인 --%>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
+
+<c:set var="findType" value="${param.find_type}" />
+
+
 <style>
 /* 숫자 입력 input 태그의 숫자 스핀 버튼 숨기기 */
 input[type="number"]::-webkit-inner-spin-button,
@@ -27,6 +31,8 @@ input[type="number"] {
 
 <script>
 		$('#timerDisplay').hide();
+		var tlno = "";
+		
 		function startTimer(remainingTime) {
 	        var timerInterval = setInterval(function() {
 	            remainingTime--;
@@ -36,6 +42,7 @@ input[type="number"] {
 	                clearInterval(timerInterval);
 	                $('#verification_code').prop('disabled', true); // 시간 초과 시 인증번호 입력 비활성화
 	                $('#timerDisplay').text('시간 초과').css('color', 'black'); // 타이머 종료 시 색상을 검정색으로 변경
+	                $('#find_button').prop('disabled', true);	// 버튼 비활성화
 	            }
 	        }, 1000);
 	    }
@@ -51,8 +58,9 @@ input[type="number"] {
 		function padZero(number) {
 		    return (number < 10) ? "0" + number : number;
 		}
-
-        function sendVerification() {
+		
+		
+        function makeVerification() {
         	// 각 input 요소에 입력된 데이터를 가져옵니다.
             var phone_first = $('#phone_first').val();
             var phone_second = $('#phone_second').val();
@@ -91,27 +99,34 @@ input[type="number"] {
                 return false;
             }
             
-        	var tlno = phone_first + "-" +phone_second + "-" + phone_third;
+        	tlno = phone_first + "-" +phone_second + "-" + phone_third;
         	$.ajax({
     	        type: 'POST',
     	        url: '/findUser.do', 
     	        data: {
+    	        	type: "code",
     	        	tlno: tlno
     	        },
     	        success: function (response) {
-    	        	var remainingTime = 10;
-    	        	$('#timerDisplay').css('display', 'block');
-    	        	$('#timerDisplay').css('color', 'red');
-    	        	alert("성공");
-    	        	startTimer(remainingTime);
-    	        	/* if (response.result === "exist") {	
+    	        	if (response.result === "exist") {	
+    	        		$('#code_number').val(response.code);
     	        		Swal.fire({
     	        			  icon: 'success',
     	        			  title: tlno + '로 인증번호를 전송했습니다.',
     	        			  text: '인증번호 입력하여 진행해주세요.',
     	        			}).then((result) => {
     	        		        if (result.isConfirmed) {
-    	        		        	alert(response.code);
+    	        		        	Swal.fire({
+    	      	        			  icon: 'info',
+    	      	        			  title: '인증 번호 : ' + response.code,
+    	      	        			  text: '3분내로 입력해주세요',
+    	      	        			})
+    	        		        	$('#find_button').prop('disabled', false);
+    	        		        	var remainingTime = 180;
+    	            	        	$('#timerDisplay').css('display', 'block');
+    	            	        	$('#timerDisplay').css('color', 'red');
+    	            	        	startTimer(remainingTime);
+    	            	        	
     	        		        } else {
     	        		            return false;
     	        		        }
@@ -129,7 +144,75 @@ input[type="number"] {
   	        				title: '서버와 연결을 확인해주세요',
   	        				text: '지속적으로 문제가 발생하면 관리자에게 문의하세요',
   	        			});
-    	        	}*/
+    	        	}
+    	           
+    	        },
+    	        error: function (xhr, status, error) {
+    	            console.log('Error:', error);
+    	        }
+    	    });
+        }
+        
+        function sendVerification() {
+            var code_number = $('#code_number').val();
+            var verification_code = $('#verification_code').val();
+            var find_info = $('#find_info').val();
+            
+            if (tlno === undefined){
+            	Swal.fire({
+      			  	icon: 'warning',
+      				title: '전화번호 인증을 진행하세요.',
+      				text: '인증 번호가 존재하지 않습니다.',
+      			});
+            	return;
+            }
+            
+        	$.ajax({
+    	        type: 'POST',
+    	        url: '/findUser.do', 
+    	        data: {
+    	        	type: "verification",
+    	        	code_number: code_number,
+    	        	verification_code: verification_code,
+    	        	tlno:tlno
+    	        },
+    	        success: function (response) {
+    	        	if (response.massage === "success") {
+    	        		if (find_info === "user_id"){	// 아이디 찾기
+    	        			Swal.fire({
+      	        			  	icon: 'success',
+      	        				title: '회원 아이디 : ' + response.user_id,
+      	        				text: 'OK 버튼을 누르면 창이 종료됩니다.',
+      	        			}).then((result) => {
+    	        		        if (result.isConfirmed) {
+    	        		        	window.close();
+    	        		        }
+    	        		    });
+    	        		} else {	// 비밀번호 찾기
+    	        			Swal.fire({
+      	        			  	icon: 'success',
+      	        				title: '회원 비밀번호 : ' + response.user_pw,
+      	        				text: 'OK 버튼을 누르면 창이 종료됩니다.',
+      	        			}).then((result) => {
+    	        		        if (result.isConfirmed) {
+    	        		        	window.close();
+    	        		        }
+    	        		    });
+    	        			
+    	        		}
+    	        	} else if (response.massage === "failed") {	
+    	        		Swal.fire({
+  	        			  	icon: 'error',
+  	        				title: '인증번호가 올바르게 입력되지 않았습니다.',
+  	        				text: '인증번호를 다시 확인해주세요',
+  	        			});
+    	        	} else {
+    	        		Swal.fire({
+  	        			  	icon: 'error',
+  	        				title: '서버와 연결을 확인해주세요',
+  	        				text: '지속적으로 문제가 발생하면 관리자에게 문의하세요',
+  	        			});
+    	        	}
     	           
     	        },
     	        error: function (xhr, status, error) {
@@ -142,8 +225,16 @@ input[type="number"] {
 </head>
 </head>
 <body>
+
+
+
     <div class="container mt-5">
-        <h2 class="mb-4">아이디 찾기</h2>
+    	<c:if test="${findType.equals('id')}">
+        	<h2 class="mb-4">아이디 찾기</h2>
+        </c:if>
+        <c:if test="${findType.equals('pw')}">
+        	<h2 class="mb-4">비밀번호 찾기</h2>
+        </c:if>
 			<div class="mb-3">
 			    <div class="d-flex align-items-center">
 			        <label for="phone_first" class="form-label col-form-label me-2" style="white-space: nowrap;">전화번호:</label>
@@ -155,15 +246,21 @@ input[type="number"] {
 			            <input type="number" class="form-control col-3" id="phone_third" name="phone_third" placeholder="번호입력" minlength="3" maxlength="4" required>
 			            <div class="col-auto mx-2"></div>
 			            <div class="input-group-append">
-			                <button type="button" class="btn btn-primary" onclick="sendVerification()">전화번호 인증</button>
+			                <button type="button" class="btn btn-primary" onclick="makeVerification()">전화번호 인증</button>
 			            </div>
 			        </div> 
 			    </div>
 			</div>
-		<form id="findIdForm" method="post" action="/findId">
 		    <!-- 인증번호 입력 필드 추가 (인증번호를 입력받기 위한 부분) -->
 		    <div class="mb-3">
 		        <input type="hidden" id="code_number" name="code_number" value="(*&!$!$)">
+		        <c:if test="${findType.equals('id')}">
+		        	<input type="hidden" id="find_info" name="find_info" value="user_id">
+		        </c:if>
+		        <c:if test="${findType.equals('pw')}">
+		        	<input type="hidden" id="find_info" name="find_info" value="user_pw">
+		        </c:if>
+		        
 		                
                	<div class="mb-2"><span style="display: none;" id="timerDisplay">남은 시간: 03:00</span></div>
 		        <div class="mb-3 d-flex align-items-center">
@@ -172,9 +269,15 @@ input[type="number"] {
 				</div>
 		    </div>
 		    <div class="mb-3 d-flex justify-content-center"> <!-- 가운데 정렬 -->
-			    <button type="submit" class="btn btn-success btn-lg">아이디 찾기</button> <!-- 크게 만들기 -->
+		    	<button type="button" id="find_button" class="btn btn-primary" onclick="sendVerification()">
+		    	<c:if test="${findType.equals('id')}">
+		        	아이디 찾기
+		        </c:if>
+		        <c:if test="${findType.equals('pw')}">
+		        	비밀번호 찾기
+		        </c:if>
+				</button>
 			</div>
-		</form>
     </div>
 
     

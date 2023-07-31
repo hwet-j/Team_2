@@ -11,7 +11,7 @@
 
     <div class="container">
         <h2 class="my-4">게시물 수정 </h2>
-        <form action="$/hwet/article/modify.do" method="post">
+        <form action="/hwet/article/modify.do" method="post">
             <input type="hidden" name="board_id" value="${data.board_id}">
             <input type="hidden" name="page_no" value="${page_no}">
             <div class="form-group">

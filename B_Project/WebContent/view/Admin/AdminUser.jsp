@@ -119,7 +119,6 @@
         	            user_gender: user_gender,
         	            user_nickname: user_nickname,
         	            user_tlno: user_tlno,
-        	            user_join_date: user_join_date
         	        },
         	        success: function (response) {
         	        	if (response === "nicknameDuplicate") {	

@@ -206,7 +206,7 @@
             </tr>
             <tr>
                 <th>내용</th>
-                <td>${data.content}</td>
+                <td style="white-space: pre-wrap;">${data.content}</td>
             </tr>
             <tr>
                 <th>작성일</th>

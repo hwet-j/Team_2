@@ -17,6 +17,7 @@ public class LikeSellHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		
 		if(request.getMethod().equalsIgnoreCase("POST")) {
 			return processSubmit(request,response);
 		}else{
@@ -29,6 +30,7 @@ public class LikeSellHandler implements CommandHandler {
 	public String processSubmit(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		int sellNum = Integer.parseInt(request.getParameter("no"));
+		
 		int likeCheck = readSellService.getLikeSell(sellNum);
 		
 		if(likeCheck != 1) {

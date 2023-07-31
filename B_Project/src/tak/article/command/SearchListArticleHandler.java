@@ -8,7 +8,7 @@ import tak.article.service.ListArticleService;
 import mvc.command.CommandHandler;
 
 public class SearchListArticleHandler implements CommandHandler {
-	private String FORM_VIEW = "/view/article/listArticle.jsp";
+	private String FORM_VIEW = "/view/TAK/listArticle.jsp";
 	private ListArticleService listArticleService = new ListArticleService();
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {

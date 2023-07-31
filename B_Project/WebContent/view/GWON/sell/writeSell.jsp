@@ -20,11 +20,11 @@
 
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "../../../header.html" %>
 
  <div class="container">
 	 <h2  class="" align = "center">중고거래 글작성하기</h2>
-	 <form action="/gwon/sell/sellWrite.do" method="post">
+	 <form action="/gwon/sell/sellWrite.do" method="post" enctype="multipart/form-data">
 	  <div  class="">	
 	  	<label for="AUTH_USER.user_id" class="form-label" >작성자</label>
 	  	<input type="text" name="AUTH_USER.user_id" id="AUTH_USER.user_id" class="form-control" value="${AUTH_USER.user_id}"  readonly = "readonly" required /><br/>
@@ -72,10 +72,15 @@
 	  	<c:if test="${errors.sell_content}"><span class="error">내용을 입력하세요</span></c:if>
 	  </div>
 	  <div  class="">	
+	  	<label for="sell_file"  class="form-label">이미지</label>
+	  	<input type="file" name="sell_file" id="sell_file"  class="form-control-file" onchange="readURL(this);"/>
+	  	<img src="#" id="preview" style="width:150px;"/> 
+	  </div>
+<%-- 	  <div  class="">	
 	  	<label for="sell_file"  class="form-label">파일 업로드</label>
 	  	<input type="text" name="sell_file" id="sell_file"  class="form-control" /><br/>
 	  	<c:if test="${errors.sell_file}"><span class="error">파일 업로드를 하세요</span></c:if>
-	  </div>
+	  </div> --%>
 	 
 	  <div>
 	 	<a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do" style = "float: right; "role="button">목록</a>
