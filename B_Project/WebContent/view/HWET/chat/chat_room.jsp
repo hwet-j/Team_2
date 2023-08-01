@@ -102,7 +102,7 @@
         <%-- 웹소켓 관련 스크립트 --%>
 		// 「broadsocket」는 호스트 명 (servlet에서 맵핑한 이름)
 		// WebSocket 오브젝트 생성 (자동으로 접속 시작한다. - onopen 함수 호출)
-		var webSocket = new WebSocket("ws://localhost:80/broadsocket?room_id"+roomId);
+		var webSocket = new WebSocket("ws://172.30.1.100:80/broadsocket");
 		
 		// WebSocket 서버와 접속이 되면 호출되는 함수
 		webSocket.onopen = function(message) {
@@ -235,7 +235,6 @@
 			
 			<!-- 부트스트랩의 form-control 클래스와 mb-2 클래스로 스타일 적용 -->
 			<button type="button" class="btn btn-primary" id="send_button">보내기</button>
-			<input onclick="sendMessage()" value="Send" type="button">
 		</form>
 	</div>
 

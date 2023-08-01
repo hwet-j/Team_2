@@ -67,7 +67,6 @@ public class BroadSocket {
 			JSONObject messageObj = new JSONObject();
 			messageObj.put("content", content);
 			messageObj.put("room_id", room_id);
-			System.out.println("room_id : " + room_id);
 			
 			
 			sessionUsers.forEach(session -> {
