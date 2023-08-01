@@ -33,22 +33,7 @@ public class ShowRoomHandler implements CommandHandler {
 		
 	// 상세보기
 	private String processSubmit(HttpServletRequest request, HttpServletResponse response) {
-		MemberDTO user = (MemberDTO)request.getSession().getAttribute("AUTH_USER"); 
-		if (user == null) {
-			return "/view/errorPage.jsp";
-		}
-		
-		int room_id = Integer.parseInt(request.getParameter("room_id"));
-		// 채팅방 참여자
-		List<String> participants = listRoomService.roomParticipant(room_id);
-		// 채팅방 대화목록 
-		List<ChatMessageDTO> messages = listRoomService.chatMessage(room_id);
-		
-		request.setAttribute("room_id", room_id);
-		request.setAttribute("participants", participants);
-		request.setAttribute("messages", messages);
-		
-		return "/view/HWET/chat/chat_room.jsp";
+		return null;
 	}
 	
 	// 전체 리스트
@@ -57,6 +42,7 @@ public class ShowRoomHandler implements CommandHandler {
 		if (user == null) {
 			return "/view/errorPage.jsp";
 		}
+		
 		// 채팅방 리스트 불러오기
 		List<ChatRoomDTO> room_list = listRoomService.ListChatRoom();
 		// 채팅방 참여자 목록 불러오기
