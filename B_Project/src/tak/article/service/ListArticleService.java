@@ -13,7 +13,7 @@ import tak.article.dao.ArticleDAO;
 public class ListArticleService {
 	
 	ArticleDAO articleDAO = new ArticleDAO();
-	int size = 5;//1페이지당 출력할 게시글수-p651 14라인
+	int size = 7;//1페이지당 출력할 게시글수-p651 14라인
 
 	//총게시글수+목록조회 
 	//파라미터  int pageNum : 보고싶은 페이지

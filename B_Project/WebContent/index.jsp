@@ -14,13 +14,13 @@
 <style>
 
 .container {
-/*  display : flex; */
+ display : flex;
  flex-direction: row;
  justify-content: center;
 }
 
 .container-items {
- width: 50%
+ width: auto;
  height : auto;
  padding-left : 50px;
  padding-right : 50px;
@@ -50,7 +50,7 @@
 </head>
 <body>
 <%@ include file="/header.html" %>
-<%@ include file="/main.html" %>
+<%@ include file="/main2.html" %>
 <%@ include file="/footer.html" %>
 </body>
 
