@@ -24,20 +24,27 @@
  </script>
 </head>
 <body>
-
 <%@ include file = "/header.html" %>
 <!-- 여기아래로 -->
+<a href="/view/CJH/whi_photo/whi_photo_update.jsp?articleNo=${CONTENT.article_no}&title=${CONTENT.title}&content=${CONTENT.content}" class="btn btn-primary m-3">수정</a>
+<%
+int article_no = Integer.parseInt(request.getParameter("article_no"));
+String title = request.getParameter("title");
+String content = request.getParameter("content");
+String imageFileName = request.getParameter("imageFileName");
+%>
     <div class="container">
         <h2>글 작성</h2>
-        <form method="post" action="/CJH/whi_photo/write.do" enctype="multipart/form-data">
+        <form method="post" action="/CJH/whi_photo/update.do" enctype="multipart/form-data">
             <input type="hidden" value="${AUTH_USER.user_id}" name="user_id">
+            <input type="hidden" value="<%=article_no %>" name="article_no">
             <div class="form-group">
                 <label for="title">글제목</label>
-                <input type="text" class="form-control" id="title" name="title" required>
+                <input type="text" class="form-control" id="title" name="title" required value="<%=title %>">
             </div>
             <div class="form-group">
                 <label for="content">글내용</label>
-                <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
+                <textarea class="form-control" id="content" name="content" rows="4" required value="<%=content%>"></textarea>
             </div>
             <div class="form-group">
                 <label for="image_src">이미지</label>

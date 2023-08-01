@@ -12,12 +12,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <title>글 상세보기</title>
  <script>
-
+$(document).ready(function(){
+	$("#likebtn").click(function(){
+		location.href='/CJH/whi_photo/like.do?articleNo=${CONTENT.article_no}';
+	});
+	
+	$("#dislikebtn").click(function(){
+		location.replace('/CJH/whi_photo/dislike.do?articleNo=${CONTENT.article_no}');
+	});
+});
  </script>
 </head>
 <body>
 
-<%@ include file="/navi.jsp" %>
+<%@ include file = "/header.html" %>
 <!-- 여기아래로 -->
   <div class="container mt-3">
   		<!-- 배너 -->
@@ -44,11 +52,11 @@
             </div>
          	<div class="col-md-4 mb-3">
                 <strong>좋아요:</strong>
-                <button type="button" class="btn btn-success">${CONTENT.like_cnt}</button>
+                <button type="button" class="btn btn-success" name="likebtn" id="likebtn">${CONTENT.like_cnt}</button>
             </div>
             <div class="col-md-4 mb-3">
                 <strong>싫어요:</strong>
-                <button type="button" class="btn btn-danger">${CONTENT.dislike_cnt}</button>
+                <button type="button" class="btn btn-danger" name="dislikebtn" id="dislikebtn">${CONTENT.dislike_cnt}</button>
             </div>
         </div>
         <hr>
@@ -61,9 +69,9 @@
 	        </div>
         </c:if>
         
-           <c:if test="${AUTH_USER.user_id == CONTENT.user_id}">
+           <c:if test="${AUTH_USER.user_id == CONTENT.user_id or AUTH_USER.user_id eq 'admin'}">
         <div class="d-flex justify-content-end">
-                <a href="/CJH/whi_photo/update.do?articleNo=${CONTENT.article_no}" class="btn btn-primary m-3">수정</a>
+                <a href="/view/CJH/whi_photo/whi_photo_update.jsp?articleNo=${CONTENT.article_no}&title=${CONTENT.title}&content=${CONTENT.content}" class="btn btn-primary m-3">수정</a>
                 <a href="/CJH/whi_photo/delete.do?articleNo=${CONTENT.article_no}" class="btn btn-primary m-3">삭제</a>
         </div>
 		    </c:if>

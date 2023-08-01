@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<%@ include file="/navi.jsp" %>
+<%@ include file = "/header.html" %>
 <!-- 여기아래로 -->
 <!-- 메인 이미지 -->
 <div style="text-align: center;">

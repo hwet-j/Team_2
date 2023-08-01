@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<%@ include file="/navi.jsp" %>
+<%@ include file = "/header.html" %>
 <!-- 여기아래로 -->
 
     <div class="container">
