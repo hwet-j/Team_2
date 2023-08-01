@@ -25,7 +25,8 @@ ModifyRequest modReq=new ModifyRequest(user.getId(), no, oad.getTitle(), oad.get
 request.setAttribute("modReq", modReq); --%>	
 
  <!-- Navigation -->
- <%@ include file="navigation.jsp" %> 	
+ <%@ include file="/navi.jsp" %> 	
+ <%@ include file="/footer.jsp" %> 	
 
   <!-- 내용 -->
  <div class="container">

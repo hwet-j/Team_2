@@ -89,7 +89,7 @@
             경탁
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownBoard2">
-            <a class="dropdown-item" href="/tak/article/list.do">Link 1</a>
+            <a class="dropdown-item" href="/tak/article/list.do">신고게시판</a>
             <a class="dropdown-item" href="#">Link 2</a>
             <a class="dropdown-item" href="#">Link 3</a>
           </div>

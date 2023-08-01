@@ -16,8 +16,45 @@
 
  });
  </script>
+ <style>
+ 
+ 
+   .centered-form {
+    display: flex;
+    justify-content: center;/* form 태그를 가로 방향으로 가운데 정렬 */
+  }
+  
+  .table-hover th,
+  .table-hover td {
+    text-align: center; /* 글자를 가로로 중앙에 위치시킵니다. */
+  }
+
+  .table-hover th:nth-child(1),
+  .table-hover td:nth-child(1) {
+    width: 10%; /* 글번호 칼럼 너비 설정 */
+  }
+
+  .table-hover th:nth-child(2),
+  .table-hover td:nth-child(2) {
+    width: 50%; /* 제목 칼럼 너비 설정 */
+  }
+
+  .table-hover th:nth-child(3),
+  .table-hover td:nth-child(3) {
+    width: 20%; /* 작성자/아이디 칼럼 너비 설정 */
+  }
+
+  .table-hover th:nth-child(4),
+  .table-hover td:nth-child(4),
+  .table-hover th:nth-child(5),
+  .table-hover td:nth-child(5) {
+    width: 10%; /* 조회수와 좋아요 칼럼 너비 설정 */
+  }
+</style>
 </head>
 <body>
+ <%@ include file="/navi.jsp" %> 	
+ <%@ include file="/footer.jsp" %> 	
  <%-- ListArticleHandler로 부터 
  	 request.setAttribute("nowPage", pageNo); //현재페이지
      request.setAttribute("articlePage", articlePage); 
@@ -34,18 +71,21 @@
  <%-- 비로그인시 --%>
  <c:if test="${empty AUTH_USER}"> 
  <div class="container"><!-- page title -->
-	<h2  class="mt-5 mb-4">listArticle(p653)</h2>
+	<h1  class="mt-5 mb-4">신고게시판</h1>
  	
  	<!-- Board List table -->
+ 	<div class="d-flex justify-content-between">
  	<div>총 게시글수 : ${articlePage.total}건 / 현재페이지 : ${nowPage}</div>
+ 	<div>현재사용자:${AUTH_USER.user_id}</div>
+ 	</div>
  	<table class="table table-hover">
  	 <thead  class="thead-light">
  	  <tr>
- 	  	<th scope="col">번호no</th>
- 	  	<th scope="col">제목title</th>
- 	  	<th scope="col">작성자writer_name</th>
- 	  	<th scope="col">조회수read_cnt</th>
- 	  	<th scope="col">좋아요good</th>
+ 	  	<th scope="col">글번호</th>
+ 	  	<th scope="col">제목</th>
+ 	  	<th scope="col">작성자/아이디</th>
+ 	  	<th scope="col">조회수</th>
+ 	  	<th scope="col">좋아요</th>
  	  </tr>
  	 </thead>
  	 <tbody> <%-- 총게시글(수가 0이면)없으면  true리턴, 그렇지 않으면 false --%>
@@ -73,7 +113,7 @@
  	  <a href="write1.do" class="btn btn-outline-dark btn-sm">글 쓰기(p653 12라인)</a>
  	</div>  -->
  	</div>
- 	<form id="search" action="/tak/article/list2.do" method="post" >
+ 	<form id="search" action="/tak/article/list2.do" method="post" class="centered-form">
 	 	<div>
 	 		<label for="searchcontent"></label>
 	 		<input type="text" name="searchcontent" id="searchcontent" placeholder="검색어입력" />
@@ -107,22 +147,43 @@
  </c:if>
  
  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  <%-- (user)로그인을 했을 경우 보여지는 부분 시작 --%>
  
- <c:if test="${!empty AUTH_USER  and  AUTH_USER.user_id!='adminid'}"> 
+ <c:if test="${!empty AUTH_USER  and  !AUTH_USER.user_id.contains('admin')}"> 
  <div class="container"><!-- page title -->
-	<h2  class="mt-5 mb-4">로그인시listArticle(p653)</h2>
+	<h1  class="mt-5 mb-4">신고게시판</h1>
  	
  	<!-- Board List table -->
+ 	<div class="d-flex justify-content-between">
  	<div>총 게시글수 : ${articlePage.total}건 / 현재페이지 : ${nowPage}</div>
+ 	<div>현재사용자:${AUTH_USER.user_id}</div>
+ 	</div>
  	<table class="table table-hover">
  	 <thead  class="thead-light">
  	  <tr>
- 	  	<th scope="col">번호no</th>
- 	  	<th scope="col">제목title</th>
- 	  	<th scope="col">작성자writer_name</th>
- 	  	<th scope="col">조회수read_cnt</th>
- 	  	<th scope="col">좋아요good</th>
+ 	  	<th scope="col">글번호</th>
+ 	  	<th scope="col">제목</th>
+ 	  	<th scope="col">작성자/아이디</th>
+ 	  	<th scope="col">조회수</th>
+ 	  	<th scope="col">좋아요</th>
  	  </tr>
  	 </thead>
  	 <tbody> <%-- 총게시글(수가 0이면)없으면  true리턴, 그렇지 않으면 false --%>
@@ -150,7 +211,7 @@
  	  <a href="/tak/article/write1.do" class="btn btn-outline-dark btn-sm">글 쓰기(p653 12라인)</a>
  	</div>
  	</div>
- 	<form id="search" action="/tak/article/list2.do" method="post" >
+ 	<form id="search" action="/tak/article/list2.do" method="post" class="centered-form" >
 	 	<div>
 	 		<label for="searchcontent"></label>
 	 		<input type="text" name="searchcontent" id="searchcontent" placeholder="검색어입력" />
@@ -184,20 +245,34 @@
  </c:if>
  
  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  <%-- (관리자)로그인을 했을 경우 보여지는 부분 시작 --%>
- <c:if test="${!empty AUTH_USER  and  AUTH_USER.user_id=='adminid'}"> 
+ <c:if test="${AUTH_USER.user_id.contains('admin')}"> 
  <div class="container"><!-- page title -->
-	<h2  class="mt-5 mb-4">listArticle(p653)</h2>
+	<h1 class="mt-5 mb-4"><strong>신고게시판</strong></h1>
  	
  	<!-- Board List table -->
+ 	<div class="d-flex justify-content-between">
  	<div>총 게시글수 : ${articlePage.total}건 / 현재페이지 : ${nowPage}</div>
+ 	<div>현재사용자:${AUTH_USER.user_id}</div>
+ 	</div>
  	<table class="table table-hover">
  	 <thead  class="thead-light">
  	  <tr>
- 	  	<th scope="col">번호no</th>
- 	  	<th scope="col">제목title</th>
- 	  	<th scope="col">작성자writer_name</th>
- 	  	<th scope="col">조회수read_cnt</th>
+ 	  	<th scope="col">글번호</th>
+ 	  	<th scope="col">제목</th>
+ 	  	<th scope="col">작성자/아이디</th>
+ 	  	<th scope="col">조회수</th>
+ 	  	<th scope="col">좋아요</th>
  	  </tr>
  	 </thead>
  	 <tbody> <%-- 총게시글(수가 0이면)없으면  true리턴, 그렇지 않으면 false --%>
@@ -216,15 +291,19 @@
  	  	<td><a href="read.do?no=${article.number}&pageNo=${nowPage}">${article.title}</a></td>
  	  	<td>${article.writer.name}/${article.writer.id}</td>
  	  	<td>${article.readCount}</td>
+ 	  	<td>${article.good}</td>
  	  </tr>
  	  </c:forEach> <%-- 내용출력 끝 --%>
  	 </tbody>
  	</table>
- 	<div>
- 	  <a href="write1.do" class="btn btn-outline-dark btn-sm">글 쓰기</a>
- 	 <!--  <a href="write1.do" class="btn btn-outline-dark btn-sm">글 삭제</a> -->
- 	</div>
- 	<form id="search" action="/article/list2.do" method="post" >
+	 <div class="d-flex justify-content-between">
+	    <a href="write1.do" class="btn btn-outline-dark btn-sm">글 쓰기</a>
+	    <div>
+	        
+	        <a href="/view/TAK/adminDeleteForm.jsp" class="btn btn-outline-dark btn-sm">글 통째 삭제</a>
+	    </div>
+	</div>
+ 	<form id="search" action="/tak/article/list2.do" method="post" class="centered-form">
 	 	<div>
 	 		<label for="searchcontent"></label>
 	 		<input type="text" name="searchcontent" id="searchcontent" placeholder="검색어입력" />

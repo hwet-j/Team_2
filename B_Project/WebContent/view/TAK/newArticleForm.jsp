@@ -39,7 +39,8 @@
 	  </div>
 	  <div  class="mb-4">	
 	  	<label for="content"  class="form-label">내용</label>
-	  	<textarea name="content" id="content" class="form-control"  rows="5" cols="30"></textarea><br/>
+	  	<textarea name="content" id="content" class="form-control"  rows="5" cols="30" placeholder="신고할 글주소를 < >사이에 넣어주세요 
+	  	 예시 <www.naver.com>이렇게"></textarea><br/>
 	  	<c:if test="${errors.content}"><span class="error">내용을 입력하세요</span></c:if>
 	  </div>
 	  <div>
