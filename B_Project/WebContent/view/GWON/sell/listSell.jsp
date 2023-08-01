@@ -89,7 +89,7 @@
 					</select>
 					</td>
 					<td><input type="text" class="form-control" placeholder="검색어 입력" name="searchText" maxlength="100"></td>
-					<td><button type = "submit" class="btn btn-success"><img src = "../../../image/search.svg"/></button></td>
+					<td><button type = "submit" class="btn btn-success"><img src = "<%=request.getContextPath() %>/view/GWON//image/search.svg"/></button></td>
 				</tr>
 			</table>
 		</div>

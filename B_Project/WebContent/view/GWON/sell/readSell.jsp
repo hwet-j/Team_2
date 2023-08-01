@@ -65,7 +65,7 @@
 
 
 
- <div class="container">
+ <div class="container-xl">
  	<div style = "text-align : right;">
  		<p >  
  			   조회수  ${sellDTO.sell_read_cnt} &nbsp;&nbsp;
@@ -76,14 +76,12 @@
 	<img  class = "image" src= "<%=request.getContextPath() %>/gwon/sell/sellDownload.do?fileNo=${sellDTO.sell_no}&sell_file=${sellDTO.sell_file}"  id="preview" />
 	<table class="table table-bordered">
 	 <tbody>
-	  <tr>
+	  <tr >
 	   <th class="col-3">작성자id</th>
 	   <td class="col-3">${sellDTO.user_id}</td>
 	   <th class="col-3">위치</th>
 	   <td class="col-3">${sellDTO.sell_loc}</td>
 	  </tr>
-	  <tr>
-      </tr>
 	  <tr>
 	   <th class="col-3">제목</th>
 	   <td colspan = "9">${sellDTO.sell_title}</td>

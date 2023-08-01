@@ -50,7 +50,7 @@
 </head>
 <body>
 <%@ include file="/header.html" %>
-<%@ include file="/main.html" %>
+<%@ include file="/main2.html" %>
 <%@ include file="/footer.html" %>
 </body>
 
