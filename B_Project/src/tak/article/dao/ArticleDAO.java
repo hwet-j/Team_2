@@ -340,6 +340,21 @@ public class ArticleDAO {
 	}
 
 
+	public void deleteAll(Connection conn, String delId) throws SQLException {
+		String sql = "delete from tak_board where writer_id=?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1,delId);
+			int num = stmt.executeUpdate();
+			System.out.println("삭제글수 ="+ num);
+			//delete가 성공되면 1리턴, 실패시 0리턴
+		}finally {
+			JDBCUtil.close(stmt);
+		}
+	}
+
+
 	
 	
 	

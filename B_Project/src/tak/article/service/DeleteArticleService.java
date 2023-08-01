@@ -26,7 +26,7 @@ public class DeleteArticleService {
 			}
 			
 			//2.article테이블에 update하는 메서드호출
-			articleDAO.deleteUp(conn, no);
+			articleDAO.delete(conn, no);
 			
 			conn.commit();
 		} catch (SQLException e) {
@@ -66,6 +66,29 @@ public class DeleteArticleService {
 			JDBCUtil.close(conn);
 		}
 		
+	}
+
+
+
+	public void deleteAll(String delId) {
+		Connection conn = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
+			
+		
+			
+			//2.article테이블에 delete하는 메서드호출
+			articleDAO.deleteAll(conn, delId);
+			
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JDBCUtil.rollback(conn);
+			throw new RuntimeException();
+		}finally {
+			JDBCUtil.close(conn);
+		}
 	}
 
 

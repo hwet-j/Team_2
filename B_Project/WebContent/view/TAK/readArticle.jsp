@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="u"   tagdir="/WEB-INF/tags"%>
+<%@ page import="java.util.regex.Pattern" %>
+<%@ page import="java.util.regex.Matcher" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,10 +23,12 @@
  </script>
 </head>
 <body>
+
 <%--//리턴 OurArticleData ora : 글번호,작성자id,작성자명,제목,작성일,수정일,조회수,내용
 	OurArticleData ora = readArticleService.getDetail(no);  
 	request.setAttribute("ora", ora); --%>
- <%-- ora : ${ora} --%>
+ ora : ${ora} 
+
  <div class="container">
     <!-- page title -->
 	<h2  class="mt-5 mb-4 text-center">상세보기(readArticle/p662)</h2>
@@ -74,28 +79,40 @@
 	 </tbody>	
 	</table>
 	
+	
 	<!-- button --> 
 	<!-- d-flex:한개의 row를 block레벨로 차지 
 	   flex-start:왼쪽정렬(기본)/ flex-end:오른쪽정렬 / flex-center:가운데정렬
 	   justify-content-end : 오른쪽정렬-->
-	<div class="d-flex justify-content-end">
-	 <c:set var="pageNo" value="${empty param.pageNo?1:param.pageNo}" /> 
-     <a href="list.do?pageNo=${pageNo}" class="btn btn-outline-dark">목록보기</a>
-     
-     <c:if test="${AUTH_USER.user_id==ora.writer_id}">
-	  <a href="modify.do?no=${ora.number}" class="btn btn-outline-dark">게시글수정</a>
-     </c:if>
-		 
-	<%-- 
-	  <c:if test="${AUTH_USER.id eq ora.writer_id}">
-	   <a href="delete.do?no=${ora.number}" class="btn btn-outline-dark">게시글삭제(del)</a>
-	 </c:if> --%> 
-
-	  <c:if test="${(AUTH_USER.user_id eq ora.writer_id)|| (AUTH_USER.user_id eq 'adminid')}">
-	   <a href="delete.do?no=${ora.number}" class="btn btn-outline-dark">게시글삭제(up)</a>
-	 </c:if> 
+	<div class="d-flex justify-content-between">
+	    <!-- 왼쪽에 바로가기 버튼을 추가 -->
+		<c:set var="content" value="${ora.content}" />
+		<c:choose>
+			<c:when test="${content.contains('<') && content.contains('>')}">
+				<c:set var="startIndex" value="${content.indexOf('<')}" />
+				<c:set var="endIndex" value="${content.indexOf('>')}" />
+				<c:set var="extractedText" value="${content.substring(startIndex + 1, endIndex)}" />
+				<a href="${extractedText}" class="btn btn-outline-dark">신고글 바로가기</a>
+			</c:when>
+			<c:otherwise>
+				<!-- <a href="#" class="btn btn-outline-dark" disabled>바로가기</a> -->
+			</c:otherwise>
+		</c:choose>
+	<%--  ${extractedText} --%>
+	    <c:set var="pageNo" value="${empty param.pageNo ? 1 : param.pageNo}" /> 
+	    <a href="list.do?pageNo=${pageNo}" class="btn btn-outline-dark ml-auto">목록보기</a>
+	    
+	    <c:if test="${AUTH_USER.user_id == ora.writer_id}">
+	        <a href="modify.do?no=${ora.number}" class="btn btn-outline-dark">게시글수정</a>
+	    </c:if>
+	    
+	    <c:if test="${(AUTH_USER.user_id == ora.writer_id) || (AUTH_USER.user_id == 'adminid')}">
+	        <a href="delete.do?no=${ora.number}" class="btn btn-outline-dark">게시글삭제(up)</a>
+	    </c:if> 
 	</div>
  </div>
+ 
+
 <%-- String pageNo = "1";
  <c:set var="변수명" value="값">
  param.pageNo       파라미터명이 pageNo를 의미
