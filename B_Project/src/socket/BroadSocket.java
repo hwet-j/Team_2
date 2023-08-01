@@ -21,12 +21,17 @@ import org.json.simple.parser.ParseException;
 public class BroadSocket {
 	// 접속 된 클라이언트 WebSocket session 관리 리스트
 	private static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<>());
+
+	//
+
 	// 메시지에서 유저 명을 취득하기 위한 정규식 표현
 	private static Pattern pattern = Pattern.compile("^\\{\\{.*?\\}\\}"); // {{로 시작하고 }}로 끝나는 데이터
 	// WebSocket으로 브라우저가 접속하면 요청되는 함수
 	static String type = null;
 	static String content = null;
 	static String user = null;
+	static int room_id = 0;
+
 	@OnOpen
 	public void handleOpen(Session userSession) {
 		// 클라이언트가 접속하면 WebSocket세션을 리스트에 저장한다.
@@ -39,38 +44,47 @@ public class BroadSocket {
 	@OnMessage
 	public void handleMessage(String message, Session userSession) throws IOException {
 		// 메시지 내용을 콘솔에 출력한다.
-		
-        JSONParser parser = null;
-        JSONObject jsonObject = null;
-        try {
-        	parser = new JSONParser();
+
+		JSONParser parser = null;
+		JSONObject jsonObject = null;
+		try {
+			parser = new JSONParser();
 			jsonObject = (JSONObject) parser.parse(message);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-        type = (String) jsonObject.get("type");
-        content = (String) jsonObject.get("content");
-        user = (String) jsonObject.get("user");
-        System.out.println(type);
-        System.out.println(content);
-        System.out.println(user);
-        
+		type = (String) jsonObject.get("type");
 
-		sessionUsers.forEach(session -> {
-			// 리스트에 있는 세션과 메시지를 보낸 세션이 같으면 메시지 송신할 필요없다.
-			if (session == userSession) {
-				return;
-			}
-			System.out.println("dafsdfasdfs");
-			try {
-				// 리스트에 있는 모든 세션(메시지 보낸 유저 제외)에 메시지를 보낸다. (형식: 유저명 => 메시지)
-				System.out.println(content);
-				session.getBasicRemote().sendText(content);
-			} catch (IOException e) {
-				// 에러가 발생하면 콘솔에 표시한다.
-				e.printStackTrace();
-			}
-		});
+		if (type.equals("join_room")) { // 채팅방에 입장했을 때 불러와지는 데이터
+			user = (String) jsonObject.get("user");
+			room_id = ((Long) jsonObject.get("room_id")).intValue();
+
+		} else if (type.equals("chat_message")) { // 메시지를 입력했을 때 불러와지는 데이터
+			content = (String) jsonObject.get("content");
+			user = (String) jsonObject.get("user");
+			room_id = ((Long) jsonObject.get("room_id")).intValue();
+			
+			JSONObject messageObj = new JSONObject();
+			messageObj.put("content", content);
+			messageObj.put("room_id", room_id);
+			System.out.println("room_id : " + room_id);
+			
+			
+			sessionUsers.forEach(session -> {
+				// 리스트에 있는 세션과 메시지를 보낸 세션이 같으면 메시지 송신할 필요없다.
+				if (session == userSession) {
+					return;
+				}
+				try {
+					// 리스트에 있는 모든 세션(메시지 보낸 유저 제외)에 메시지를 보낸다. (형식: 유저명 => 메시지)
+					System.out.println(content);
+					session.getBasicRemote().sendText(messageObj.toString());
+				} catch (IOException e) {
+					// 에러가 발생하면 콘솔에 표시한다.
+					e.printStackTrace();
+				}
+			});
+		}
 	}
 
 	// WebSocket과 브라우저가 접속이 끊기면 요청되는 함수
@@ -82,4 +96,3 @@ public class BroadSocket {
 		System.out.println("client is now disconnected...");
 	}
 }
-

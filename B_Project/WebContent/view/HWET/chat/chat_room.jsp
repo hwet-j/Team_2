@@ -28,6 +28,8 @@
 
 <script>
     $(document).ready(function() {
+    	var roomId = ${room_id};
+    	
     	$("#content").keydown(function (event) {
             // Shift 키와 Enter 키가 함께 눌렸을 때 줄바꿈 기능 수행
             if (event.shiftKey && event.keyCode === 13) {
@@ -80,7 +82,7 @@
                 success: function(response) {
                 	sendMessage_socket(writer, content, response.output_data);
                 	
-                    $("#postList").append(response.input_data);
+                    $("#postList_"+roomId).append(response.input_data);
                     
                     scrollToBottom();	
                 },
@@ -100,12 +102,12 @@
         <%-- 웹소켓 관련 스크립트 --%>
 		// 「broadsocket」는 호스트 명 (servlet에서 맵핑한 이름)
 		// WebSocket 오브젝트 생성 (자동으로 접속 시작한다. - onopen 함수 호출)
-		var webSocket = new WebSocket("ws://localhost:80/broadsocket");
+		var webSocket = new WebSocket("ws://localhost:80/broadsocket?room_id"+roomId);
 		
 		// WebSocket 서버와 접속이 되면 호출되는 함수
 		webSocket.onopen = function(message) {
 			 var user_id = "${AUTH_USER.user_id}";
-             webSocket.send(JSON.stringify({ type: "join_room", user_id: user_id, room_id: roomId }));
+             webSocket.send(JSON.stringify({ type: "join_room", user: user_id, room_id: roomId }));
 		};
 		// WebSocket 서버와 접속이 끊기면 호출되는 함수
 		webSocket.onclose = function(message) {
@@ -118,12 +120,17 @@
 		webSocket.onmessage = function(event) {
 		  var messageData = event.data;
 		  if (typeof messageData === "string") {
+		    var jsonData = JSON.parse(messageData);
+		    var content = jsonData.content;
+		    var room_info = jsonData.room_id;	
+		    // alert(room_info);
+		    
 		    // 데이터가 문자열인 경우 바로 출력
-		    $("#postList").append(messageData);
+		    $("#postList_"+room_info).append(content);
 		  } else if (typeof messageData === "object") {
 		    // 데이터가 객체인 경우 JSON 형식으로 변환하여 출력
 		    var jsonString = JSON.stringify(messageData);
-		    $("#postList").append(jsonString);
+		    $("#postList_"+roomId).append(jsonString);
 		  }
 		  // scrollToBottom 함수를 직접 호출하여 스크롤 이동
 		  scrollToBottom();	
@@ -131,7 +138,7 @@
 		// Send 버튼을 누르면 호출되는 함수
 		function sendMessage_socket(user, message, output_message) {
 		  //webSocket.send("{{" + user + "}}" + output_message);
-		  webSocket.send(JSON.stringify({ type: "chat_message", content: output_message, user: user }));
+		  webSocket.send(JSON.stringify({ type: "chat_message", content: output_message, user: user , room_id:roomId}));
 		}
 		
 		// Disconnect 버튼을 누르면 호출되는 함수
@@ -183,7 +190,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1 class="mt-4">채팅방</h1>
+		<h1 class="mt-4">채팅방 ${room_id}</h1>
 
 		<!-- 채팅방 참여자 목록 출력 -->
 		<h2>채팅방 참여자 목록</h2>
@@ -200,7 +207,7 @@
 
 		<div class="mt-4 scroll-frame">
 			<h2>채팅방 대화목록</h2>
-			<div id="postList" class="list-group chat-list">
+			<div id="postList_${room_id}" class="list-group chat-list">
 				<c:forEach items="${messages}" var="message">
 					<span class="chat-bubble ${AUTH_USER.user_id eq message.sender_id ? 'right-bubble' : 'left-bubble'}">
 						<c:if test="${AUTH_USER.user_id ne message.sender_id}">
