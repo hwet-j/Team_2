@@ -18,6 +18,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
 public class DBCPInitListener implements ServletContextListener {
 
+	private GenericObjectPool<PoolableConnection> connectionPool;
 	//poolConfig 컨텍스트 초기화
 	@Override 
 	public void contextInitialized(ServletContextEvent sce) {
@@ -33,6 +34,7 @@ public class DBCPInitListener implements ServletContextListener {
 		}
 		loadJDBCDriver(prop);
 		initConnectionPool(prop);
+		
 	}
 	
 	// 매개변수 Properties prop에 담겨온 내용을 이용하여 JDBCDriver를 로딩
@@ -106,6 +108,10 @@ public class DBCPInitListener implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
+		// 어플리케이션이 종료될 때 커넥션 풀을 해제
+        if (connectionPool != null) {
+            connectionPool.close();
+        }
 	}
 
 }

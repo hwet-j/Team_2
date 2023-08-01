@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/navi.jsp" %> 
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -42,10 +43,11 @@ $(function(){
 	
 	<div class="d-flex justify-content-end">
  <a href="list.do" class="btn">목록보기</a>
-  <c:if test="${!empty AUTH_USER}">
+  <c:if test="${!empty AUTH_USER and  AUTH_USER.user_id.contains('admin')}">
  <button type="submit"  class="btn btn-primary">수정하기</a>
  <a href="delete.do?no=글번호" class="btn btn-primary">삭제하기</a>
  </c:if>
+
   <c:if test="${empty AUTH_USER}">
   <a href="/login.do">로그인</a>
   </c:if>

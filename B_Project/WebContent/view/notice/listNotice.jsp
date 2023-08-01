@@ -4,6 +4,8 @@
  <%@page import="notice.dao.NoticeDTO" %>
  <%@page import="java.util.ArrayList" %>
  <%@page import="notice.dao.NoticeDAO" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+ <%@ include file="/navi.jsp" %> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -118,7 +120,11 @@ function dataCheck()
 	 </tbody>
 	</table>
 	<div>
- 	  <a href="<%=request.getContextPath()%>/notice/write.do" class="btn btn-outline-dark btn-sm">공지글 쓰기</a>
+		
+	
+ 	  <a href="<%=request.getContextPath()%>/notice/write.do" class="btn btn-outline-dark btn-sm" onclick="checkAdmin()">공지글 쓰기</a>
+ 	  
+ 	  
  	</div>
 	<br/>
 	

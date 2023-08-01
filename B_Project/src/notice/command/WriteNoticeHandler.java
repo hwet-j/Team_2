@@ -52,6 +52,7 @@ public class WriteNoticeHandler implements CommandHandler {
 			return request.getContextPath()+FORM_VIEW;
 		}
 	
+	
 		//글등록처리
 		private String processSubmit(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			//에러정보가 담기는 Map
