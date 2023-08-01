@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
-<%@ include file="/navi.jsp" %>
+<%@ include file = "/header.html" %>
 <!-- 여기아래로 -->
 <script>
 /* 수정 버튼 클릭 시 입력 폼으로 전환하는 함수 */

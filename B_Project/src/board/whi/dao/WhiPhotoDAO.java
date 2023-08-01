@@ -114,15 +114,30 @@ static int pagingSize = 10;
 
 	//선택된 게시글을 가져오는 메소드 - 작업자:조중현
 	public WhiPhotoArticle selectArticle(Connection conn, int articleNo) {
-		//쿼리문작성
-		String sql = "select * from whi_photo where article_no=?";
+		//쿼리문작성1 - 해당하는 정보의 read_cnt 1 증가시키기
+		String sql1 = "UPDATE whi_photo " + 
+				"SET read_cnt = read_cnt + 1 " + 
+				"WHERE article_no = ?";
+		//db접근1 + 업데이트 체크 객체 생성
+		int updateCk = 0;
+		try {
+			pstmt1 = conn.prepareStatement(sql1);
+			pstmt2.setInt(1, articleNo);
+			updateCk = pstmt2.executeUpdate();
+			if(updateCk==0) {return null;}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//쿼리문작성2 - 해당하는 정보 가져오기
+		String sql2 = "select * from whi_photo where article_no=?";
 		//객체 생성
 		WhiPhotoArticle article = null;
-		//db접근
+		//db접근2
 		try {
-			pstmt1 = conn.prepareStatement(sql);
-			pstmt1.setInt(1, articleNo);
-			rs1 = pstmt1.executeQuery();
+			pstmt2 = conn.prepareStatement(sql2);
+			pstmt2.setInt(1, articleNo);
+			rs1 = pstmt2.executeQuery();
 			//객체 생성 후 리턴
 			if(rs1.next()) {
 				int article_no = rs1.getInt("article_no");
@@ -142,7 +157,55 @@ static int pagingSize = 10;
 		} finally {
 			JDBCUtil.close(rs1);
 			JDBCUtil.close(pstmt1);
+			JDBCUtil.close(pstmt2);
 		}
 		return null;
 	}
+
+	//선택된 게시글을 삭제하는 메소드 - 작업자:조중현
+	public int delete(Connection conn, int articleNo) {
+		//쿼리문작성
+		String sql1 = "delete from whi_photo where article_no=?";
+		//DB접근
+		try {
+			pstmt1 = conn.prepareStatement(sql1);
+			pstmt1.setInt(1, articleNo);
+			int delChk = pstmt1.executeUpdate();
+			return delChk;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs1);
+			JDBCUtil.close(pstmt1);
+		}
+		return 0;
+	}
+
+	public int rating(Connection conn, int articleNo, boolean like) {
+		//쿼리문작성
+		String select="";
+		if(like) {select="like_cnt = like_cnt + 1 ";}
+		else {select="dislike_cnt = dislike_cnt + 1 ";}
+		String sql1 = "UPDATE whi_photo " + 
+				"SET "+select+ 
+				"WHERE article_no = ?";
+		
+		try {
+			pstmt1 = conn.prepareStatement(sql1);
+			pstmt1.setInt(1, articleNo);
+			int updateCk = pstmt1.executeUpdate();
+			return updateCk;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs1);
+			JDBCUtil.close(pstmt1);
+		}
+		return 0;
+		
+	}
+
+
+	
+	
 }

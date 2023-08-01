@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file = "/header.html" %>
 망했어요~
 </body>
 </html>
