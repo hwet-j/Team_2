@@ -142,10 +142,10 @@
     <input type = "hidden" name="no" value = "${sellDTO.sell_no}"></input>
 	<div class =""></div>
 		<c:if test="${AUTH_USER.user_id eq sellDTO.user_id}">
-			<button type = "submit" class="btn btn-success"><img src = "../../../image/heart.svg"/>&nbsp;좋아요</button>
+			<button type = "submit" class="btn btn-success"><img src = "<%=request.getContextPath() %>/view/image/heart.svg"/>&nbsp;좋아요</button>
 			<!-- <button type = "submit" class = "btn btn-secondary" style = "clear : both">좋아요</button> -->
 		 </c:if> 
-		<span>&nbsp;<img src = "../../../image/heart-fill.svg"/>&nbsp;&nbsp;+&nbsp;${sellDTO.sell_fav}
+		<span>&nbsp;<img src = "<%=request.getContextPath() %>/view/image/heart-fill.svg"/>&nbsp;&nbsp;+&nbsp;${sellDTO.sell_fav}
 		</span>
 	</div>
 </form>
