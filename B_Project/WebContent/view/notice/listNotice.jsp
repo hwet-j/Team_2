@@ -121,9 +121,9 @@ function dataCheck()
 	</table>
 	<div>
 		
-	
+	  <c:if test="${!empty AUTH_USER and AUTH_USER.user_id.contains('admin')}">
  	  <a href="<%=request.getContextPath()%>/notice/write.do" class="btn btn-outline-dark btn-sm" onclick="checkAdmin()">공지글 쓰기</a>
- 	  
+ 	  </c:if>
  	  
  	</div>
 	<br/>

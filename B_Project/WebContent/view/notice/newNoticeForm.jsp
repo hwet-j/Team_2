@@ -53,7 +53,7 @@
 	  </div>	   	    
 	  <div>
 	  <c:if test="${!empty AUTH_USER and AUTH_USER.user_id.contains('admin')}">
-	 	<button  type="submit" class="btn btn-primary">글쓰기1111</button>
+	 	<button  type="submit" class="btn btn-primary">글쓰기</button>
 	 	<button  type="reset"  class="btn">취소</button>		
 	  </c:if>
 	 
