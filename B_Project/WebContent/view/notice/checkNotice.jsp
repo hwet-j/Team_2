@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="u"   tagdir="/WEB-INF/tags"%>
+<%@ include file="/navi.jsp" %> 
 <%-- <c:set var="변수명" value="변수값" /> --%>
 <c:set var="cPath" value="<%=request.getContextPath() %>" />
 <!DOCTYPE html>
@@ -16,9 +17,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
 
-$(function(){
-	
-});
+
 </script>
 </head>
 <body>
@@ -28,10 +27,10 @@ $(function(){
 			request.setAttribute("nod", nod);--%>
 
 	
-nod : ${nod}
+
 <div class="container">
 		<!-- page title -->
-		<h2 class="mt-5 mb-4 text-center">상세보기+수정,삭제</h2>
+		<h2 class="mt-5 mb-4 text-center">공지내용</h2>
 		
 		<form id="noticeForm" action="${cPath}/notice/modify.do" method="post"   enctype="application/x-www-form-urlcencoded" >
 		<input type="hidden" name="noticeno"   id="noticeno" value="${nod.number}"/>

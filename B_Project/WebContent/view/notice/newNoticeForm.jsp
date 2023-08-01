@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/navi.jsp" %> 
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -51,10 +52,12 @@
 	  	 <c:if test="${errors.content}"><br/><span class="error">내용을 입력하세요</span></c:if> 
 	  </div>	   	    
 	  <div>
-	  <c:if test="${!empty AUTH_USER}">
+	  <c:if test="${!empty AUTH_USER and AUTH_USER.user_id.contains('admin')}">
 	 	<button  type="submit" class="btn btn-primary">글쓰기</button>
 	 	<button  type="reset"  class="btn">취소</button>		
 	  </c:if>
+	 
+	  
 	  <c:if test="${empty AUTH_USER}">
 	   <a href="/login.do">로그인</a>
 	  </c:if>	  
@@ -62,5 +65,6 @@
 	 </form>
  </div>
 <%@ include file="../bootstrap4js.jsp" %> 
+
 </body>
 </html>
