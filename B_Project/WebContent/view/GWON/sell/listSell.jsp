@@ -12,6 +12,27 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<script>
+ function readURL(obj){
+	  if (obj.files && obj.files[0]) { //파일이 있드면
+	         var reader = new FileReader(); //FileReader()객체생성
+	         reader.onload = function (e) {
+	        	 //id가 preview인 요소의 src속성값을 설정 =>img src속성값을 파일명으로 적용
+	        	 $('#preview').attr('src', e.target.result)};
+		         reader.readAsDataURL(obj.files[0]);
+	 }
+ }
+ function readURL(obj){
+	  if (obj.files && obj.files[0]) { //파일이 있드면
+	         var reader = new FileReader(); //FileReader()객체생성
+	         reader.onload = function (e) {
+	        	 //id가 preview인 요소의 src속성값을 설정 =>img src속성값을 파일명으로 적용
+	        	 $('#carouselPic').attr('src', e.target.result)};
+		         reader.readAsDataURL(obj.files[0]);
+	 }
+}
+</script>
+
 <style>
 #floating-button {
 	margin : 2px;
@@ -30,29 +51,27 @@
 
 <form method="post" action="/gwon/sell/sellSerach.do">
 <div class="container">
-	<h2  class="title" align = "center">중고거래 글 목록보기</h2>
-	
 	<br/>
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-	<div class="carousel-inner">
-		<div class="carousel-item active">
-		<img id = "carouselPic" class="d-block w-100" src="<%=request.getContextPath() %>/gwon/sell/sellDownload.do?no=${sellDTO.sell_no}&sell_file=${sellDTO.sell_file}" alt="First slide">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+			<img id = "carouselPic" class="d-block w-100" src="<%=request.getContextPath() %>/view/image/forSale1.jpg" alt="First slide"/>
+			</div>
+			<div class="carousel-item">
+			<img id = "carouselPic" class="d-block w-100" src="<%=request.getContextPath() %>/view/image/forSale2.jpg" alt="Second slide"/>
+			</div>
+			<div class="carousel-item">
+			<img id = "carouselPic" class="d-block w-100" src="<%=request.getContextPath() %>/view/image/forSale3.jpg" alt="Third slide"/>
+			</div>
 		</div>
-		<div class="carousel-item">
-		<img id = "carouselPic" class="d-block w-100" src="<%=request.getContextPath() %>/gwon/sell/sellDownload.do?no=${(sellDTO.sell_no)}&sell_file=${sellDTO.sell_file}" alt="Second slide">
-		</div>
-		<div class="carousel-item">
-		<img id = "carouselPic" class="d-block w-100" src="<%=request.getContextPath() %>/gwon/sell/sellDownload.do?no=${(sellDTO.sell_no)}&sell_file=${sellDTO.sell_file}" alt="Third slide">
-		</div>
-	</div>
-	<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		<span class="sr-only">Previous</span>
-	</a>
-	<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-		<span class="carousel-control-next-icon" aria-hidden="true"></span>
-		<span class="sr-only">Next</span>
-	</a>
+		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
 	</div>
 	
 	<br/>
@@ -70,14 +89,14 @@
 					</select>
 					</td>
 					<td><input type="text" class="form-control" placeholder="검색어 입력" name="searchText" maxlength="100"></td>
-					<td><button type = "submit" class="btn btn-success"><img src = "../../../image/search.svg"/></button></td>
+					<td><button type = "submit" class="btn btn-success"><img src = "<%=request.getContextPath() %>/view/image/search.svg"/></button></td>
 				</tr>
 			</table>
 		</div>
 	</div>
 
 <div class = "container">
-	<table class = "table" >
+	<table class = "table table-hover" >
 		<thead>
 		<tr>
 			<th scope = "col">번호</th>

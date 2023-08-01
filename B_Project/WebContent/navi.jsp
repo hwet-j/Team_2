@@ -73,20 +73,9 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMovie" role="button"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            영화
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMovie">
-            <a class="dropdown-item" href="#">Link 1</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBoard2" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            경탁
+            신고 
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownBoard2">
             <a class="dropdown-item" href="/tak/article/list.do">신고게시판</a>
