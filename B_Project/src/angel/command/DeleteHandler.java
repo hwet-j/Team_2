@@ -13,7 +13,6 @@ public class DeleteHandler implements CommandHandler {
 		
 		ArticleService articleService = new ArticleService();
 		Boolean isDelete = articleService.delete(articleNo);
-		System.out.println("dao 되니?"+isDelete);
 
 		if(isDelete) {
 			return request.getContextPath() + "/view/ANGEL/article/DeleteTrue.jsp";
@@ -21,5 +20,4 @@ public class DeleteHandler implements CommandHandler {
 			return request.getContextPath() + "/view/ANGEL/article/DeleteFalse.jsp";
 		}
 	}
-
 }
