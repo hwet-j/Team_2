@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="u"   tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.regex.Pattern" %>
 <%@ page import="java.util.regex.Matcher" %>
 
@@ -27,12 +28,12 @@
 <%--//리턴 OurArticleData ora : 글번호,작성자id,작성자명,제목,작성일,수정일,조회수,내용
 	OurArticleData ora = readArticleService.getDetail(no);  
 	request.setAttribute("ora", ora); --%>
- ora : ${ora} 
+ 
 
  <div class="container">
     <!-- page title -->
-	<h2  class="mt-5 mb-4 text-center">상세보기(readArticle/p662)</h2>
-	
+	<h2  class="mt-5 mb-4 text-center">상세보기</h2>
+	<div>현재사용자:${AUTH_USER.user_id}</div>
 	<table class="table table-bordered mt-3">
 	 <tbody>
 	  <tr>
@@ -106,7 +107,7 @@
 	        <a href="modify.do?no=${ora.number}" class="btn btn-outline-dark">게시글수정</a>
 	    </c:if>
 	    
-	    <c:if test="${(AUTH_USER.user_id == ora.writer_id) || (AUTH_USER.user_id == 'adminid')}">
+	    <c:if test="${(AUTH_USER.user_id == ora.writer_id) || fn:contains(AUTH_USER.user_id, 'admin')}">
 	        <a href="delete.do?no=${ora.number}" class="btn btn-outline-dark">게시글삭제(up)</a>
 	    </c:if> 
 	</div>

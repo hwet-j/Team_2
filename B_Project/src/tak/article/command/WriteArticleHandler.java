@@ -75,7 +75,7 @@ public class WriteArticleHandler implements CommandHandler {
 		
 		//4.View - 성공시(교재):/view/article/newArticleSuccess.jsp이동
 		//실패시 FORM_VIEW 이동
-		return request.getContextPath()+"/view/TAK/newArticleSuccess.jsp";
+		return request.getContextPath()+"/tak/article/list.do";
 		
 	}
 
