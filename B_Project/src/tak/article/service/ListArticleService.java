@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import tak.article.model.Article;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import tak.article.dao.ArticleDAO;
 
@@ -18,7 +19,7 @@ public class ListArticleService {
 	//총게시글수+목록조회 
 	//파라미터  int pageNum : 보고싶은 페이지
 	public ArticlePage getArticlePage(int pageNum) {
-		Connection conn;
+		Connection conn=null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			
@@ -39,11 +40,13 @@ public class ListArticleService {
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}
+		}finally {
+			JDBCUtil.close(conn);
+		}		
 		
 	}
 	public ArticlePage getSearchArticlePage(int pageNum,String search) {
-		Connection conn;
+		Connection conn=null;
 		
 		System.out.println("getSearchArticlePage"+"진입");
 		try {
@@ -66,7 +69,9 @@ public class ListArticleService {
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}
+		}finally {
+			JDBCUtil.close(conn);
+		}		
 		
 	}
 }

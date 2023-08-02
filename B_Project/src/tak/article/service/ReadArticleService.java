@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import tak.article.dao.ArticleContentDAO;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import tak.article.dao.ArticleDAO;
 
@@ -19,7 +20,7 @@ public class ReadArticleService {
 	//파라미터 int no : 상세조회할 글 번호
 	//리턴 OurArticleData:OurArticleData : 글번호,작성자id,작성자명,제목,작성일,수정일,조회수,내용
 	public OurArticleData getDetail(int no) {
-		Connection conn;
+		Connection conn=null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			//조회수 증가-p659 27라인 => 향후 if문추가예정~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,7 +35,9 @@ public class ReadArticleService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException();
-		}		
+		}	finally {
+			JDBCUtil.close(conn);
+		}			
 	}
 	
 }
