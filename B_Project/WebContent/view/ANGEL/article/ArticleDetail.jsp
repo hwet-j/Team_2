@@ -57,7 +57,7 @@
 </style>
 </head>
 <body>
-<%@ include file = "../../../header.html" %>
+<%@ include file = "/header.html" %>
 <%-- ${DETAIL_CONTENT} --%>
 <h1 class="text-center">상세글 조회</h1>
 <div class="container">
@@ -130,6 +130,7 @@
     </div>
   </div>
 </div>
+<%@ include file = "/footer.html" %>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
