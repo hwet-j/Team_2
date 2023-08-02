@@ -73,7 +73,9 @@
 			   수정  <fmt:formatDate value="${sellDTO.sell_modDate}"   pattern="yyyy-MM-dd"/>
 	    </p>
 	</div>    
-	<img  class = "image" src= "<%=request.getContextPath() %>/gwon/sell/sellDownload.do?fileNo=${sellDTO.sell_no}&sell_file=${sellDTO.sell_file}"  id="preview" />
+	<c:if test = "${sellDTO.sell_file!=null}">
+	<img  class = "image" src= "<%=request.getContextPath() %>/gwon/sell/sellDownload.do?fileNo=${sellDTO.sell_no}&sell_file=${sellDTO.sell_file}"  id="preview" onerror = "this.onerror.null; this.src = '<%=request.getContextPath() %>/view/image/heart-fill';"/>
+	</c:if>
 	<table class="table table-bordered">
 	 <tbody>
 	  <tr >
@@ -91,10 +93,6 @@
 	   <td colspan = "9">${sellDTO.sell_no}</td>
 	  </tr>
 	  <tr>
-<%-- 	  <tr>
-	   <th class="col-3">작성자명</th>
-	   <td>${sellDTO.user_name}</td>
-	  </tr> --%>
 	  <tr>
 	   <th class="col-3">글카테고리</th>
 	   <td colspan = "9">${sellDTO.sell_category}</td>
@@ -103,25 +101,11 @@
 	   <th class="col-3">가격</th>
 	   <td colspan = "9">${sellDTO.sell_price}</td>
 	  </tr>
-	  
-<%-- 	  <tr>
-	   <th class="col-3">작성일</th>
-	   <!-- 부트스트랩에서 날짜 form 찾기  -->
-	   <td><fmt:formatDate value="${sellDTO.sell_regDate}"   pattern="yyyy년  MM월  dd일"/></td>
-	  </tr>
-	  <tr>
-	   <th class="col-3">수정일</th>
-	   	<td><fmt:formatDate value="${sellDTO.sell_modDate}"   pattern="yyyy년  MM월 dd일"/> </td>
-	  </tr>
-	  <tr>
-	   <th class="col-3">조회수</th>
-	   <td>${sellDTO.sell_read_cnt}</td> --%>
 	  </tr>
 	  <tr style = "height : 200px;">
 	   <th class="col-3">내용</th>
 	   <td colspan = "9">${sellDTO.sell_content}</td>
 	  </tr>
-	  
 	 </tbody>	
 	</table>
 
@@ -138,7 +122,7 @@
  	   <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do?pageNo=${pageNo}" style = "float: right; "role="button">목록</a>
 	</div>
 <div class = "container">
-<form method="post" action="/gwon/sell/sellLike.do" >	
+	<form method="post" action="/gwon/sell/sellLike.do" >	
     <input type = "hidden" name="no" value = "${sellDTO.sell_no}"></input>
 	<div class =""></div>
 		<c:if test="${AUTH_USER.user_id eq sellDTO.user_id}">
@@ -148,9 +132,8 @@
 		<span>&nbsp;<img src = "<%=request.getContextPath() %>/view/image/heart-fill.svg"/>&nbsp;&nbsp;+&nbsp;${sellDTO.sell_fav}
 		</span>
 	</div>
-</form>
+	</form>
 </div>
-<br>
 <br>
 <%@ include file = "../../../footer.html" %>
 
