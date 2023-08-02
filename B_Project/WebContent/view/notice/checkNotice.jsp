@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="u"   tagdir="/WEB-INF/tags"%>
-<%@ include file="/navi.jsp" %> 
 <%-- <c:set var="변수명" value="변수값" /> --%>
 <c:set var="cPath" value="<%=request.getContextPath() %>" />
 <!DOCTYPE html>
@@ -25,7 +24,7 @@
 			Notice notice =NoticeService.getDetail(no); 
 			//request.setAttribute("notice",notice); 
 			request.setAttribute("nod", nod);--%>
-
+<%@ include file = "/header.html" %>
 	
 
 <div class="container">
@@ -72,7 +71,7 @@
 		   justify-content-end : 오른쪽정렬-->
 		<div class="d-flex justify-content-end">
 		<c:set var="pageno" value="${empty param.pageNo?1:param.pageNo}"  />
-	<a href="<%=request.getContextPath()%>/board/list.do?pageNo=${pageNo}" class="btn btn-outline-dark">목록보기</a>
+	<a href="<%=request.getContextPath()%>/notice/list.do?pageNo=${pageno}" class="btn btn-outline-dark">목록보기</a>
 	<c:if test="${AUTH_USER.user_id==nod.writer_id}">
 	   <a href="modify.do?no=${nod.number}" class="btn btn-outline-dark">공지수정</a>
      </c:if>
@@ -93,5 +92,6 @@
 <script="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP8zjCGMXP5R6nX6KZQJcdTd/ftMf6nH16Pz9JvqBabTTLNZQbVfaGnt"
         crossorigin="anonymous"></script>
+        <%@ include file = "/footer.html" %>
 </body>
 </html> 

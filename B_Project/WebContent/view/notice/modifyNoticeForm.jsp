@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="/navi.jsp" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -12,13 +11,11 @@
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-$(function(){
-	
-});
+
 </script>
 </head>
 <body>
-<%@ include file="/navi.jsp" %>
+<%@ include file = "/header.html" %>
 
 <div class="container"></div>
 	<h2 class="mt-5 mb-4 text-center">수정</h2>
@@ -64,5 +61,6 @@ $(function(){
 <script="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP8zjCGMXP5R6nX6KZQJcdTd/ftMf6nH16Pz9JvqBabTTLNZQbVfaGnt"
         crossorigin="anonymous"></script>
+        <%@ include file = "/footer.html" %>
 </body>
 </html>
