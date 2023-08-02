@@ -47,10 +47,7 @@
             <button type="submit" class="btn btn-primary">작성 완료</button>
         </form>
     </div>
-
-
-
 <!-- 여기위로 -->
-<%@ include file="/footer.jsp" %>
+<%@ include file="/footer.html" %>
 </body>
 </html>

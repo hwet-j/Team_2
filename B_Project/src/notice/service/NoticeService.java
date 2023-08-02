@@ -20,7 +20,7 @@ public class NoticeService {
 	//총게시글수+목록조회 
 	//파라미터  int pageNum : 보고싶은 페이지
 	public NoticePage getNoticePage(int pageNum) {
-		Connection conn;
+		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			
@@ -41,13 +41,15 @@ public class NoticeService {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 
-		}			
+		}finally {
+			JDBCUtil.close(conn);
+		}
 			
 			
 	}
 	
 	public NoticePage getSearchNoticePage(int pageNum, String field, String search) {
-		Connection conn;
+		Connection conn= null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			
@@ -68,7 +70,9 @@ public class NoticeService {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 
-		}			
+		}finally {
+			JDBCUtil.close(conn);
+		}		
 			
 			
 	}
@@ -92,7 +96,9 @@ public class NoticeService {
 	} catch (SQLException e) {
 		e.printStackTrace();
 		throw new RuntimeException();
-	}		
+	}	finally {
+		JDBCUtil.close(conn);
+	}	
 	
   }
 	
