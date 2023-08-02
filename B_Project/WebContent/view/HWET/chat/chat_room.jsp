@@ -190,10 +190,10 @@
 </head>
 <body>
 	<div class="container">
-		<h1 class="mt-4">채팅방 ${room_id}</h1>
+		<h1 class="mt-4">채팅방</h1>
 
 		<!-- 채팅방 참여자 목록 출력 -->
-		<h2>채팅방 참여자 목록</h2>
+		<%-- <h2>채팅방 참여자 목록</h2>
 		<ul class="list-group">
 			<ol>
 				<c:forEach items="${participants}" var="participant" varStatus="status">
@@ -203,7 +203,7 @@
 				</c:if>
 				</c:forEach>
 			</ol>
-		</ul>
+		</ul> --%>
 
 		<div class="mt-4 scroll-frame">
 			<h2>채팅방 대화목록</h2>
@@ -235,7 +235,6 @@
 			
 			<!-- 부트스트랩의 form-control 클래스와 mb-2 클래스로 스타일 적용 -->
 			<button type="button" class="btn btn-primary" id="send_button">보내기</button>
-			<input onclick="sendMessage()" value="Send" type="button">
 		</form>
 	</div>
 
