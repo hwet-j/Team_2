@@ -47,7 +47,12 @@
  	  <c:if test="${polArticlePage.hasNoPolArticle()}"> 
  	  <tr>
  	  	<td colspan="4">게시글이 존재하지 않습니다. 첫번째 작성자가 되세요~</td>
+ 	  
  	  </tr>
+ 	  <tr>
+     <td colspan="5" style="text-align: center;"><a href="polList.do?pageNo=1" class="btn btn-outline-dark">전체글보기</a></td>
+ 	  </tr>
+ 	  
  	  </c:if>
  	 
  	  <c:forEach var="polArticle"  items="${polArticlePage.content}" >
