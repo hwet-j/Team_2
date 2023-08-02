@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<%@ include file="/navi.jsp" %>
+<%@ include file="/header.html" %>
 <!-- 여기아래로 -->
     <div class="container">
         <h2>글 작성</h2>
@@ -51,6 +51,6 @@
 
 
 <!-- 여기위로 -->
-<%@ include file="/footer.jsp" %>
+<%@ include file="/footer.html" %>
 </body>
 </html>

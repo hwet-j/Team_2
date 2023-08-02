@@ -27,7 +27,7 @@
 
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file="/header.html" %>
 
 <h2  class="title" align = "center">정치게시판(beta)</h2>
 <div class = "#">

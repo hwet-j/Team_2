@@ -22,7 +22,7 @@
 <body>
 
  <!-- Navigation -->
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file="/header.html" %>.jsp" %>
 
   <!-- 내용 -->
  <div class="container">

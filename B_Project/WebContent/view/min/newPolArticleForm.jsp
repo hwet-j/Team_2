@@ -14,7 +14,7 @@
 
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file="/header.html" %>>
 	     
  <div class="container">
      <!-- page title -->

@@ -45,7 +45,7 @@
 </script>
 </head>
 <body>
-<%@ include file="../../../navi.jsp" %>
+<%@ include file="/header.html" %>
 <%-- ${DETAIL_CONTENT} --%>
 <h1 class="text-center">상세글 조회</h1>
 <div class="container">

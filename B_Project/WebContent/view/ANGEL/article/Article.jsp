@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file="/header.html" %>
 <h1 style="text-align: center;">동물 게시판</h1><br>
 <div class="container">
 <a href="/Angel/article.do?pageNo=1"><Button type="button" class="btn btn-secondary">전체글보기</Button></a>

@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="/navi.jsp" %>
+<%@ include file="/header.html" %>
 <!-- 여기아래로 -->
 <img src="/assets/images/whiBoard/whiskey_banner.jpg" style="height: 100px; width: auto;" >
 <%

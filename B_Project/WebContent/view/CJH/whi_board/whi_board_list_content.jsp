@@ -13,7 +13,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-<%@ include file="/navi.jsp" %>
+<%@ include file="/header.html" %>
 <!-- 여기아래로 -->
 <div style="text-align: center;">
 <img src="/assets/images/whiBoard/whiskey_banner.jpg" style="height: 100px; width: auto;" >
@@ -70,6 +70,6 @@
 <br>
 <br><br><br>
 <!-- 여기위로 -->
-<%@ include file="/footer.jsp" %>
+<%@ include file="/footer.html" %>
 </body>
 </html>

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<%@ include file="/navi.jsp" %>
+<%@ include file="/header.html" %>
 
     <div class="container">
         <h2 class="my-4">게시물 수정 </h2>
