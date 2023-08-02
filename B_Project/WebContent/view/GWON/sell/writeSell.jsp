@@ -88,6 +88,9 @@
 	  </div> 
 	 </form> 
  </div>
+<br>
+<br>
+<%@ include file = "../../../footer.html" %>
 </body>
 
  
