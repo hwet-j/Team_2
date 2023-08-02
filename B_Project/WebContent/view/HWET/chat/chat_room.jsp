@@ -102,7 +102,7 @@
         <%-- 웹소켓 관련 스크립트 --%>
 		// 「broadsocket」는 호스트 명 (servlet에서 맵핑한 이름)
 		// WebSocket 오브젝트 생성 (자동으로 접속 시작한다. - onopen 함수 호출)
-		var webSocket = new WebSocket("ws://172.30.1.13:80/broadsocket?room_id"+roomId);
+		var webSocket = new WebSocket("ws://localhost/broadsocket?room_id"+roomId);
 		
 		// WebSocket 서버와 접속이 되면 호출되는 함수
 		webSocket.onopen = function(message) {
@@ -110,12 +110,18 @@
              webSocket.send(JSON.stringify({ type: "join_room", user: user_id, room_id: roomId }));
 		};
 		// WebSocket 서버와 접속이 끊기면 호출되는 함수
-		webSocket.onclose = function(message) {
+		webSocket.onclose = function(event) {
 		};
 		// WebSocket 서버와 통신 중에 에러가 발생하면 요청되는 함수
 		webSocket.onerror = function(message) {
 		  alert("error...");
 		};
+		
+		// 페이지를 떠날 때 send 메서드를 호출하여 서버에 데이터를 전송 -> onclose로는 구현되지 않음
+		window.onbeforeunload = function() {
+		    webSocket.send(JSON.stringify({ type: "disconnect_room", user: "${AUTH_USER.user_id}", room_id: roomId }));
+		};
+		
 		/// WebSocket 서버로 부터 메시지가 오면 호출되는 함수
 		webSocket.onmessage = function(event) {
 		  var messageData = event.data;
@@ -123,15 +129,13 @@
 		    var jsonData = JSON.parse(messageData);
 		    var content = jsonData.content;
 		    var room_info = jsonData.room_id;	
-		    // alert(room_info);
-		    
 		    // 데이터가 문자열인 경우 바로 출력
 		    $("#postList_"+room_info).append(content);
 		  } else if (typeof messageData === "object") {
 		    // 데이터가 객체인 경우 JSON 형식으로 변환하여 출력
 		    var jsonString = JSON.stringify(messageData);
 		    $("#postList_"+roomId).append(jsonString);
-		  }
+		  } 
 		  // scrollToBottom 함수를 직접 호출하여 스크롤 이동
 		  scrollToBottom();	
 		};
@@ -175,15 +179,21 @@
 }
 
 .right-bubble {
-	background-color: #007bff;
-	color: #fff;
+	background-color: #83ff6c;
+	color: #000;
 	align-self: flex-end; /* 오른쪽 정렬 */
 }
 
 .left-bubble {
-	background-color: #f0f0f0;
+	background-color: #c0c0c0;
 	color: #000;
 	align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+.center-bubble {
+    background-color: #c5ffff;
+    color: #000;
+    align-self: center; /* 가운데 정렬 */
 }
 </style>
 
