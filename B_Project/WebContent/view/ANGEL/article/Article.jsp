@@ -18,14 +18,15 @@
 <div class="container">
 <a href="/Angel/article.do?pageNo=1"><Button type="button" class="btn btn-secondary">전체글보기</Button></a>
 <!-- get 방식으로 카테고리 파라미터 전송 -->
-<a href="/Angel/category.do?category=전재권"><Button type="button" class="btn btn-secondary">전재권</Button></a>
-<a href="/Angel/category.do?category=김재정"><Button type="button" class="btn btn-secondary">김재정</Button></a>
-<a href="/Angel/category.do?category=홍진호"><Button type="button" class="btn btn-secondary">홍진호</Button></a>
-<a href="/Angel/category.do?category=조중현"><Button type="button" class="btn btn-secondary">조중현</Button></a>
-<a href="/Angel/category.do?category=백경탁"><Button type="button" class="btn btn-secondary">백경탁</Button></a>
-<a href="/Angel/category.do?category=김현민"><Button type="button" class="btn btn-secondary">김현민</Button></a>
-<a href="/Angel/category.do?category=정회창"><Button type="button" class="btn btn-secondary">정회창</Button></a>
+<a href="/Angel/category.do?category=전재권&pageNo=1"><Button type="button" class="btn btn-secondary">전재권</Button></a>
+<a href="/Angel/category.do?category=김재정&pageNo=1"><Button type="button" class="btn btn-secondary">김재정</Button></a>
+<a href="/Angel/category.do?category=홍진호&pageNo=1"><Button type="button" class="btn btn-secondary">홍진호</Button></a>
+<a href="/Angel/category.do?category=조중현&pageNo=1"><Button type="button" class="btn btn-secondary">조중현</Button></a>
+<a href="/Angel/category.do?category=백경탁&pageNo=1"><Button type="button" class="btn btn-secondary">백경탁</Button></a>
+<a href="/Angel/category.do?category=김현민&pageNo=1"><Button type="button" class="btn btn-secondary">김현민</Button></a>
+<a href="/Angel/category.do?category=정회창&pageNo=1"><Button type="button" class="btn btn-secondary">정회창</Button></a>
 <br><br>
+
 
 
 <table border="1" style="text-align: center;" class="table table-hover table-borderless">
@@ -55,13 +56,33 @@
 	<tr>
 		<td colspan="6">
 			<!-- ${PAGECOUNT} 페이징 처리할 때 페이징 개수 6개 -->
-			<c:forEach var="num" begin="1" end="${PAGECOUNT}">
+			
+			<%-- <c:forEach var="num" begin="1" end="${PAGECOUNT}">
 				<!-- pageNo는 ArticleHandler의 파라미터로 넘겨진다 -->
-				<a href="/Angel/article.do?pageNo=${num}">${num}</a>
-			</c:forEach>
+				<a href="/Angel/article.do?pageNo=${num}" class="btn btn-primary pagination-button">${num}</a>
+			</c:forEach> --%>
+			
+			<nav aria-label="Page navigation">
+  			<ul class="pagination">
+		    <!-- 페이지 번호를 동적으로 생성하는 JSTL 코드 -->
+		    <c:forEach var="num" begin="1" end="${PAGECOUNT}">
+		      <!-- pageNo는 ArticleHandler의 파라미터로 넘겨진다 -->
+		      <li class="page-item">
+		        <a href="/Angel/article.do?pageNo=${num}" class="page-link pagination-button">${num}</a>
+		      </li>
+		    </c:forEach>
+		  </ul>
+		</nav>
 		</td>
 	</tr>
 </table>
+	<div>
+	<c:forEach var="num" begin="1" end="${PAGE_COUNT}">
+		<a href="/Angel/category.do?pageNo=${num}&category=${NAME}" class="btn btn-primary">${num}</a>
+	</c:forEach>
+  </ul>
+</nav>
+	</div>
 </div>
 <br>
 
