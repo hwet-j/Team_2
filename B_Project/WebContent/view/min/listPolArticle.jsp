@@ -69,7 +69,7 @@
  	  </div>   
 	
  	<!-- 검색기능 -->
-	 <form id="search" action="/min/article/polList.do" method="post" class="centered-form">
+	 <form id="search" action="/min/article/polSearch.do" method="post" class="centered-form">
 	  <div>
 	 	<label for="search"></label>
 	 	<input type="text" name="searchcontent" id="searchcontent" placeholder="검색할 제목 입력" />
