@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import tak.article.dao.ArticleDAO;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 
 public class GoodService {
 	private ArticleDAO articleDAO = new ArticleDAO();
 	public OurArticleData getDetail(int no) {
-		Connection conn;
+		Connection conn=null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			//조회수 증가-p659 27라인 => 향후 if문추가예정~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -24,6 +25,8 @@ public class GoodService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException();
-		}		
+		}	finally {
+			JDBCUtil.close(conn);
+		}			
 	}
 }
