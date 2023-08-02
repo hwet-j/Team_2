@@ -5,7 +5,6 @@
  <%@page import="java.util.ArrayList" %>
  <%@page import="notice.dao.NoticeDAO" %>
  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
- <%@ include file="/navi.jsp" %> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -34,7 +33,7 @@ function dataCheck()
 </script>
 </head>
 <body>
-
+<%@ include file = "/header.html" %>
  
  <%-- ListNoticeHandler로 부터 
  	 request.setAttribute("nowPage", pageNo); //현재페이지
