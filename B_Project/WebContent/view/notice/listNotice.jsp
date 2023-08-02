@@ -46,7 +46,7 @@ function dataCheck()
 		  int  totalPages;	//총페이지수   
 		  int  startPage;	//시작페이지  
 		  int  endPage;	//끝페이지--%> 
- 
+ 	<%@ include file = "/header.html" %>
 
 	 <!-- 내용 -->	
 	<div class="container"><!-- page title -->
@@ -152,5 +152,6 @@ function dataCheck()
 	</nav>
 	</div>
 	<%@ include file="../bootstrap4js.jsp" %> 
+	<%@ include file = "/footer.html" %>
 </body>
 </html> 

@@ -407,6 +407,7 @@ public class NoticeDAO {
 			finally {
 				JDBCUtil.close(rs);
 				JDBCUtil.close(pstmt);
+				JDBCUtil.close(conn);
 			}
 			return list;
 		}

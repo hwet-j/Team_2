@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file = "/header.html" %>
 
 <%
 			NoticeDAO noticeDAO = new NoticeDAO();
@@ -32,6 +33,6 @@
 			
 			
 			
-
+<%@ include file = "/footer.html" %>
 </body>
 </html>
