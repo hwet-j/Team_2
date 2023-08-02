@@ -56,7 +56,7 @@ function dataCheck()
 	<form name="form" action="/notice/search.do" method="post">
 	<!-- 변수 field,value 받은 후 현재 페이지에서 바로 DAO를 호출한다음 list에 뿌리기  -->
 		<div class="form-group">
-		
+		 
 		<select name="field"><!-- 검색키  -->
 		<option value="title">제목</option>
 		<option value="content">내용</option>
