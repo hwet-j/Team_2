@@ -75,6 +75,7 @@ $(document).ready(function(){
                 <a href="/CJH/whi_photo/delete.do?articleNo=${CONTENT.article_no}" class="btn btn-primary m-3">삭제</a>
         </div>
 		    </c:if>
+		    <a href="/CJH/whi_photo/list.do?pageNo=1" class="btn btn-primary">글 목록</a>
     </div>
 
 
