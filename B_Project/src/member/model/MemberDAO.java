@@ -238,8 +238,9 @@ public class MemberDAO {
 			e.printStackTrace();
 			return result;
 		} finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
 		}
 		
 	}
@@ -407,8 +408,8 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally { // 자원반납
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		return user_data;
 	}

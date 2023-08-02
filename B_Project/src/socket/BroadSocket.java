@@ -76,7 +76,7 @@ public class BroadSocket {
 				}
 				try {
 					// 리스트에 있는 모든 세션(메시지 보낸 유저 제외)에 메시지를 보낸다. (형식: 유저명 => 메시지)
-					System.out.println(content);
+					// System.out.println(content);
 					session.getBasicRemote().sendText(messageObj.toString());
 				} catch (IOException e) {
 					// 에러가 발생하면 콘솔에 표시한다.
