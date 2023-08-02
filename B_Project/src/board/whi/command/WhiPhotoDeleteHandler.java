@@ -22,6 +22,7 @@ public class WhiPhotoDeleteHandler implements CommandHandler {
 		
 		//비즈니스 로직 실행
 		int delCk = new WhiPhotoDAO().delete(conn,articleNo);
+		conn.close();
 		if(delCk==0) {
 			return null;
 		}	else {

@@ -25,6 +25,8 @@ public class WhiPhotoContentHandler implements CommandHandler {
 		WhiPhotoArticle article = new WhiPhotoDAO().selectArticle(conn, articleNo);
 		//어트리뷰트로 지정
 		request.setAttribute("CONTENT", article);
+		
+		conn.close();
 		return request.getContextPath()+"/view/CJH/whi_photo/whi_photo_content.jsp";
 	}
 

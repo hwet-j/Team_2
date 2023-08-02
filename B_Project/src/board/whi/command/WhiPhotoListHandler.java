@@ -27,6 +27,10 @@ public class WhiPhotoListHandler implements CommandHandler {
 		List<WhiPhotoArticle> articleList =new WhiPhotoDAO().photoArticleList(conn, pageNo);
 		request.setAttribute("ARTICLE", articleList);
 		
+		//최고 인기글 1개 수신 후 어트리뷰트 지정
+		WhiPhotoArticle popularArticle = new WhiPhotoDAO().mostPopularArticle(conn);
+		request.setAttribute("POP_ARTICLE", popularArticle);
+		
 		//페이징처리를 위한 게시글의 전체 개수 수신 후 어트리뷰트 지정
 		int PageCnt = new WhiPhotoDAO().pageCnt(conn);
 		request.setAttribute("PAGE_CNT", PageCnt);
