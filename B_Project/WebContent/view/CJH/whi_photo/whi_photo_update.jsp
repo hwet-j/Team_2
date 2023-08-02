@@ -33,7 +33,6 @@ String title = request.getParameter("title");
 String content = request.getParameter("content");
 String imageFileName = request.getParameter("imageFileName");
 %>
-글번호 : <%=article_no%>
     <div class="container">
         <h2>작성 글 수정</h2>
         <form method="post" action="/CJH/whi_photo/update.do" enctype="multipart/form-data">
