@@ -63,15 +63,15 @@ $(document).ready(function(){
         <!-- 게시글 내용 -->
         <div class="mb-4">${CONTENT.content}</div>
         <!-- 게시글 이미지 -->
-        <c:if test="${not empty CONTENT.img_src && CONTENT.img_src!=null}">
-	        <div>
-	            <img src="/CJH/whi_photo/download.do?articleNo=${CONTENT.article_no}&imageFileName=${CONTENT.img_src}" class="img-fluid" alt="게시글 이미지">
-	        </div>
-        </c:if>
+<div>
+    <img src="/CJH/whi_photo/download.do?articleNo=${CONTENT.article_no}&imageFileName=${CONTENT.img_src}" 
+         class="img-fluid" alt="게시글 이미지"
+         onError="this.onerror=null; this.src='/assets/images/whiBoard/image_not_load.jpeg';">
+</div>
         
            <c:if test="${AUTH_USER.user_id == CONTENT.user_id or AUTH_USER.user_id eq 'admin'}">
         <div class="d-flex justify-content-end">
-                <a href="/view/CJH/whi_photo/whi_photo_update.jsp?articleNo=${CONTENT.article_no}&title=${CONTENT.title}&content=${CONTENT.content}" class="btn btn-primary m-3">수정</a>
+                <a href="/view/CJH/whi_photo/whi_photo_update.jsp?articleNo=${CONTENT.article_no}&title=${CONTENT.title}&content=${CONTENT.content}&imageFileName=${CONTENT.img_src}" class="btn btn-primary m-3">수정</a>
                 <a href="/CJH/whi_photo/delete.do?articleNo=${CONTENT.article_no}" class="btn btn-primary m-3">삭제</a>
         </div>
 		    </c:if>

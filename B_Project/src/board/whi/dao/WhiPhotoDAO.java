@@ -51,11 +51,8 @@ static int pagingSize = 10;
 	public List<WhiPhotoArticle> photoArticleList(Connection conn, int pageNo){
 		//쿼리문
 		String sql = "select * from whi_photo order by article_no desc limit ?,?";
-		
 		//객체 list 생성
 		List<WhiPhotoArticle> artlcleList = new LinkedList<WhiPhotoArticle>();
-		
-		
 	
 		//db접근
 		try {
@@ -77,7 +74,6 @@ static int pagingSize = 10;
 				artlcleList.add(article);
 			}
 			return artlcleList;
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -95,7 +91,6 @@ static int pagingSize = 10;
 		//결과 개수 변수 선언
 		int pageCnt = 0;	//페이지개수
 		int articleCnt =0;	//게시글개수
-		
 		try {
 			pstmt1 = conn.prepareStatement(sql);
 			rs1 = pstmt1.executeQuery();
@@ -122,8 +117,8 @@ static int pagingSize = 10;
 		int updateCk = 0;
 		try {
 			pstmt1 = conn.prepareStatement(sql1);
-			pstmt2.setInt(1, articleNo);
-			updateCk = pstmt2.executeUpdate();
+			pstmt1.setInt(1, articleNo);
+			updateCk = pstmt1.executeUpdate();
 			if(updateCk==0) {return null;}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -181,6 +176,7 @@ static int pagingSize = 10;
 		return 0;
 	}
 
+	//좋아요와 싫어요를 입력받았을때 count수를 1 증가시켜주는 메소드 - 작업자:조중현
 	public int rating(Connection conn, int articleNo, boolean like) {
 		//쿼리문작성
 		String select="";
@@ -189,7 +185,6 @@ static int pagingSize = 10;
 		String sql1 = "UPDATE whi_photo " + 
 				"SET "+select+ 
 				"WHERE article_no = ?";
-		
 		try {
 			pstmt1 = conn.prepareStatement(sql1);
 			pstmt1.setInt(1, articleNo);
@@ -202,10 +197,68 @@ static int pagingSize = 10;
 			JDBCUtil.close(pstmt1);
 		}
 		return 0;
-		
 	}
 
+	//가장 좋아요를 많이 받은 게시글을 1개 가져오는 메소드 - 작업자:조중현
+	public WhiPhotoArticle mostPopularArticle(Connection conn) {
+		//쿼리문작성
+		String sql1 = "select * from whi_photo order by like_cnt desc limit 0,1";
+		
+		//객체생성
+		WhiPhotoArticle popularArticle = null;
+		//db접근
+		try {
+			stmt1 = conn.createStatement();
+			rs1 = stmt1.executeQuery(sql1);
+			if(rs1.next()) {
+				int article_no = rs1.getInt("article_no");
+				String user_id = rs1.getString("user_id");
+				String title = rs1.getString("title");
+				String content = rs1.getString("content");
+				String reg_date = rs1.getString("reg_date");
+				int read_cnt = rs1.getInt("read_cnt");
+				int like_cnt = rs1.getInt("like_cnt");
+				int dislike_cnt = rs1.getInt("dislike_cnt");
+				String img_src = rs1.getString("img_src");
+				popularArticle = new WhiPhotoArticle(article_no, user_id, title, content, reg_date, read_cnt, like_cnt, dislike_cnt, img_src);
+			}
+			return popularArticle;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs1);
+			JDBCUtil.close(stmt1);
+		}
+		return null;
+	}
 
-	
+	// 사진을 포함한 자료 수정 메소드 - 작업자:조중현
+	public int updateArticle(Connection conn, WhiPhotoArticle article) {
+		//sql문 작성, 테이블명 whi_photo (대소문자주의)
+		String sql1 = "UPDATE whi_photo "
+	            + "SET title = ?, content = ?, img_src = ? "
+	            + "WHERE article_no = ?";
+		//db접근
+		try {
+			pstmt1 = conn.prepareStatement(sql1);
+			pstmt1.setString(1, article.getTitle());
+			pstmt1.setString(2, article.getContent());
+			pstmt1.setString(3, article.getImg_src());
+			pstmt1.setInt(4, article.getArticle_no());
+			int updateCnt = pstmt1.executeUpdate();
+			//insert에 성공했을 경우 입력한 게시글 번호를 가져와 사용
+			int PhotoArticleNo = article.getArticle_no();
+				return PhotoArticleNo;	
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt1);
+			JDBCUtil.close(pstmt2);
+			JDBCUtil.close(rs1);
+		}
+		return 0;
+	}
 	
 }
