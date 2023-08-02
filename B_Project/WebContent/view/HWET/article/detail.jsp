@@ -202,7 +202,7 @@
             </tr>
             <tr>
                 <th>링크</th>
-                <td><a href="${data.link}">${data.link}</a></td>
+                <td><a href="${data.link}" target="_blank">${data.link}</a></td>
             </tr>
             <tr>
                 <th>내용</th>
