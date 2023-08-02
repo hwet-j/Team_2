@@ -66,6 +66,7 @@ public class SellContentDAO {
 			} 
 		}finally {
 			JDBCUtil.close(stmt);
+			JDBCUtil.close(insertedstmt);
 		}
 	
 	}
@@ -82,6 +83,8 @@ public class SellContentDAO {
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,no);
 		} catch (SQLException e) {
+		} finally {
+			JDBCUtil.close(stmt);
 		}
 	}
 	
@@ -118,7 +121,7 @@ public class SellContentDAO {
 			stmt.setInt(1,no);
 			stmt.executeUpdate();
 			return 1;
-		}finally {
+		} finally {
 			JDBCUtil.close(stmt);
 		}
 	}

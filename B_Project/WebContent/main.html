@@ -1,267 +1,65 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<main>
-<div class = "container-sm">
-  <div class = "container-items" >
-	  <h3 style = "display: inline;">공지사항</h3>
-	  <input type="button" class = "btn btn-link btn-sm" value = "더보기" style = "float:right;" onclick="location href =''"/>
-	  <table  class="table table-hover">
-		<thead>
-		  <tr >
-		   <th scope="col">글번호</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </thead>
-		 <tbody>
-		 <!-- 제목이 반복적으로 나올 수 있도록 EL 이용해야 할 거 같아요 -->
-		  <tr>
-		   <th scope = "row">1</th>
-		   <th scope="col">
-		   		<a href = "#">제목</a>
-		   </th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">2</th>
-		   <th scope="col">
-		   		<a href = "#">제목</a>
-		   </th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">3</th>
-		   <th scope="col">
-		   		<a href = "#">제목</a>
-		   </th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </tbody>	
-	</table>
+
+
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal">모두의 게시판</h1>
+    <p class="lead font-weight-normal">중앙정보처리학원 B조의 게시판으로 초대합니다</p>
+    <a class="btn btn-outline-secondary" href="/notice/list.do">공지사항</a>
+    <a class="btn btn-outline-secondary" href="/chat/showRoom.do">채팅(회원 전용)</a>
   </div>
-  <div class = "container-items" >
-	  <h3 style = "display: inline;">정치</h3>
-	  <input type="button" class = "btn btn-link btn-sm" value = "더보기" style = "float:right;" onclick="location href =''"/>
-	  <table class="table table-hover">
-		<thead>
-		  <tr >
-		   <th scope="col">글번호</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </thead>
-		 <tbody>
-		  <tr>
-		   <th scope = "row">1</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">2</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">3</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </tbody>	
-	</table>
+  <div class="product-device shadow-sm d-none d-md-block"></div>
+  <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+</div>
+
+<div class="d-md-flex flex-md-equal justify-content-center w-100 my-md-3 pl-md-3"> 
+  <div class="flex-fill bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+    <div class="my-3 py-3">
+      <h2 class="display-5">정치 게시판</h2>
+      <a class="btn btn-outline-secondary" href="/min/article/polList.do">더보기</a>
+    </div>
+    <div class="bg-light shadow-sm mx-auto" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+  </div>
+  <div class="flex-fill bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <div class="my-3 p-3">
+      <h2 class="display-5">위스키 게시판</h2>
+      <a class="btn btn-outline-secondary" href="/CJH/whi_board/list.do">더보기</a>
+    </div>
+    <div class="bg-dark shadow-sm mx-auto" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+  </div>
+   <div class=" flex-fill bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+    <div class="my-3 py-3">
+      <h2 class="display-5">동물   게시판</h2>
+      <a class="btn btn-outline-secondary" href="/Angel/article.do">더보기</a>
+    </div>
+    <div class="bg-light shadow-sm mx-auto" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+    </div>
   </div>
 </div>
 
-<div class = "container">
-  <div class = "container-items" >
-	  <h3 style = "display: inline;">위스키</h3>
-	  <input type="button" class = "btn btn-link btn-sm" value = "더보기" style = "float:right;" onclick="location href =''"/>
-	  <table class="table table-hover">
-		<thead>
-		  <tr >
-		   <th scope="col">글번호</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </thead>
-		 <tbody>
-		  <tr>
-		   <th scope = "row">1</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">2</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">3</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </tbody>	
-	</table>
-  </div>
-  <div class = "container-items" >
-	  <h3 style = "display: inline;">동물</h3>
-	  <input type="button" class = "btn btn-link btn-sm" value = "더보기" style = "float:right;" onclick="location href =''"/>
-	  <table class="table table-hover">
-		<thead>
-		  <tr >
-		   <th scope="col">글번호</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </thead>
-		 <tbody>
-		  <tr>
-		   <th scope = "row">1</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">2</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">3</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </tbody>	
-	</table>
-  </div>
-</div>
 
-<div class = "container">
-  <div class = "container-items" >
-	  <h3 style = "display: inline;">중고거래</h3>
-	  <input type="button" class = "btn btn-link btn-sm" value = "더보기" style = "float:right;" onclick="location href =''"/>
-	  <table class="table table-hover">
-		<thead>
-		  <tr >
-		   <th scope="col">글번호</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </thead>
-		 <tbody>
-		  <tr>
-		   <th scope = "row">1</th>
-		   <th scope="col"><a href = "/gwon/sell/sellList.do?pageNo=1">제목</a></th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">2</th>
-		   <th scope="col"><a href = "#">제목</a></th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">3</th>
-		   <th scope="col"><a href = "#">제목</a></th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </tbody>	
-	</table>
+<div class="d-md-flex flex-md-equal justify-content-center w-100 my-md-3 pl-md-3" >
+  <div class="flex-fill bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <div class="my-3 p-3">
+      <h2 class="display-5">중고 게시판</h2>
+      <a class="btn btn-outline-secondary" href="/chat/showRoom.do">더보기</a>
+    </div>
+    <div class="bg-dark shadow-sm mx-auto" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0;"></div>
   </div>
- <div class = "container-items" >
-	  <h3 style = "display: inline;">회창</h3>
-	  <input type="button" class = "btn btn-link btn-sm" value = "더보기" style = "float:right;" onclick="location href =''"/>
-	  <table class="table table-hover">
-		<thead>
-		  <tr >
-		   <th scope="col">글번호</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </thead>
-		 <tbody>
-		  <tr>
-		   <th scope = "row">1</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">2</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">3</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </tbody>	
-	</table>
+  <div class="flex-fill bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+    <div class="my-3 py-3">
+      <h2 class="display-5">HWET  게시판</h2>
+      <a class="btn btn-outline-secondary" href="/hwet/article/list.do">더보기</a>
+    </div>
+    <div class="bg-light shadow-sm mx-auto" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+  </div>
+    <div class="flex-fill bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <div class="my-3 p-3">
+      <h2 class="display-5">신고 게시판</h2>
+      <a class="btn btn-outline-secondary" href="/tak/article/list.do">더보기</a>
+    </div>
+    <div class="bg-dark shadow-sm mx-auto" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0;"></div>
   </div>
 </div>
-
-<div class = "container">
-  <div class = "container-items" >
-	  <h3 style = "display: inline;">영화</h3>
-	  <input type="button" class = "btn btn-link btn-sm" value = "더보기" style = "float:right;" onclick="location href =''"/>
-	  <table class="table table-hover">
-		<thead>
-		  <tr >
-		   <th scope="col">글번호</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </thead>
-		 <tbody>
-		  <tr>
-		   <th scope = "row">1</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">2</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">3</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  
-		 </tbody>	
-	</table>
-  </div>
-<div class = "container-items">
-	  <h3 style = "display: inline;">경탁</h3>
-	  <input type="button" class = "btn btn-link btn-sm" value = "더보기" style = "float:right;" onclick="location href =''"/>
-	  <table class="table table-hover">
-		<thead>
-		  <tr >
-		   <th scope="col">글번호</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </thead>
-		 <tbody>
-		  <tr>
-		   <th scope = "row">1</th> 
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">2</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		  <tr>
-		   <th scope = "row">3</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr><tr>
-		   <th scope = "row">4</th>
-		   <th scope="col">제목</th>
-		   <th scope="col">작성자id</th>
-		  </tr>
-		 </tbody>	
-	</table>
-  </div>
-</div>
-</main>
