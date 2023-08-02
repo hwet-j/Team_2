@@ -25,11 +25,8 @@ public class WhiBoardWriteHandler implements CommandHandler {
 		WhiBoardWriteService whiBoardWriteService = new WhiBoardWriteService();
 		int writeRow = whiBoardWriteService.writeArticle(whiBoardArticle);
 		
-		if(writeRow==1) {
 			return request.getContextPath()+"/CJH/whi_board/list.do?pageNo=1";
-		}else {
-			return null;
-		}
+
 	}
 
 
