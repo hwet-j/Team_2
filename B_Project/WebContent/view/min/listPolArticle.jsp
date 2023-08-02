@@ -54,7 +54,7 @@
  	  <tr>
  	  	<td>${polArticle.number}</td>
  	  	<%-- read.do?no=상세하게보고싶은글번호&pageNo=현재페이지"  --%>
- 	  	<td><a href="polread.do?no=${polArticle.number}&pageNo=${nowPage}">${polArticle.title}</a></td> <%--제목번호에 행당링크를 압축해놓음 --%>>
+ 	  	<td><a href="polread.do?no=${polArticle.number}&pageNo=${nowPage}">${polArticle.title}</a></td> <%--제목번호에 행당링크를 압축해놓음 --%>
  	  	<td>${polArticle.writer.name}(${polArticle.writer.id})</td>
  	  	<td>${polArticle.regdate}</td>
  	  	<td>${polArticle.readCount}</td>
@@ -66,29 +66,33 @@
  	
  	<div>
  	  <a href="polwrite.do" class="btn btn-outline-dark btn-sm">글작성</a>
- 	         
+ 	  </div>   
+	
+ 	<!-- 검색기능 -->
+	 <form id="search" action="/min/article/polList.do" method="post" class="centered-form">
+	  <div>
+	 	<label for="search"></label>
+	 	<input type="text" name="searchcontent" id="searchcontent" placeholder="검색할 제목 입력" />
+	 	<input type="submit" value="검색"/>
+	  </div>
+ 	</form>
+ 	
+ 	
+ 	<!-- 페이징처리 -->
 	  <div>
 	  <nav aria-label="Page navigation example" style = "claar : both">
 		 <ul class="pagination justify-content-center">
 		   <%--<c:if>이용하여 노출여부가 달라진다 --%>
-	 		
-	 		
-	 	
-	 		
+
   			 <%--p653 43라인 <c:forEach></c:forEach>반복문이용 --%>
  			 <c:forEach var="pNo"  begin="${polArticlePage.startPage}" end="${polArticlePage.endPage}"  step="1">
    			<li class="page-item active"><a class="page-link" href="polList.do?pageNo=${pNo}">${pNo}</a></li>
   				</c:forEach>
-   
-		
-	  			
-			 
-			 
+
 			  </ul> 
 			 </nav> 
 	    </div>
- 	</div>
-  	 <br/>          
+ 	          
 <br>
 <br>
 <%@ include file = "/footer.html" %>

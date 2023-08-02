@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="u"   tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.regex.Pattern" %>
 <%@ page import="java.util.regex.Matcher" %>
 
@@ -23,16 +24,16 @@
  </script>
 </head>
 <body>
-
+<%@ include file = "/header.html" %>	
 <%--//리턴 OurArticleData ora : 글번호,작성자id,작성자명,제목,작성일,수정일,조회수,내용
 	OurArticleData ora = readArticleService.getDetail(no);  
 	request.setAttribute("ora", ora); --%>
- ora : ${ora} 
+ 
 
  <div class="container">
     <!-- page title -->
-	<h2  class="mt-5 mb-4 text-center">상세보기(readArticle/p662)</h2>
-	
+	<h2  class="mt-5 mb-4 text-center">상세보기</h2>
+	<div>현재사용자:${AUTH_USER.user_id}</div>
 	<table class="table table-bordered mt-3">
 	 <tbody>
 	  <tr>
@@ -106,7 +107,7 @@
 	        <a href="modify.do?no=${ora.number}" class="btn btn-outline-dark">게시글수정</a>
 	    </c:if>
 	    
-	    <c:if test="${(AUTH_USER.user_id == ora.writer_id) || (AUTH_USER.user_id == 'adminid')}">
+	    <c:if test="${(AUTH_USER.user_id == ora.writer_id) || fn:contains(AUTH_USER.user_id, 'admin')}">
 	        <a href="delete.do?no=${ora.number}" class="btn btn-outline-dark">게시글삭제(up)</a>
 	    </c:if> 
 	</div>
@@ -134,16 +135,10 @@
  	
  	
 <!-- Bootstrap 4 JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXakfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz4fnFO9gybBvRLFyyN+kW/BQro3T8j6XI4lK7T7rM46_tC6Y1Bf/Dbdbp"
-        crossorigin="anonymous"></script>
-<script="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP8zjCGMXP5R6nX6KZQJcdTd/ftMf6nH16Pz9JvqBabTTLNZQbVfaGnt"
-        crossorigin="anonymous"></script>
-        	
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"/></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"/></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"/></script>
+  <%@ include file = "/footer.html" %>	      	
 </body>
 </html>
 
