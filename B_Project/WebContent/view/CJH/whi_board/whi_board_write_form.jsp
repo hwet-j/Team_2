@@ -47,5 +47,6 @@
 <br>
 <br>
 <!-- 여기위로 -->
+<%@ include file="/view/contact.jsp" %>
 </body>
 </html>

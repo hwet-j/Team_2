@@ -8,6 +8,7 @@
 </head>
 <body>
 <%@ include file = "/header.html" %>
-망했어요~
+
+<%@ include file="/view/contact.jsp" %>
 </body>
 </html>
