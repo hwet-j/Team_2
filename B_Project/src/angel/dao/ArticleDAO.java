@@ -69,6 +69,7 @@ public class ArticleDAO {
 		return articleTotal;
 	}
 	
+	//게시글 상세조회 내용 + 조회에 따른 조회수 증가
 	public Article selectContent(Connection conn, int articleNo) {
 		String sql1 = "select * from angel_animaltable where articleNo = ?";
 		String sql2 = "update angel_animaltable set readCnt = readCnt+1 where articleNo = ?";
@@ -100,6 +101,7 @@ public class ArticleDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			JDBCUtil.close(pstmt2);
 			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
 		}
@@ -114,17 +116,16 @@ public class ArticleDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, articleNo);
 			boolean isDelete = pstmt.execute();
-			System.out.println("isDelete = " + isDelete);
 			return !isDelete;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
 		}
 		return false;
 	}
 
+	//게시글 수정
 	public int modify(Connection conn, Article article) {
 		int row = 0;
 		String sql = "update angel_animaltable set content=?, title=? where articleNo=?";
@@ -139,7 +140,6 @@ public class ArticleDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
 		}
 		return row;
@@ -159,7 +159,6 @@ public class ArticleDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
 		}
 		return row;
@@ -300,6 +299,7 @@ public class ArticleDAO {
 		} finally {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
 		}
 		return null;
 	}
@@ -319,7 +319,6 @@ public class ArticleDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
 		}
 		return 0; 
@@ -338,9 +337,7 @@ public class ArticleDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
-			JDBCUtil.close(conn);
 		}
 		return 0;
 	}
@@ -381,7 +378,6 @@ public class ArticleDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
 		}
 		return row;

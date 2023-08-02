@@ -27,7 +27,7 @@
  <!-- Navigation -->
 <%--  <%@ include file="../navigation.jsp" %> --%>		
 
-
+<%@ include file = "/header.html" %>
 <!-- 내용 -->		    
  <div class="container">
      <!-- page title -->
@@ -65,6 +65,6 @@
 	 </form>
  </div>
 <%@ include file="../bootstrap4js.jsp" %> 
-
+<%@ include file = "/footer.html" %>
 </body>
 </html>

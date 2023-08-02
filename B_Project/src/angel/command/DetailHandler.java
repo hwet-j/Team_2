@@ -17,9 +17,11 @@ public class DetailHandler implements CommandHandler {
 		int articleNo = Integer.parseInt(request.getParameter("articleNo"));
 		
 		ArticleService articleService = new ArticleService();
+		//게시글 상세조회 내용 + 조회수 증가
 		Article article = articleService.selectContent(articleNo);
 		request.setAttribute("DETAIL_CONTENT", article);
 		
+		//댓글 조회
 		List<Comment> commentText = articleService.comment(articleNo);
 		request.setAttribute("DETAIL_COMMENT", commentText);
 		

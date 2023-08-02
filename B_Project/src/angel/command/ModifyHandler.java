@@ -21,24 +21,6 @@ public class ModifyHandler implements CommandHandler {
 		
 		ArticleService articleService = new ArticleService();
 		int row = articleService.modify(article);
-
-//		JSONObject jsonResponse1 = new JSONObject();
-//		
-//		String message1 = "";
-//		if (row > 0) {
-//			message1 = "success";
-//		} else {
-//			message1 = "failed";
-//		}
-//		
-//		jsonResponse1.put("message1", message1);
-//		
-//		response.setContentType("application/json");
-//		response.setCharacterEncoding("UTF-8");
-//		
-//		response.getWriter().write(jsonResponse1.toString());
-//		
-//		return null;
 		
 		return request.getContextPath() + "/Angel/detail.do?articleNo=" + articleNo;
 	}
