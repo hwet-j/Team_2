@@ -240,6 +240,7 @@ public class MemberDAO {
 		} finally {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
 		}
 		
 	}
