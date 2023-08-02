@@ -157,7 +157,6 @@
 <br>
 <br>
 <%@ include file = "../../../footer.html" %>
-
 </body>
 
 <!-- 부트스트랩 JS 파일들 링크 -->
