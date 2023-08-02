@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<%@ include file = "../../../header.html" %>
+<%@ include file = "/header.html" %>
 <%
 int articleNo = Integer.parseInt(request.getParameter("articleNo"));
 String commentNo = request.getParameter("commentNo");
@@ -33,6 +33,7 @@ String name = request.getParameter("name");
     </div>
   </div>
 </div>
+<%@ include file = "/footer.html" %>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
