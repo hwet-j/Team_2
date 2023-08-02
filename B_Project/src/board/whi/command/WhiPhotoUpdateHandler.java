@@ -21,8 +21,7 @@ import board.whi.model.WhiPhotoArticle;
 import jdbc.connection.ConnectionProvider;
 import mvc.command.CommandHandler;
 
-public class WhiPhotoWriteHandler implements CommandHandler{
-
+public class WhiPhotoUpdateHandler implements CommandHandler {
 	private static String imageRepository = "C:\\board\\image_repository";
 
 	@Override
@@ -31,31 +30,30 @@ public class WhiPhotoWriteHandler implements CommandHandler{
 		Map<String, String> boardMap = upload(request,response);
 		
 		String imageFileName = boardMap.get("image_src");
-		
-		WhiPhotoArticle article = new WhiPhotoArticle(boardMap.get("user_id"),boardMap.get("title") ,boardMap.get("content") ,boardMap.get("image_src"));
-		
+		String articleNoStr = boardMap.get("articleNo");
+		int articleNo = Integer.parseInt(articleNoStr);
+		WhiPhotoArticle article = new WhiPhotoArticle(boardMap.get("user_id"),boardMap.get("title") ,boardMap.get("content") ,boardMap.get("image_src"),articleNo);
 		Connection conn = ConnectionProvider.getConnection();
 		
-		int articleNo = new WhiPhotoDAO().insertArticle(conn, article);
 		
 		if(imageFileName!=null && imageFileName.length()!=0) {
 			File srcFile = new File(imageRepository+"\\"+"temp"+"\\"+imageFileName);
+			File destDir = new File(imageRepository+"\\"+articleNo);
 			if (!srcFile.exists()) {
 				srcFile.createNewFile();
+				destDir.mkdirs();
 			}
-			File destDir = new File(imageRepository+"\\"+articleNo);
-			destDir.mkdirs();
 			FileUtils.moveFileToDirectory(srcFile, destDir, true);
 		}
-		
+		new WhiPhotoDAO().updateArticle(conn, article);
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter writer= response.getWriter();
 		String msg = "<script>alert('inserted success!!');location.href="
-			     +request.getContextPath()+"'/board/list.do';</script>";
+			     +request.getContextPath()+"'/CJH/whi_photo/content.do?articleNo="+articleNo+"';</script>";
 		writer.print(msg);
 		conn.close();
-		return request.getContextPath()+"/CJH/whi_photo/list.do?pageNo=1";
+		return null;
 	}
 
 	//업로드 메소드

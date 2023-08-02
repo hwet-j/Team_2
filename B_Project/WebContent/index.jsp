@@ -11,47 +11,13 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<style>
-
-.container {
- display : flex;
- flex-direction: row;
- justify-content: center;
-}
-
-.container-items {
- width: auto;
- height : auto;
- padding-left : 50px;
- padding-right : 50px;
- margin-bottom : 50px;
-}
-
-.table {
-  width : 100%
-}
-
-.footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-color: white;
-   color: black;
-   text-align: center;
-   font-size: 100%
-}
-
-.footer_header {
-	display : inline;
-}
-</style>
 
 </head>
 <body>
 <%@ include file="/header.html" %>
-<%@ include file="/main2.html" %>
+<%@ include file="/main.html" %>
 <%@ include file="/footer.html" %>
+
 </body>
 
 <!-- 부트스트랩 JS 파일들 링크 -->

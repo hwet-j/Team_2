@@ -16,9 +16,9 @@
 	    <ul class="list-group">
 	        <c:forEach items="${chat_rooms}" var="room">
 	            <li class="list-group-item">
-	                <form action="/chat/showRoom.do" method="post">
+	                <form action="/chat/detailRoom.do" method="get">
 	                    <input type="hidden" name="room_id" value="${room.room_id}" />
-	                    <input type="hidden" name="room_name" value="${room.room_name}" />
+	                    <%-- <input type="hidden" name="room_name" value="${room.room_name}" /> --%>
 	                    <button type="submit" class="btn btn-link ml-2">채팅방 입장</button>
 	                </form>
 	                <span class="font-weight-bold">채팅방 이름: ${room.room_name}</span>

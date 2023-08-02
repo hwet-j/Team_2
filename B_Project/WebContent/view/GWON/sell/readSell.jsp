@@ -137,7 +137,7 @@
 	 <c:set var="pageNo" value="${empty param.pageNo?1:param.pageNo}" />
  	   <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do?pageNo=${pageNo}" style = "float: right; "role="button">목록</a>
 	</div>
-	
+<div class = "container">
 <form method="post" action="/gwon/sell/sellLike.do" >	
     <input type = "hidden" name="no" value = "${sellDTO.sell_no}"></input>
 	<div class =""></div>
@@ -149,7 +149,10 @@
 		</span>
 	</div>
 </form>
-
+</div>
+<br>
+<br>
+<%@ include file = "../../../footer.html" %>
 
 </body>
 

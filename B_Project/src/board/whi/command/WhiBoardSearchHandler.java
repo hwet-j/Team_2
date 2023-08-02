@@ -46,7 +46,7 @@ public class WhiBoardSearchHandler implements CommandHandler {
 		//3- 카테고리 불러오기
 		List<String> categoryList = new WhiBoardDAO().getCategory(conn);
 		request.setAttribute("CATEGORY_LIST", categoryList);
-		
+		conn.close();
 		return request.getContextPath()+"/view/CJH/whi_board/whi_board_list.jsp";
 	}
 

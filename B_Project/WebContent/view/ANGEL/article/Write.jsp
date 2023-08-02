@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "/header.html" %>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col" style="margin: 20px;">
@@ -29,6 +29,7 @@
     </div>
   </div>
 </div>
+<%@ include file = "/footer.html" %>
 </body>
 <!-- 부트스트랩 JS 파일들 링크 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

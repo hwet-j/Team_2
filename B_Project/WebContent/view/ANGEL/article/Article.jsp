@@ -13,10 +13,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "/header.html" %>
 <h1 style="text-align: center;">동물 게시판</h1><br>
 <div class="container">
 <a href="/Angel/article.do?pageNo=1"><Button type="button" class="btn btn-secondary">전체글보기</Button></a>
+<!-- get 방식으로 카테고리 파라미터 전송 -->
 <a href="/Angel/category.do?category=전재권"><Button type="button" class="btn btn-secondary">전재권</Button></a>
 <a href="/Angel/category.do?category=김재정"><Button type="button" class="btn btn-secondary">김재정</Button></a>
 <a href="/Angel/category.do?category=홍진호"><Button type="button" class="btn btn-secondary">홍진호</Button></a>
@@ -80,6 +81,7 @@
   
   <a href='javascript:history.go(-1)'>뒤로 가기</a>
 </div>
+<%@ include file = "/footer.html" %>
 </body>
 <!-- 부트스트랩 JS 파일들 링크 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
