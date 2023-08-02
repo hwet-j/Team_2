@@ -23,7 +23,6 @@ public class CategoryHandler implements CommandHandler {
 		List<Article> article = articleDAO.category(conn, category);
 		request.setAttribute("ARTICLE", article);
 		
-		
 		return request.getContextPath() + "/view/ANGEL/article/Article.jsp";
 	}
 
