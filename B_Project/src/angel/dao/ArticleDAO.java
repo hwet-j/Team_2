@@ -106,6 +106,7 @@ public class ArticleDAO {
 		return null;
 	}
 
+	//게시물 삭제
 	public boolean delete(Connection conn, int articleNo) {
 		String sql = "delete from angel_animaltable where articleNo = ?";
 		
@@ -113,14 +114,13 @@ public class ArticleDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, articleNo);
 			boolean isDelete = pstmt.execute();
-			System.out.println("dao 되니?"+isDelete);
+			System.out.println("isDelete = " + isDelete);
 			return !isDelete;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
-			
 		}
 		return false;
 	}
@@ -240,9 +240,10 @@ public class ArticleDAO {
 		
 	}
 
+	//이름별로 모아오기
 	public List<Article> category(Connection conn, String category) {
 		String sql = "select * from angel_animaltable where name = ?";
-		
+		//이름별로 모든 컬럼을 조회해야 하기 때문에 List. 컬럼 모델이 Article.
 		List<Article> select = new LinkedList<>();
 		
 		try {
@@ -258,8 +259,8 @@ public class ArticleDAO {
 				String regdate = rs.getString("regdate");
 				int readCnt = rs.getInt("readCnt");
 				String content = rs.getString("content");
+				
 				Article arti = new Article(articleNo, memberid, name, title, regdate, readCnt, content);
-				arti.toString();
 				select.add(arti);
 			}
 			return select;
@@ -272,6 +273,7 @@ public class ArticleDAO {
 		return null;
 	}
 
+	//게시물 번호에 해당하는 모든 댓글 보기
 	public List<Comment> comment(int articleNo) {
 		String sql = "select * from angel_comment where articleNo= ?";
 		
@@ -302,16 +304,18 @@ public class ArticleDAO {
 		return null;
 	}
 
-	public int writeComment(Connection conn, int articleNo, Comment writeComment) {
+	//댓글 작성
+	public int writeComment(Connection conn, Comment writeComment) {
 		String sql = "insert into angel_comment(articleNo, name, comment) values (?, ?, ?)";
 		
 		try {
 			conn = ConnectionProvider.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, articleNo);
+			pstmt.setInt(1, writeComment.getArticleNo());
 			pstmt.setString(2, writeComment.getName());
 			pstmt.setString(3, writeComment.getComment());
 			int row = pstmt.executeUpdate();
+			return row;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -321,6 +325,7 @@ public class ArticleDAO {
 		return 0; 
 	}
 	
+	//댓글 삭제
 	public int commentDelete(Connection conn, int commentNo) {
 		String sql = "delete from angel_comment where commentNo = ?";
 		

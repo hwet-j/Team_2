@@ -13,21 +13,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "../../../header.html" %>
 <%
 request.setCharacterEncoding("UTF-8");
 int articleNo = Integer.parseInt(request.getParameter("articleNo"));
 String title = request.getParameter("title");
 String content = request.getParameter("content");
 %>
-<%-- <form action="/Angel/modify.do" method="post">
-<div class="container-fluid" style="margin: 20px;">
-<input type="hidden" name="articleNo" value=<%= articleNo%>></input>
-<p>제목 : <br><input type="text" name="title" size="20" value=<%= title%>></input></p>
-<p>내용 : <br><textarea name="content" rows="20" cols="50"><%= content%></textarea></p>
-<input type="submit" class="btn-primary" value="수정"></input>
-</div>
-</form> --%>
 <div class="container">
 	<div class="row justify-content-center">
     	<div class="col" style="margin: 20px;">
