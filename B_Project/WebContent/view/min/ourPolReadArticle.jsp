@@ -23,6 +23,7 @@
  </script>
 </head>
 <body>
+<%@ include file = "/header.html" %>
 	<%--//리턴 OurArticleData ora : 글번호,작성자id,작성자명,제목,작성일,수정일,조회수,내용
 			OurArticleData ora = readArticleService.getDetail(no);  
 			request.setAttribute("ora", ora); --%>
@@ -55,6 +56,9 @@
  <c:if test="${AUTH_USER.id eq pad.writer_id}">
  <a href="poldelete.do?no=${pad.number}">게시글삭제해야지</a>
  </c:if>
+<br>
+<br>
+<%@ include file = "/footer.html" %>
 </body>
 </html>
 
