@@ -33,7 +33,7 @@ function dataCheck()
 </script>
 </head>
 <body>
-
+<%@ include file = "/header.html" %>
  
  <%-- ListNoticeHandler로 부터 
  	 request.setAttribute("nowPage", pageNo); //현재페이지

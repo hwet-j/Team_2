@@ -53,8 +53,8 @@
 </style>
 </head>
 <body>
- <%@ include file="/navi.jsp" %> 	
- <%@ include file="/footer.jsp" %> 	
+ <%@ include file = "/header.html" %>	
+ <%@ include file="/footer.html" %>
  <%-- ListArticleHandler로 부터 
  	 request.setAttribute("nowPage", pageNo); //현재페이지
      request.setAttribute("articlePage", articlePage); 

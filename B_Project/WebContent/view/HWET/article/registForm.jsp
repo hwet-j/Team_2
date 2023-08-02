@@ -18,7 +18,7 @@
   
 </head>
 <body>
-<%@ include file="/navi.jsp" %>
+<%@ include file = "/header.html" %>
 
 <div class="container my-6">
 	<h2>글 작성</h2>

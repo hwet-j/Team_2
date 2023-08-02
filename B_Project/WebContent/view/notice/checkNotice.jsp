@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="u"   tagdir="/WEB-INF/tags"%>
+
 <%-- <c:set var="변수명" value="변수값" /> --%>
 <c:set var="cPath" value="<%=request.getContextPath() %>" />
 <!DOCTYPE html>
@@ -20,6 +21,7 @@
 </script>
 </head>
 <body>
+<%@ include file = "/header.html" %>
 <%--	//리턴 Notice notice: 글번호,작성자id,제목,내용,작성일,조회수,
 			Notice notice =NoticeService.getDetail(no); 
 			//request.setAttribute("notice",notice); 
