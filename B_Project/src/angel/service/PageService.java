@@ -7,6 +7,7 @@ import java.util.List;
 
 import angel.dao.ArticleDAO;
 import angel.model.Article;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 
 public class PageService {
@@ -22,6 +23,8 @@ public class PageService {
 			return pageNoArticle;
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn);
 		}
 		return null;
 	}
