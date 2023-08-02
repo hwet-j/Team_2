@@ -99,11 +99,11 @@ public class ArticleService {
 		return null;
 	}
 
-	public int writeComment(int articleNo, Comment writeComment) {
+	public int writeComment(Comment writeComment) {
 		int row = 0;
 		try {
 			conn = ConnectionProvider.getConnection();
-			row = articleDAO.writeComment(conn, articleNo, writeComment);
+			row = articleDAO.writeComment(conn, writeComment);
 			return row;
 		} catch (SQLException e) {
 			e.printStackTrace();

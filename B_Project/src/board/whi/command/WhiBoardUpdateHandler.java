@@ -8,7 +8,7 @@ import board.whi.service.WhiBoardDeleteService;
 import board.whi.service.WhiBoardModifyService;
 import mvc.command.CommandHandler;
 
-public class WhiBoardModifyHandler implements CommandHandler {
+public class WhiBoardUpdateHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {

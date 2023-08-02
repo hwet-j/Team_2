@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import board.whi.dao.WhiBoardDAO;
 import board.whi.model.WhiBoardArticle;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 
 public class WhiBoardModifyService {
@@ -18,6 +19,8 @@ public class WhiBoardModifyService {
 			return modifyRow;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn);
 		}
 		return 0;
 	}

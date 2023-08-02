@@ -199,6 +199,7 @@ public class SellDAO {
 				}return null;
 				}finally {
 					JDBCUtil.close(rs);
+					JDBCUtil.close(insertedstmt);
 					JDBCUtil.close(stmt);
 					
 				}
@@ -242,8 +243,8 @@ public class SellDAO {
 		public List<Sell> search(Connection conn, SearchRequest searchRequest, int startRow, int size) throws SQLException {
 			
 			String sql = null;
-			PreparedStatement stmt = null;
 			List<Sell> list = new ArrayList<>();
+			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String searchColumn	= searchRequest.getSearchColumn();
 			String searchText	= searchRequest.getSearchText();

@@ -54,6 +54,7 @@ public class WhiPhotoWriteHandler implements CommandHandler{
 		String msg = "<script>alert('inserted success!!');location.href="
 			     +request.getContextPath()+"'/board/list.do';</script>";
 		writer.print(msg);
+		conn.close();
 		return request.getContextPath()+"/CJH/whi_photo/list.do?pageNo=1";
 	}
 

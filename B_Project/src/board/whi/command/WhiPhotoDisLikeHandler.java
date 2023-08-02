@@ -23,6 +23,7 @@ public class WhiPhotoDisLikeHandler implements CommandHandler {
 		conn = ConnectionProvider.getConnection();
 		//db접근
 		new WhiPhotoDAO().rating(conn,articleNo,like);
+		conn.close();
 		return request.getContextPath()+"/CJH/whi_photo/content.do?articleNo="+articleNo;
 	}
 

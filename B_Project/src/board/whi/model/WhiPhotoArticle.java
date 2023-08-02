@@ -70,6 +70,13 @@ public class WhiPhotoArticle {
 		this.content = content;
 		this.img_src = img_src;
 	}
+	public WhiPhotoArticle(String user_id, String title, String content, String img_src, int articleNo) {
+		this.article_no=articleNo;
+		this.user_id = user_id;
+		this.title = title;
+		this.content = content;
+		this.img_src = img_src;
+	}
 	
 	public void setArticle_no(int article_no) {
 		this.article_no = article_no;
