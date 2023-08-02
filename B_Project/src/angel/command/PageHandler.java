@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import angel.dao.ArticleDAO;
 import angel.model.Article;
 import angel.service.PageService;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import mvc.command.CommandHandler;
 
@@ -29,6 +30,8 @@ public class PageHandler implements CommandHandler {
 		List<Article> article = new LinkedList<>();
 		article = pageService.pageNoArticle(pageNo);
 		request.setAttribute("ARTICLE", article);
+		
+		JDBCUtil.close(conn);
 		
 		return request.getContextPath() + "/view/ANGEL/article/Article.jsp";
 	}

@@ -241,7 +241,7 @@ public class ArticleDAO {
 
 	//이름별로 모아오기
 	public List<Article> category(Connection conn, String category) {
-		String sql = "select * from angel_animaltable where name = ?";
+		String sql = "select * from angel_animaltable where name = ? ORDER BY articleNo DESC";
 		//이름별로 모든 컬럼을 조회해야 하기 때문에 List. 컬럼 모델이 Article.
 		List<Article> select = new LinkedList<>();
 		
@@ -268,6 +268,7 @@ public class ArticleDAO {
 		} finally {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(conn);
 		}
 		return null;
 	}

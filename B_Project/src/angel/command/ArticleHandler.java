@@ -10,6 +10,7 @@ import angel.dao.ArticleDAO;
 import angel.model.Article;
 import angel.service.ArticleService;
 import angel.service.PageService;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import mvc.command.CommandHandler;
 
@@ -39,7 +40,7 @@ public class ArticleHandler implements CommandHandler {
 		//페이지 번호마다 보여질 게시물 목록 가져오기
 		List<Article> pageNoArticle = pageService.pageNoArticle(pageNo);
 		request.setAttribute("ARTICLE", pageNoArticle);
-		
+		JDBCUtil.close(conn);
 		return request.getContextPath() + "/view/ANGEL/article/Article.jsp";
 	}
 }

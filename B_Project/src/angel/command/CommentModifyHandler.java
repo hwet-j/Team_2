@@ -3,7 +3,6 @@ package angel.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import angel.model.Comment;
 import angel.service.ArticleService;
 import mvc.command.CommandHandler;
 
