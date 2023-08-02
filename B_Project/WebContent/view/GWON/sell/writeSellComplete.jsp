@@ -28,6 +28,9 @@
  <br/><br/><br/>
  <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do" style = "float: right; "role="button">목록</a>
  <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellRead.do?no=${writeSellinfo}" style = "float: right; "role="button">확인</a>
+<br>
+<br>
+<%@ include file = "../../../footer.html" %>
 </body>
 
 

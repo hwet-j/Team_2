@@ -22,7 +22,7 @@
 <body>
 
  <!-- Navigation -->
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "/header.html" %>
 
   <!-- 내용 -->
  <div class="container">
@@ -56,6 +56,9 @@
    </form>
  </div>
  		     	
+<br>
+<br>
+<%@ include file = "/footer.html" %>
 </body>
 <!-- 부트스트랩 JS 파일들 링크 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

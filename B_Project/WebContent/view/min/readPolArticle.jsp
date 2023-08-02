@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "/header.html" %>>
  <!-- 내용 -->	
     <!-- page title -->
 	<h2  class="mt-4 mb-3 text-center">게시글 상세보기</h2>
@@ -76,6 +76,9 @@
 	 </c:if>
 	</div>
  </div>
+<br>
+<br>
+<%@ include file = "/footer.html" %>
 </body>
 <!-- 부트스트랩 JS 파일들 링크 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -27,7 +27,7 @@
 
 </head>
 <body>
-<%@ include file = "../../../navi.jsp" %>
+<%@ include file = "/header.html" %>
 
 <h2  class="title" align = "center">정치게시판(beta)</h2>
 <div class = "#">
@@ -89,6 +89,9 @@
 	    </div>
  	</div>
   	 <br/>          
+<br>
+<br>
+<%@ include file = "/footer.html" %>
 </body>
 
 <!-- 부트스트랩 JS 파일들 링크 -->
