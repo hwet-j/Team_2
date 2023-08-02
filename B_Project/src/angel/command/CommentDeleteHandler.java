@@ -1,7 +1,6 @@
 package angel.command;
 
 import java.sql.Connection;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,9 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import angel.dao.ArticleDAO;
-import angel.model.Article;
-import angel.model.Comment;
-import angel.service.ArticleService;
 import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import mvc.command.CommandHandler;
@@ -40,7 +36,7 @@ public class CommentDeleteHandler implements CommandHandler {
 		response.setCharacterEncoding("UTF-8");
 		
 		response.getWriter().write(jsonResponse.toString());
-		
+		JDBCUtil.close(conn);
 		return null;
 	}
 

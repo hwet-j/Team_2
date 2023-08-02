@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import angel.dao.ArticleDAO;
 import angel.model.Article;
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import mvc.command.CommandHandler;
 
@@ -21,6 +22,9 @@ public class CategoryHandler implements CommandHandler {
 		ArticleDAO articleDAO = new ArticleDAO();
 		List<Article> article = articleDAO.category(conn, category);
 		request.setAttribute("ARTICLE", article);
+		
+		
+		JDBCUtil.close(conn);
 		
 		return request.getContextPath() + "/view/ANGEL/article/Article.jsp";
 	}
