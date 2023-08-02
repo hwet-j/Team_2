@@ -24,8 +24,6 @@ public class CategoryHandler implements CommandHandler {
 		request.setAttribute("ARTICLE", article);
 		
 		
-		JDBCUtil.close(conn);
-		
 		return request.getContextPath() + "/view/ANGEL/article/Article.jsp";
 	}
 
