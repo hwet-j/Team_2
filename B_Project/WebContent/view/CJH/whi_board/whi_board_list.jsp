@@ -89,19 +89,7 @@
 
 </div>
 <!-- 테이블끝 -->
-
-<div >
-
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <!-- 여기위로 -->
-<%@ include file="/footer.jsp" %>
+<%@ include file="/footer.html" %>
 </body>
 </html>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="/navi.jsp" %> 
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -18,8 +17,7 @@ $(function(){
 </script>
 </head>
 <body>
-<%@ include file="/navi.jsp" %>
-
+<%@ include file = "/header.html" %>
 <div class="container"></div>
 	<h2 class="mt-5 mb-4 text-center">수정</h2>
 	

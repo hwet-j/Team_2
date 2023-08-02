@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/navi.jsp" %> 
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,6 +20,7 @@
 </script>
 </head>
 <body>
+<%@ include file = "/header.html" %>
 <%-- WriteNoticeHandler에의해 아래와 같이 모델받을 예정??
  		User user = new User("hongid","1234");
 		session.setAttribute("AUTH_USER", user); --%>	 

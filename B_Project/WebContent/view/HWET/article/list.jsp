@@ -19,7 +19,7 @@
 
 </head>
 <body>
-<%@ include file="/navi.jsp" %>
+<%@ include file = "/header.html" %>
 
 <%-- 현재 페이지 번호를 가져옵니다. --%>
 <c:set var="current_page" value="${empty param.page_no ? 1 : param.page_no}" />

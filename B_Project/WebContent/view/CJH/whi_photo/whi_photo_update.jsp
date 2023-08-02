@@ -44,7 +44,7 @@ String imageFileName = request.getParameter("imageFileName");
             </div>
             <div class="form-group">
                 <label for="content">글내용</label>
-                <textarea class="form-control" id="content" name="content" rows="4" required value="<%=content%>"></textarea>
+                <textarea class="form-control" id="content" name="content" rows="4" required><%=content%></textarea>
             </div>
             <div class="form-group">
                 <label for="image_src">이미지</label>
@@ -71,6 +71,6 @@ String imageFileName = request.getParameter("imageFileName");
 
 
 <!-- 여기위로 -->
-<%@ include file="/footer.jsp" %>
+<%@ include file="/footer.html" %>
 </body>
 </html>
