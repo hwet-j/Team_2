@@ -38,7 +38,27 @@ public class PolListArticleService {
 			JDBCUtil.close(conn);
 		}
 		
+	}
+
+
+	public PolArticlePage getPolArticlePage(int pageNum, String search) {
+		System.out.println("getPolArticlePage진입");
+		Connection conn;
+		try {
+			conn= ConnectionProvider.getConnection();
+			
+			int total = polArticleDAO.selectSearchCount(conn,search);//총게시글수
+			
+			List<PolArticle> content = polArticleDAO.selectSearch(conn,(pageNum-1)*size,size,search);
+	
 		
+			PolArticlePage pap = new PolArticlePage(total, pageNum, size, content);
+			System.out.println("PolListArticleService- getPolArticlePage()의 결과 pap="+pap);
+			return pap;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 }
