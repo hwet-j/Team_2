@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 
 
 
@@ -16,7 +18,7 @@
           <a class="nav-link" href="/index.jsp">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">공지사항</a>
+          <a class="nav-link" href="/notice/list.do">공지사항</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPolitics" role="button"
@@ -24,9 +26,7 @@
             정치
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownPolitics">
-            <a class="dropdown-item" href="/min/article/polList.do">메인페이지</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
+            <a class="dropdown-item" href="/min/article/polList.do">정치</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -57,8 +57,6 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownUsedItems">
             <a class="dropdown-item" href="<%=request.getContextPath() %>/gwon/sell/sellList.do">판매</a>
-            <a class="dropdown-item" href="#">구매</a>
-            <a class="dropdown-item" href="#">후기</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -69,7 +67,6 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownBoard1">
             <a class="dropdown-item" href="/hwet/article/list.do">게시판</a>
             <a class="dropdown-item" href="/chat/showRoom.do">채팅(구현중)</a>
-            <a class="dropdown-item" href="#">Link 3</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -79,8 +76,6 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownBoard2">
             <a class="dropdown-item" href="/tak/article/list.do">신고게시판</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
           </div>
         </li>
       </ul>
@@ -111,3 +106,5 @@
     </div>
   </div>
 </nav>
+
+
