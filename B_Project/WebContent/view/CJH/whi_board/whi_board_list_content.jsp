@@ -63,13 +63,7 @@
 </div>
 <hr>
 
-
-<br>
-<br>
-<br>
-<br>
-<br><br><br>
 <!-- 여기위로 -->
-<%@ include file="/view/contact.jsp" %>
+<%@ include file="/footer.html" %>
 </body>
 </html>

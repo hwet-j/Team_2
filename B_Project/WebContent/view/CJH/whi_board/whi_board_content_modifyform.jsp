@@ -22,11 +22,9 @@ String content = request.getParameter("content");
 내용<input type="text" name ="title" width="700px" value="<%=title%>">
 <hr>
 <textarea name ="content" rows="20" cols="10" ><%=content%></textarea>
-
-
 <button type="submit">글수정완료</button>
 </form>
 <!-- 여기위로 -->
-<%@ include file="/view/contact.jsp" %>
+<%@ include file="/footer.html" %>
 </body>
 </html>

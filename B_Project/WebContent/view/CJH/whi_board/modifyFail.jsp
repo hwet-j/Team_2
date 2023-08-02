@@ -9,6 +9,6 @@
 <body>
 <%@ include file = "/header.html" %>
 
-<%@ include file="/view/contact.jsp" %>
+<%@ include file="/footer.html" %>
 </body>
 </html>

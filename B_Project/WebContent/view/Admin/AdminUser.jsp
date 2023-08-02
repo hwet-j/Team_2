@@ -232,7 +232,7 @@ function search() {
 
 </head>
 <body>
-<%@ include file="/navi.jsp" %>
+<%@ include file="/header.html" %>
 
 
 
