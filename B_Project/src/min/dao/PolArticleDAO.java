@@ -12,6 +12,7 @@ import java.util.List;
 import min.model.PolArticle;
 import min.model.PolWriter;
 import min.service.PolArticleData;
+import tak.article.model.Article;
 import jdbc.JDBCUtil;
 
 public class PolArticleDAO {
@@ -167,6 +168,63 @@ public class PolArticleDAO {
 	}
 }
 	
+public List<PolArticle> selectSearch(Connection conn, int startRow, int size, String search) throws SQLException {
+	String sql="select pol_no, user_id, user_nickname, title, " + 
+			"       regdate,    moddate,   read_cnt " + 
+			"from min_pol " + 
+			"where title like concat('%',?,'%')" +
+			"order by pol_no desc limit ?,?";
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
+	try {
+		stmt = conn.prepareStatement(sql);
+		//p647 22,23라인
+		stmt.setString(1,search);
+		stmt.setInt(2,startRow);
+		stmt.setInt(3,size);
+		rs = stmt.executeQuery();
+		
+		List<PolArticle> result = new ArrayList<PolArticle>();
+		//List참조변수.add(값); list에   값을 추가
+		//List참조변수.get(int 인덱스번호); list에서 값을 가져오기
+		while(rs.next()) {
+			//데이터타입 변수명=rs.get데이터타입("컬럼명");
+			//데이터타입 변수명=rs.get데이터타입(int 컬럼순서);
+			result.add( covertPolArticle(rs) ); //p647 27라인
+		}//while
+		
+		return result;
+	}finally {
+		JDBCUtil.close(rs);
+		JDBCUtil.close(stmt);
+	}	
+
+	}
+	
+
+
+public int selectSearchCount(Connection conn, String search) throws SQLException {
+	String sql="select count(*) as totalCNT from min_pol where title like concat('%',?,'%')";
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
+	try {
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1,search);
+		rs = stmt.executeQuery();
+		int totalCNT = 0; //총 게시물수를 저장하기 위한 변수 선언 및 초기화
+		if(rs.next()) {
+			//			데이터타입 변수명=rs.get데이터타입("컬럼명");
+			//			데이터타입 변수명=rs.get데이터타입(int 컬럼순서);
+			totalCNT = rs.getInt("totalCNT");
+		}
+		System.out.println("selectSearchCount"+totalCNT);
+		return totalCNT;			
+	}finally {
+		JDBCUtil.close(rs);
+		JDBCUtil.close(stmt);
+	}
+}
+	
 	//p647 36라인
 	//select 쿼리를 실행 결과집합(ResultSet)을 이용하여 polArticle클래스 객체를 생성
 	private PolArticle covertPolArticle(ResultSet rs) throws SQLException {
@@ -256,5 +314,10 @@ public PolArticle insert(Connection conn, PolArticle polArticle) throws SQLExcep
 	private Timestamp toTimestamp(Date date) {
 		return new Timestamp(date.getTime());
 	}
+
+
+
+
+	
 
 }

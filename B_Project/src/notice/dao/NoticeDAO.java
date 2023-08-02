@@ -20,55 +20,9 @@ import notice.service.NoticeData;
 
 //notice테이블관련 DB작업용 클래스이다
 public class NoticeDAO {
-	private String url = "jdbc:mysql://localhost:3306/cab?serverTimezone=UTC";
-	private String uid = "root";
-	private String upw = "rootpw";
+
 	
-	public NoticeDAO() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
-	public ArrayList<NoticeDTO> noticeSelect() {
-		
-		ArrayList<NoticeDTO> dtos = new ArrayList<NoticeDTO>();
-		
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = DriverManager.getConnection(url, uid, upw);
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from notice");
-			
-			while (rs.next()) {
-			int notice_no = rs.getInt("notice_no");
-			String writer_id = rs.getString("writer_id");
-			String title = rs.getString("title");
-			String content = rs.getString("content");
-			Date writedate = rs.getDate("writedate");
-			int views = rs.getInt("views");
-			
-			NoticeDTO dto = new NoticeDTO(notice_no,writer_id,title,content,writedate,views);
-			dtos.add(dto);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(rs != null) rs.close();
-				if(stmt != null) stmt.close();
-				if(conn != null) conn.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		}
-		return dtos;
-	}
 	public void update(Connection conn,int no, String title, String content)throws SQLException {
 		System.out.println("BoardDAO-modify()진입");
 		System.out.println("title="+title);
