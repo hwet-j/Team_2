@@ -21,6 +21,7 @@
  </script>
 </head>
 <body>
+<%@ include file = "/header.html" %>
  <%--  WriteArticleHandler에서 아래와 같이
        //입력된 글번호->교재에서는 글등록성공시  글등록축하.jsp에서  글상세보기  기능 제공용으로 사용	
 		int newArticleNo = writeService.write(writeRequest);
@@ -28,6 +29,9 @@
  <h2>글쓰기 완료!</h2>
  <a href="polList.do">[목록보기]</a>
  <a href="polread.do?no=${newPolArticleNo}">[방금 입력된 글 상세보기]</a>
+<br>
+<br>
+<%@ include file = "/footer.html" %>
 </body>
 </html>
 
