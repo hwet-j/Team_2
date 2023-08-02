@@ -8,6 +8,7 @@
 </head>
 <body>
 삭제 성공
-<a href='javascript:history.go(-1)'>뒤로 가기</a>
+<!-- <a href='javascript:history.go(-1)'>뒤로 가기</a> -->
+<% response.sendRedirect(request.getContextPath() + "/Angel/article.do?pageNo=1"); %>
 </body>
 </html>
