@@ -30,31 +30,37 @@ input[type="number"] {
 
 
 <script>
+		// 인증 번호를 발급받기 전에는 보이지 않도록 브라우저 실행시 숨김
 		$('#timerDisplay').hide();
 		var tlno = "";
 		
+		// 타이머를 재주는 함수
+		// setInterval 는 주기적으로 실행되는 함수 setInterval(함수, 시간) -> 시간은 ms로 1000으로 작성하여 1초마다 실행되도록 설정함
 		function startTimer(remainingTime) {
 	        var timerInterval = setInterval(function() {
-	            remainingTime--;
-	            if (remainingTime >= 0) {
+	            remainingTime--;		// 남은 시간에서 1초씩 감소
+	            if (remainingTime >= 0) {		// 0보다 크면 시간업데이트 (브라우저에 보이는 텍스트)
 	                updateTimerDisplay(remainingTime);
-	            } else {
-	                clearInterval(timerInterval);
-	                $('#verification_code').prop('disabled', true); // 시간 초과 시 인증번호 입력 비활성화
-	                $('#timerDisplay').text('시간 초과').css('color', 'black'); // 타이머 종료 시 색상을 검정색으로 변경
-	                $('#find_button').prop('disabled', true);	// 버튼 비활성화
+	            } else {		
+	                clearInterval(timerInterval);		// clearInterval는 더이상 setInterval의 함수가 실행되지 않도록 설정
+	                $('#verification_code').prop('disabled', true);			 	// 시간 초과 시 인증번호 입력 비활성화
+	                $('#timerDisplay').text('시간 초과').css('color', 'black'); 	// 타이머 종료 시 색상을 검정색으로 변경
+	                $('#find_button').prop('disabled', true);					// 버튼 비활성화
 	            }
 	        }, 1000);
 	    }
 		
+		// 시간을 분, 초로 재구성 하여 브라우저에 출력
 		function updateTimerDisplay(seconds) {
 		    var minutes = Math.floor(seconds / 60);
 		    var remainingSeconds = seconds % 60;
 		    var formattedTime = padZero(minutes) + ":" + padZero(remainingSeconds);
-		
+			
+		    // 브라우저 출력
 		    $('#timerDisplay').text('남은 시간: ' + formattedTime);
 		}
 		
+		// 주어진 숫자가 10보다 작으면 숫자 앞에 0을 붙여 두자리 수로 만들어 반환한다 (브라우저에 형식을 맞춰 출력을 위함)
 		function padZero(number) {
 		    return (number < 10) ? "0" + number : number;
 		}
