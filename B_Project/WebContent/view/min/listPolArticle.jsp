@@ -42,6 +42,7 @@
  	  	<th scope="col">작성일</th>
  	  	<th scope="col">조회수</th>
  	  </tr>
+
  	 </thead>
  	 <tbody> <%-- 총게시글(수가 0이면)없으면  true리턴, 그렇지 않으면 false --%>
  	 
@@ -73,6 +74,7 @@
  	  	<td>${polArticle.writer.name}(${polArticle.writer.id})</td>
  	  	<td>${polArticle.regdate}</td>
  	  	<td>${polArticle.readCount}</td>
+ 	  	
  	  </tr>
  	  </c:forEach> <%-- 내용출력 끝 --%>
  	 </tbody>
@@ -90,6 +92,7 @@
 	 	<input type="text" name="searchcontent" id="searchcontent" placeholder="검색할 제목 입력" />
 	 	<input type="submit" value="검색"/>
 	  </div>
+
  	</form>
  	
  	
