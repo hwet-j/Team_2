@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/core" %> --%>
 
 <!DOCTYPE html>
@@ -110,7 +111,7 @@
 	</table>
 
 	<div class="">
-	 <c:if test="${AUTH_USER.user_id eq sellDTO.user_id}">
+	 <c:if test="${AUTH_USER.user_id eq sellDTO.user_id || fn:contains(AUTH_USER.user_id, 'admin')}">
 	   <a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellDelete.do?no=${sellDTO.sell_no}" style = "float: right; "role="button">삭제</a>
 	 </c:if> 
 	 
