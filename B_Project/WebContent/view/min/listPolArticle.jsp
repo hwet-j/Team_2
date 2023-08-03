@@ -42,18 +42,29 @@
  	  	<th scope="col">작성일</th>
  	  	<th scope="col">조회수</th>
  	  </tr>
+
  	 </thead>
  	 <tbody> <%-- 총게시글(수가 0이면)없으면  true리턴, 그렇지 않으면 false --%>
- 	  <c:if test="${polArticlePage.hasNoPolArticle()}"> 
- 	  <tr>
- 	  	<td colspan="4">게시글이 존재하지 않습니다. 첫번째 작성자가 되세요~</td>
- 	  
- 	  </tr>
- 	  <tr>
-     <td colspan="5" style="text-align: center;"><a href="polList.do?pageNo=1" class="btn btn-outline-dark">전체글보기</a></td>
- 	  </tr>
- 	  
- 	  </c:if>
+ 	 
+ 	 
+ 	 <c:if test="${polArticlePage.hasNoPolArticle()}"> 
+  <tr>
+    <td colspan="4" style="text-align: center;">게시글이 존재하지 않습니다.</td>
+  </tr>
+  <tr>
+    <td colspan="5" style="text-align: center;">
+      <button onclick="goBack()" class="btn btn-outline-dark">이전 페이지로 이동</button>
+      <a href="polList.do?pageNo=1" class="btn btn-outline-dark">전체글보기</a>
+    </td>
+  </tr>
+  <tr>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </tr>
+</c:if>
  	 
  	  <c:forEach var="polArticle"  items="${polArticlePage.content}" >
  	  <tr>
@@ -63,6 +74,7 @@
  	  	<td>${polArticle.writer.name}(${polArticle.writer.id})</td>
  	  	<td>${polArticle.regdate}</td>
  	  	<td>${polArticle.readCount}</td>
+ 	  	
  	  </tr>
  	  </c:forEach> <%-- 내용출력 끝 --%>
  	 </tbody>
@@ -80,6 +92,7 @@
 	 	<input type="text" name="searchcontent" id="searchcontent" placeholder="검색할 제목 입력" />
 	 	<input type="submit" value="검색"/>
 	  </div>
+
  	</form>
  	
  	
