@@ -54,7 +54,6 @@ public class BroadSocket {
 			e1.printStackTrace();
 		}
 		type = (String) jsonObject.get("type");
-		System.out.println(type);
 		if (type.equals("join_room")) { // 채팅방에 입장했을 때 불러와지는 데이터
 			user = (String) jsonObject.get("user");
 			room_id = ((Long) jsonObject.get("room_id")).intValue();

@@ -150,6 +150,72 @@ public class ChatDAO {
 		
 		return result;
 	}
+
+	/* 채팅방 생성  */
+	public int makeChatRoom(Connection conn, String user_id, String title) {
+		// INSERT INTO chat_room (room_name) VALUES('방1')
+		String sql = "INSERT INTO chat_room(room_name) VALUE(?)";
+		
+		PreparedStatement pstmt = null; 
+		PreparedStatement pstmt2 = null; 
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			
+			result = pstmt.executeUpdate();
+			
+			// 채팅방 생성과 동시에 생성유저 해당 채팅방 참가자로 등록
+			if (result > 0) {
+				pstmt2 = conn.prepareStatement("select last_insert_id()");
+				
+				rs = pstmt2.executeQuery();
+				if(rs.next()) {
+					result = inviteChatRoom(conn, rs.getInt(1), user_id);
+					System.out.println(user_id);
+				}
+			}
+			
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt2);
+			JDBCUtil.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	/* 채팅방 초대(인원 추가)  */
+	public int inviteChatRoom(Connection conn, int room_id, String user_id) {
+		String sql = "INSERT INTO chat_invited_user(room_id, invite_user) VALUES(?, ?)";
+		System.out.println(room_id);
+		System.out.println(user_id);
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, room_id);
+			pstmt.setString(2, user_id);
+			
+			result = pstmt.executeUpdate();
+			
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 }

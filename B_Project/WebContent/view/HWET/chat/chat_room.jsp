@@ -197,13 +197,40 @@
 }
 </style>
 
+<style>
+    .form-group {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+    }
+  </style>
+
 </head>
 <body>
 	<div class="container">
 		<h1 class="mt-4">채팅방</h1>
+		
+		<div class="container mt-5">
+		    <h2>채팅방 초대</h2>
+		    <form action="/chat/inviteRoom.do" method="post">
+		      <div class="form-group">
+		        <input type="hidden" class="form-control" id="room_id" name="room_id" value="${room_id}">
+		        <select class="form-control" id="invite_user" name="invite_user">
+		          <%-- member_list 변수의 각 항목을 출력하기 위한 foreach문 --%>
+		          <c:forEach items="${member_list}" var="member">
+		            <option value="${member}">${member}</option>
+		          </c:forEach>
+		        </select>
+		      </div>
+		      <button type="submit" class="btn btn-primary">생성</button>
+		    </form>
+		  </div>
 
 		<!-- 채팅방 참여자 목록 출력 -->
-		<%-- <h2>채팅방 참여자 목록</h2>
+		<h2>채팅방 참여자 목록</h2>
 		<ul class="list-group">
 			<ol>
 				<c:forEach items="${participants}" var="participant" varStatus="status">
@@ -213,7 +240,7 @@
 				</c:if>
 				</c:forEach>
 			</ol>
-		</ul> --%>
+		</ul>
 
 		<div class="mt-4 scroll-frame">
 			<h2>채팅방 대화목록</h2>
