@@ -31,8 +31,6 @@ public class WriteNoticeHandler implements CommandHandler {
 		private NoticeService noticeService = new NoticeService();
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("WriteNoticeHandler의 process()진입");
-		System.out.println("request.getMethod()="+request.getMethod());
 		
 		if( request.getMethod().equalsIgnoreCase("GET") ) {//요청방식이 get방식이면  FORM_VIEW 보여주기
 			return processForm(request,response);
@@ -102,10 +100,7 @@ public class WriteNoticeHandler implements CommandHandler {
 			//작성자정보
 			
 			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			System.out.println("title ="+title);
-			System.out.println("content ="+content);
-			System.out.println("user.getId() ="+user.getUser_id());
+			String content = request.getParameter("content");		
 			
 			return  new WriteRequest(
 					new Writer(user.getUser_id()),

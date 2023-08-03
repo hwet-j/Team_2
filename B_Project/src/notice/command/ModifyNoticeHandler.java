@@ -26,7 +26,6 @@ public class ModifyNoticeHandler implements CommandHandler{
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("ModifyNoticeHandler의 process진입");
 		
 		if( request.getMethod().equalsIgnoreCase("GET") ) {
 			return processForm(request,response);
@@ -63,13 +62,11 @@ public class ModifyNoticeHandler implements CommandHandler{
 	// 로그인한 user의 id가 글작성자id와 일치하는지 비교하여 동일하면 수정가능
 	//리턴 boolean - 수정할 수 있으면 true반환, 불가하면 false반환
 	private boolean canModify(MemberDTO user, NoticeData nod) {
-		System.out.println("user.getId()="+user.getUser_id());
 		return user.getUser_id().equals(nod.getWriter_id());
 	}
 	//수정처리
 	private String processSubmit(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//1.파라미터받기
-		System.out.println("ModifyHandler의 process()진입");
 		int no =Integer.parseInt(request.getParameter("no"));
 		String title =request.getParameter("title");
 		String content=request.getParameter("content");
@@ -77,7 +74,6 @@ public class ModifyNoticeHandler implements CommandHandler{
 		MemberDTO authUser = (MemberDTO)request.getSession().getAttribute("AUTH_USER");
 	
 	//수정처리를 위한 데이터를 ModifyRequest객체로 생성	
-	//System.out.println("Modify핸들러 modReq="+modReq);
 	ModifyRequest modReq = new ModifyRequest(authUser.getUser_id(), no,title,content);	
 	request.setAttribute("modReq", modReq);
 
@@ -89,7 +85,6 @@ public class ModifyNoticeHandler implements CommandHandler{
 		return request.getContentType()+FORM_VIEW;
 			
 	}
-	System.out.println("Modify핸들러 modReq="+modReq);
 	//2.비즈니스로직<->Service<->DAO<->DB
 	//파라미터 ModifyRequest modReq - 수정처리를 위한 세션에서 가져온 회원id, 글번호, 제목, 내용
 	noticeService.modify(modReq);
