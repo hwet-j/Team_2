@@ -59,15 +59,11 @@ public class SendMessageHandler implements CommandHandler {
 		content_output += "<span>[" + sender_id + "]</span>";
 		content_output += "<span style=\"font-weight: bold;\">" + content + "</span>";
 		content_output += "<span style=\"font-size: small;\"> (" + dateFormat.format(currentDate) + ")</span>";
-		content_output += "</div>";
-		content_output += "</div>";
 		
 		// 자신 출력 내용
 		String content_input = "<span class=\"chat-bubble right-bubble\">";
 		content_input += "<span style=\"font-weight: bold;\">" + content + "</span>";
 		content_input += "<span style=\"font-size: small;\"> (" + dateFormat.format(currentDate) + ")</span>";
-		content_input += "</div>";
-		content_input += "</div>";
 
 		JSONObject jsonResponse = new JSONObject();
 		jsonResponse.put("input_data", content_input);

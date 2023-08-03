@@ -7,9 +7,48 @@
     <!-- 부트스트랩 CSS 링크 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+
+ <style>
+    .form-group {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+    }
+  </style>
+  
+  <script>
+    function validateForm() {
+      var titleInput = document.getElementById('title');
+      var titleValue = titleInput.value.trim();
+
+      if (titleValue === '') {
+    	  Swal.fire({
+              icon: 'warning',
+              title: '채팅방 이름을 설정해주세요.',
+              timer: 1000,
+              showConfirmButton: false,
+            });
+        return false;
+      }
+
+      return true;
+    }
+  </script>
 <body>
     <div class="container">
-	    <h1 class="mt-4">채팅방</h1>
+		<div class="container mt-5">
+		    <h2>채팅방 생성</h2>
+		    <form action="/chat/makeRoom.do" method="post" onsubmit="return validateForm()">
+		      <div class="form-group">
+		        <input type="text" class="form-control" id="title" name="title" placeholder="채팅방 이름을 입력하세요">
+		      </div>
+		      <button type="submit" class="btn btn-primary">생성</button>
+		    </form>
+		  </div>
 	
 	    <!-- 채팅방 목록 출력 -->
 	    <h2>채팅방 목록</h2>
