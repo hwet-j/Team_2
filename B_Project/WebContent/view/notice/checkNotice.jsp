@@ -29,11 +29,6 @@ height: 150px;
 </head>
 <body>
 <%@ include file = "/header.html" %>
-<%--	//리턴 Notice notice: 글번호,작성자id,제목,내용,작성일,조회수,
-			Notice notice =NoticeService.getDetail(no); 
-			//request.setAttribute("notice",notice); 
-			request.setAttribute("nod", nod);--%>
-<%@ include file = "/header.html" %>
 	
 
 <div class="container">
