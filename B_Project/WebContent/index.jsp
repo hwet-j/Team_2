@@ -347,7 +347,7 @@ th:nth-child(3) {
                 // 테이블 행 출력
                 out.println("<tr>");
                 out.println("<th scope=\"row\">" + postId + "</th>");
-                out.println("<th scope=\"col\"><a href=\"/hwet/article/read.do?no=43&page_no="+postId+"\">" + title + "</a></th>");
+                out.println("<th scope=\"col\"><a href=\"/hwet/article/read.do?no="+postId+"\">" + title + "</a></th>");
                 out.println("<th scope=\"col\">" + authorId + "</th>");
                 out.println("</tr>");
               }
