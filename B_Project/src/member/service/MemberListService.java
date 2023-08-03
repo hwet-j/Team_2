@@ -58,7 +58,27 @@ public class MemberListService {
 		}
 	}
 	
-	
+	/* 전체 회원 아이디 가져오기 */
+	public List<String> AllMemberID() {
+		Connection conn = null;
+		List<String> result = new ArrayList<String>();
+		try {
+			conn = ConnectionProvider.getConnection();
+			// autoCommit false 설정 
+			conn.setAutoCommit(false); 
+			
+			result = memberDAO.AllMemberID(conn);
+						
+			conn.commit(); 
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JDBCUtil.rollback(conn);//rollback  
+			throw new RuntimeException(e);
+		}finally {
+			JDBCUtil.close(conn); 
+		}
+	}
 	
 }
 

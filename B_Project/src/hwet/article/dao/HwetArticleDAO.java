@@ -275,7 +275,7 @@ public class HwetArticleDAO {
 			if(rowCnt>0) { 
 				// 방금 직전에 입력된 글번호를 DB에서 가져온다
 				// -> last_insert_id()는 가장 최근에 사용된 자동증가 데이터의 값을 가져온다.
-				pstmt2 =	conn.prepareStatement("select last_insert_id()");
+				pstmt2 = conn.prepareStatement("select last_insert_id()");
 				
 				rs = pstmt2.executeQuery();
 				if(rs.next()) {

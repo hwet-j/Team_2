@@ -41,7 +41,7 @@ public class ListHandler implements CommandHandler {
         }
         
         // 페이지 당 표시할 데이터 개수를 설정
-        int list_size = 5;
+        int list_size = 10; 
         
         // 설정된 정보에 따라(카테고리, 검색어, 행 개수) 서비스를 통해 해당 페이지의 데이터를 가져옵니다.
         List<HwetArticleDTO> board_list = listService.getBoardListWithPaging(page_no, list_size, cate_info, search_type, keyword);

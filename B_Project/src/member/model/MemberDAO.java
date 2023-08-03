@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -468,6 +469,36 @@ public class MemberDAO {
 		}
 		
 		return result;
+	}
+	
+	/* 전체 회원아이디 목록 */
+	public List<String> AllMemberID(Connection conn) {
+		
+		MemberDTO user_data = null;
+		String sql = "SELECT user_id FROM user_info";
+		
+		List<String> list = new ArrayList<String>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) { 
+				list.add(rs.getString("user_id"));
+			}
+			
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { // 자원반납
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
+		}
+		return list;
 	}
 	
 	
