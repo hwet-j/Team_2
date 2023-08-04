@@ -54,10 +54,32 @@ public class BroadSocket {
 			e1.printStackTrace();
 		}
 		type = (String) jsonObject.get("type");
-
 		if (type.equals("join_room")) { // 채팅방에 입장했을 때 불러와지는 데이터
 			user = (String) jsonObject.get("user");
 			room_id = ((Long) jsonObject.get("room_id")).intValue();
+			
+			JSONObject messageObj = new JSONObject();
+			
+			String content_output = "<span class=\"chat-bubble center-bubble\">";
+			content_output += "<span>채팅방에 " + user + "님이 입장하셨습니다.</span>";
+			content_output += "</span>";
+			
+			messageObj.put("content", content_output);
+			messageObj.put("room_id", room_id);
+			sessionUsers.forEach(session -> {
+				// 리스트에 있는 세션과 메시지를 보낸 세션이 같으면 메시지 송신할 필요없다.
+				if (session == userSession) {
+					return;
+				}
+				try {
+					// 리스트에 있는 모든 세션(메시지 보낸 유저 제외)에 메시지를 보낸다. (형식: 유저명 => 메시지)
+					session.getBasicRemote().sendText(messageObj.toString());
+				} catch (IOException e) {
+					// 에러가 발생하면 콘솔에 표시한다.
+					e.printStackTrace();
+				}
+			});
+			
 
 		} else if (type.equals("chat_message")) { // 메시지를 입력했을 때 불러와지는 데이터
 			content = (String) jsonObject.get("content");
@@ -67,7 +89,6 @@ public class BroadSocket {
 			JSONObject messageObj = new JSONObject();
 			messageObj.put("content", content);
 			messageObj.put("room_id", room_id);
-			System.out.println("room_id : " + room_id);
 			
 			
 			sessionUsers.forEach(session -> {
@@ -77,7 +98,30 @@ public class BroadSocket {
 				}
 				try {
 					// 리스트에 있는 모든 세션(메시지 보낸 유저 제외)에 메시지를 보낸다. (형식: 유저명 => 메시지)
-					System.out.println(content);
+					session.getBasicRemote().sendText(messageObj.toString());
+				} catch (IOException e) {
+					// 에러가 발생하면 콘솔에 표시한다.
+					e.printStackTrace();
+				}
+			});
+		} else if (type.equals("disconnect_room")) { // 메시지를 입력했을 때 불러와지는 데이터
+			user = (String) jsonObject.get("user");
+			room_id = ((Long) jsonObject.get("room_id")).intValue();
+			JSONObject messageObj = new JSONObject();
+			
+			String content_output = "<span class=\"chat-bubble center-bubble\">";
+			content_output += "<span>채팅방에 " + user + "님이 퇴장하셨습니다.</span>";
+			content_output += "</span>";
+			
+			messageObj.put("content", content_output);
+			messageObj.put("room_id", room_id);
+			sessionUsers.forEach(session -> {
+				// 리스트에 있는 세션과 메시지를 보낸 세션이 같으면 메시지 송신할 필요없다.
+				if (session == userSession) {
+					return;
+				}
+				try {
+					// 리스트에 있는 모든 세션(메시지 보낸 유저 제외)에 메시지를 보낸다. (형식: 유저명 => 메시지)
 					session.getBasicRemote().sendText(messageObj.toString());
 				} catch (IOException e) {
 					// 에러가 발생하면 콘솔에 표시한다.

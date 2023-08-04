@@ -28,5 +28,21 @@ public class PageService {
 		}
 		return null;
 	}
-	
+
+	public List<Article> pageNoCategory(String category, int pageNo) {
+		ArticleDAO articleDAO = new ArticleDAO();
+		List<Article> pageNoCategory = new LinkedList<>();
+		Connection conn = null;
+		
+		try {
+			conn = ConnectionProvider.getConnection();
+			pageNoCategory = articleDAO.pageNoCategory(conn, category, pageNo);
+			return pageNoCategory;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn);
+		}
+		return null;
+	}
 }

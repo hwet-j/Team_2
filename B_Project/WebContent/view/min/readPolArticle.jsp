@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<%@ include file = "/header.html" %>>
+<%@ include file = "/header.html" %>
  <!-- 내용 -->	
     <!-- page title -->
 	<h2  class="mt-4 mb-3 text-center">게시글 상세보기</h2>

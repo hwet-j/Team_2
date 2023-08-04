@@ -382,5 +382,74 @@ public class ArticleDAO {
 		}
 		return row;
 	}
-}	
+
+	public int categoryTotal(Connection conn, String category) {
+		int categoryTotal = 0;
+		String sql = "select count(*) from angel_animaltable where name = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				categoryTotal = rs.getInt(1);
+				return categoryTotal;
+			} else {
+				return 0; 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return categoryTotal;
+	}
+
+	//페이징 처리. 페이지 번호마다 보여질 게시물 목록 가져오기
+	public List<Article> pageNoCategory(Connection conn, String category, int pageNo) {
+		String sql = "select * from angel_animaltable where name = ? order by 1 desc limit ?, ?";
+
+		//페이지 번호마다 보여질 게시물 개수
+		int ten = 5;
+		//페이지 번호마다 시작되는 로우를 나타냄. 1페이지 0, 2페이지 10, 3페이지 20 ... 
+		int startNum = 0 + (pageNo-1) * ten;
+		int categoryTotal = categoryTotal(conn, category);
+		/*
+		 * if(0 + (pageNo-1) * ten > categoryTotal) { ten = categoryTotal % ten;}
+		 */
+		
+		List<Article> pageNoCategory = new LinkedList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.setInt(2, startNum);
+			pstmt.setInt(3, ten);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int articleNo = rs.getInt("articleNo");
+				String memberid = rs.getString("memberid");
+				String name = rs.getString("name");
+				String title = rs.getString("title");
+				String regdate = rs.getString("regdate");
+				int readCnt = rs.getInt("readCnt");
+				String content = rs.getString("content");
+				Article arti = new Article(articleNo, memberid, name, title, regdate, readCnt, content);
+
+				pageNoCategory.add(arti);
+			}
+			return pageNoCategory;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}	
+}
+
+	
 

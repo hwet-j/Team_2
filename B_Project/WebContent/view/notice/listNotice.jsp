@@ -35,18 +35,6 @@ function dataCheck()
 <body>
 <%@ include file = "/header.html" %>
  
- <%-- ListNoticeHandler로 부터 
- 	 request.setAttribute("nowPage", pageNo); //현재페이지
- 	 //request.setAttribute("listNotice", listNotice); //notice목록
-     request.setAttribute("noticePage", noticePage); //notice목록,총페이지수 등
- 
-	 NoticePage noticePage에는  
-	      총 게시글수포함(getTotal()호출)
-		  notice목록포함(getContent()호출) 
-		  int  totalPages;	//총페이지수   
-		  int  startPage;	//시작페이지  
-		  int  endPage;	//끝페이지--%> 
- 	<%@ include file = "/header.html" %>
 
 	 <!-- 내용 -->	
 	<div class="container"><!-- page title -->
@@ -56,7 +44,7 @@ function dataCheck()
 	<form name="form" action="/notice/search.do" method="post">
 	<!-- 변수 field,value 받은 후 현재 페이지에서 바로 DAO를 호출한다음 list에 뿌리기  -->
 		<div class="form-group">
-		
+		 
 		<select name="field"><!-- 검색키  -->
 		<option value="title">제목</option>
 		<option value="content">내용</option>

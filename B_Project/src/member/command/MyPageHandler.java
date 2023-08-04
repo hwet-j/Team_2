@@ -5,6 +5,7 @@ import java.sql.Connection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import member.model.MemberDAO;
 import member.model.MemberDTO;
@@ -23,6 +24,8 @@ public class MyPageHandler implements CommandHandler {
 		MemberDTO user_data = new MemberDAO().getMemberDetail(conn, user_id);
 		
 		request.setAttribute("USER_INFO", user_data);
+		
+		JDBCUtil.close(conn);
 		return request.getContextPath()+"/view/member/myPage.jsp";
 	}
 

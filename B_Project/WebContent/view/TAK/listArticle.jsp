@@ -208,7 +208,7 @@
  	 </tbody>
  	</table>
  	<div>
- 	  <a href="/tak/article/write1.do" class="btn btn-outline-dark btn-sm">글 쓰기(p653 12라인)</a>
+ 	  <a href="/tak/article/write1.do" class="btn btn-outline-dark btn-sm">글 쓰기</a>
  	</div>
  	</div>
  	<form id="search" action="/tak/article/list2.do" method="post" class="centered-form" >
