@@ -20,7 +20,6 @@ public class PolReadArticleHandler implements CommandHandler {
 		//1.파라미터받기
 		String strNo = request.getParameter("no"); //상세하게 보고 싶은 글번호
 		int no = Integer.parseInt(strNo); //String을 int로 변환
-		System.out.println("PolReadArticleHandler- process() no="+no);
 		
 		//2.비즈니스로직<->Service<->DAO<->DB
 		try {

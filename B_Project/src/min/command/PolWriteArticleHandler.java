@@ -19,7 +19,6 @@ public class PolWriteArticleHandler implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("PolWriteArticleHandler의 process()진입");
 		
 		if(request.getMethod().equalsIgnoreCase("GET")) {
 			return processForm(request,response);

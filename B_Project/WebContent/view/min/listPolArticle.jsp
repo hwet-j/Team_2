@@ -47,7 +47,7 @@
  	 <tbody> <%-- 총게시글(수가 0이면)없으면  true리턴, 그렇지 않으면 false --%>
  	 
  	 
- 	 <c:if test="${polArticlePage.hasNoPolArticle()}"> 
+ 	 <c:if test="${polArticlePage.hasNoPolArticle() }"> 
   <tr>
     <td colspan="4" style="text-align: center;">게시글이 존재하지 않습니다.</td>
   </tr>
@@ -64,7 +64,7 @@
       }
     </script>
   </tr>
-</c:if>
+  </c:if>
  	 
  	  <c:forEach var="polArticle"  items="${polArticlePage.content}" >
  	  <tr>
@@ -77,6 +77,11 @@
  	  	
  	  </tr>
  	  </c:forEach> <%-- 내용출력 끝 --%>
+ 	  
+ 	  
+ 	  
+ 	  
+ 	  
  	 </tbody>
  	</table>
  	
