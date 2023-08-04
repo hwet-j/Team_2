@@ -77,7 +77,6 @@ public class ControllerUsingURI extends HttpServlet {
 
 	//한번만 호출. DB연결해제, 리소스 반환
 	public void destroy() {
-		System.out.println("destroy()호출");
 	}
 	
 	// get, post 방식 요청시 호출
