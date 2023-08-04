@@ -13,7 +13,7 @@ public class GoodService {
 		Connection conn=null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			//조회수 증가-p659 27라인 => 향후 if문추가예정~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			
 			articleDAO.goodCount(conn, no);
 			
 			OurArticleData ourArticleData = articleDAO.getDetail(conn, no);

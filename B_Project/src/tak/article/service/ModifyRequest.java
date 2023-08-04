@@ -2,7 +2,7 @@ package tak.article.service;
 
 import java.util.Map;
 
-//p666
+
 //수정을 위해 세션에서 가져온 회원id, 글번호, db에서 가져온 db
 public class ModifyRequest {
 	private String userId; 		//세션에서 가져온 회원id
@@ -33,7 +33,7 @@ public class ModifyRequest {
 		return content;
 	}
 
-	//p667 유효성검사
+	
 	public void validate(Map<String, Boolean> errors) {
 		if(title==null || title.trim().isEmpty()) {
 			errors.put("title",Boolean.TRUE);

@@ -4,10 +4,8 @@ import java.util.List;
 
 import tak.article.model.Article;
 
-//p648
-//총게시글수,article목록,페이징처리정보
+
 public class ArticlePage {
-	//필드-p649 9라인
 	private int total;				//총게시글수
 	private int currentPage;		//보고싶은 페이지=>현재 페이지
 	private List<Article> content;  //article목록
@@ -61,17 +59,17 @@ public class ArticlePage {
 		}//게시글이 존재하는 경우의 끝
 	}
 
-	//p650 38라인
+	
 	public int getTotal() {
 		return total; //총게시글수
 	}
 	
-	//p650 42라인 - 총게시글(수가 0이면)없으면  true리턴, 그렇지 않으면 false
+	// 총게시글(수가 0이면)없으면  true리턴, 그렇지 않으면 false
 	public boolean hasNoArticles() {
 		return total==0;
 	}
 
-	//p650 58라인
+	
 	public List<Article> getContent() {
 		return content; //article목록
 	}

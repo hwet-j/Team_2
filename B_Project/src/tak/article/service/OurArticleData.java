@@ -2,12 +2,11 @@ package tak.article.service;
 
 import java.util.Date;
 
-//교재에서는 P655 selectById()이용하여 article테이블의 내용가져오기
-//			 p656 selectById()이용하여 article_content테이블의 내용가져오기
-//2개의 테이블의 내용을 ArticleData클래스(p657)로 묶어서 처리하였다
-//article테이블 => Article(p631)
-//article_content테이블 => Article(p632)
-
+//selectById()이용하여 article테이블의 내용가져오기
+//selectById()이용하여 article_content테이블의 내용가져오기
+//
+//
+//
 //여기에서는 2개의 테이블의 내용을 join하여 처리하는 방식으로 진행
 //(article테이블,article_content테이블)정보를 저장 및 제공하는 기능을 가진 클래승이다
 public class OurArticleData {

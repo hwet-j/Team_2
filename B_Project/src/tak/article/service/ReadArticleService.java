@@ -8,7 +8,7 @@ import jdbc.JDBCUtil;
 import jdbc.connection.ConnectionProvider;
 import tak.article.dao.ArticleDAO;
 
-//p658
+
 //교재의 내용과 다른 방식으로 진행
 public class ReadArticleService {
 
@@ -23,7 +23,7 @@ public class ReadArticleService {
 		Connection conn=null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			//조회수 증가-p659 27라인 => 향후 if문추가예정~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			//조회수 증가 
 			articleDAO.increaseReadCount(conn, no);
 			
 			OurArticleData ourArticleData = articleDAO.getDetail(conn, no);
