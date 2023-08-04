@@ -24,8 +24,6 @@ public class NoticeDAO {
 	
 	
 	public void update(Connection conn,int no, String title, String content)throws SQLException {
-		System.out.println("BoardDAO-modify()진입");
-		System.out.println("title="+title);
 		//3.객체준비
 		String sql="update notice " +
 				"set title=?, content=? " +
@@ -41,7 +39,6 @@ public class NoticeDAO {
 			stmt.setInt(3,no);
 			int updatedCount = stmt.executeUpdate();
 			//수정성공시 1리턴, 실패시 0리턴
-			System.out.println("dao의 수정레코드수="+updatedCount);
 		}finally {
 			JDBCUtil.close(stmt);
 		}
@@ -71,8 +68,7 @@ public class NoticeDAO {
 				nod.setContent(rs.getString("content"));
 				nod.setWriteDate(rs.getDate("writedate"));
 				nod.setViews(rs.getInt("views"));
-				
-				System.out.println("NoticeDao에서 getDetail() NoticeData nod ="+nod);
+							
 			}
 			return nod;			
 		}finally {
@@ -229,7 +225,6 @@ public class NoticeDAO {
 			int totalCNT= 0; //총 게시물수를 저장하기 위한 변수 선언 및 초기화
 			if(rs.next()) {
 				totalCNT=rs.getInt("totalcnt");	
-				System.out.println("totalCNT의값="+totalCNT);
 			}
 			return totalCNT;
 		} finally {
@@ -250,7 +245,6 @@ public class NoticeDAO {
 		//파라미터 board - 회원id,제목,내용
 		//리턴     int - inserted된 정보 글번호!!!
 	public Notice insert(Connection conn, Notice notice) throws SQLException {
-		System.out.println("NoticeDao-insert()진입");
 		
 	String sql="insert into notice(writer_id,title,content,writedate,views) "+
 	 "values(?,?,?,now(),0)";

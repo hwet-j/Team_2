@@ -21,13 +21,11 @@ public class CheckNoticeHandler implements CommandHandler {
 		//1.파라미터받기
 		String strNo = request.getParameter("no");//상세하게 보고싶은 공지글번호   pageNo는 페이지번호, no는 글번호
 		int no = Integer.parseInt(strNo);//String->int 변환
-		System.out.println(" CheckNoticeHandler- process() no="+no);
 		//2.비즈니스로직처리<->Service<->DAO<->DB
 		try {
 			//파라미터 int no : 상세조회할 글 번호
 			//리턴 Notice notice: 글번호, 작성자id,제목,내용,작성일,조회수
 			NoticeData nod =NoticeService.getDetail(no);
-			System.out.println("핸들러 nod="+nod);
 			//3.Model
 			request.setAttribute("nod", nod);
 			//View

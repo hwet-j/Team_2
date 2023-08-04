@@ -11,9 +11,7 @@
 //real path를 알아내기 위해 선언
 ServletContext context = getServletContext();
 String realPath = context.getRealPath("img");
-out.print(realPath);//설정해준 경로 맞는지 확인
 //String realPath = context.getRealPath("");
-System.out.println(realPath);
 
 //	파일을 업로드 할 때, 필요한 정보
 String filename = "";			//	파일 이름
@@ -31,12 +29,9 @@ Enumeration<?> files = multi.getFileNames();	//	파일이 여러 개 넘어올 �
 String imsifile = (String)files.nextElement();
 filename = multi.getFilesystemName(imsifile);
 
-System.out.println("1)   imsifile="+imsifile);
-System.out.println("2)   filename="+filename);
 
 //realPath + filename 결합하기
 fullfilename = realPath + "\\" +filename;
-System.out.println("3)   fullfilename="+fullfilename);
 
 }catch(Exception e){}
 %>    
