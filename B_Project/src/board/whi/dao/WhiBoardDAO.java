@@ -168,7 +168,6 @@ public class WhiBoardDAO {
 			pstmt.setString(2, whiBoardArticle.getContent());
 			pstmt.setInt(3, whiBoardArticle.getArticleNo());
 			int modifyRow = pstmt.executeUpdate();
-			System.out.println("dao에서 modifyRow"+modifyRow);
 			return modifyRow;
 			
 		} catch (SQLException e) {
