@@ -4,7 +4,7 @@ import java.util.Map;
 
 import tak.article.model.Writer;
 
-//p637
+
 //글등록폼에서 입력한 제목,내용/작성자정보(여기에서는 session에  담긴 회원id, 회원name)
 //필수입력 기능 제공
 public class WriteRequest {
@@ -32,7 +32,7 @@ public class WriteRequest {
 		return content;
 	}
 
-	//필수입력-p638 31라인
+	//필수입력
 	public void validate(Map<String,Boolean> errors) {
 		if(  title==null ||  title.trim().isEmpty() ) {
 			errors.put("title", Boolean.TRUE);

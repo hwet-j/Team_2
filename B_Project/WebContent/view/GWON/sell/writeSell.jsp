@@ -73,14 +73,8 @@
 	  </div>
 	  <div  class="">	
 	  	<label for="sell_file"  class="form-label">이미지</label>
-	  	<input type="file" name="sell_file" id="sell_file"  class="form-control-file" onchange="readURL(this);"/>
+	  	<input type="file" name="sell_file" id="sell_file"  class="form-control-file" onchange="readURL(this);" required/>
 	  </div>
-<%-- 	  <div  class="">	
-	  	<label for="sell_file"  class="form-label">파일 업로드</label>
-	  	<input type="text" name="sell_file" id="sell_file"  class="form-control" /><br/>
-	  	<c:if test="${errors.sell_file}"><span class="error">파일 업로드를 하세요</span></c:if>
-	  </div> --%>
-	 
 	  <div>
 	 	<a id = "floating-button" class="btn btn-secondary" href="/gwon/sell/sellList.do" style = "float: right; "role="button">목록</a>
 	 	<button type="reset"  id = "floating-button" class= "btn btn-secondary" style = "float : right;">새로고침</button>

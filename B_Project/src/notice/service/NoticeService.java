@@ -36,7 +36,6 @@ public class NoticeService {
 			List<Notice> content;  //notice목록 */
 			
 			NoticePage np = new NoticePage(total, pageNum, size, content);
-			System.out.println("NoticeService- getNoticePage()의 결과 np="+np);
 			return np;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -65,7 +64,6 @@ public class NoticeService {
 			List<Notice> content;  //notice목록 */
 			
 			NoticePage np = new NoticePage(total, pageNum, size, content);
-			System.out.println("NoticeService- getNoticePage()의 결과 np="+np);
 			return np;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -88,7 +86,6 @@ public class NoticeService {
 			noticeDAO.increaseViews(conn, no);
 			
 			NoticeData nod = noticeDAO.getDetail(conn, no);
-			System.out.println("서비스 noticeData="+nod);
 			if(nod==null) {
 				throw new NoticeNotFoundException();
 			}
@@ -179,7 +176,6 @@ public class NoticeService {
 			public void modify(ModifyRequest modReq) {
 				
 				Connection conn = null;
-				System.out.println("modReq="+modReq);
 				try {
 					conn = ConnectionProvider.getConnection();
 					conn.setAutoCommit(false);

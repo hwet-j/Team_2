@@ -16,7 +16,6 @@ public class WhiBoardUpdateHandler implements CommandHandler {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		WhiBoardArticle whiBoardArticle = new WhiBoardArticle(articleNo, title, content); 
-		System.out.println(whiBoardArticle.toString());
 		WhiBoardModifyService whiBoardModifyService = new WhiBoardModifyService(); 
 		int modifyRow = whiBoardModifyService.modifyArticle(whiBoardArticle);
 		if(modifyRow == 1) {

@@ -2,7 +2,7 @@ package tak.article.model;
 
 import java.util.Date;
 
-//p631 - article테이블의 값을 저장 및 제공 등의 기능을 가진 클래스이다
+// article테이블의 값을 저장 및 제공 등의 기능을 가진 클래스이다
 /*article_no	 int   AUTO_INCREMENT NOT NULL PRIMARY KEY,
   writer_id   varchar(50) 
  writer_name varchar(50) 
@@ -11,7 +11,7 @@ import java.util.Date;
  moddate     datetime	
  read_cnt    int*/
 public class Article {
-	//필드 -p631 7라인
+	
 	private Integer number;	//article_no 글번호.PK
 	private Writer  writer; //writer_id, writer_name의 값을 저장하는 별도의 Writer클래스
 	private String  title;  //title 제목
@@ -36,7 +36,7 @@ public class Article {
 		this.isshow = isshow;
 	}
 
-	//생성자-p631 14라인
+	
 	public Article(Integer number, Writer writer, String title, Date regDate, Date modifiedDate, int readCount,int good) {
 		this.number = number;
 		this.writer = writer;
@@ -47,7 +47,7 @@ public class Article {
 		this.good = good;
 	}
 
-	//메서드-p631 24라인
+	
 	public Integer getNumber() {
 		return number;
 	}

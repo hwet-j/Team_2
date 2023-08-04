@@ -72,6 +72,9 @@ public class WriteSellHandler implements CommandHandler {
 
 		if(sell_file !=null && sell_file.length()!=0) {
 			File rawFile = new File(fileRepository+"\\"+"temp"+"\\"+sell_file);
+			if(!rawFile.exists()) {
+				rawFile.mkdirs();
+			}
 			File saveDir = new File(fileRepository+"\\"+sell_no);
 			saveDir.mkdirs();
 			FileUtils.moveFileToDirectory(rawFile, saveDir, true);
@@ -82,20 +85,8 @@ public class WriteSellHandler implements CommandHandler {
 		printWriter.print(showFile);
 		
 		return null;
-		/* return request.getContextPath() + "/view/GWON/sell/writeSellComplete.jsp"; */
 	}
 	
-//	//Service에 연결되기 위한 데이터
-//	private WriteRequest createWriteRequest(MemberDTO user_data, HttpServletRequest request) {
-//		return new WriteRequest(
-//				new Writer(user_data.getUser_id(), user_data.getUser_name()),
-//				request.getParameter("sell_title"),
-//				request.getParameter("sell_category"),
-//				Integer.parseInt(request.getParameter("sell_price")),
-//				request.getParameter("sell_loc"),
-//				request.getParameter("sell_content"),
-//				request.getParameter("sell_file"));
-//	}
 	
 	//파일 업로드
 	private Map<String, String> fileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {

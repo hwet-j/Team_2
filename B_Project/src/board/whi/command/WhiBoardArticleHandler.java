@@ -22,7 +22,6 @@ public class WhiBoardArticleHandler implements CommandHandler {
 		Connection conn = ConnectionProvider.getConnection();
 		WhiBoardDAO dao = new WhiBoardDAO();
 		int articleTotalCnt = dao.countTotalArticle(conn);
-		System.out.println("총게시글수 = "+articleTotalCnt);
 		int pageCnt = (articleTotalCnt/10)+1;
 		request.setAttribute("PAGECNT", pageCnt);
 		List<WhiBoardArticle> articleList = new LinkedList<>();

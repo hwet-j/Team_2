@@ -13,7 +13,7 @@ request.setCharacterEncoding("UTF-8");	//	한글이 깨질 수 있으므로 추�
 ServletContext context = getServletContext();
 String realPath = context.getRealPath("img");
 //	String realPath = context.getRealPath("");
-System.out.println(realPath);
+
 
 //		파일을 업로드 할 때, 필요한 정보
 String filename1 = "";			//	파일 이름
@@ -38,7 +38,6 @@ filename3 = multi.getFilesystemName((String)files.nextElement());
 
 //	realPath + filename 결합하기
 fullfilename = realPath + "\\" +filename1;
-System.out.println(fullfilename);
 
 }catch(Exception e){}
 %>    

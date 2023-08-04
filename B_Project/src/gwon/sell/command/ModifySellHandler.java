@@ -119,8 +119,6 @@ public class ModifySellHandler implements CommandHandler {
 				     +request.getContextPath()+"'/gwon/sell/sellRead.do?no="+sell_no+"';</script>";		
 		printWriter.print(showFile);
 		
-//		//수정 성공하면 목록 전체조회 페이지로 이동
-//		response.sendRedirect(request.getContextPath()+"/gwon/sell/sellList.do");
 		return null;
 	}
 	
