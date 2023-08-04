@@ -59,7 +59,7 @@
         </div>
     </div>
 <%@ include file="/footer.html" %>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd8c844fb502523d87b94610e62a0d22&libraries=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bbb7127d3c6585a301c878c0c05d2d40&libraries=services"></script>
     <script>
         var mapContainer = document.getElementById('map');
         var mapOption = {

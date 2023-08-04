@@ -174,7 +174,7 @@ public class ChatDAO {
 				rs = pstmt2.executeQuery();
 				if(rs.next()) {
 					result = inviteChatRoom(conn, rs.getInt(1), user_id);
-					System.out.println(user_id);
+					// System.out.println(user_id);
 				}
 			}
 			
@@ -193,8 +193,8 @@ public class ChatDAO {
 	/* 채팅방 초대(인원 추가)  */
 	public int inviteChatRoom(Connection conn, int room_id, String user_id) {
 		String sql = "INSERT INTO chat_invited_user(room_id, invite_user) VALUES(?, ?)";
-		System.out.println(room_id);
-		System.out.println(user_id);
+		// System.out.println(room_id);
+		// System.out.println(user_id);
 		PreparedStatement pstmt = null; 
 		ResultSet rs = null;
 		int result = 0;

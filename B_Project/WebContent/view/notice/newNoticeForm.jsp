@@ -21,13 +21,6 @@
 </head>
 <body>
 <%@ include file = "/header.html" %>
-<%-- WriteNoticeHandler에의해 아래와 같이 모델받을 예정??
- 		User user = new User("hongid","1234");
-		session.setAttribute("AUTH_USER", user); --%>	 
- <!-- Navigation -->
-<%--  <%@ include file="../navigation.jsp" %> --%>		
-
-<%@ include file = "/header.html" %>
 <!-- 내용 -->		    
  <div class="container">
      <!-- page title -->
