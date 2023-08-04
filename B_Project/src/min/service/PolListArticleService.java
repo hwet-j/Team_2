@@ -30,7 +30,6 @@ public class PolListArticleService {
 			
 		
 			PolArticlePage pap = new PolArticlePage(total, pageNum, size, content);
-			System.out.println("PolListArticleService- getPolArticlePage()의 결과 pap="+pap);
 			return pap;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -42,7 +41,6 @@ public class PolListArticleService {
 
 
 	public PolArticlePage getPolArticlePage(int pageNum, String search) {
-		System.out.println("getPolArticlePage진입");
 		Connection conn;
 		try {
 			conn= ConnectionProvider.getConnection();
@@ -53,7 +51,6 @@ public class PolListArticleService {
 	
 		
 			PolArticlePage pap = new PolArticlePage(total, pageNum, size, content);
-			System.out.println("PolListArticleService- getPolArticlePage()의 결과 pap="+pap);
 			return pap;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

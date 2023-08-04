@@ -35,7 +35,6 @@ public class PolArticleContentDAO {
 	req.getContent() - 내용   
 	리턴  int - article_cotnent테이블에 입력성공시 1, 실패시 0 */
 	public int insert(Connection conn, Integer number, String content) throws SQLException {
-		System.out.println("PolArticleContentDAO-insert()진입");
 		
 		
 		//3.객체준비
