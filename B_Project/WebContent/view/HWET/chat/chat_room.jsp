@@ -102,7 +102,7 @@
         <%-- 웹소켓 관련 스크립트 --%>
 		// 「broadsocket」는 호스트 명 (servlet에서 맵핑한 이름)
 		// WebSocket 오브젝트 생성 (자동으로 접속 시작한다. - onopen 함수 호출)
-		var webSocket = new WebSocket("ws://localhost/broadsocket?room_id"+roomId);
+		var webSocket = new WebSocket("ws://172.30.1.13:80/broadsocket");
 		
 		// WebSocket 서버와 접속이 되면 호출되는 함수
 		webSocket.onopen = function(message) {
@@ -210,6 +210,7 @@
 
 </head>
 <body>
+<%@ include file = "/header.html" %>
 	<div class="container">
 		<h1 class="mt-4">채팅방</h1>
 		
@@ -261,7 +262,7 @@
 
 	<div class="mt-4 text-center">
 		<!-- 가운데 정렬을 위해 text-center 클래스 추가 -->
-		<h3>글 작성</h3>
+		<h3>채팅작성</h3>
 		<form id="send_message_form" class="d-inline-block">
 			<!-- 가운데 정렬을 위해 d-inline-block 클래스 추가 -->
 			<input type="hidden" id="room_id" name="room_id" value="${room_id}">
@@ -274,6 +275,6 @@
 			<button type="button" class="btn btn-primary" id="send_button">보내기</button>
 		</form>
 	</div>
-
+<%@ include file = "/footer.html" %>
 </body>
 </html>

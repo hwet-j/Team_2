@@ -72,6 +72,9 @@ public class WriteSellHandler implements CommandHandler {
 
 		if(sell_file !=null && sell_file.length()!=0) {
 			File rawFile = new File(fileRepository+"\\"+"temp"+"\\"+sell_file);
+			if(!rawFile.exists()) {
+				rawFile.mkdirs();
+			}
 			File saveDir = new File(fileRepository+"\\"+sell_no);
 			saveDir.mkdirs();
 			FileUtils.moveFileToDirectory(rawFile, saveDir, true);

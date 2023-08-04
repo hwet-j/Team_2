@@ -39,6 +39,7 @@
     }
   </script>
 <body>
+<%@ include file = "/header.html" %>
     <div class="container">
 		<div class="container mt-5">
 		    <h2>채팅방 생성</h2>
@@ -75,7 +76,7 @@
 	        </c:forEach>
 	    </ul>
 	</div>
-
+<%@ include file = "/footer.html" %>
 
     <!-- 부트스트랩 JS 스크립트 링크 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

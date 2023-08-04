@@ -365,7 +365,7 @@ String.prototype.trim = function() {
                     <span>* 아이디 생성 규칙 
                     <br> 1. 영문,숫자,-,_ 사용 가능 
                     <br> 2. 첫 글자, 마지막 글자는 영어와 숫자만 가능
-                    <br> 3. 숫자와 -의 조합으로 아이디 생성 불가
+                    <!-- <br> 3. 숫자와 -의 조합으로 아이디 생성 불가 -->
                     </span>
                 </div>
             <span class="j_t_i" id="id_message_span"> </span>
