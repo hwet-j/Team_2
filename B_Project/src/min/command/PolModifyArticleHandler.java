@@ -30,7 +30,6 @@ public class PolModifyArticleHandler implements CommandHandler{
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("polModifyArticleHandler의 process()진입");
 		
 		if( request.getMethod().equalsIgnoreCase("GET") ) {//요청방식이 get방식이면  FORM_VIEW 보여주기
 			return processForm(request,response);
