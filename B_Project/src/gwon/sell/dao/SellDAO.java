@@ -150,7 +150,6 @@ public class SellDAO {
 					dto.setSell_fav(rs.getInt("sell_fav"));
 					
 				}
-				System.out.println(dto);
 				return dto;
 			}  finally {
 				JDBCUtil.close(rs);
@@ -248,19 +247,13 @@ public class SellDAO {
 			ResultSet rs = null;
 			String searchColumn	= searchRequest.getSearchColumn();
 			String searchText	= searchRequest.getSearchText();
-			System.out.println(searchColumn);
-			System.out.println(searchText);
 			try {
-				System.out.println("error");
 				sql = "select * from gwon_sell where " + searchColumn + 
 						" like '%"+ searchText.trim() +"%' order by sell_no desc limit ?,?";
 
-				System.out.println(sql);
 				stmt = conn.prepareStatement(sql);
 				stmt.setInt(1,startRow);
 				stmt.setInt(2,size);
-				System.out.println("startRow");
-				System.out.println("size");
 				rs = stmt.executeQuery();
 				
 				while(rs.next()) {
