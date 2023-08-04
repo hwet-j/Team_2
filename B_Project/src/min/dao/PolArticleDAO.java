@@ -94,7 +94,6 @@ public class PolArticleDAO {
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, no);
 			rs = stmt.executeQuery();
-			System.out.println(rs);
 			PolArticleData pad = null;
 			if(rs.next()) {
 				pad = new PolArticleData();
@@ -108,7 +107,6 @@ public class PolArticleDAO {
 				pad.setContent(rs.getString("content"));
 				
 				//콘솔출력
-				System.out.println("PolArticleDAO에서  getDetail() PolArticleData pad ="+pad);
 			}
 			
 			return pad;
@@ -217,7 +215,6 @@ public int selectSearchCount(Connection conn, String search) throws SQLException
 			//			데이터타입 변수명=rs.get데이터타입(int 컬럼순서);
 			totalCNT = rs.getInt("totalCNT");
 		}
-		System.out.println("selectSearchCount"+totalCNT);
 		return totalCNT;			
 	}finally {
 		JDBCUtil.close(rs);
@@ -265,7 +262,6 @@ public int selectSearchCount(Connection conn, String search) throws SQLException
 //파라미터 Article - 회원id, 회원name,제목,내용,작성일,수정일,조회수
 //리턴     Article - inserted된 정보 글번호!!!,회원id, 회원name,제목,작성일,수정일,조회수
 public PolArticle insert(Connection conn, PolArticle polArticle) throws SQLException {
-	System.out.println("PolArticleDAO-insert()진입");
 	
 	//3.객체준비
 	String sql=

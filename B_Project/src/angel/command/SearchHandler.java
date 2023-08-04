@@ -17,9 +17,6 @@ public class SearchHandler implements CommandHandler {
 		String type = request.getParameter("type");
 		String subject = request.getParameter("subject");
 		
-//		ArticleDAO articleDAO = new ArticleDAO();
-//		articleDAO.select(conn, type, subject);
-		
 		Connection conn = ConnectionProvider.getConnection(); 
 		List<Article> select =new ArticleDAO().select(conn, type, subject);
 		request.setAttribute("ARTICLE", select);
