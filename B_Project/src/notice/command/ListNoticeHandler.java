@@ -15,7 +15,6 @@ public class ListNoticeHandler implements CommandHandler {
 	public NoticeService NoticeService = new NoticeService();
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("ListNoticeHandler-process()진입");
 		//1.파라미터받기
 		String strPageNo = request.getParameter("pageNo");
 		

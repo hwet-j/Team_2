@@ -75,9 +75,6 @@ public class WhiPhotoWriteHandler implements CommandHandler{
 				if(fileItem.isFormField()) {
 					boardMap.put(fileItem.getFieldName(), fileItem.getString("utf-8"));
 				}else{
-					System.out.println("fileItem.getFieldName()="+fileItem.getFieldName());//필드명
-					System.out.println("fileItem.getName()="+fileItem.getName());//user가 업로드한 파일명
-					System.out.println("fileItem.getSize()="+fileItem.getSize());//이미지파일의 크기
 					if(fileItem.getSize()>0) {
 						int idx = fileItem.getName().lastIndexOf("\\"); //추출시작인덱스;
 			    		if(idx ==  -1) { //  "\\"가 존재하지않으면

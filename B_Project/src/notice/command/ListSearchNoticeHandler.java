@@ -16,14 +16,11 @@ public class ListSearchNoticeHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("ListNoticeSearchHandler-process()진입");
 		//1.파라미터받기
 		String strPageNo = request.getParameter("pageNo");
 		String field = request.getParameter("field");
 		String search = request.getParameter("search");
 		
-		System.out.println("리스트핸들러에서 받은 필드값="+field);
-		System.out.println("리스트핸들러에서 받은 서치값="+search);
 		int pageNo =1;//user가 선택안했을 때 기본적으로 보여지는 페이지번호
 		if(strPageNo!=null) {
 			pageNo = Integer.parseInt(strPageNo);

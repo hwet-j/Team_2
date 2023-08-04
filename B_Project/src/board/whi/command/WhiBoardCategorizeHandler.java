@@ -19,7 +19,6 @@ public class WhiBoardCategorizeHandler implements CommandHandler {
 		//파라미터 받아오기
 		request.setCharacterEncoding("utf-8");
 		String cat = request.getParameter("category");
-		System.out.println("핸들러 파라미터"+cat);
 		
 		//페이징 사이즈 지정 - DAO와 일치시킬것
 		int pagingSize =10;
